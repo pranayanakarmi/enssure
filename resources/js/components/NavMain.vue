@@ -8,7 +8,12 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { useCurrentUrl } from '@/composables/useCurrentUrl';
-defineProps();
+defineProps({
+    items: {
+        type: Array,
+        default: () => [],
+    },
+});
 
 const { isCurrentUrl } = useCurrentUrl();
 </script>

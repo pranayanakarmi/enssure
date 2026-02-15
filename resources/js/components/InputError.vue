@@ -1,5 +1,10 @@
 <script setup>
-defineProps();
+defineProps({
+    message: {
+        type: String,
+        default: '',
+    },
+});
 </script>
 
 <template>
