@@ -1,0 +1,98 @@
+/**
+ * Guest layout & ENSSURE public pages
+ * Scoped to .enssure-public so dashboard/auth are unchanged.
+ */
+
+.enssure-public {
+  --color-primary: #b91c1c;
+  --color-primary-hover: #d11b23;
+  --color-secondary: #233d7e;
+  --color-accent: #0757c3;
+  --color-dark: #101010;
+  --color-gray-700: #515151;
+  --color-border: #d9d9d9;
+  --color-border-light: #cad0d8;
+  --color-bg-muted: #f8fbfc;
+  --overlay-blue: rgba(7, 87, 195, 0.75);
+  --overlay-gradient: rgba(7, 87, 195, 0.9);
+  --overlay-primary-light: rgba(235, 31, 39, 0.1);
+  --font-weight-bold: 700;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+}
+
+.enssure-public {
+  scroll-behavior: smooth;
+}
+
+.enssure-public .primary-button-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 4rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 9999px;
+  transition: all var(--transition-fast);
+  background: transparent;
+  cursor: pointer;
+  font-weight: var(--font-weight-bold);
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: inherit;
+}
+
+.enssure-public .primary-button-outline:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.enssure-public .stat-card {
+  transition: transform var(--transition-normal);
+}
+
+.enssure-public .stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.enssure-public .group img {
+  transition: transform var(--transition-normal);
+}
+
+.enssure-public .group:hover img {
+  transform: scale(1.05);
+}
+
+/* Testimonial Swiper - scoped */
+.enssure-public .testimonial-swiper .swiper-slide {
+  height: auto;
+  display: flex;
+  overflow: visible;
+}
+
+.enssure-public .testimonial-swiper .swiper-slide > div {
+  width: 100%;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.enssure-public .testimonial-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.enssure-public .testimonial-swiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #d1d5db;
+  opacity: 1;
+  transition: all var(--transition-normal);
+}
+
+.enssure-public .testimonial-swiper .swiper-pagination-bullet-active {
+  background: var(--color-primary);
+  width: 12px;
+  height: 12px;
+}

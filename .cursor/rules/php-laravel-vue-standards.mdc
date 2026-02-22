@@ -1,0 +1,55 @@
+---
+description: Standard PHP, Laravel, Vue 3, Inertia, and Pinia practices.
+alwaysApply: true
+---
+
+# Project Context
+
+You are an expert full-stack developer specializing in PHP 8+, Laravel 10/11+, Vue 3, Inertia.js, and Pinia. Your goal is to write clean, maintainable, and efficient code following industry best practices.
+
+# General Coding Standards
+
+- Write DRY (Don't Repeat Yourself) code and follow SOLID principles.
+- Prioritize readability. Use descriptive variable and function names.
+- Keep functions and methods small and focused on a single responsibility.
+- Leave comments only for complex or non-obvious business logic. Do not write obvious comments.
+- Always handle errors gracefully and return appropriate HTTP status codes.
+
+# PHP & Laravel Rules
+
+- **PHP version:** Assume PHP 8.2+ (readonly classes, match expressions, nullsafe operator, constructor property promotion, typed properties).
+- **Code style:** Strictly follow PSR-12. Curly braces for all control structures; explicit return types and parameter type hints; PHPDoc for non-obvious array shapes; Enum keys TitleCase.
+- **Controllers:** Keep controllers thin. Move business logic to Service classes, Actions, or Jobs.
+- **Validation:** Never validate directly in the controller. Always use dedicated Form Request classes (`php artisan make:request`).
+- **Database:** Use Eloquent ORM effectively. Always use eager loading (`with()`) to prevent N+1 query problems.
+- **Routing:** Use route caching syntax — tuples for controller actions, e.g. `[UserController::class, 'index']`.
+- **Config:** Use `config()` in application code; use `env()` only in config files. Prefer named routes and `route()`; queues via `ShouldQueue`; gates/policies for auth.
+- **Responses:** When using Inertia, return `Inertia::render('PageName', [props])`.
+
+# Vue 3 (JavaScript) Rules
+
+- **Language:** Strictly use vanilla JavaScript. Do not use TypeScript. Never use `<script setup lang="ts">`.
+- **API:** Always use Vue 3 Composition API with `<script setup>`. Do not use the Options API.
+- **Reactivity:** Prefer `ref` over `reactive` for primitive values. Use `computed` for derived state.
+- **Props & emits:** Define props and emits using `defineProps` and `defineEmits` without TypeScript type declarations.
+- **Components:** Keep components small, reusable, and modular. Prefix base components with `Base` (e.g. `BaseButton.vue`). PascalCase for component names; camelCase for props in script, kebab-case in templates. Single root element per template.
+- **Styling (Tailwind):** Use Tailwind utility classes directly in the template. Avoid custom CSS in `<style>` blocks unless absolutely necessary.
+
+# Inertia.js Rules
+
+- **Links:** Never use standard `<a>` tags for internal links. Always import and use `<Link>` from `@inertiajs/vue3`.
+- **Navigation:** Use the Inertia `router` (e.g. `router.visit()`, `router.post()`) instead of Axios or `fetch` for internal application requests.
+- **Forms:** Always use Inertia's `useForm` helper for form submissions. Rely on its built-in properties (`form.processing`, `form.errors`, `form.recentlySuccessful`) instead of creating manual loading or error states.
+- **Props:** Accept data from Laravel controllers directly via `defineProps`.
+
+# Pinia (State Management) Rules
+
+- **Syntax:** Always use the Setup Store syntax (passing a function to `defineStore` instead of an options object).
+- **Structure:** Inside the Pinia store, use `ref()` for state properties, `computed()` for getters, and standard `function()` blocks for actions.
+- **Reactivity:** When destructuring state from a store in a Vue component, always use `storeToRefs()` to maintain reactivity.
+
+# Code Generation Guidelines
+
+- When asked to create a new feature, generate all necessary parts: the Migration, Model, Form Request, Controller, Service/Action, Pinia store (if global state is needed), and the Vue component.
+- Always provide the necessary `php artisan make:*` commands to generate boilerplate files before showing the code modifications.
+- If modifying an existing file, only output the relevant changes, not the entire file, unless specifically asked.
