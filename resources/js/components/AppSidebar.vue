@@ -1,6 +1,30 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Shield, Users } from 'lucide-vue-next';
+import {
+    Bell,
+    BookMarked,
+    BookOpen,
+    Briefcase,
+    Calendar,
+    File,
+    FileStack,
+    FileText,
+    Folder,
+    GraduationCap,
+    HelpCircle,
+    Home,
+    Inbox,
+    LayoutGrid,
+    Mail,
+    MapPin,
+    Menu,
+    Settings,
+    Shield,
+    Tag,
+    UserCircle,
+    Users,
+    UsersRound,
+} from 'lucide-vue-next';
 import { computed } from 'vue';
 import AppLogo from './AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
@@ -16,31 +40,40 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
-import admin from '@/routes/admin';
+
+const iconMap = {
+    Bell,
+    BookMarked,
+    BookOpen,
+    Briefcase,
+    Calendar,
+    File,
+    FileStack,
+    FileText,
+    Folder,
+    GraduationCap,
+    HelpCircle,
+    Home,
+    Inbox,
+    LayoutGrid,
+    Mail,
+    MapPin,
+    Menu,
+    Settings,
+    Shield,
+    Tag,
+    UserCircle,
+    Users,
+    UsersRound,
+};
 
 const page = usePage();
 const mainNavItems = computed(() => {
-    const items = [
-        {
-            title: 'Dashboard',
-            href: dashboard().url,
-            icon: LayoutGrid,
-        },
-    ];
-    const roles = page.props.auth?.roles || [];
-    if (roles.includes('admin') || roles.includes('super_admin')) {
-        items.push({
-            title: 'Users',
-            href: admin.users.index().url,
-            icon: Users,
-        });
-        items.push({
-            title: 'Roles',
-            href: '/admin/roles',
-            icon: Shield,
-        });
-    }
-    return items;
+    const menu = page.props.adminMenu || [];
+    return menu.map((item) => ({
+        ...item,
+        icon: item.icon && iconMap[item.icon] ? iconMap[item.icon] : LayoutGrid,
+    }));
 });
 
 const footerNavItems = [

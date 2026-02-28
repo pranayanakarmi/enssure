@@ -1,13 +1,19 @@
 <script setup>
-import { ref, computed } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import { ChevronDown, Menu, X, Search } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
 import { home, dashboard, login, register } from '@/routes';
 
 const page = usePage();
 const mobileNavOpen = ref(false);
 
 const user = computed(() => page.props.auth?.user ?? null);
+const mainMenu = computed(() => page.props.mainMenu ?? []);
+
+function isInternal(href) {
+    if (!href || href === '#') return false;
+    return href.startsWith('/') && !href.startsWith('//');
+}
 
 function openMobileNav() {
     mobileNavOpen.value = true;
@@ -40,135 +46,84 @@ function closeMobileNav() {
         <ul
             class="uppercase text-black hidden lg:flex space-x-6 xl:space-x-8"
         >
-            <li>
-                <Link
-                    :href="home().url"
-                    class="hover:text-[#B91C1C] transition-colors"
-                >
-                    Home
-                </Link>
-            </li>
-            <li class="relative group cursor-pointer">
-                <div class="flex items-center gap-2">
-                    <span>About Us</span>
-                    <ChevronDown class="w-4 h-4 text-[#B91C1C]" />
-                </div>
-                <ul
-                    class="absolute left-0 mt-3 w-48 bg-white text-black rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100"
-                >
-                    <li>
-                        <a
-                            href="#about"
-                            class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
-                            @click="closeMobileNav"
+            <template v-if="mainMenu.length > 0">
+                <template v-for="(item, idx) in mainMenu" :key="idx">
+                    <li v-if="item.children?.length" class="relative group cursor-pointer">
+                        <div class="flex items-center gap-2">
+                            <Link
+                                v-if="isInternal(item.href)"
+                                :href="item.href"
+                                class="hover:text-[#B91C1C] transition-colors"
+                                :target="item.target || '_self'"
+                            >
+                                {{ item.title }}
+                            </Link>
+                            <a
+                                v-else
+                                :href="item.href"
+                                class="hover:text-[#B91C1C] transition-colors"
+                                :target="item.target || '_self'"
+                                :rel="item.target === '_blank' ? 'noopener noreferrer' : undefined"
+                            >
+                                {{ item.title }}
+                            </a>
+                            <ChevronDown class="w-4 h-4 text-[#B91C1C] shrink-0" aria-hidden="true" />
+                        </div>
+                        <ul
+                            class="absolute left-0 mt-3 w-48 min-w-max bg-white text-black rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100"
                         >
-                            Mission
+                            <li v-for="(child, cIdx) in item.children" :key="cIdx">
+                                <Link
+                                    v-if="isInternal(child.href)"
+                                    :href="child.href"
+                                    class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
+                                    :target="child.target || '_self'"
+                                >
+                                    {{ child.title }}
+                                </Link>
+                                <a
+                                    v-else
+                                    :href="child.href"
+                                    class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
+                                    :target="child.target || '_self'"
+                                    :rel="child.target === '_blank' ? 'noopener noreferrer' : undefined"
+                                >
+                                    {{ child.title }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li v-else>
+                        <Link
+                            v-if="isInternal(item.href)"
+                            :href="item.href"
+                            class="hover:text-[#B91C1C] transition-colors"
+                            :target="item.target || '_self'"
+                        >
+                            {{ item.title }}
+                        </Link>
+                        <a
+                            v-else
+                            :href="item.href"
+                            class="hover:text-[#B91C1C] transition-colors"
+                            :target="item.target || '_self'"
+                            :rel="item.target === '_blank' ? 'noopener noreferrer' : undefined"
+                        >
+                            {{ item.title }}
                         </a>
                     </li>
-                    <li>
-                        <a
-                            href="#about"
-                            class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
-                        >
-                            Vision
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#about"
-                            class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
-                        >
-                            Team
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="relative group cursor-pointer">
-                <div class="flex items-center gap-2">
-                    <span>Key Project Components</span>
-                    <ChevronDown class="w-4 h-4 text-[#B91C1C]" />
-                </div>
-                <ul
-                    class="absolute left-0 mt-3 w-56 bg-white text-black rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100"
-                >
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
-                        >
-                            Component 1
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
-                        >
-                            Component 2
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
-                        >
-                            Component 3
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a
-                    href="#stories"
-                    class="hover:text-[#B91C1C] transition-colors"
-                >
-                    Impact Stories
-                </a>
-            </li>
-            <li>
-                <a href="#" class="hover:text-[#B91C1C] transition-colors">
-                    Resource
-                </a>
-            </li>
-            <li class="relative group cursor-pointer">
-                <div class="flex items-center gap-2">
-                    <span>Notices</span>
-                    <ChevronDown class="w-4 h-4 text-[#B91C1C]" />
-                </div>
-                <ul
-                    class="absolute left-0 mt-3 w-48 bg-white text-black rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100"
-                >
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
-                        >
-                            Latest Notices
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="block px-4 py-2 hover:text-[#B91C1C] transition-colors"
-                        >
-                            Announcements
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" class="hover:text-[#B91C1C] transition-colors">
-                    Database
-                </a>
-            </li>
-            <li>
-                <a
-                    href="#contact"
-                    class="hover:text-[#B91C1C] transition-colors"
-                >
-                    Contact Us
-                </a>
-            </li>
+                </template>
+            </template>
+            <template v-else>
+                <li>
+                    <Link
+                        :href="home().url"
+                        class="hover:text-[#B91C1C] transition-colors"
+                    >
+                        Home
+                    </Link>
+                </li>
+            </template>
         </ul>
 
         <div class="flex items-center space-x-2 sm:space-x-4 ml-auto lg:ml-0">
@@ -225,117 +180,89 @@ function closeMobileNav() {
                 <X class="text-xl" />
             </button>
             <ul class="uppercase text-black space-y-4">
-                <li>
-                    <Link
-                        :href="home().url"
-                        class="block py-2 hover:text-[#B91C1C]"
-                        @click="closeMobileNav"
-                    >
-                        Home
-                    </Link>
-                </li>
-                <li class="py-2">
-                    <div class="flex items-center justify-between">
-                        <span>About Us</span>
-                        <ChevronDown class="w-4 h-4 text-[#B91C1C]" />
-                    </div>
-                    <ul class="mt-2 ml-4 space-y-1 text-sm">
-                        <li>
-                            <a
-                                href="#about"
-                                class="block py-1 hover:text-[#B91C1C]"
+                <template v-if="mainMenu.length > 0">
+                    <template v-for="(item, idx) in mainMenu" :key="idx">
+                        <li v-if="item.children?.length" class="py-2">
+                            <div class="flex items-center justify-between gap-2">
+                                <Link
+                                    v-if="isInternal(item.href)"
+                                    :href="item.href"
+                                    class="block py-2 hover:text-[#B91C1C] flex-1"
+                                    :target="item.target || '_self'"
+                                    @click="closeMobileNav"
+                                >
+                                    {{ item.title }}
+                                </Link>
+                                <a
+                                    v-else
+                                    :href="item.href"
+                                    class="block py-2 hover:text-[#B91C1C] flex-1"
+                                    :target="item.target || '_self'"
+                                    :rel="item.target === '_blank' ? 'noopener noreferrer' : undefined"
+                                    @click="closeMobileNav"
+                                >
+                                    {{ item.title }}
+                                </a>
+                                <ChevronDown class="w-4 h-4 text-[#B91C1C] shrink-0" aria-hidden="true" />
+                            </div>
+                            <ul class="mt-2 ml-4 space-y-1 text-sm">
+                                <li v-for="(child, cIdx) in item.children" :key="cIdx">
+                                    <Link
+                                        v-if="isInternal(child.href)"
+                                        :href="child.href"
+                                        class="block py-1 hover:text-[#B91C1C]"
+                                        :target="child.target || '_self'"
+                                        @click="closeMobileNav"
+                                    >
+                                        {{ child.title }}
+                                    </Link>
+                                    <a
+                                        v-else
+                                        :href="child.href"
+                                        class="block py-1 hover:text-[#B91C1C]"
+                                        :target="child.target || '_self'"
+                                        :rel="child.target === '_blank' ? 'noopener noreferrer' : undefined"
+                                        @click="closeMobileNav"
+                                    >
+                                        {{ child.title }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li v-else>
+                            <Link
+                                v-if="isInternal(item.href)"
+                                :href="item.href"
+                                class="block py-2 hover:text-[#B91C1C]"
+                                :target="item.target || '_self'"
                                 @click="closeMobileNav"
                             >
-                                Mission
-                            </a>
-                        </li>
-                        <li>
+                                {{ item.title }}
+                            </Link>
                             <a
-                                href="#about"
-                                class="block py-1 hover:text-[#B91C1C]"
+                                v-else
+                                :href="item.href"
+                                class="block py-2 hover:text-[#B91C1C]"
+                                :target="item.target || '_self'"
+                                :rel="item.target === '_blank' ? 'noopener noreferrer' : undefined"
+                                @click="closeMobileNav"
                             >
-                                Vision
+                                {{ item.title }}
                             </a>
                         </li>
-                        <li>
-                            <a
-                                href="#about"
-                                class="block py-1 hover:text-[#B91C1C]"
-                            >
-                                Team
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="py-2">
-                    <div class="flex items-center justify-between">
-                        <span>Key Project Components</span>
-                        <ChevronDown class="w-4 h-4 text-[#B91C1C]" />
-                    </div>
-                    <ul class="mt-2 ml-4 space-y-1 text-sm">
-                        <li>
-                            <a href="#" class="block py-1 hover:text-[#B91C1C]">
-                                Component 1
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-1 hover:text-[#B91C1C]">
-                                Component 2
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-1 hover:text-[#B91C1C]">
-                                Component 3
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a
-                        href="#stories"
-                        class="block py-2 hover:text-[#B91C1C]"
-                        @click="closeMobileNav"
-                    >
-                        Impact Stories
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="block py-2 hover:text-[#B91C1C]">
-                        Resource
-                    </a>
-                </li>
-                <li class="py-2">
-                    <div class="flex items-center justify-between">
-                        <span>Notices</span>
-                        <ChevronDown class="w-4 h-4 text-[#B91C1C]" />
-                    </div>
-                    <ul class="mt-2 ml-4 space-y-1 text-sm">
-                        <li>
-                            <a href="#" class="block py-1 hover:text-[#B91C1C]">
-                                Latest Notices
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-1 hover:text-[#B91C1C]">
-                                Announcements
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="block py-2 hover:text-[#B91C1C]">
-                        Database
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="#contact"
-                        class="block py-2 hover:text-[#B91C1C]"
-                        @click="closeMobileNav"
-                    >
-                        Contact Us
-                    </a>
-                </li>
+                    </template>
+                </template>
+                <template v-else>
+                    <li>
+                        <Link
+                            :href="home().url"
+                            class="block py-2 hover:text-[#B91C1C]"
+                            @click="closeMobileNav"
+                        >
+                            Home
+                        </Link>
+                    </li>
+                </template>
                 <li v-if="user" class="pt-4">
                     <Link
                         :href="dashboard().url"
