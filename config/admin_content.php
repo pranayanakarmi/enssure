@@ -42,6 +42,9 @@ return [
         'events',
         'event_registrations',
         'newsletters',
+        'news_ticker_items',
+        'home_reach_sections',
+        'home_reach_items',
         'faqs',
         'publications',
         'feedback',
@@ -104,6 +107,8 @@ return [
                 ['title' => 'Testimonials', 'href' => 'admin.testimonials.index', 'permission_resource' => 'testimonials'],
                 ['title' => 'Partners', 'href' => 'admin.partners.index', 'permission_resource' => 'partners'],
                 ['title' => 'Galleries', 'href' => 'admin.galleries.index', 'permission_resource' => 'galleries'],
+                ['title' => 'News Ticker', 'href' => 'admin.news_ticker_items.index', 'permission_resource' => 'news_ticker_items'],
+                ['title' => 'Our Reach', 'href' => 'admin.home_reach_sections.edit', 'permission_resource' => 'home_reach_sections'],
             ],
         ],
         [

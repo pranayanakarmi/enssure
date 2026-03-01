@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             ContentPermissionsSeeder::class,
             FirstAdminSeeder::class,
+            HomeReachSectionSeeder::class,
+            HomeReachItemSeeder::class,
         ]);
 
         // User::factory(10)->create();

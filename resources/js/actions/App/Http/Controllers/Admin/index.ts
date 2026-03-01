@@ -31,6 +31,9 @@ import TeamMemberController from './TeamMemberController'
 import EventController from './EventController'
 import EventRegistrationController from './EventRegistrationController'
 import NewsletterController from './NewsletterController'
+import NewsTickerItemController from './NewsTickerItemController'
+import HomeReachSectionController from './HomeReachSectionController'
+import HomeReachItemController from './HomeReachItemController'
 import FaqController from './FaqController'
 import PublicationController from './PublicationController'
 import ContactController from './ContactController'
@@ -75,6 +78,9 @@ const Admin = {
     EventController: Object.assign(EventController, EventController),
     EventRegistrationController: Object.assign(EventRegistrationController, EventRegistrationController),
     NewsletterController: Object.assign(NewsletterController, NewsletterController),
+    NewsTickerItemController: Object.assign(NewsTickerItemController, NewsTickerItemController),
+    HomeReachSectionController: Object.assign(HomeReachSectionController, HomeReachSectionController),
+    HomeReachItemController: Object.assign(HomeReachItemController, HomeReachItemController),
     FaqController: Object.assign(FaqController, FaqController),
     PublicationController: Object.assign(PublicationController, PublicationController),
     ContactController: Object.assign(ContactController, ContactController),

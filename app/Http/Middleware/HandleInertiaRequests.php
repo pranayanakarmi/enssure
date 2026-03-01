@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Menu;
+use App\Models\NewsTickerItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Middleware;
@@ -53,6 +54,8 @@ class HandleInertiaRequests extends Middleware
             ],
             'adminMenu' => self::resolveMenuUrls(config('admin_content.menu', []), $request),
             'mainMenu' => Menu::getMainHeaderForFrontend(),
+            'newsTickerItems' => NewsTickerItem::published()->orderBy('order')->limit(20)->get(['id', 'title', 'url'])->toArray(),
+            'newsTickerItems' => NewsTickerItem::published()->orderBy('order')->limit(20)->get(['id', 'title', 'url'])->toArray(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
                 'success' => $request->session()->get('success'),

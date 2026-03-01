@@ -11,13 +11,28 @@ import HomeTestimonials from '@/components/home/HomeTestimonials.vue';
 import HomePartners from '@/components/home/HomePartners.vue';
 import HomeSupport from '@/components/home/HomeSupport.vue';
 import HomeContactCta from '@/components/home/HomeContactCta.vue';
+
+defineProps({
+    newsTickerItems: {
+        type: Array,
+        default: () => [],
+    },
+    heroSlides: {
+        type: Array,
+        default: () => [],
+    },
+    homeReachSection: {
+        type: Object,
+        default: null,
+    },
+});
 </script>
 
 <template>
     <div class="enssure-home">
-        <HomeNewsTicker />
-        <HomeHero />
-        <HomeStats />
+        <HomeNewsTicker :items="newsTickerItems" />
+        <HomeHero :slides="heroSlides" />
+        <HomeStats :reach-section="homeReachSection ?? null" />
         <HomeAbout />
         <HomeGallery />
         <HomeImpactStories />

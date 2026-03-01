@@ -32,6 +32,9 @@ import team_members from './team_members'
 import events from './events'
 import eventRegistrations from './event-registrations'
 import newsletters from './newsletters'
+import news_ticker_items from './news_ticker_items'
+import home_reach_sections from './home_reach_sections'
+import home_reach_items from './home_reach_items'
 import faqs from './faqs'
 import publications from './publications'
 import contacts from './contacts'
@@ -42,7 +45,7 @@ import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
 /**
-* @see routes/admin.php:54
+* @see routes/admin.php:57
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -56,7 +59,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/admin.php:54
+* @see routes/admin.php:57
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -64,7 +67,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/admin.php:54
+* @see routes/admin.php:57
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -73,7 +76,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:54
+* @see routes/admin.php:57
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -82,7 +85,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/admin.php:54
+* @see routes/admin.php:57
 * @route '/admin'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -91,7 +94,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/admin.php:54
+* @see routes/admin.php:57
 * @route '/admin'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -100,7 +103,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:54
+* @see routes/admin.php:57
 * @route '/admin'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -150,6 +153,9 @@ const admin = {
     events: Object.assign(events, events),
     eventRegistrations: Object.assign(eventRegistrations, eventRegistrations),
     newsletters: Object.assign(newsletters, newsletters),
+    news_ticker_items: Object.assign(news_ticker_items, news_ticker_items),
+    home_reach_sections: Object.assign(home_reach_sections, home_reach_sections),
+    home_reach_items: Object.assign(home_reach_items, home_reach_items),
     faqs: Object.assign(faqs, faqs),
     publications: Object.assign(publications, publications),
     contacts: Object.assign(contacts, contacts),

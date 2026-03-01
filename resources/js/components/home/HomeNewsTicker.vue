@@ -1,16 +1,23 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
 import { ChevronRight } from 'lucide-vue-next';
 
-const headlines = [
-    'Lighting the village and his life',
-    'Story of guardianless chef',
-    'Good things come to those who learns skills',
-    'Lessons on hard work and determination from',
-];
+defineProps({
+    items: {
+        type: Array,
+        default: () => [],
+    },
+});
+
+function isInternal(url) {
+    if (!url || url === '#') return false;
+    return url.startsWith('/') && !url.startsWith('//');
+}
 </script>
 
 <template>
     <section
+        v-if="(items || []).length > 0"
         class="flex items-center justify-center text-lg border-t border-black/10"
     >
         <div
@@ -23,15 +30,43 @@ const headlines = [
         </div>
         <div class="flex-1 min-w-0 overflow-hidden">
             <div class="ticker-wrap flex italic text-sm text-[#515151] w-max">
-                <template v-for="(headline, i) in headlines" :key="i">
-                    <span class="underline mx-5 whitespace-nowrap">{{
-                        headline
-                    }}</span>
+                <template v-for="(item, i) in items" :key="`${item.id ?? i}-a`">
+                    <span v-if="!item.url" class="underline mx-5 whitespace-nowrap">{{ item.title }}</span>
+                    <Link
+                        v-else-if="isInternal(item.url)"
+                        :href="item.url"
+                        class="underline mx-5 whitespace-nowrap hover:text-[#B91C1C]"
+                    >
+                        {{ item.title }}
+                    </Link>
+                    <a
+                        v-else
+                        :href="item.url"
+                        class="underline mx-5 whitespace-nowrap hover:text-[#B91C1C]"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {{ item.title }}
+                    </a>
                 </template>
-                <template v-for="(headline, i) in headlines" :key="`dup-${i}`">
-                    <span class="underline mx-5 whitespace-nowrap">{{
-                        headline
-                    }}</span>
+                <template v-for="(item, i) in items" :key="`${item.id ?? i}-b`">
+                    <span v-if="!item.url" class="underline mx-5 whitespace-nowrap">{{ item.title }}</span>
+                    <Link
+                        v-else-if="isInternal(item.url)"
+                        :href="item.url"
+                        class="underline mx-5 whitespace-nowrap hover:text-[#B91C1C]"
+                    >
+                        {{ item.title }}
+                    </Link>
+                    <a
+                        v-else
+                        :href="item.url"
+                        class="underline mx-5 whitespace-nowrap hover:text-[#B91C1C]"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {{ item.title }}
+                    </a>
                 </template>
             </div>
         </div>

@@ -1,14 +1,25 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 import Home from '@/pages/Home.vue';
 
-defineProps({
+const props = defineProps({
     canRegister: {
         type: Boolean,
         default: true,
     },
+    heroSlides: {
+        type: Array,
+        default: () => [],
+    },
+    homeReachSection: {
+        type: Object,
+        default: null,
+    },
 });
+
+const page = usePage();
+const newsTickerItems = page.props.newsTickerItems ?? [];
 </script>
 
 <template>
@@ -25,6 +36,10 @@ defineProps({
         />
     </Head>
     <GuestLayout>
-        <Home />
+        <Home
+            :news-ticker-items="newsTickerItems"
+            :hero-slides="props.heroSlides ?? []"
+            :home-reach-section="props.homeReachSection ?? null"
+        />
     </GuestLayout>
 </template>

@@ -31,25 +31,33 @@ function closeMobileNav() {
 </script>
 
 <template>
-    <div
-        class="relative z-50 flex items-center justify-between mt-4 sm:mt-6 lg:mt-10 px-4 sm:px-6 lg:px-12 pb-4 w-full border-b border-black/10"
+    <header
+        class="relative z-50 border-b border-black/10 bg-white"
+        role="banner"
     >
-        <button
-            type="button"
-            class="lg:hidden p-2 text-black hover:text-[#B91C1C] focus:outline-none"
-            aria-label="Toggle menu"
-            @click="openMobileNav"
+        <div
+            class="flex items-center justify-between gap-4 mt-4 sm:mt-6 lg:mt-8 px-4 sm:px-6 lg:px-12 py-4 w-full max-w-[1600px] mx-auto"
         >
-            <Menu class="text-xl" />
-        </button>
+            <button
+                type="button"
+                class="lg:hidden p-2 -m-2 text-black hover:text-[#B91C1C] focus:outline-none rounded-md"
+                aria-label="Toggle menu"
+                @click="openMobileNav"
+            >
+                <Menu class="w-6 h-6" aria-hidden="true" />
+            </button>
 
-        <ul
-            class="uppercase text-black hidden lg:flex space-x-6 xl:space-x-8"
-        >
+            <nav
+                class="hidden lg:block flex-1 min-w-0"
+                aria-label="Main navigation"
+            >
+                <ul
+                    class="flex flex-wrap items-center gap-x-6 gap-y-1 xl:gap-x-8 uppercase text-black text-sm font-medium tracking-wide"
+                >
             <template v-if="mainMenu.length > 0">
                 <template v-for="(item, idx) in mainMenu" :key="idx">
-                    <li v-if="item.children?.length" class="relative group cursor-pointer">
-                        <div class="flex items-center gap-2">
+                    <li v-if="item.children?.length" class="relative group cursor-pointer whitespace-nowrap">
+                        <div class="flex items-center gap-1.5">
                             <Link
                                 v-if="isInternal(item.href)"
                                 :href="item.href"
@@ -93,7 +101,7 @@ function closeMobileNav() {
                             </li>
                         </ul>
                     </li>
-                    <li v-else>
+                    <li v-else class="whitespace-nowrap">
                         <Link
                             v-if="isInternal(item.href)"
                             :href="item.href"
@@ -124,9 +132,10 @@ function closeMobileNav() {
                     </Link>
                 </li>
             </template>
-        </ul>
+                </ul>
+            </nav>
 
-        <div class="flex items-center space-x-2 sm:space-x-4 ml-auto lg:ml-0">
+            <div class="flex items-center gap-2 sm:gap-4 flex-shrink-0">
             <Link
                 v-if="user"
                 :href="dashboard().url"
@@ -144,13 +153,14 @@ function closeMobileNav() {
             </template>
             <button
                 type="button"
-                class="hidden sm:block p-2 text-black hover:text-[#B91C1C] transition-colors"
+                class="hidden sm:block p-2 -m-2 text-black hover:text-[#B91C1C] transition-colors rounded-md"
                 aria-label="Search"
             >
-                <Search class="w-5 h-5" />
+                <Search class="w-5 h-5" aria-hidden="true" />
             </button>
+            </div>
         </div>
-    </div>
+    </header>
 
     <!-- Mobile Nav Overlay -->
     <div
