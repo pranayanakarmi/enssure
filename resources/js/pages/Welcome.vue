@@ -16,6 +16,10 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    homeAboutSection: {
+        type: Object,
+        default: null,
+    },
 });
 
 const page = usePage();
@@ -40,6 +44,7 @@ const newsTickerItems = page.props.newsTickerItems ?? [];
             :news-ticker-items="newsTickerItems"
             :hero-slides="props.heroSlides ?? []"
             :home-reach-section="props.homeReachSection ?? null"
+            :home-about-section="props.homeAboutSection ?? null"
         />
     </GuestLayout>
 </template>

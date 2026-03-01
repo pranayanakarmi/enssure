@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             ContentPermissionsSeeder::class,
             FirstAdminSeeder::class,
+            HomeAboutSectionSeeder::class,
             HomeReachSectionSeeder::class,
             HomeReachItemSeeder::class,
         ]);

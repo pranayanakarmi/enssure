@@ -1,5 +1,32 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
 import { ArrowRight } from 'lucide-vue-next';
+import { computed } from 'vue';
+
+const fallbackBadge = 'About us';
+const fallbackTitle = 'Enhanced Skills for Sustainable and Rewarding Employment (ENSSURE)';
+const fallbackBody = 'Enhanced Skills for Sustainable and Rewarding Employment (ENSSURE) project is a bilateral project of the Government of Nepal (GoN) and the Government of Switzerland. The first phase of the project, which started on 20 January 2016 is concluding on 15 July 2022. The second phase of the project is concurrently being implemented from 10 September 2021 and it will be implemented till 15 July 2025.';
+const fallbackCardTitle = 'Skill Upgrading Training for Workers';
+const fallbackBackgroundImage = '/enssure/assets/65b138464c2257ee992dd4572f64fbf14b41e638.png';
+const fallbackContentImage = '/enssure/assets/92e5701fdd7940bbc54c42d3a4d3ffaef9c4abec.png';
+const fallbackCtaText = 'Explore more';
+const fallbackCtaUrl = '#';
+
+const props = defineProps({
+    aboutSection: {
+        type: Object,
+        default: null,
+    },
+});
+
+const badgeText = computed(() => props.aboutSection?.badge_text ?? fallbackBadge);
+const title = computed(() => props.aboutSection?.title ?? fallbackTitle);
+const body = computed(() => props.aboutSection?.body ?? fallbackBody);
+const cardTitle = computed(() => props.aboutSection?.card_title ?? fallbackCardTitle);
+const backgroundImageUrl = computed(() => props.aboutSection?.background_image_url ?? fallbackBackgroundImage);
+const contentImageUrl = computed(() => props.aboutSection?.content_image_url ?? fallbackContentImage);
+const ctaText = computed(() => props.aboutSection?.cta_text ?? fallbackCtaText);
+const ctaUrl = computed(() => props.aboutSection?.cta_url ?? fallbackCtaUrl);
 </script>
 
 <template>
@@ -9,7 +36,8 @@ import { ArrowRight } from 'lucide-vue-next';
     >
         <div class="absolute inset-0">
             <img
-                src="/enssure/assets/65b138464c2257ee992dd4572f64fbf14b41e638.png"
+                v-if="backgroundImageUrl"
+                :src="backgroundImageUrl"
                 alt=""
                 class="w-full h-full object-cover opacity-30"
                 loading="lazy"
@@ -29,20 +57,21 @@ import { ArrowRight } from 'lucide-vue-next';
                         class="relative rounded-[30px] overflow-hidden aspect-[507/690]"
                     >
                         <img
-                            src="/enssure/assets/92e5701fdd7940bbc54c42d3a4d3ffaef9c4abec.png"
+                            v-if="contentImageUrl"
+                            :src="contentImageUrl"
                             alt="Skill Upgrading Training"
                             class="w-full h-full object-cover"
                             loading="lazy"
                         />
                     </div>
                     <div
+                        v-if="cardTitle"
                         class="absolute w-80 bottom-0 right-0 bg-[#B91C1C] rounded-tl-[40px] rounded-br-[30px] p-8"
                     >
                         <h3
                             class="text-white text-2xl leading-tight tracking-tight"
                         >
-                            Skill Upgrading<br />
-                            Training for Workers
+                            <span v-html="cardTitle.replace(/\n/g, '<br />')" />
                         </h3>
                     </div>
                 </div>
@@ -54,42 +83,29 @@ import { ArrowRight } from 'lucide-vue-next';
                             <span
                                 class="font-semibold text-[#B91C1C] uppercase tracking-wide"
                             >
-                                About us
+                                {{ badgeText }}
                             </span>
                         </div>
                     </div>
                     <h2
                         class="text-[2.5rem] leading-tight tracking-tight text-[#101010] mb-8"
                     >
-                        Enhanced Skills for Sustainable and Rewarding Employment
-                        (ENSSURE)
+                        {{ title }}
                     </h2>
-                    <p class="text-xl leading-relaxed text-gray-900 mb-8">
-                        <span
-                            >Enhanced Skills for Sustainable and Rewarding
-                            Employment (ENSSURE) project is a
-                        </span>
-                        <span class="font-bold"
-                            >bilateral project of the Government of Nepal</span
-                        >
-                        <span>
-                            (GoN) and the Government of Switzerland. The first
-                            phase of the project, which started on 20 January
-                            2016 is concluding on 15 July 2022. The second phase
-                            of the project is concurrently being implemented
-                            from 10 September 2021 and it will be implemented
-                            till 15 July 2025.</span
-                        >
-                    </p>
-                    <a
-                        href="#"
+                    <div
+                        class="text-xl leading-relaxed text-gray-900 mb-8 prose prose-lg max-w-none"
+                        v-html="body"
+                    />
+                    <Link
+                        v-if="ctaText"
+                        :href="ctaUrl"
                         class="inline-flex items-center gap-2 text-gray-900 uppercase font-medium hover:gap-3 transition-all group"
                     >
-                        Explore more
+                        {{ ctaText }}
                         <ArrowRight
                             class="w-5 h-4 group-hover:translate-x-1 transition-transform text-[#B91C1C]"
                         />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

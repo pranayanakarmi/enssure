@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\HomeAboutSection;
 use App\Models\HomeReachSection;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,7 @@ use Laravel\Fortify\Features;
 
 Route::get('/', function () {
     $homeReachSection = HomeReachSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
+    $homeAboutSection = HomeAboutSection::first();
 
     $heroSlider = Slider::where('location', '/')
         ->with(['items' => fn ($q) => $q->orderBy('order')])
@@ -45,6 +47,22 @@ Route::get('/', function () {
                 'link_url' => $item->link_url,
                 'order' => $item->order,
             ])->values()->all(),
+        ] : null,
+        'homeAboutSection' => $homeAboutSection ? [
+            'badge_text' => $homeAboutSection->badge_text,
+            'title' => $homeAboutSection->title,
+            'body' => $homeAboutSection->body
+                ? strip_tags($homeAboutSection->body, '<p><br><strong><em><u><a><ul><ol><li><h2><h3>')
+                : null,
+            'card_title' => $homeAboutSection->card_title,
+            'content_image_url' => $homeAboutSection->content_image
+                ? Storage::disk('public')->url($homeAboutSection->content_image)
+                : null,
+            'background_image_url' => $homeAboutSection->background_image
+                ? Storage::disk('public')->url($homeAboutSection->background_image)
+                : null,
+            'cta_text' => $homeAboutSection->cta_text,
+            'cta_url' => $homeAboutSection->cta_url,
         ] : null,
     ]);
 })->name('home');

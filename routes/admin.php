@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\GalleryImageController;
+use App\Http\Controllers\Admin\HomeAboutSectionController;
 use App\Http\Controllers\Admin\HomeReachItemController;
 use App\Http\Controllers\Admin\HomeReachSectionController;
 use App\Http\Controllers\Admin\ImpactStoryController;
@@ -109,6 +110,8 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::delete('event-registrations/{event_registration}', [EventRegistrationController::class, 'destroy'])->name('event-registrations.destroy');
     Route::resource('newsletters', NewsletterController::class)->except(['show']);
     Route::resource('news_ticker_items', NewsTickerItemController::class)->except(['show']);
+    Route::get('home-about-section/edit', [HomeAboutSectionController::class, 'edit'])->name('home_about_sections.edit');
+    Route::put('home-about-section', [HomeAboutSectionController::class, 'update'])->name('home_about_sections.update');
     Route::get('home-reach-section/edit', [HomeReachSectionController::class, 'edit'])->name('home_reach_sections.edit');
     Route::put('home-reach-section', [HomeReachSectionController::class, 'update'])->name('home_reach_sections.update');
     Route::post('home-reach-section/items', [HomeReachItemController::class, 'store'])->name('home_reach_sections.items.store');

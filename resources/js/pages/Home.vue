@@ -25,6 +25,10 @@ defineProps({
         type: Object,
         default: null,
     },
+    homeAboutSection: {
+        type: Object,
+        default: null,
+    },
 });
 </script>
 
@@ -33,7 +37,7 @@ defineProps({
         <HomeNewsTicker :items="newsTickerItems" />
         <HomeHero :slides="heroSlides" />
         <HomeStats :reach-section="homeReachSection ?? null" />
-        <HomeAbout />
+        <HomeAbout :about-section="homeAboutSection ?? null" />
         <HomeGallery />
         <HomeImpactStories />
         <HomeCoverage />

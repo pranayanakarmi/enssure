@@ -32,6 +32,7 @@ import EventController from './EventController'
 import EventRegistrationController from './EventRegistrationController'
 import NewsletterController from './NewsletterController'
 import NewsTickerItemController from './NewsTickerItemController'
+import HomeAboutSectionController from './HomeAboutSectionController'
 import HomeReachSectionController from './HomeReachSectionController'
 import HomeReachItemController from './HomeReachItemController'
 import FaqController from './FaqController'
@@ -79,6 +80,7 @@ const Admin = {
     EventRegistrationController: Object.assign(EventRegistrationController, EventRegistrationController),
     NewsletterController: Object.assign(NewsletterController, NewsletterController),
     NewsTickerItemController: Object.assign(NewsTickerItemController, NewsTickerItemController),
+    HomeAboutSectionController: Object.assign(HomeAboutSectionController, HomeAboutSectionController),
     HomeReachSectionController: Object.assign(HomeReachSectionController, HomeReachSectionController),
     HomeReachItemController: Object.assign(HomeReachItemController, HomeReachItemController),
     FaqController: Object.assign(FaqController, FaqController),
