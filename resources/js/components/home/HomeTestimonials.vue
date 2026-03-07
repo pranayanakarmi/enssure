@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -8,26 +8,43 @@ import 'swiper/css/pagination';
 const modules = [Pagination, Autoplay];
 const isClient = ref(false);
 
-const testimonials = [
+const defaultTestimonials = [
     {
-        quote:
-            '"The Dual-VET apprenticeship didn\'t just teach me welding—it gave me a certified skill and the confidence to start my own business. I\'m now employing three others from my community, something I never imagined possible."',
+        quote: '"The Dual-VET apprenticeship didn\'t just teach me welding—it gave me a certified skill and the confidence to start my own business. I\'m now employing three others from my community, something I never imagined possible."',
         name: 'Anita Shrestha',
         role: 'Former Apprentice, Now Workshop Owner',
     },
     {
-        quote:
-            '"The Dual-VET apprenticeship didn\'t just teach me welding—it gave me a certified skill and the confidence to start my own business. I\'m now employing three others from my community, something I never imagined possible."',
-        name: 'Anita Shrestha',
-        role: 'Former Apprentice, Now Workshop Owner',
-    },
-    {
-        quote:
-            '"ENSSURE\'s training transformed my career. The hands-on approach and industry partnership gave me skills that employers actually value."',
+        quote: '"ENSSURE\'s training transformed my career. The hands-on approach and industry partnership gave me skills that employers actually value."',
         name: 'Ram Kumar',
         role: 'Industrial Technician',
     },
 ];
+
+const defaultBadge = 'Testimonials';
+const defaultTitle = 'Direct testimonials that showcase the real, on-the-ground impact of the <span class="text-[#B91C1C]">ENSSURE project</span> on people and the skills sector in Nepal...';
+const defaultBackgroundImage = '/enssure/assets/2679d01e0051158b2d0a86140171d16c36165a4b.png';
+
+const props = defineProps({
+    section: {
+        type: Object,
+        default: null,
+    },
+    testimonials: {
+        type: Array,
+        default: () => [],
+    },
+});
+
+const badgeText = computed(() => props.section?.badge_text ?? defaultBadge);
+const title = computed(() => props.section?.title ?? defaultTitle);
+const backgroundImageUrl = computed(() => props.section?.background_image_url ?? defaultBackgroundImage);
+const testimonialList = computed(() => {
+    const list = props.testimonials && props.testimonials.length > 0
+        ? props.testimonials
+        : defaultTestimonials;
+    return list;
+});
 
 onMounted(() => {
     isClient.value = true;
@@ -37,7 +54,8 @@ onMounted(() => {
 <template>
     <section class="py-12 sm:py-16 lg:py-20 relative">
         <img
-            src="/enssure/assets/2679d01e0051158b2d0a86140171d16c36165a4b.png"
+            v-if="backgroundImageUrl"
+            :src="backgroundImageUrl"
             alt=""
             class="absolute inset-0 w-full h-full object-cover object-top"
             loading="lazy"
@@ -53,16 +71,13 @@ onMounted(() => {
                     class="mb-4 h-8 sm:h-auto"
                 />
                 <span class="uppercase text-[#B91C1C] font-semibold">
-                    Testimonials
+                    {{ badgeText }}
                 </span>
                 <h2
+                    v-if="title"
                     class="text-xl sm:text-2xl lg:text-[2.5rem] leading-tight tracking-tight mb-6 lg:mb-8 mt-2"
-                >
-                    Direct testimonials that showcase the real, on-the-ground
-                    impact of the
-                    <span class="text-[#B91C1C]">ENSSURE project</span>
-                    on people and the skills sector in Nepal...
-                </h2>
+                    v-html="title"
+                />
             </div>
             <div class="flex items-center flex-shrink-0">
                 <img
@@ -95,7 +110,7 @@ onMounted(() => {
                 :modules="modules"
                 :slides-per-view="1"
                 :space-between="24"
-                :loop="true"
+                :loop="testimonialList.length > 1"
                 :grab-cursor="true"
                 :autoplay="{ delay: 5000, disableOnInteraction: false }"
                 :pagination="{ clickable: true }"
@@ -105,7 +120,10 @@ onMounted(() => {
                     1024: { slidesPerView: 2, spaceBetween: 24 },
                 }"
             >
-                <SwiperSlide v-for="(t, i) in testimonials" :key="i">
+                <SwiperSlide
+                    v-for="(t, i) in testimonialList"
+                    :key="i"
+                >
                     <div
                         class="bg-white shadow-lg rounded-xl space-y-4 sm:space-y-5 px-5 sm:px-6 pb-5 pt-14 relative flex-1 flex flex-col min-h-[280px]"
                     >
@@ -114,8 +132,11 @@ onMounted(() => {
                         >
                             {{ t.quote }}
                         </p>
-                        <p class="font-semibold text-center">{{ t.name }}</p>
+                        <p class="font-semibold text-center">
+                            {{ t.name }}
+                        </p>
                         <p
+                            v-if="t.role"
                             class="text-xs italic text-center text-[#515151]"
                         >
                             {{ t.role }}

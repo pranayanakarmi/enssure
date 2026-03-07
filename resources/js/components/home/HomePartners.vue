@@ -1,10 +1,24 @@
 <script setup>
-const partners = [
-    '/enssure/assets/ac6be776c5bec31df9cf5f1bed529200ddb74c1a.png',
-    '/enssure/assets/1bfd5b6a208521619b06244790669dd636449742.png',
-    '/enssure/assets/ebbe48ec5c80c20d972673da35584cdc422ccc68.png',
-    '/enssure/assets/d7c2ac1e901bc7bac7279f1006a3053183752132.png',
-];
+import { computed } from 'vue';
+
+const props = defineProps({
+    section: {
+        type: Object,
+        default: null,
+    },
+    partners: {
+        type: Array,
+        default: () => [],
+    },
+});
+
+const badgeText = computed(() => props.section?.badge_text ?? 'Our Partners');
+const title = computed(() => props.section?.title ?? 'We work with the best Partners');
+const partnerLogos = computed(() =>
+    (props.partners || [])
+        .filter((p) => p.logo_url)
+        .map((p) => ({ logo_url: p.logo_url, name: p.name }))
+);
 </script>
 
 <template>
@@ -18,27 +32,28 @@ const partners = [
                         <span
                             class="font-semibold text-[#B91C1C] uppercase tracking-wide"
                         >
-                            Our Partners
+                            {{ badgeText }}
                         </span>
                     </div>
                 </div>
                 <h2
                     class="text-[2.5rem] leading-tight tracking-tight text-[#101010] mb-6"
                 >
-                    We work with the best Partners
+                    {{ title }}
                 </h2>
             </div>
             <div
+                v-if="partnerLogos.length"
                 class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12"
             >
                 <div
-                    v-for="(logo, i) in partners"
+                    v-for="(partner, i) in partnerLogos"
                     :key="i"
                     class="bg-white border border-[#cad0d8] rounded-[20px] p-8 flex items-center justify-center min-h-[186px] hover:border-[#B91C1C] transition-colors"
                 >
                     <img
-                        :src="logo"
-                        alt="Partner logo"
+                        :src="partner.logo_url"
+                        :alt="partner.name || 'Partner logo'"
                         class="max-w-[190px] max-h-[80px] object-contain"
                         loading="lazy"
                     />

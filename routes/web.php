@@ -5,8 +5,12 @@ use App\Models\HomeCoverageSection;
 use App\Models\HomeGallerySection;
 use App\Models\HomeImpactStoriesSection;
 use App\Models\HomeNewsSection;
+use App\Models\HomePartnersSection;
 use App\Models\HomeReachSection;
+use App\Models\HomeTestimonialsSection;
+use App\Models\Partner;
 use App\Models\Slider;
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -19,6 +23,29 @@ Route::get('/', function () {
     $homeImpactStoriesSection = HomeImpactStoriesSection::first();
     $homeCoverageSection = HomeCoverageSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
     $homeNewsSection = HomeNewsSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
+    $homeTestimonialsSection = HomeTestimonialsSection::first();
+    $homePartnersSection = HomePartnersSection::first();
+    $partners = Partner::orderBy('order')
+        ->get()
+        ->map(fn ($p) => [
+            'logo_url' => $p->logo
+                ? (str_starts_with($p->logo, 'http') ? $p->logo : Storage::disk('public')->url($p->logo))
+                : null,
+            'name' => $p->name,
+        ])
+        ->values()
+        ->all();
+    $testimonials = Testimonial::where('is_published', true)
+        ->orderBy('order')
+        ->get()
+        ->map(fn ($t) => [
+            'quote' => $t->testimonial_text,
+            'name' => $t->name,
+            'role' => $t->designation ?? $t->organization ?? '',
+            'image_url' => $t->image ? Storage::disk('public')->url($t->image) : null,
+        ])
+        ->values()
+        ->all();
 
     $heroSlider = Slider::where('location', '/')
         ->with(['items' => fn ($q) => $q->orderBy('order')])
@@ -121,6 +148,21 @@ Route::get('/', function () {
                 'order' => $item->order,
             ])->values()->all(),
         ] : null,
+        'homeTestimonialsSection' => $homeTestimonialsSection ? [
+            'badge_text' => $homeTestimonialsSection->badge_text,
+            'title' => $homeTestimonialsSection->title
+                ? strip_tags($homeTestimonialsSection->title, '<span><br><strong><em>')
+                : null,
+            'background_image_url' => $homeTestimonialsSection->background_image
+                ? Storage::disk('public')->url($homeTestimonialsSection->background_image)
+                : null,
+        ] : null,
+        'homePartnersSection' => $homePartnersSection ? [
+            'badge_text' => $homePartnersSection->badge_text,
+            'title' => $homePartnersSection->title,
+        ] : null,
+        'partners' => $partners,
+        'testimonials' => $testimonials,
     ]);
 })->name('home');
 

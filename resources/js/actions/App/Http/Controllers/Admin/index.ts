@@ -42,6 +42,8 @@ import HomeCoverageSectionController from './HomeCoverageSectionController'
 import HomeCoverageSectionItemController from './HomeCoverageSectionItemController'
 import HomeNewsSectionController from './HomeNewsSectionController'
 import HomeNewsSectionItemController from './HomeNewsSectionItemController'
+import HomeTestimonialsSectionController from './HomeTestimonialsSectionController'
+import HomePartnersSectionController from './HomePartnersSectionController'
 import FaqController from './FaqController'
 import PublicationController from './PublicationController'
 import ContactController from './ContactController'
@@ -97,6 +99,8 @@ const Admin = {
     HomeCoverageSectionItemController: Object.assign(HomeCoverageSectionItemController, HomeCoverageSectionItemController),
     HomeNewsSectionController: Object.assign(HomeNewsSectionController, HomeNewsSectionController),
     HomeNewsSectionItemController: Object.assign(HomeNewsSectionItemController, HomeNewsSectionItemController),
+    HomeTestimonialsSectionController: Object.assign(HomeTestimonialsSectionController, HomeTestimonialsSectionController),
+    HomePartnersSectionController: Object.assign(HomePartnersSectionController, HomePartnersSectionController),
     FaqController: Object.assign(FaqController, FaqController),
     PublicationController: Object.assign(PublicationController, PublicationController),
     ContactController: Object.assign(ContactController, ContactController),

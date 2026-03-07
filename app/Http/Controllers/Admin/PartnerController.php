@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StorePartnerRequest;
 use App\Http\Requests\Admin\UpdatePartnerRequest;
 use App\Models\Partner;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -43,7 +44,11 @@ class PartnerController extends Controller
 
     public function store(StorePartnerRequest $request): RedirectResponse
     {
-        Partner::create($request->validated());
+        $data = $request->safe()->only(['name', 'website_url', 'partner_type', 'description', 'order']);
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')->store('partners', 'public');
+        }
+        Partner::create($data);
 
         return to_route('admin.partners.index')
             ->with('success', 'Partner created successfully.');
@@ -58,6 +63,9 @@ class PartnerController extends Controller
                 'id' => $partner->id,
                 'name' => $partner->name,
                 'logo' => $partner->logo,
+                'logo_url' => $partner->logo
+                ? (str_starts_with($partner->logo, 'http') ? $partner->logo : Storage::disk('public')->url($partner->logo))
+                : null,
                 'website_url' => $partner->website_url,
                 'partner_type' => $partner->partner_type,
                 'description' => $partner->description,
@@ -68,7 +76,14 @@ class PartnerController extends Controller
 
     public function update(UpdatePartnerRequest $request, Partner $partner): RedirectResponse
     {
-        $partner->update($request->validated());
+        $data = $request->safe()->only(['name', 'website_url', 'partner_type', 'description', 'order']);
+        if ($request->hasFile('logo')) {
+            if ($partner->logo && ! str_starts_with($partner->logo, 'http')) {
+                Storage::disk('public')->delete($partner->logo);
+            }
+            $data['logo'] = $request->file('logo')->store('partners', 'public');
+        }
+        $partner->update($data);
 
         return to_route('admin.partners.index')
             ->with('success', 'Partner updated successfully.');
@@ -78,6 +93,9 @@ class PartnerController extends Controller
     {
         $this->authorize('delete', $partner);
 
+        if ($partner->logo && ! str_starts_with($partner->logo, 'http')) {
+            Storage::disk('public')->delete($partner->logo);
+        }
         $partner->delete();
 
         return to_route('admin.partners.index')

@@ -17,12 +17,19 @@ const props = defineProps({
 
 const form = useForm({
     name: props.partner.name ?? '',
-    logo: props.partner.logo ?? '',
+    logo: null,
     website_url: props.partner.website_url ?? '',
     partner_type: props.partner.partner_type ?? '',
     description: props.partner.description ?? '',
     order: props.partner.order ?? 0,
+    _method: 'put',
 });
+
+function submitForm() {
+    form.post(`/admin/partners/${props.partner.id}`, {
+        forceFormData: true,
+    });
+}
 
 const breadcrumbItems = [
     { title: 'Home Page', href: '#' },
@@ -45,7 +52,7 @@ const breadcrumbItems = [
 
                 <form
                     class="space-y-6"
-                    @submit.prevent="form.put(`/admin/partners/${partner.id}`)"
+                    @submit.prevent="submitForm"
                 >
                     <div class="grid gap-2">
                         <Label for="name">Name</Label>
@@ -58,12 +65,30 @@ const breadcrumbItems = [
                         <InputError :message="form.errors.name" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="logo">Logo (path or URL)</Label>
-                        <Input
+                        <Label for="logo">Logo</Label>
+                        <div
+                            v-if="partner.logo_url"
+                            class="mb-2"
+                        >
+                            <img
+                                :src="partner.logo_url"
+                                :alt="partner.name"
+                                class="h-20 w-auto rounded border object-contain bg-white"
+                            />
+                            <p class="mt-1 text-xs text-muted-foreground">
+                                Current logo. Choose a new file to replace.
+                            </p>
+                        </div>
+                        <input
                             id="logo"
-                            v-model="form.logo"
-                            type="text"
+                            type="file"
+                            accept="image/*"
+                            class="block w-full cursor-pointer rounded-md border border-input bg-background px-3 py-2 text-sm file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-foreground hover:file:bg-primary/90"
+                            @change="form.logo = $event.target.files?.[0] || null"
                         />
+                        <p class="text-xs text-muted-foreground">
+                            Upload an image (max 2 MB). Leave empty to keep the current logo.
+                        </p>
                         <InputError :message="form.errors.logo" />
                     </div>
                     <div class="grid gap-2">

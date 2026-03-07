@@ -10,7 +10,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 
 const form = useForm({
     name: '',
-    logo: '',
+    logo: null,
     website_url: '',
     partner_type: '',
     description: '',
@@ -22,6 +22,12 @@ const breadcrumbItems = [
     { title: 'Partners', href: '/admin/partners' },
     { title: 'Create', href: '/admin/partners/create' },
 ];
+
+function submitForm() {
+    form.post('/admin/partners', {
+        forceFormData: true,
+    });
+}
 </script>
 
 <template>
@@ -38,7 +44,7 @@ const breadcrumbItems = [
 
                 <form
                     class="space-y-6"
-                    @submit.prevent="form.post('/admin/partners')"
+                    @submit.prevent="submitForm"
                 >
                     <div class="grid gap-2">
                         <Label for="name">Name</Label>
@@ -51,12 +57,17 @@ const breadcrumbItems = [
                         <InputError :message="form.errors.name" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="logo">Logo (path or URL)</Label>
-                        <Input
+                        <Label for="logo">Logo</Label>
+                        <input
                             id="logo"
-                            v-model="form.logo"
-                            type="text"
+                            type="file"
+                            accept="image/*"
+                            class="block w-full cursor-pointer rounded-md border border-input bg-background px-3 py-2 text-sm file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-foreground hover:file:bg-primary/90"
+                            @change="form.logo = $event.target.files?.[0] || null"
                         />
+                        <p class="text-xs text-muted-foreground">
+                            Upload an image (max 2 MB). Recommended for display on the home page.
+                        </p>
                         <InputError :message="form.errors.logo" />
                     </div>
                     <div class="grid gap-2">
@@ -89,7 +100,10 @@ const breadcrumbItems = [
                         <InputError :message="form.errors.order" />
                     </div>
                     <div class="flex items-center gap-4">
-                        <Button type="submit" :disabled="form.processing">
+                        <Button
+                            type="submit"
+                            :disabled="form.processing"
+                        >
                             Create partner
                         </Button>
                         <Button variant="outline" as-child>

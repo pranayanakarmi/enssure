@@ -45,6 +45,22 @@ defineProps({
         type: Object,
         default: null,
     },
+    homeTestimonialsSection: {
+        type: Object,
+        default: null,
+    },
+    homePartnersSection: {
+        type: Object,
+        default: null,
+    },
+    partners: {
+        type: Array,
+        default: () => [],
+    },
+    testimonials: {
+        type: Array,
+        default: () => [],
+    },
 });
 </script>
 
@@ -58,8 +74,14 @@ defineProps({
         <HomeImpactStories :stories-section="homeImpactStoriesSection ?? null" />
         <HomeCoverage :coverage-section="homeCoverageSection ?? null" />
         <HomeNews :news-section="homeNewsSection ?? null" />
-        <HomeTestimonials />
-        <HomePartners />
+        <HomeTestimonials
+            :section="homeTestimonialsSection ?? null"
+            :testimonials="testimonials ?? []"
+        />
+        <HomePartners
+            :section="homePartnersSection ?? null"
+            :partners="partners ?? []"
+        />
         <HomeSupport />
         <HomeContactCta />
     </div>
