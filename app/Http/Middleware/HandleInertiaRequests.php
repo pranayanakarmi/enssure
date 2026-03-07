@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\FooterColumn;
+use App\Models\FooterSetting;
 use App\Models\Menu;
 use App\Models\NewsTickerItem;
 use Illuminate\Http\Request;
@@ -54,6 +56,26 @@ class HandleInertiaRequests extends Middleware
             ],
             'adminMenu' => self::resolveMenuUrls(config('admin_content.menu', []), $request),
             'mainMenu' => Menu::getMainHeaderForFrontend(),
+            'footerColumns' => FooterColumn::with(['links' => fn ($q) => $q->orderBy('order')])
+                ->orderBy('order')
+                ->get()
+                ->map(fn (FooterColumn $c) => [
+                    'title' => $c->title,
+                    'links' => $c->links->map(fn ($link) => [
+                        'label' => $link->label,
+                        'url' => $link->url,
+                    ])->values()->all(),
+                ])
+                ->values()
+                ->all(),
+            'footerSetting' => function () {
+                $s = FooterSetting::first();
+
+                return $s ? [
+                    'copyright_text' => $s->copyright_text,
+                    'social_links' => $s->social_links ?? [],
+                ] : null;
+            },
             'newsTickerItems' => NewsTickerItem::published()->orderBy('order')->limit(20)->get(['id', 'title', 'url'])->toArray(),
             'newsTickerItems' => NewsTickerItem::published()->orderBy('order')->limit(20)->get(['id', 'title', 'url'])->toArray(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',

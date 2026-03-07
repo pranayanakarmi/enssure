@@ -53,6 +53,14 @@ defineProps({
         type: Object,
         default: null,
     },
+    homeSupportSection: {
+        type: Object,
+        default: null,
+    },
+    homeContactCtaSection: {
+        type: Object,
+        default: null,
+    },
     partners: {
         type: Array,
         default: () => [],
@@ -82,7 +90,7 @@ defineProps({
             :section="homePartnersSection ?? null"
             :partners="partners ?? []"
         />
-        <HomeSupport />
-        <HomeContactCta />
+        <HomeSupport :section="homeSupportSection ?? null" />
+        <HomeContactCta :section="homeContactCtaSection ?? null" />
     </div>
 </template>

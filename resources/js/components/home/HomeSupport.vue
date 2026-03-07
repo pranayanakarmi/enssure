@@ -1,4 +1,16 @@
 <script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+    section: {
+        type: Object,
+        default: null,
+    },
+});
+
+const badgeText = computed(() => props.section?.badge_text ?? 'Support');
+const title = computed(() => props.section?.title ?? 'Technical Assistance By');
+const imageUrl = computed(() => props.section?.image_url ?? null);
 </script>
 
 <template>
@@ -10,18 +22,21 @@
                 <span
                     class="font-semibold text-[#B91C1C] uppercase tracking-wide"
                 >
-                    Support
+                    {{ badgeText }}
                 </span>
             </div>
             <h2
                 class="text-[2.5rem] leading-tight tracking-tight text-[#101010] my-4"
             >
-                Technical Assistance By
+                {{ title }}
             </h2>
-            <div class="flex justify-center">
+            <div
+                v-if="imageUrl"
+                class="flex justify-center"
+            >
                 <img
-                    src="/enssure/assets/c3f97e1b17044bbdeedac32a3818731e2450a527.png"
-                    alt="Technical Assistance By"
+                    :src="imageUrl"
+                    :alt="title"
                     class="h-16 object-contain"
                     loading="lazy"
                 />

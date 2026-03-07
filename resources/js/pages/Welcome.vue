@@ -44,6 +44,14 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    homeSupportSection: {
+        type: Object,
+        default: null,
+    },
+    homeContactCtaSection: {
+        type: Object,
+        default: null,
+    },
     partners: {
         type: Array,
         default: () => [],
@@ -83,6 +91,8 @@ const newsTickerItems = page.props.newsTickerItems ?? [];
             :home-news-section="props.homeNewsSection ?? null"
             :home-testimonials-section="props.homeTestimonialsSection ?? null"
             :home-partners-section="props.homePartnersSection ?? null"
+            :home-support-section="props.homeSupportSection ?? null"
+            :home-contact-cta-section="props.homeContactCtaSection ?? null"
             :partners="props.partners ?? []"
             :testimonials="props.testimonials ?? []"
         />

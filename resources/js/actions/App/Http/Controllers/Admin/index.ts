@@ -44,6 +44,11 @@ import HomeNewsSectionController from './HomeNewsSectionController'
 import HomeNewsSectionItemController from './HomeNewsSectionItemController'
 import HomeTestimonialsSectionController from './HomeTestimonialsSectionController'
 import HomePartnersSectionController from './HomePartnersSectionController'
+import HomeSupportSectionController from './HomeSupportSectionController'
+import HomeContactCtaSectionController from './HomeContactCtaSectionController'
+import FooterColumnController from './FooterColumnController'
+import FooterLinkController from './FooterLinkController'
+import FooterSettingController from './FooterSettingController'
 import FaqController from './FaqController'
 import PublicationController from './PublicationController'
 import ContactController from './ContactController'
@@ -101,6 +106,11 @@ const Admin = {
     HomeNewsSectionItemController: Object.assign(HomeNewsSectionItemController, HomeNewsSectionItemController),
     HomeTestimonialsSectionController: Object.assign(HomeTestimonialsSectionController, HomeTestimonialsSectionController),
     HomePartnersSectionController: Object.assign(HomePartnersSectionController, HomePartnersSectionController),
+    HomeSupportSectionController: Object.assign(HomeSupportSectionController, HomeSupportSectionController),
+    HomeContactCtaSectionController: Object.assign(HomeContactCtaSectionController, HomeContactCtaSectionController),
+    FooterColumnController: Object.assign(FooterColumnController, FooterColumnController),
+    FooterLinkController: Object.assign(FooterLinkController, FooterLinkController),
+    FooterSettingController: Object.assign(FooterSettingController, FooterSettingController),
     FaqController: Object.assign(FaqController, FaqController),
     PublicationController: Object.assign(PublicationController, PublicationController),
     ContactController: Object.assign(ContactController, ContactController),

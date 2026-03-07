@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             HomeReachItemSeeder::class,
             HomeCoverageSectionSeeder::class,
             HomeNewsSectionSeeder::class,
+            FooterSeeder::class,
         ]);
 
         // User::factory(10)->create();

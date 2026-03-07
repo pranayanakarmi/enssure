@@ -45,6 +45,12 @@ import home_news_sections from './home_news_sections'
 import home_news_section_items from './home_news_section_items'
 import home_testimonials_sections from './home_testimonials_sections'
 import home_partners_sections from './home_partners_sections'
+import home_support_sections from './home_support_sections'
+import home_contact_cta_sections from './home_contact_cta_sections'
+import footerColumns from './footer-columns'
+import footer_columns from './footer_columns'
+import footer_links from './footer_links'
+import footer_settings from './footer_settings'
 import faqs from './faqs'
 import publications from './publications'
 import contacts from './contacts'
@@ -55,7 +61,7 @@ import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
 /**
-* @see routes/admin.php:67
+* @see routes/admin.php:72
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -69,7 +75,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/admin.php:67
+* @see routes/admin.php:72
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -77,7 +83,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/admin.php:67
+* @see routes/admin.php:72
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -86,7 +92,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:67
+* @see routes/admin.php:72
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -95,7 +101,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/admin.php:67
+* @see routes/admin.php:72
 * @route '/admin'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -104,7 +110,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/admin.php:67
+* @see routes/admin.php:72
 * @route '/admin'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -113,7 +119,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:67
+* @see routes/admin.php:72
 * @route '/admin'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -176,6 +182,12 @@ const admin = {
     home_news_section_items: Object.assign(home_news_section_items, home_news_section_items),
     home_testimonials_sections: Object.assign(home_testimonials_sections, home_testimonials_sections),
     home_partners_sections: Object.assign(home_partners_sections, home_partners_sections),
+    home_support_sections: Object.assign(home_support_sections, home_support_sections),
+    home_contact_cta_sections: Object.assign(home_contact_cta_sections, home_contact_cta_sections),
+    footerColumns: Object.assign(footerColumns, footerColumns),
+    footer_columns: Object.assign(footer_columns, footer_columns),
+    footer_links: Object.assign(footer_links, footer_links),
+    footer_settings: Object.assign(footer_settings, footer_settings),
     faqs: Object.assign(faqs, faqs),
     publications: Object.assign(publications, publications),
     contacts: Object.assign(contacts, contacts),

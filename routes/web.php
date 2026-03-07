@@ -1,12 +1,14 @@
 <?php
 
 use App\Models\HomeAboutSection;
+use App\Models\HomeContactCtaSection;
 use App\Models\HomeCoverageSection;
 use App\Models\HomeGallerySection;
 use App\Models\HomeImpactStoriesSection;
 use App\Models\HomeNewsSection;
 use App\Models\HomePartnersSection;
 use App\Models\HomeReachSection;
+use App\Models\HomeSupportSection;
 use App\Models\HomeTestimonialsSection;
 use App\Models\Partner;
 use App\Models\Slider;
@@ -25,6 +27,8 @@ Route::get('/', function () {
     $homeNewsSection = HomeNewsSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
     $homeTestimonialsSection = HomeTestimonialsSection::first();
     $homePartnersSection = HomePartnersSection::first();
+    $homeSupportSection = HomeSupportSection::first();
+    $homeContactCtaSection = HomeContactCtaSection::first();
     $partners = Partner::orderBy('order')
         ->get()
         ->map(fn ($p) => [
@@ -160,6 +164,22 @@ Route::get('/', function () {
         'homePartnersSection' => $homePartnersSection ? [
             'badge_text' => $homePartnersSection->badge_text,
             'title' => $homePartnersSection->title,
+        ] : null,
+        'homeSupportSection' => $homeSupportSection ? [
+            'badge_text' => $homeSupportSection->badge_text,
+            'title' => $homeSupportSection->title,
+            'image_url' => $homeSupportSection->image
+                ? Storage::disk('public')->url($homeSupportSection->image)
+                : null,
+        ] : null,
+        'homeContactCtaSection' => $homeContactCtaSection ? [
+            'badge_text' => $homeContactCtaSection->badge_text,
+            'title' => $homeContactCtaSection->title,
+            'highlight_phrase' => $homeContactCtaSection->highlight_phrase,
+            'button_text' => $homeContactCtaSection->button_text,
+            'background_image_url' => $homeContactCtaSection->background_image
+                ? Storage::disk('public')->url($homeContactCtaSection->background_image)
+                : null,
         ] : null,
         'partners' => $partners,
         'testimonials' => $testimonials,
