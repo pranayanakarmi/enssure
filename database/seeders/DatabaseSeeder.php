@@ -18,8 +18,12 @@ class DatabaseSeeder extends Seeder
             ContentPermissionsSeeder::class,
             FirstAdminSeeder::class,
             HomeAboutSectionSeeder::class,
+            HomeGallerySectionSeeder::class,
+            HomeImpactStoriesSectionSeeder::class,
             HomeReachSectionSeeder::class,
             HomeReachItemSeeder::class,
+            HomeCoverageSectionSeeder::class,
+            HomeNewsSectionSeeder::class,
         ]);
 
         // User::factory(10)->create();

@@ -34,8 +34,15 @@ import eventRegistrations from './event-registrations'
 import newsletters from './newsletters'
 import news_ticker_items from './news_ticker_items'
 import home_about_sections from './home_about_sections'
+import home_impact_stories_sections from './home_impact_stories_sections'
+import home_gallery_sections from './home_gallery_sections'
+import home_gallery_section_items from './home_gallery_section_items'
 import home_reach_sections from './home_reach_sections'
 import home_reach_items from './home_reach_items'
+import home_coverage_sections from './home_coverage_sections'
+import home_coverage_section_items from './home_coverage_section_items'
+import home_news_sections from './home_news_sections'
+import home_news_section_items from './home_news_section_items'
 import faqs from './faqs'
 import publications from './publications'
 import contacts from './contacts'
@@ -46,7 +53,7 @@ import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
 /**
-* @see routes/admin.php:58
+* @see routes/admin.php:65
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -60,7 +67,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/admin.php:58
+* @see routes/admin.php:65
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -68,7 +75,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/admin.php:58
+* @see routes/admin.php:65
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -77,7 +84,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:58
+* @see routes/admin.php:65
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -86,7 +93,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/admin.php:58
+* @see routes/admin.php:65
 * @route '/admin'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -95,7 +102,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/admin.php:58
+* @see routes/admin.php:65
 * @route '/admin'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -104,7 +111,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:58
+* @see routes/admin.php:65
 * @route '/admin'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -156,8 +163,15 @@ const admin = {
     newsletters: Object.assign(newsletters, newsletters),
     news_ticker_items: Object.assign(news_ticker_items, news_ticker_items),
     home_about_sections: Object.assign(home_about_sections, home_about_sections),
+    home_impact_stories_sections: Object.assign(home_impact_stories_sections, home_impact_stories_sections),
+    home_gallery_sections: Object.assign(home_gallery_sections, home_gallery_sections),
+    home_gallery_section_items: Object.assign(home_gallery_section_items, home_gallery_section_items),
     home_reach_sections: Object.assign(home_reach_sections, home_reach_sections),
     home_reach_items: Object.assign(home_reach_items, home_reach_items),
+    home_coverage_sections: Object.assign(home_coverage_sections, home_coverage_sections),
+    home_coverage_section_items: Object.assign(home_coverage_section_items, home_coverage_section_items),
+    home_news_sections: Object.assign(home_news_sections, home_news_sections),
+    home_news_section_items: Object.assign(home_news_section_items, home_news_section_items),
     faqs: Object.assign(faqs, faqs),
     publications: Object.assign(publications, publications),
     contacts: Object.assign(contacts, contacts),

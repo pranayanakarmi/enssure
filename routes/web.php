@@ -1,6 +1,10 @@
 <?php
 
 use App\Models\HomeAboutSection;
+use App\Models\HomeCoverageSection;
+use App\Models\HomeGallerySection;
+use App\Models\HomeImpactStoriesSection;
+use App\Models\HomeNewsSection;
 use App\Models\HomeReachSection;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +15,10 @@ use Laravel\Fortify\Features;
 Route::get('/', function () {
     $homeReachSection = HomeReachSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
     $homeAboutSection = HomeAboutSection::first();
+    $homeGallerySection = HomeGallerySection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
+    $homeImpactStoriesSection = HomeImpactStoriesSection::first();
+    $homeCoverageSection = HomeCoverageSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
+    $homeNewsSection = HomeNewsSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
 
     $heroSlider = Slider::where('location', '/')
         ->with(['items' => fn ($q) => $q->orderBy('order')])
@@ -63,6 +71,55 @@ Route::get('/', function () {
                 : null,
             'cta_text' => $homeAboutSection->cta_text,
             'cta_url' => $homeAboutSection->cta_url,
+        ] : null,
+        'homeGallerySection' => $homeGallerySection ? [
+            'badge_text' => $homeGallerySection->badge_text,
+            'title' => $homeGallerySection->title,
+            'description' => $homeGallerySection->description,
+            'cta_text' => $homeGallerySection->cta_text,
+            'cta_url' => $homeGallerySection->cta_url,
+            'items' => $homeGallerySection->items->map(fn ($item) => [
+                'id' => $item->id,
+                'image_url' => $item->image ? Storage::disk('public')->url($item->image) : null,
+                'text' => $item->text,
+                'order' => $item->order,
+            ])->values()->all(),
+        ] : null,
+        'homeImpactStoriesSection' => $homeImpactStoriesSection ? [
+            'badge_text' => $homeImpactStoriesSection->badge_text,
+            'title' => $homeImpactStoriesSection->title,
+            'description' => $homeImpactStoriesSection->description,
+            'cta_text' => $homeImpactStoriesSection->cta_text,
+            'cta_url' => $homeImpactStoriesSection->cta_url,
+        ] : null,
+        'homeCoverageSection' => $homeCoverageSection ? [
+            'badge_text' => $homeCoverageSection->badge_text,
+            'title' => $homeCoverageSection->title,
+            'description' => $homeCoverageSection->description
+                ? strip_tags($homeCoverageSection->description, '<p><br><strong><em><u><a><ul><ol><li><h2><h3>')
+                : null,
+            'map_image_url' => $homeCoverageSection->map_image
+                ? Storage::disk('public')->url($homeCoverageSection->map_image)
+                : null,
+            'items' => $homeCoverageSection->items->map(fn ($item) => [
+                'value' => $item->value,
+                'label' => $item->label,
+                'icon_url' => $item->icon ? Storage::disk('public')->url($item->icon) : null,
+                'order' => $item->order,
+            ])->values()->all(),
+        ] : null,
+        'homeNewsSection' => $homeNewsSection ? [
+            'badge_text' => $homeNewsSection->badge_text,
+            'title' => $homeNewsSection->title,
+            'description' => $homeNewsSection->description,
+            'cta_text' => $homeNewsSection->cta_text,
+            'cta_url' => $homeNewsSection->cta_url,
+            'items' => $homeNewsSection->items->map(fn ($item) => [
+                'title' => $item->title,
+                'image_url' => $item->image ? Storage::disk('public')->url($item->image) : null,
+                'link_url' => $item->link_url,
+                'order' => $item->order,
+            ])->values()->all(),
         ] : null,
     ]);
 })->name('home');

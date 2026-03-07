@@ -29,6 +29,22 @@ defineProps({
         type: Object,
         default: null,
     },
+    homeGallerySection: {
+        type: Object,
+        default: null,
+    },
+    homeImpactStoriesSection: {
+        type: Object,
+        default: null,
+    },
+    homeCoverageSection: {
+        type: Object,
+        default: null,
+    },
+    homeNewsSection: {
+        type: Object,
+        default: null,
+    },
 });
 </script>
 
@@ -38,10 +54,10 @@ defineProps({
         <HomeHero :slides="heroSlides" />
         <HomeStats :reach-section="homeReachSection ?? null" />
         <HomeAbout :about-section="homeAboutSection ?? null" />
-        <HomeGallery />
-        <HomeImpactStories />
-        <HomeCoverage />
-        <HomeNews />
+        <HomeGallery :gallery-section="homeGallerySection ?? null" />
+        <HomeImpactStories :stories-section="homeImpactStoriesSection ?? null" />
+        <HomeCoverage :coverage-section="homeCoverageSection ?? null" />
+        <HomeNews :news-section="homeNewsSection ?? null" />
         <HomeTestimonials />
         <HomePartners />
         <HomeSupport />

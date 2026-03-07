@@ -1,31 +1,41 @@
 <script setup>
-const coverageStats = [
-    {
-        icon: '/enssure/assets/icons/planned-events.svg',
-        value: '308',
-        label: 'Planned Events',
-    },
-    {
-        icon: '/enssure/assets/icons/completed-events.svg',
-        value: '35',
-        label: 'Completed Events',
-    },
-    {
-        icon: '/enssure/assets/icons/estimated-participants.svg',
-        value: '5529',
-        label: 'Estimated Participants',
-    },
-    {
-        icon: '/enssure/assets/icons/enrolled-participants.svg',
-        value: '1430',
-        label: 'Enrolled Participants',
-    },
-    {
-        icon: '/enssure/assets/icons/budgeted-amount.svg',
-        value: '16.35M',
-        label: 'Budgeted Amount (in Nrs.)',
-    },
+import { computed } from 'vue';
+
+const defaultStats = [
+    { icon_url: '/enssure/assets/icons/planned-events.svg', value: '308', label: 'Planned Events' },
+    { icon_url: '/enssure/assets/icons/completed-events.svg', value: '35', label: 'Completed Events' },
+    { icon_url: '/enssure/assets/icons/estimated-participants.svg', value: '5529', label: 'Estimated Participants' },
+    { icon_url: '/enssure/assets/icons/enrolled-participants.svg', value: '1430', label: 'Enrolled Participants' },
+    { icon_url: '/enssure/assets/icons/budgeted-amount.svg', value: '16.35M', label: 'Budgeted Amount (in Nrs.)' },
 ];
+
+const defaultBadge = 'Coverage';
+const defaultTitle = 'Reaching Across\nthe Nation';
+const defaultDescription = 'The ENSSURE project is implemented in all seven provinces and 33 local governments, bringing federalised TVET services directly to communities. Our coverage map illustrates the broad and strategic reach of our Dual-VET and apprenticeship initiatives.';
+const defaultMapImage = '/enssure/assets/nepal-map.svg';
+
+const props = defineProps({
+    coverageSection: {
+        type: Object,
+        default: null,
+    },
+});
+
+const badgeText = computed(() => props.coverageSection?.badge_text ?? defaultBadge);
+const title = computed(() => props.coverageSection?.title ?? defaultTitle);
+const description = computed(() => props.coverageSection?.description ?? defaultDescription);
+const mapImageUrl = computed(() => props.coverageSection?.map_image_url ?? defaultMapImage);
+const coverageStats = computed(() => {
+    const items = props.coverageSection?.items;
+    if (items && items.length > 0) {
+        return items.map((item) => ({
+            icon: item.icon_url,
+            value: item.value,
+            label: item.label,
+        }));
+    }
+    return defaultStats.map((s) => ({ icon: s.icon_url, value: s.value, label: s.label }));
+});
 </script>
 
 <template>
@@ -39,25 +49,21 @@ const coverageStats = [
                         <span
                             class="font-semibold text-[#B91C1C] uppercase tracking-wide"
                         >
-                            Coverage
+                            {{ badgeText }}
                         </span>
                     </div>
                     <h2
-                        class="text-[2.5rem] leading-tight tracking-tight text-[#101010] max-w-md mt-4"
+                        class="text-[2.5rem] leading-tight tracking-tight text-[#101010] max-w-md mt-4 whitespace-pre-line"
                     >
-                        Reaching Across
-                        <br class="hidden md:block" />
-                        the Nation
+                        {{ title }}
                     </h2>
                 </div>
                 <div class="md:w-4/6 mt-10">
-                    <p class="leading-relaxed text-gray-700">
-                        The ENSSURE project is implemented in all seven
-                        provinces and 33 local governments, bringing federalised
-                        TVET services directly to communities. Our coverage map
-                        illustrates the broad and strategic reach of our Dual-VET
-                        and apprenticeship initiatives.
-                    </p>
+                    <p
+                        v-if="description"
+                        class="leading-relaxed text-gray-700"
+                        v-html="description"
+                    />
                 </div>
             </div>
             <div class="md:flex">
@@ -71,6 +77,7 @@ const coverageStats = [
                             class="flex space-x-5"
                         >
                             <img
+                                v-if="stat.icon"
                                 :src="stat.icon"
                                 :alt="stat.label"
                                 class="w-10 h-10 object-contain flex-shrink-0"
@@ -88,7 +95,8 @@ const coverageStats = [
                 </div>
                 <div class="md:w-4/6 bg-white p-10 border rounded-xl">
                     <img
-                        src="/enssure/assets/nepal-map.svg"
+                        v-if="mapImageUrl"
+                        :src="mapImageUrl"
                         alt="Nepal Map"
                         class="w-full h-auto"
                     />

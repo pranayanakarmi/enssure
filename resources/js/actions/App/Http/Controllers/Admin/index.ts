@@ -33,8 +33,15 @@ import EventRegistrationController from './EventRegistrationController'
 import NewsletterController from './NewsletterController'
 import NewsTickerItemController from './NewsTickerItemController'
 import HomeAboutSectionController from './HomeAboutSectionController'
+import HomeImpactStoriesSectionController from './HomeImpactStoriesSectionController'
+import HomeGallerySectionController from './HomeGallerySectionController'
+import HomeGallerySectionItemController from './HomeGallerySectionItemController'
 import HomeReachSectionController from './HomeReachSectionController'
 import HomeReachItemController from './HomeReachItemController'
+import HomeCoverageSectionController from './HomeCoverageSectionController'
+import HomeCoverageSectionItemController from './HomeCoverageSectionItemController'
+import HomeNewsSectionController from './HomeNewsSectionController'
+import HomeNewsSectionItemController from './HomeNewsSectionItemController'
 import FaqController from './FaqController'
 import PublicationController from './PublicationController'
 import ContactController from './ContactController'
@@ -81,8 +88,15 @@ const Admin = {
     NewsletterController: Object.assign(NewsletterController, NewsletterController),
     NewsTickerItemController: Object.assign(NewsTickerItemController, NewsTickerItemController),
     HomeAboutSectionController: Object.assign(HomeAboutSectionController, HomeAboutSectionController),
+    HomeImpactStoriesSectionController: Object.assign(HomeImpactStoriesSectionController, HomeImpactStoriesSectionController),
+    HomeGallerySectionController: Object.assign(HomeGallerySectionController, HomeGallerySectionController),
+    HomeGallerySectionItemController: Object.assign(HomeGallerySectionItemController, HomeGallerySectionItemController),
     HomeReachSectionController: Object.assign(HomeReachSectionController, HomeReachSectionController),
     HomeReachItemController: Object.assign(HomeReachItemController, HomeReachItemController),
+    HomeCoverageSectionController: Object.assign(HomeCoverageSectionController, HomeCoverageSectionController),
+    HomeCoverageSectionItemController: Object.assign(HomeCoverageSectionItemController, HomeCoverageSectionItemController),
+    HomeNewsSectionController: Object.assign(HomeNewsSectionController, HomeNewsSectionController),
+    HomeNewsSectionItemController: Object.assign(HomeNewsSectionItemController, HomeNewsSectionItemController),
     FaqController: Object.assign(FaqController, FaqController),
     PublicationController: Object.assign(PublicationController, PublicationController),
     ContactController: Object.assign(ContactController, ContactController),

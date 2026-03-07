@@ -1,23 +1,44 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
 import { ArrowRight } from 'lucide-vue-next';
+import { computed } from 'vue';
 
-const items = [
-    {
-        image: '/enssure/assets/8e0e987593b1e142069ba13aa37750b56e49a006.png',
-        title:
-            'CSOs role to amendment of National Park and Wildlife',
-    },
-    {
-        image: '/enssure/assets/530b3c7fab16f35ace8e5b37fe032e81e91f105d.png',
-        title:
-            'Policy Discussion with federal level parliament members to facilitate ..',
-    },
-    {
-        image: '/enssure/assets/1726bf5eb39711a9e1c2d453bcd551a0f21e7f2b.png',
-        title:
-            'High Level Policy Discussion on Right to Food and Food Sovereignty Issues',
-    },
+const defaultItems = [
+    { image: '/enssure/assets/8e0e987593b1e142069ba13aa37750b56e49a006.png', title: 'CSOs role to amendment of National Park and Wildlife', link_url: '#' },
+    { image: '/enssure/assets/530b3c7fab16f35ace8e5b37fe032e81e91f105d.png', title: 'Policy Discussion with federal level parliament members to facilitate ..', link_url: '#' },
+    { image: '/enssure/assets/1726bf5eb39711a9e1c2d453bcd551a0f21e7f2b.png', title: 'High Level Policy Discussion on Right to Food and Food Sovereignty Issues', link_url: '#' },
 ];
+
+const defaultBadge = 'Updates';
+const defaultTitle = 'Latest News\nand Articles';
+const defaultDescription = 'Keeping you informed on the latest developments and insights from the world of skills and employment in Nepal. Our articles dive into trends, success stories, and analysis of the evolving TVET sector.';
+const defaultCtaText = 'View all News';
+const defaultCtaUrl = '#';
+const placeholderImage = '/enssure/assets/8e0e987593b1e142069ba13aa37750b56e49a006.png';
+
+const props = defineProps({
+    newsSection: {
+        type: Object,
+        default: null,
+    },
+});
+
+const badgeText = computed(() => props.newsSection?.badge_text ?? defaultBadge);
+const title = computed(() => props.newsSection?.title ?? defaultTitle);
+const description = computed(() => props.newsSection?.description ?? defaultDescription);
+const ctaText = computed(() => props.newsSection?.cta_text ?? defaultCtaText);
+const ctaUrl = computed(() => props.newsSection?.cta_url ?? defaultCtaUrl);
+const items = computed(() => {
+    const sectionItems = props.newsSection?.items;
+    if (sectionItems && sectionItems.length > 0) {
+        return sectionItems.map((item) => ({
+            image: item.image_url || placeholderImage,
+            title: item.title,
+            link_url: item.link_url || '#',
+        }));
+    }
+    return defaultItems;
+});
 </script>
 
 <template>
@@ -31,23 +52,21 @@ const items = [
                         <span
                             class="font-semibold text-[#B91C1C] uppercase tracking-wide"
                         >
-                            Updates
+                            {{ badgeText }}
                         </span>
                     </div>
                     <h2
-                        class="text-[2.5rem] leading-tight tracking-tight text-[#101010] max-w-md mt-4"
+                        class="text-[2.5rem] leading-tight tracking-tight text-[#101010] max-w-md mt-4 whitespace-pre-line"
                     >
-                        Latest News
-                        <br class="hidden md:block" />
-                        and Articles
+                        {{ title }}
                     </h2>
                 </div>
                 <div class="md:w-4/6 mt-10">
-                    <p class="leading-relaxed text-gray-700">
-                        Keeping you informed on the latest developments and
-                        insights from the world of skills and employment in
-                        Nepal. Our articles dive into trends, success stories, and
-                        analysis of the evolving TVET sector.
+                    <p
+                        v-if="description"
+                        class="leading-relaxed text-gray-700"
+                    >
+                        {{ description }}
                     </p>
                 </div>
             </div>
@@ -62,7 +81,7 @@ const items = [
                     >
                         <img
                             :src="item.image"
-                            :alt="item.title"
+                            :alt="item.title || 'News'"
                             class="w-full h-full object-cover transition-transform group-hover:scale-105"
                             loading="lazy"
                         />
@@ -72,19 +91,22 @@ const items = [
                     >
                         {{ item.title }}
                     </h3>
-                    <a
-                        href="#"
+                    <Link
+                        :href="item.link_url"
                         class="inline-flex items-center gap-2 hover:text-[#B91C1C] text-black uppercase font-medium hover:gap-3 transition-all"
                     >
                         Read more
                         <ArrowRight class="w-4 h-4 text-[#B91C1C]" />
-                    </a>
+                    </Link>
                 </div>
             </div>
             <div class="flex justify-center">
-                <button type="button" class="primary-button-outline">
-                    View all News
-                </button>
+                <Link
+                    :href="ctaUrl"
+                    class="primary-button-outline"
+                >
+                    {{ ctaText }}
+                </Link>
             </div>
         </div>
     </section>

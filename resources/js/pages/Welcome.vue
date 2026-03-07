@@ -20,6 +20,22 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    homeGallerySection: {
+        type: Object,
+        default: null,
+    },
+    homeImpactStoriesSection: {
+        type: Object,
+        default: null,
+    },
+    homeCoverageSection: {
+        type: Object,
+        default: null,
+    },
+    homeNewsSection: {
+        type: Object,
+        default: null,
+    },
 });
 
 const page = usePage();
@@ -45,6 +61,10 @@ const newsTickerItems = page.props.newsTickerItems ?? [];
             :hero-slides="props.heroSlides ?? []"
             :home-reach-section="props.homeReachSection ?? null"
             :home-about-section="props.homeAboutSection ?? null"
+            :home-gallery-section="props.homeGallerySection ?? null"
+            :home-impact-stories-section="props.homeImpactStoriesSection ?? null"
+            :home-coverage-section="props.homeCoverageSection ?? null"
+            :home-news-section="props.homeNewsSection ?? null"
         />
     </GuestLayout>
 </template>

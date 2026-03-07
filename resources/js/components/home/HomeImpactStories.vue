@@ -1,18 +1,31 @@
 <script setup>
-const stories = [
-    {
-        image: '/enssure/assets/26a1e1d6ccdd9ce509da2ca75dc396974ab704c3.png',
-        title: 'Story of Engineer from a remote village',
-    },
-    {
-        image: '/enssure/assets/798478c0a856a8c9d2aeaff042d88bd9cbd9ec48.png',
-        title: 'Deciding for Oneself',
-    },
-    {
-        image: '/enssure/assets/4d59531f356722983d87a35c20c0354f2ffa1ce3.png',
-        title: 'Plumbing the right way',
-    },
+import { Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
+
+const fallbackBadge = 'Impact Stories';
+const fallbackTitle = 'Transforming Skills,\nChanging Lives';
+const fallbackDescription = 'See how practical apprenticeship training turns potential into progress. Each story highlights a journey of personal growth, showcasing the real-world benefits of a federalized and employer-responsive TVET system.';
+const fallbackCtaText = 'View all stories';
+const fallbackCtaUrl = '#';
+const fallbackStories = [
+    { image: '/enssure/assets/26a1e1d6ccdd9ce509da2ca75dc396974ab704c3.png', title: 'Story of Engineer from a remote village' },
+    { image: '/enssure/assets/798478c0a856a8c9d2aeaff042d88bd9cbd9ec48.png', title: 'Deciding for Oneself' },
+    { image: '/enssure/assets/4d59531f356722983d87a35c20c0354f2ffa1ce3.png', title: 'Plumbing the right way' },
 ];
+
+const props = defineProps({
+    storiesSection: {
+        type: Object,
+        default: null,
+    },
+});
+
+const badgeText = computed(() => props.storiesSection?.badge_text ?? fallbackBadge);
+const title = computed(() => props.storiesSection?.title ?? fallbackTitle);
+const description = computed(() => props.storiesSection?.description ?? fallbackDescription);
+const ctaText = computed(() => props.storiesSection?.cta_text ?? fallbackCtaText);
+const ctaUrl = computed(() => props.storiesSection?.cta_url ?? fallbackCtaUrl);
+const stories = computed(() => fallbackStories);
 </script>
 
 <template>
@@ -29,23 +42,21 @@ const stories = [
                         <span
                             class="font-semibold text-[#B91C1C] uppercase tracking-wide"
                         >
-                            Impact Stories
+                            {{ badgeText }}
                         </span>
                     </div>
                     <h2
                         class="text-[2.5rem] leading-tight tracking-tight text-[#101010] max-w-md mt-4"
                     >
-                        Transforming Skills,
-                        <br class="hidden md:block" />
-                        Changing Lives
+                        <span v-html="title.replace(/\n/g, '<br />')" />
                     </h2>
                 </div>
                 <div class="md:w-4/6 mt-10">
-                    <p class="leading-relaxed text-gray-700">
-                        See how practical apprenticeship training turns
-                        potential into progress. Each story highlights a journey
-                        of personal growth, showcasing the real-world benefits
-                        of a federalized and employer-responsive TVET system.
+                    <p
+                        v-if="description"
+                        class="leading-relaxed text-gray-700"
+                    >
+                        {{ description }}
                     </p>
                 </div>
             </div>
@@ -79,10 +90,16 @@ const stories = [
                     </div>
                 </div>
             </div>
-            <div class="flex justify-center">
-                <button type="button" class="primary-button-outline">
-                    View all stories
-                </button>
+            <div
+                v-if="ctaText"
+                class="flex justify-center"
+            >
+                <Link
+                    :href="ctaUrl"
+                    class="primary-button-outline"
+                >
+                    {{ ctaText }}
+                </Link>
             </div>
         </div>
     </section>
