@@ -186,6 +186,15 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('about', fn () => Inertia::render('About'))->name('about');
+Route::get('notices', fn () => Inertia::render('Archive'))->name('notices.index');
+Route::get('notices/single-archive', fn () => Inertia::render('SingleArchive'))->name('notices.single');
+Route::get('contact', fn () => Inertia::render('Contact'))->name('contact');
+Route::get('gallery', fn () => Inertia::render('Gallery'))->name('gallery');
+Route::get('impact-stories', fn () => Inertia::render('ImpactStories'))->name('impact-stories');
+Route::get('team', fn () => Inertia::render('Team'))->name('team');
+Route::get('vacancy', fn () => Inertia::render('Vacancy'))->name('vacancy');
+
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

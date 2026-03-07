@@ -1,5 +1,5 @@
 <script setup>
-import { Head, usePage } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 import Home from '@/pages/Home.vue';
 
@@ -62,8 +62,6 @@ const props = defineProps({
     },
 });
 
-const page = usePage();
-const newsTickerItems = page.props.newsTickerItems ?? [];
 </script>
 
 <template>
@@ -81,7 +79,6 @@ const newsTickerItems = page.props.newsTickerItems ?? [];
     </Head>
     <GuestLayout>
         <Home
-            :news-ticker-items="newsTickerItems"
             :hero-slides="props.heroSlides ?? []"
             :home-reach-section="props.homeReachSection ?? null"
             :home-about-section="props.homeAboutSection ?? null"

@@ -77,7 +77,6 @@ class HandleInertiaRequests extends Middleware
                 ] : null;
             },
             'newsTickerItems' => NewsTickerItem::published()->orderBy('order')->limit(20)->get(['id', 'title', 'url'])->toArray(),
-            'newsTickerItems' => NewsTickerItem::published()->orderBy('order')->limit(20)->get(['id', 'title', 'url'])->toArray(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
                 'success' => $request->session()->get('success'),

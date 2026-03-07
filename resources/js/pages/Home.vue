@@ -1,5 +1,4 @@
 <script setup>
-import HomeNewsTicker from '@/components/home/HomeNewsTicker.vue';
 import HomeHero from '@/components/home/HomeHero.vue';
 import HomeStats from '@/components/home/HomeStats.vue';
 import HomeAbout from '@/components/home/HomeAbout.vue';
@@ -13,10 +12,6 @@ import HomeSupport from '@/components/home/HomeSupport.vue';
 import HomeContactCta from '@/components/home/HomeContactCta.vue';
 
 defineProps({
-    newsTickerItems: {
-        type: Array,
-        default: () => [],
-    },
     heroSlides: {
         type: Array,
         default: () => [],
@@ -74,7 +69,6 @@ defineProps({
 
 <template>
     <div class="enssure-home">
-        <HomeNewsTicker :items="newsTickerItems" />
         <HomeHero :slides="heroSlides" />
         <HomeStats :reach-section="homeReachSection ?? null" />
         <HomeAbout :about-section="homeAboutSection ?? null" />

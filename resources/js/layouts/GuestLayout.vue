@@ -1,8 +1,13 @@
 <script setup>
-import TopBar from '@/components/guest/TopBar.vue';
+import { usePage } from '@inertiajs/vue3';
+import Footer from '@/components/guest/Footer.vue';
 import Logos from '@/components/guest/Logos.vue';
 import Navbar from '@/components/guest/Navbar.vue';
-import Footer from '@/components/guest/Footer.vue';
+import TopBar from '@/components/guest/TopBar.vue';
+import HomeNewsTicker from '@/components/home/HomeNewsTicker.vue';
+
+const page = usePage();
+const newsTickerItems = page.props.newsTickerItems ?? [];
 </script>
 
 <template>
@@ -12,6 +17,7 @@ import Footer from '@/components/guest/Footer.vue';
         <TopBar />
         <Logos />
         <Navbar />
+        <HomeNewsTicker :items="newsTickerItems" />
         <main>
             <slot />
         </main>
