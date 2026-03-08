@@ -22,9 +22,9 @@ class HomeNewsSectionSeeder extends Seeder
         ]);
 
         $items = [
-            ['title' => 'CSOs role to amendment of National Park and Wildlife', 'link_url' => '#', 'order' => 0],
-            ['title' => 'Policy Discussion with federal level parliament members to facilitate ..', 'link_url' => '#', 'order' => 1],
-            ['title' => 'High Level Policy Discussion on Right to Food and Food Sovereignty Issues', 'link_url' => '#', 'order' => 2],
+            ['title' => 'CSOs role to amendment of National Park and Wildlife', 'link_url' => '#', 'order' => 1],
+            ['title' => 'Policy Discussion with federal level parliament members to facilitate ..', 'link_url' => '#', 'order' => 2],
+            ['title' => 'High Level Policy Discussion on Right to Food and Food Sovereignty Issues', 'link_url' => '#', 'order' => 3],
         ];
 
         foreach ($items as $item) {

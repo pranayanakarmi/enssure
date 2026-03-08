@@ -24,6 +24,16 @@ class DatabaseSeeder extends Seeder
             HomeReachItemSeeder::class,
             HomeCoverageSectionSeeder::class,
             HomeNewsSectionSeeder::class,
+            HomeTestimonialsSectionSeeder::class,
+            HomePartnersSectionSeeder::class,
+            HomeSupportSectionSeeder::class,
+            HomeContactCtaSectionSeeder::class,
+            SliderSeeder::class,
+            PartnerSeeder::class,
+            TestimonialSeeder::class,
+            HomeGallerySectionItemSeeder::class,
+            NewsTickerItemSeeder::class,
+            MenuSeeder::class,
             FooterSeeder::class,
         ]);
 
