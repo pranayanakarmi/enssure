@@ -62,12 +62,23 @@ const breadcrumbItems = [
                                 :key="s.id"
                                 class="flex flex-wrap items-center justify-between gap-4 px-6 py-4"
                             >
-                                <div class="min-w-0 flex-1">
+                                <div class="flex min-w-0 flex-1 items-center gap-4">
+                                    <div class="h-12 w-16 shrink-0 overflow-hidden rounded-md bg-muted">
+                                        <img
+                                            v-if="s.image_url"
+                                            :src="s.image_url"
+                                            :alt="s.title"
+                                            class="h-full w-full object-cover"
+                                        />
+                                        <div
+                                            v-else
+                                            class="flex h-full w-full items-center justify-center text-xs text-muted-foreground"
+                                        >
+                                            —
+                                        </div>
+                                    </div>
                                     <p class="truncate font-medium text-foreground">
                                         {{ s.title }}
-                                    </p>
-                                    <p class="truncate text-sm text-muted-foreground">
-                                        {{ s.person_name || '—' }}
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">

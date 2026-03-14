@@ -1,8 +1,11 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
+import { Trash2 } from 'lucide-vue-next';
+import { ref, computed, onBeforeUnmount } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import RichTextEditor from '@/components/RichTextEditor.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,13 +21,52 @@ const props = defineProps({
 const form = useForm({
     title: props.notice.title ?? '',
     slug: props.notice.slug ?? '',
-    notice_type: props.notice.notice_type ?? '',
     content: props.notice.content ?? '',
+    image: null,
+    remove_image: false,
     attachment: props.notice.attachment ?? '',
-    deadline_date: props.notice.deadline_date ?? '',
     is_featured: props.notice.is_featured ?? false,
-    published_at: props.notice.published_at ? props.notice.published_at.slice(0, 10) : '',
 });
+
+const imagePreviewUrl = ref(null);
+
+function onImageChange(event) {
+    if (imagePreviewUrl.value) {
+        URL.revokeObjectURL(imagePreviewUrl.value);
+        imagePreviewUrl.value = null;
+    }
+    const file = event.target.files?.[0] || null;
+    form.image = file;
+    form.remove_image = false;
+    if (file) {
+        imagePreviewUrl.value = URL.createObjectURL(file);
+    }
+}
+
+onBeforeUnmount(() => {
+    if (imagePreviewUrl.value) {
+        URL.revokeObjectURL(imagePreviewUrl.value);
+    }
+});
+
+const imageDisplayUrl = computed(() => {
+    if (form.remove_image) return null;
+    return imagePreviewUrl.value ?? props.notice.image_url;
+});
+
+const removeImageInputRef = ref(null);
+
+function removeImage() {
+    form.remove_image = true;
+    form.image = null;
+    if (imagePreviewUrl.value) {
+        URL.revokeObjectURL(imagePreviewUrl.value);
+        imagePreviewUrl.value = null;
+    }
+    if (removeImageInputRef.value) {
+        removeImageInputRef.value.value = '';
+    }
+}
 
 const breadcrumbItems = [
     { title: 'Notices', href: '/admin/notices' },
@@ -46,7 +88,7 @@ const breadcrumbItems = [
 
                 <form
                     class="space-y-6"
-                    @submit.prevent="form.put(`/admin/notices/${notice.id}`)"
+                    @submit.prevent="form.put(`/admin/notices/${notice.id}`, { forceFormData: true })"
                 >
                     <div class="grid gap-2">
                         <Label for="title">Title</Label>
@@ -68,32 +110,50 @@ const breadcrumbItems = [
                         <InputError :message="form.errors.slug" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="notice_type">Type</Label>
-                        <Input
-                            id="notice_type"
-                            v-model="form.notice_type"
-                            type="text"
-                        />
-                        <InputError :message="form.errors.notice_type" />
+                        <Label for="image">Featured image</Label>
+                        <div
+                            v-if="imageDisplayUrl"
+                            class="mb-3 flex flex-wrap items-start gap-4 rounded-md border border-sidebar-border bg-muted/30 p-4"
+                        >
+                            <img
+                                :src="imageDisplayUrl"
+                                alt="Preview"
+                                class="h-32 w-40 shrink-0 rounded border object-cover"
+                            />
+                            <div class="flex min-w-0 flex-1 flex-col gap-3">
+                                <p class="text-xs text-muted-foreground">
+                                    Current or chosen image. Select a new file to replace, or remove it.
+                                </p>
+                                <button
+                                    type="button"
+                                    class="inline-flex w-fit shrink-0 items-center justify-center gap-1.5 rounded-md bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                                    @click="removeImage"
+                                >
+                                    <Trash2 class="size-3.5" />
+                                    Remove image
+                                </button>
+                            </div>
+                        </div>
+                        <div class="max-w-md">
+                            <input
+                                ref="removeImageInputRef"
+                                id="image"
+                                type="file"
+                                accept="image/*"
+                                class="block w-full cursor-pointer rounded-md border border-input bg-background px-3 py-2 text-sm file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-foreground hover:file:bg-primary/90"
+                                @change="onImageChange"
+                            />
+                        </div>
+                        <InputError :message="form.errors.image" />
                     </div>
                     <div class="grid gap-2">
                         <Label for="content">Content</Label>
-                        <textarea
+                        <RichTextEditor
                             id="content"
                             v-model="form.content"
-                            rows="4"
-                            class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                            placeholder="Enter notice content..."
                         />
                         <InputError :message="form.errors.content" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="deadline_date">Deadline</Label>
-                        <Input
-                            id="deadline_date"
-                            v-model="form.deadline_date"
-                            type="date"
-                        />
-                        <InputError :message="form.errors.deadline_date" />
                     </div>
                     <div class="flex items-center gap-2">
                         <input

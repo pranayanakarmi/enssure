@@ -4,14 +4,18 @@ import { ArrowRight } from 'lucide-vue-next';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 import PageHero from '@/components/guest/PageHero.vue';
 
-const notices = [
-    { image: '/enssure/assets/8e0e987593b1e142069ba13aa37750b56e49a006.png', title: 'CSOs role to amendment of National Park and Wildlife', alt: 'CSOs role to amendment of National Park and Wildlife' },
-    { image: '/enssure/assets/530b3c7fab16f35ace8e5b37fe032e81e91f105d.png', title: 'Policy Discussion with federal level parliament members to facilitate ..', alt: 'Policy Discussion' },
-    { image: '/enssure/assets/1726bf5eb39711a9e1c2d453bcd551a0f21e7f2b.png', title: 'High Level Policy Discussion on Right to Food and Food Sovereignty Issues', alt: 'High Level Policy Discussion' },
-    { image: '/enssure/assets/8e0e987593b1e142069ba13aa37750b56e49a006.png', title: 'CSOs role to amendment of National Park and Wildlife', alt: 'CSOs role to amendment of National Park and Wildlife' },
-    { image: '/enssure/assets/530b3c7fab16f35ace8e5b37fe032e81e91f105d.png', title: 'Policy Discussion with federal level parliament members to facilitate ..', alt: 'Policy Discussion' },
-    { image: '/enssure/assets/1726bf5eb39711a9e1c2d453bcd551a0f21e7f2b.png', title: 'High Level Policy Discussion on Right to Food and Food Sovereignty Issues', alt: 'High Level Policy Discussion' },
-];
+const props = defineProps({
+    notices: {
+        type: Array,
+        default: () => [],
+    },
+});
+
+const defaultImage = '/enssure/assets/8e0e987593b1e142069ba13aa37750b56e49a006.png';
+
+function noticeImageUrl(notice) {
+    return notice.image_url ?? defaultImage;
+}
 
 const partnerLogos = [
     '/enssure/assets/ac6be776c5bec31df9cf5f1bed529200ddb74c1a.png',
@@ -31,15 +35,15 @@ const partnerLogos = [
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                     <Link
-                        v-for="(notice, i) in notices"
-                        :key="i"
-                        href="/notices/single-archive"
+                        v-for="notice in notices"
+                        :key="notice.id"
+                        :href="`/notices/${notice.slug}`"
                         class="group cursor-pointer block"
                     >
                         <div class="relative rounded-[30px] overflow-hidden mb-6 aspect-[367/302]">
                             <img
-                                :src="notice.image"
-                                :alt="notice.alt"
+                                :src="noticeImageUrl(notice)"
+                                :alt="notice.title"
                                 class="w-full h-full object-cover transition-transform group-hover:scale-105"
                             />
                         </div>
@@ -51,6 +55,12 @@ const partnerLogos = [
                             <ArrowRight class="w-4 h-4 text-[#B91C1C]" />
                         </span>
                     </Link>
+                    <p
+                        v-if="!notices || notices.length === 0"
+                        class="col-span-full text-center text-gray-500 py-12"
+                    >
+                        No notices yet.
+                    </p>
                 </div>
             </div>
         </section>

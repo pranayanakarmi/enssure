@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\AboutContentSection;
+use App\Models\AboutMainSection;
+use App\Models\AboutPageHero;
 use App\Models\HomeAboutSection;
 use App\Models\HomeContactCtaSection;
 use App\Models\HomeCoverageSection;
@@ -10,6 +13,10 @@ use App\Models\HomePartnersSection;
 use App\Models\HomeReachSection;
 use App\Models\HomeSupportSection;
 use App\Models\HomeTestimonialsSection;
+use App\Models\ImpactPageHero;
+use App\Models\ImpactPageSection;
+use App\Models\ImpactStory;
+use App\Models\Notice;
 use App\Models\Partner;
 use App\Models\Slider;
 use App\Models\Testimonial;
@@ -186,12 +193,147 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('about', fn () => Inertia::render('About'))->name('about');
-Route::get('notices', fn () => Inertia::render('Archive'))->name('notices.index');
-Route::get('notices/single-archive', fn () => Inertia::render('SingleArchive'))->name('notices.single');
+Route::get('about', function () {
+    $hero = AboutPageHero::first();
+    $mainSection = AboutMainSection::first();
+    $contentSection = AboutContentSection::first();
+
+    return Inertia::render('About', [
+        'aboutPageHero' => $hero ? [
+            'title' => $hero->title,
+            'hero_image_url' => $hero->hero_image
+                ? Storage::disk('public')->url($hero->hero_image)
+                : null,
+        ] : null,
+        'aboutMainSection' => $mainSection ? [
+            'title' => $mainSection->title,
+            'body' => $mainSection->body
+                ? strip_tags($mainSection->body, '<p><br><strong><em><u><a><ul><ol><li><h2><h3>')
+                : null,
+            'card_title' => $mainSection->card_title,
+            'content_image_url' => $mainSection->content_image
+                ? Storage::disk('public')->url($mainSection->content_image)
+                : null,
+            'background_image_url' => $mainSection->background_image
+                ? Storage::disk('public')->url($mainSection->background_image)
+                : null,
+            'cta_text' => $mainSection->cta_text,
+            'cta_url' => $mainSection->cta_url,
+        ] : null,
+        'aboutContentSection' => $contentSection ? [
+            'paragraph_1' => $contentSection->paragraph_1,
+            'paragraph_2' => $contentSection->paragraph_2,
+        ] : null,
+    ]);
+})->name('about');
+Route::get('notices', function () {
+    $notices = Notice::query()
+        ->orderByDesc('created_at')
+        ->get()
+        ->map(fn (Notice $n) => [
+            'id' => $n->id,
+            'title' => $n->title,
+            'slug' => $n->slug,
+            'image_url' => $n->image ? Storage::disk('public')->url($n->image) : null,
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('Archive', [
+        'notices' => $notices,
+    ]);
+})->name('notices.index');
+Route::get('notices/{notice:slug}', function (Notice $notice) {
+    $notice->load([]);
+
+    return Inertia::render('SingleArchive', [
+        'notice' => [
+            'id' => $notice->id,
+            'title' => $notice->title,
+            'slug' => $notice->slug,
+            'updated_at' => $notice->updated_at?->toISOString(),
+            'share_url' => url()->route('notices.show', ['notice' => $notice->slug]),
+            'content' => $notice->content
+                ? strip_tags($notice->content, '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>')
+                : null,
+            'image_url' => $notice->image ? Storage::disk('public')->url($notice->image) : null,
+        ],
+        'relatedNotices' => Notice::query()
+            ->where('id', '!=', $notice->id)
+            ->orderByDesc('created_at')
+            ->limit(3)
+            ->get()
+            ->map(fn (Notice $n) => [
+                'id' => $n->id,
+                'title' => $n->title,
+                'slug' => $n->slug,
+                'image_url' => $n->image ? Storage::disk('public')->url($n->image) : null,
+            ])
+            ->values()
+            ->all(),
+    ]);
+})->name('notices.show');
+Route::get('impact-stories', function () {
+    $hero = ImpactPageHero::first();
+    $section = ImpactPageSection::first();
+    $stories = ImpactStory::query()
+        ->orderByDesc('created_at')
+        ->get()
+        ->map(fn (ImpactStory $s) => [
+            'id' => $s->id,
+            'title' => $s->title,
+            'slug' => $s->slug,
+            'image_url' => $s->image ? Storage::disk('public')->url($s->image) : null,
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('ImpactStories', [
+        'impactPageHero' => $hero ? [
+            'title' => $hero->title,
+            'hero_image_url' => $hero->hero_image
+                ? Storage::disk('public')->url($hero->hero_image)
+                : null,
+        ] : null,
+        'impactPageSection' => $section ? [
+            'title' => $section->title,
+            'description' => $section->description,
+        ] : null,
+        'impactStories' => $stories,
+    ]);
+})->name('impact-stories');
+Route::get('impact-stories/{impact_story:slug}', function (ImpactStory $impact_story) {
+    $impact_story->load([]);
+
+    return Inertia::render('SingleImpactStories', [
+        'impactStory' => [
+            'id' => $impact_story->id,
+            'title' => $impact_story->title,
+            'slug' => $impact_story->slug,
+            'updated_at' => $impact_story->updated_at?->toISOString(),
+            'share_url' => url()->route('impact-stories.show', ['impact_story' => $impact_story->slug]),
+            'story' => $impact_story->story
+                ? strip_tags($impact_story->story, '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>')
+                : null,
+            'image_url' => $impact_story->image ? Storage::disk('public')->url($impact_story->image) : null,
+        ],
+        'relatedStories' => ImpactStory::query()
+            ->where('id', '!=', $impact_story->id)
+            ->orderByDesc('created_at')
+            ->limit(3)
+            ->get()
+            ->map(fn (ImpactStory $s) => [
+                'id' => $s->id,
+                'title' => $s->title,
+                'slug' => $s->slug,
+                'image_url' => $s->image ? Storage::disk('public')->url($s->image) : null,
+            ])
+            ->values()
+            ->all(),
+    ]);
+})->name('impact-stories.show');
 Route::get('contact', fn () => Inertia::render('Contact'))->name('contact');
 Route::get('gallery', fn () => Inertia::render('Gallery'))->name('gallery');
-Route::get('impact-stories', fn () => Inertia::render('ImpactStories'))->name('impact-stories');
 Route::get('team', fn () => Inertia::render('Team'))->name('team');
 Route::get('vacancy', fn () => Inertia::render('Vacancy'))->name('vacancy');
 

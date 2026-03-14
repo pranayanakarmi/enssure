@@ -1,13 +1,49 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import { ArrowRight, Calendar, Share2 } from 'lucide-vue-next';
+import { computed } from 'vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 
-const relatedNews = [
-    { image: '/enssure/assets/8e0e987593b1e142069ba13aa37750b56e49a006.png', title: 'CSOs role to amendment of National Park and Wildlife', alt: 'CSOs role to amendment of National Park and Wildlife' },
-    { image: '/enssure/assets/530b3c7fab16f35ace8e5b37fe032e81e91f105d.png', title: 'Policy Discussion with federal level parliament members to facilitate ..', alt: 'Policy Discussion' },
-    { image: '/enssure/assets/1726bf5eb39711a9e1c2d453bcd551a0f21e7f2b.png', title: 'High Level Policy Discussion on Right to Food and Food Sovereignty Issues', alt: 'High Level Policy Discussion' },
-];
+const props = defineProps({
+    notice: {
+        type: Object,
+        required: true,
+    },
+    relatedNotices: {
+        type: Array,
+        default: () => [],
+    },
+});
+
+const formattedDate = computed(() => {
+    if (!props.notice.updated_at) return null;
+    const d = new Date(props.notice.updated_at);
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase();
+});
+
+const shareUrl = computed(() => props.notice.share_url || (typeof window !== 'undefined' ? window.location.href : ''));
+
+const socialLinks = computed(() => {
+    const url = encodeURIComponent(shareUrl.value);
+    const title = encodeURIComponent(props.notice.title ?? '');
+    return [
+        { name: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${url}`, icon: 'F', bgClass: 'bg-[#1877F2]' },
+        { name: 'X', url: `https://twitter.com/intent/tweet?url=${url}&text=${title}`, icon: 'X', bgClass: 'bg-[#1DA1F2]' },
+        { name: 'LinkedIn', url: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`, icon: 'in', bgClass: 'bg-[#0A66C2]' },
+        { name: 'Pinterest', url: `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`, icon: 'P', bgClass: 'bg-[#E60023]' },
+    ];
+});
+
+async function copyShareLink() {
+    try {
+        await navigator.clipboard.writeText(shareUrl.value);
+    } catch {
+        // fallback ignored
+    }
+}
+
+const defaultImage = '/enssure/assets/archive-detail-image.png';
+const noticeImageUrl = computed(() => props.notice.image_url ?? defaultImage);
 
 const partnerLogos = [
     '/enssure/assets/ac6be776c5bec31df9cf5f1bed529200ddb74c1a.png',
@@ -15,35 +51,51 @@ const partnerLogos = [
     '/enssure/assets/ebbe48ec5c80c20d972673da35584cdc422ccc68.png',
     '/enssure/assets/d7c2ac1e901bc7bac7279f1006a3053183752132.png',
 ];
+
+function relatedNoticeImage(n) {
+    return n.image_url ?? '/enssure/assets/8e0e987593b1e142069ba13aa37750b56e49a006.png';
+}
 </script>
 
 <template>
     <GuestLayout>
-        <Head title="News Detail - ENSSURE" />
+        <Head :title="`${notice.title} - Notices - ENSSURE`" />
 
         <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <article>
                     <header class="text-center mb-8">
                         <h1 class="text-[2.5rem] leading-tight tracking-tight text-[#101010]">
-                            Helvetas and CTEVT Convene National Dialogue on
-                            <br class="hidden md:block" />
-                            Sustainable Skills Funding Models
+                            {{ notice.title }}
                         </h1>
-                        <div class="flex justify-center items-center gap-4 text-sm text-gray-500 uppercase tracking-wide mt-4">
+                        <div
+                            v-if="formattedDate"
+                            class="flex flex-wrap justify-center items-center gap-4 text-sm text-gray-500 uppercase tracking-wide mt-4"
+                        >
                             <div class="flex items-center gap-2">
-                                <Calendar class="w-4 h-4 text-gray-300" />
-                                <span class="font-bold">3 July 2026</span>
+                                <Calendar class="w-4 h-4 text-gray-400" />
+                                <span class="font-bold">{{ formattedDate }}</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <Share2 class="w-4 h-4" />
-                                <div class="flex gap-2">
-                                    <a href="#" class="w-8 h-8 rounded-full bg-[#3b5998] text-white flex items-center justify-center hover:opacity-80 transition" aria-label="Share on Facebook">f</a>
-                                    <a href="#" class="w-8 h-8 rounded-full bg-[#1da1f2] text-white flex items-center justify-center hover:opacity-80 transition" aria-label="Share on Twitter">𝕏</a>
-                                    <a href="#" class="w-8 h-8 rounded-full bg-[#0077b5] text-white flex items-center justify-center hover:opacity-80 transition" aria-label="Share on LinkedIn">in</a>
-                                    <a href="#" class="w-8 h-8 rounded-full bg-[#bd081c] text-white flex items-center justify-center hover:opacity-80 transition" aria-label="Share on Pinterest">P</a>
-                                    <a href="#" class="w-8 h-8 rounded-full bg-[#00acee] text-white flex items-center justify-center hover:opacity-80 transition" aria-label="Copy link">⎘</a>
-                                </div>
+                                <button
+                                    type="button"
+                                    class="flex items-center justify-center w-8 h-8 rounded-full bg-[#06B6D4] text-white hover:opacity-90 transition-opacity"
+                                    title="Copy link"
+                                    @click="copyShareLink"
+                                >
+                                    <Share2 class="w-4 h-4" />
+                                </button>
+                                <a
+                                    v-for="social in socialLinks"
+                                    :key="social.name"
+                                    :href="social.url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    :title="`Share on ${social.name}`"
+                                    :class="['flex items-center justify-center w-8 h-8 rounded-full text-white hover:opacity-90 transition-opacity text-xs font-bold', social.bgClass]"
+                                >
+                                    {{ social.icon }}
+                                </a>
                             </div>
                         </div>
                     </header>
@@ -51,55 +103,46 @@ const partnerLogos = [
                     <div class="mb-10">
                         <div class="rounded-3xl overflow-hidden border shadow-sm">
                             <img
-                                src="/enssure/assets/archive-detail-image.png"
-                                alt="Students working on electronics"
+                                :src="noticeImageUrl"
+                                :alt="notice.title"
                                 class="w-full h-auto object-cover"
                             />
                         </div>
                     </div>
 
-                    <div class="text-xl leading-relaxed text-gray-900">
-                        <p class="font-semibold text-gray-900">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ullamcorper tincidunt metus pharetra vehicula. Duis quis odio ut justo commodo facilisis vitae dictum lorem. Integer quam orci, pulvinar ac varius id, pharetra vel nulla. Aliquam tincidunt metus at ex condimentum, a euismod risus sodales. Nulla bibendum dapibus leo eu finibus. Donec vel posuere nisl.
-                        </p>
-                        <p class="mt-4">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ullamcorper tincidunt metus pharetra vehicula. Duis quis odio ut justo commodo facilisis vitae dictum lorem. Integer quam orci, pulvinar ac varius id, pharetra vel nulla. Aliquam tincidunt metus at ex condimentum, a euismod risus sodales. Nulla bibendum dapibus leo eu finibus. Donec vel posuere nisl.
-                        </p>
-                        <p class="mt-4">
-                            Suspendisse nisl nisi, vehicula sit amet tortor quis, elementum luctus purus. Praesent et libero ut erat laoreet bibendum et vel arcu. Nam nunc dolor, lacinia sit amet tempor vitae, rutrum non orci. Nam et dolor cursus magna ultrices ultrices. Nunc pellentesque risus ipsum, eu congue est pretium consequat. Quisque tortor ante, posuere ut ex id, aliquet lobortis leo. Nunc vel orci id sapien blandit varius pharetra nec neque. Integer in imperdiet lorem, vel volutpat tortor. Nam facilisis mollis pharetra.
-                        </p>
-                        <p class="mt-4">
-                            Suspendisse sit amet purus et sapien fermentum pulvinar. Maecenas felis est, lobortis vel finibus ut, laoreet quis ex. Phasellus nulla ex, aliquet sed mi vitae, commodo sollicitudin ipsum. Duis gravida sit amet leo eget accumsan. Vestibulum vulputate, sapien sed sodales luctus, mi purus euismod metus, eget euismod libero tortor sed velit. Duis ultrices nec est eget consequat. Sed ornare ultrices mauris sed pharetra. Donec a scelerisque ex, eu rutrum augue.
-                        </p>
-                        <p class="mt-4">
-                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed placerat ultrices nisl at tincidunt. Sed tempus odio efficitur arcu sagittis viverra. Etiam in dui accumsan, rhoncus arcu vitae, convallis turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras ut luctus justo. Sed ornare eros a mi vehicula, ac bibendum purus tristique. Etiam posuere libero eget pharetra tristique. In massa massa, hendrerit eget semper non, venenatis a lectus. Nunc vitae dapibus tellus. Nullam ut arcu id turpis pulvinar dapibus sit amet et sem.
-                        </p>
-                    </div>
+                    <div
+                        v-if="notice.content"
+                        class="notice-content text-xl leading-relaxed text-gray-900 prose prose-lg max-w-none [&_img]:mt-4 [&_img]:mb-6 [&_img]:rounded-lg [&_img]:block"
+                        v-html="notice.content"
+                    />
                 </article>
             </div>
         </section>
 
-        <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
+        <section
+            v-if="relatedNotices.length > 0"
+            class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]"
+        >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl md:text-4xl text-gray-900 mb-6 leading-tight">
                     Related News
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                     <Link
-                        v-for="(item, i) in relatedNews"
-                        :key="i"
-                        href="/notices/single-archive"
+                        v-for="n in relatedNotices"
+                        :key="n.id"
+                        :href="`/notices/${n.slug}`"
                         class="group cursor-pointer block"
                     >
                         <div class="relative rounded-[30px] overflow-hidden mb-6 aspect-[367/302]">
                             <img
-                                :src="item.image"
-                                :alt="item.alt"
+                                :src="relatedNoticeImage(n)"
+                                :alt="n.title"
                                 class="w-full h-full object-cover transition-transform group-hover:scale-105"
                             />
                         </div>
                         <h3 class="text-lg leading-relaxed text-gray-900 mb-4 tracking-tight">
-                            {{ item.title }}
+                            {{ n.title }}
                         </h3>
                         <span class="inline-flex items-center gap-2 hover:text-[#B91C1C] text-black uppercase font-medium hover:gap-3 transition-all">
                             Read more

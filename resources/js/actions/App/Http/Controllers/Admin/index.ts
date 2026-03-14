@@ -8,6 +8,7 @@ import TestimonialController from './TestimonialController'
 import PartnerController from './PartnerController'
 import GalleryController from './GalleryController'
 import GalleryImageController from './GalleryImageController'
+import EditorImageUploadController from './EditorImageUploadController'
 import ImpactStoryController from './ImpactStoryController'
 import PostController from './PostController'
 import CategoryController from './CategoryController'
@@ -46,9 +47,14 @@ import HomeTestimonialsSectionController from './HomeTestimonialsSectionControll
 import HomePartnersSectionController from './HomePartnersSectionController'
 import HomeSupportSectionController from './HomeSupportSectionController'
 import HomeContactCtaSectionController from './HomeContactCtaSectionController'
+import AboutPageHeroController from './AboutPageHeroController'
+import AboutMainSectionController from './AboutMainSectionController'
+import AboutContentSectionController from './AboutContentSectionController'
+import ImpactPageHeroController from './ImpactPageHeroController'
+import ImpactPageSectionController from './ImpactPageSectionController'
 import FooterColumnController from './FooterColumnController'
 import FooterLinkController from './FooterLinkController'
-import FooterSettingController from './FooterSettingController'
+import SiteSettingController from './SiteSettingController'
 import FaqController from './FaqController'
 import PublicationController from './PublicationController'
 import ContactController from './ContactController'
@@ -70,6 +76,7 @@ const Admin = {
     PartnerController: Object.assign(PartnerController, PartnerController),
     GalleryController: Object.assign(GalleryController, GalleryController),
     GalleryImageController: Object.assign(GalleryImageController, GalleryImageController),
+    EditorImageUploadController: Object.assign(EditorImageUploadController, EditorImageUploadController),
     ImpactStoryController: Object.assign(ImpactStoryController, ImpactStoryController),
     PostController: Object.assign(PostController, PostController),
     CategoryController: Object.assign(CategoryController, CategoryController),
@@ -108,9 +115,14 @@ const Admin = {
     HomePartnersSectionController: Object.assign(HomePartnersSectionController, HomePartnersSectionController),
     HomeSupportSectionController: Object.assign(HomeSupportSectionController, HomeSupportSectionController),
     HomeContactCtaSectionController: Object.assign(HomeContactCtaSectionController, HomeContactCtaSectionController),
+    AboutPageHeroController: Object.assign(AboutPageHeroController, AboutPageHeroController),
+    AboutMainSectionController: Object.assign(AboutMainSectionController, AboutMainSectionController),
+    AboutContentSectionController: Object.assign(AboutContentSectionController, AboutContentSectionController),
+    ImpactPageHeroController: Object.assign(ImpactPageHeroController, ImpactPageHeroController),
+    ImpactPageSectionController: Object.assign(ImpactPageSectionController, ImpactPageSectionController),
     FooterColumnController: Object.assign(FooterColumnController, FooterColumnController),
     FooterLinkController: Object.assign(FooterLinkController, FooterLinkController),
-    FooterSettingController: Object.assign(FooterSettingController, FooterSettingController),
+    SiteSettingController: Object.assign(SiteSettingController, SiteSettingController),
     FaqController: Object.assign(FaqController, FaqController),
     PublicationController: Object.assign(PublicationController, PublicationController),
     ContactController: Object.assign(ContactController, ContactController),

@@ -1,8 +1,8 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::edit
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:15
+* @route '/admin/impact-page/hero/edit'
 */
 export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(options),
@@ -11,22 +11,22 @@ export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 edit.definition = {
     methods: ["get","head"],
-    url: '/admin/footer-settings/edit',
+    url: '/admin/impact-page/hero/edit',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::edit
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:15
+* @route '/admin/impact-page/hero/edit'
 */
 edit.url = (options?: RouteQueryOptions) => {
     return edit.definition.url + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::edit
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:15
+* @route '/admin/impact-page/hero/edit'
 */
 edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(options),
@@ -34,9 +34,9 @@ edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::edit
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:15
+* @route '/admin/impact-page/hero/edit'
 */
 edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(options),
@@ -44,9 +44,9 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::edit
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:15
+* @route '/admin/impact-page/hero/edit'
 */
 const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: edit.url(options),
@@ -54,9 +54,9 @@ const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::edit
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:15
+* @route '/admin/impact-page/hero/edit'
 */
 editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: edit.url(options),
@@ -64,9 +64,9 @@ editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::edit
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:15
+* @route '/admin/impact-page/hero/edit'
 */
 editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: edit.url({
@@ -81,9 +81,9 @@ editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 edit.form = editForm
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::update
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:36
+* @route '/admin/impact-page/hero'
 */
 export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
@@ -92,22 +92,22 @@ export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => (
 
 update.definition = {
     methods: ["put"],
-    url: '/admin/footer-settings',
+    url: '/admin/impact-page/hero',
 } satisfies RouteDefinition<["put"]>
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::update
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:36
+* @route '/admin/impact-page/hero'
 */
 update.url = (options?: RouteQueryOptions) => {
     return update.definition.url + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::update
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:36
+* @route '/admin/impact-page/hero'
 */
 update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
@@ -115,9 +115,9 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::update
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:36
+* @route '/admin/impact-page/hero'
 */
 const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url({
@@ -130,9 +130,9 @@ const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =>
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\ImpactPageHeroController::update
+* @see app/Http/Controllers/Admin/ImpactPageHeroController.php:36
+* @route '/admin/impact-page/hero'
 */
 updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url({
@@ -146,6 +146,6 @@ updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => (
 
 update.form = updateForm
 
-const FooterSettingController = { edit, update }
+const ImpactPageHeroController = { edit, update }
 
-export default FooterSettingController
+export default ImpactPageHeroController

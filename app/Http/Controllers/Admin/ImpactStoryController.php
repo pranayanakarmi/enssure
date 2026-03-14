@@ -7,6 +7,8 @@ use App\Http\Requests\Admin\StoreImpactStoryRequest;
 use App\Http\Requests\Admin\UpdateImpactStoryRequest;
 use App\Models\ImpactStory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,15 +18,13 @@ class ImpactStoryController extends Controller
     {
         $this->authorize('viewAny', ImpactStory::class);
 
-        $stories = ImpactStory::orderBy('order')
-            ->orderByDesc('published_at')
+        $stories = ImpactStory::orderByDesc('created_at')
             ->get()
             ->map(fn (ImpactStory $s) => [
                 'id' => $s->id,
                 'title' => $s->title,
                 'slug' => $s->slug,
-                'person_name' => $s->person_name,
-                'published_at' => $s->published_at?->toISOString(),
+                'image_url' => $s->image ? Storage::disk('public')->url($s->image) : null,
             ])
             ->values()
             ->all();
@@ -43,7 +43,19 @@ class ImpactStoryController extends Controller
 
     public function store(StoreImpactStoryRequest $request): RedirectResponse
     {
-        ImpactStory::create($request->validated());
+        $data = $request->validated();
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($request->title);
+        }
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('impact-stories', 'public');
+        } else {
+            unset($data['image']);
+        }
+
+        ImpactStory::create($data);
 
         return to_route('admin.impact_stories.index')
             ->with('success', 'Impact story created successfully.');
@@ -60,21 +72,38 @@ class ImpactStoryController extends Controller
                 'id' => $impactStory->id,
                 'title' => $impactStory->title,
                 'slug' => $impactStory->slug,
-                'person_name' => $impactStory->person_name,
                 'person_title' => $impactStory->person_title,
                 'location' => $impactStory->location,
                 'story' => $impactStory->story,
                 'image' => $impactStory->image,
+                'image_url' => $impactStory->image ? Storage::disk('public')->url($impactStory->image) : null,
                 'video_url' => $impactStory->video_url,
-                'published_at' => $impactStory->published_at?->toISOString(),
-                'order' => $impactStory->order,
             ],
         ]);
     }
 
     public function update(UpdateImpactStoryRequest $request, ImpactStory $impact_story): RedirectResponse
     {
-        $impact_story->update($request->validated());
+        $data = $request->validated();
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($request->title);
+        }
+
+        if ($request->boolean('remove_image') && $impact_story->image) {
+            Storage::disk('public')->delete($impact_story->image);
+            $data['image'] = null;
+        } elseif ($request->hasFile('image')) {
+            if ($impact_story->image) {
+                Storage::disk('public')->delete($impact_story->image);
+            }
+            $data['image'] = $request->file('image')->store('impact-stories', 'public');
+        } else {
+            unset($data['image']);
+        }
+        unset($data['remove_image']);
+
+        $impact_story->update($data);
 
         return to_route('admin.impact_stories.index')
             ->with('success', 'Impact story updated successfully.');

@@ -1,6 +1,6 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
-* @see routes/web.php:190
+* @see routes/web.php:229
 * @route '/notices'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:190
+* @see routes/web.php:229
 * @route '/notices'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -22,7 +22,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/web.php:190
+* @see routes/web.php:229
 * @route '/notices'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -31,7 +31,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:190
+* @see routes/web.php:229
 * @route '/notices'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -40,7 +40,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/web.php:190
+* @see routes/web.php:229
 * @route '/notices'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -49,7 +49,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/web.php:190
+* @see routes/web.php:229
 * @route '/notices'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -58,7 +58,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:190
+* @see routes/web.php:229
 * @route '/notices'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -74,69 +74,93 @@ indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 index.form = indexForm
 
 /**
-* @see routes/web.php:191
-* @route '/notices/single-archive'
+* @see routes/web.php:246
+* @route '/notices/{notice}'
 */
-export const single = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: single.url(options),
+export const show = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: show.url(args, options),
     method: 'get',
 })
 
-single.definition = {
+show.definition = {
     methods: ["get","head"],
-    url: '/notices/single-archive',
+    url: '/notices/{notice}',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:191
-* @route '/notices/single-archive'
+* @see routes/web.php:246
+* @route '/notices/{notice}'
 */
-single.url = (options?: RouteQueryOptions) => {
-    return single.definition.url + queryParams(options)
+show.url = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { notice: args }
+    }
+
+    if (typeof args === 'object' && !Array.isArray(args) && 'slug' in args) {
+        args = { notice: args.slug }
+    }
+
+    if (Array.isArray(args)) {
+        args = {
+            notice: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+        notice: typeof args.notice === 'object'
+        ? args.notice.slug
+        : args.notice,
+    }
+
+    return show.definition.url
+            .replace('{notice}', parsedArgs.notice.toString())
+            .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
-* @see routes/web.php:191
-* @route '/notices/single-archive'
+* @see routes/web.php:246
+* @route '/notices/{notice}'
 */
-single.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: single.url(options),
+show.get = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: show.url(args, options),
     method: 'get',
 })
 
 /**
-* @see routes/web.php:191
-* @route '/notices/single-archive'
+* @see routes/web.php:246
+* @route '/notices/{notice}'
 */
-single.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: single.url(options),
+show.head = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: show.url(args, options),
     method: 'head',
 })
 
 /**
-* @see routes/web.php:191
-* @route '/notices/single-archive'
+* @see routes/web.php:246
+* @route '/notices/{notice}'
 */
-const singleForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: single.url(options),
+const showForm = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, options),
     method: 'get',
 })
 
 /**
-* @see routes/web.php:191
-* @route '/notices/single-archive'
+* @see routes/web.php:246
+* @route '/notices/{notice}'
 */
-singleForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: single.url(options),
+showForm.get = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, options),
     method: 'get',
 })
 
 /**
-* @see routes/web.php:191
-* @route '/notices/single-archive'
+* @see routes/web.php:246
+* @route '/notices/{notice}'
 */
-singleForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: single.url({
+showForm.head = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'HEAD',
             ...(options?.query ?? options?.mergeQuery ?? {}),
@@ -145,11 +169,11 @@ singleForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
     method: 'get',
 })
 
-single.form = singleForm
+show.form = showForm
 
 const notices = {
     index: Object.assign(index, index),
-    single: Object.assign(single, single),
+    show: Object.assign(show, show),
 }
 
 export default notices

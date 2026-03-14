@@ -1,4 +1,5 @@
 <script setup>
+import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from '@tiptap/starter-kit';
@@ -6,6 +7,7 @@ import { useEditor, EditorContent } from '@tiptap/vue-3';
 import {
     Bold,
     Code,
+    ImageIcon,
     Italic,
     Link2,
     List,
@@ -32,14 +34,28 @@ const props = defineProps({
         type: String,
         default: 'Start typing...',
     },
+    uploadUrl: {
+        type: String,
+        default: '/admin/editor-images',
+    },
 });
 
 const emit = defineEmits(['update:modelValue']);
+
+function getCsrfToken() {
+    const match = document.cookie.match(/XSRF-TOKEN=([^;]+)/);
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
+const imageInputRef = ref(null);
 
 const editor = useEditor({
     content: props.modelValue || '',
     extensions: [
         StarterKit,
+        Image.configure({
+            HTMLAttributes: { class: 'rounded-lg max-w-full h-auto' },
+        }),
         Link.configure({
             openOnClick: false,
             HTMLAttributes: { target: '_blank', rel: 'noopener noreferrer' },
@@ -133,6 +149,41 @@ function setLink() {
     editor.value?.chain().focus().extendMarkRange('link').setLink({ href }).run();
 }
 
+function triggerImageUpload() {
+    imageInputRef.value?.click();
+}
+
+async function onImageUpload(event) {
+    const file = event.target.files?.[0];
+    if (!file || !editor.value) return;
+    event.target.value = '';
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+        const response = await fetch(props.uploadUrl, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'X-XSRF-TOKEN': getCsrfToken() ?? '',
+            },
+            body: formData,
+            credentials: 'same-origin',
+        });
+
+        if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            throw new Error(data.message || 'Upload failed');
+        }
+
+        const { url } = await response.json();
+        editor.value.chain().focus().setImage({ src: url }).run();
+    } catch (err) {
+        alert(err.message || 'Failed to upload image');
+    }
+}
+
 function setParagraph() {
     editor.value?.chain().focus().setParagraph().run();
 }
@@ -217,6 +268,21 @@ onBeforeUnmount(() => {
                     @click="setLink"
                 >
                     <Link2 class="h-4 w-4" />
+                </button>
+                <input
+                    ref="imageInputRef"
+                    type="file"
+                    accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
+                    class="hidden"
+                    @change="onImageUpload"
+                />
+                <button
+                    type="button"
+                    class="rounded p-1.5 text-muted-foreground transition-colors hover:bg-muted"
+                    title="Insert image"
+                    @click="triggerImageUpload"
+                >
+                    <ImageIcon class="h-4 w-4" />
                 </button>
                 <span
                     class="mx-0.5 h-4 w-px bg-border"
@@ -408,5 +474,11 @@ onBeforeUnmount(() => {
 
 .rich-text-editor-content :deep(.tiptap a:hover) {
     text-decoration-thickness: 2px;
+}
+
+.rich-text-editor-content :deep(.tiptap img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
 }
 </style>

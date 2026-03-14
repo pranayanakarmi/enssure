@@ -57,9 +57,14 @@ return [
         'home_partners_sections',
         'home_support_sections',
         'home_contact_cta_sections',
+        'about_page_hero',
+        'about_main_sections',
+        'about_content_sections',
+        'impact_page_hero',
+        'impact_page_sections',
         'footer_columns',
         'footer_links',
-        'footer_settings',
+        'site_settings',
         'faqs',
         'publications',
         'feedback',
@@ -130,10 +135,40 @@ return [
                 ['title' => 'About section', 'href' => 'admin.home_about_sections.edit', 'permission_resource' => 'home_about_sections'],
                 ['title' => 'Impact Stories section', 'href' => 'admin.home_impact_stories_sections.edit', 'permission_resource' => 'home_impact_stories_sections'],
                 ['title' => 'Gallery section', 'href' => 'admin.home_gallery_sections.edit', 'permission_resource' => 'home_gallery_sections'],
-                ['title' => 'Our Reach', 'href' => 'admin.home_reach_sections.edit', 'permission_resource' => 'home_reach_sections'],
                 ['title' => 'Coverage section', 'href' => 'admin.home_coverage_sections.edit', 'permission_resource' => 'home_coverage_sections'],
                 ['title' => 'News section', 'href' => 'admin.home_news_sections.edit', 'permission_resource' => 'home_news_sections'],
             ],
+        ],
+        [
+            'title' => 'Our Impact & Milestones',
+            'href' => 'admin.home_reach_sections.edit',
+            'permission_resource' => 'home_reach_sections',
+        ],
+        [
+            'title' => 'About Page',
+            'icon' => 'FileText',
+            'permission_resource' => null,
+            'children' => [
+                ['title' => 'Hero', 'href' => 'admin.about_page_hero.edit', 'permission_resource' => 'about_page_hero'],
+                ['title' => 'Main section', 'href' => 'admin.about_main_sections.edit', 'permission_resource' => 'about_main_sections'],
+                ['title' => 'Content section', 'href' => 'admin.about_content_sections.edit', 'permission_resource' => 'about_content_sections'],
+            ],
+        ],
+        [
+            'title' => 'Impact Stories Page',
+            'icon' => 'BookOpen',
+            'permission_resource' => null,
+            'children' => [
+                ['title' => 'Hero', 'href' => 'admin.impact_page_hero.edit', 'permission_resource' => 'impact_page_hero'],
+                ['title' => 'Section', 'href' => 'admin.impact_page_sections.edit', 'permission_resource' => 'impact_page_sections'],
+                ['title' => 'Impact Stories', 'href' => 'admin.impact_stories.index', 'permission_resource' => 'impact_stories'],
+            ],
+        ],
+        [
+            'title' => 'News and Articles',
+            'href' => 'admin.notices.index',
+            'icon' => 'Newspaper',
+            'permission_resource' => 'notices',
         ],
         [
             'title' => 'Footer',
@@ -141,15 +176,14 @@ return [
             'permission_resource' => null,
             'children' => [
                 ['title' => 'Footer columns', 'href' => 'admin.footer-columns.index', 'permission_resource' => 'footer_columns'],
-                ['title' => 'Footer settings', 'href' => 'admin.footer_settings.edit', 'permission_resource' => 'footer_settings'],
             ],
         ],
-        // [
-        //     'title' => 'Impact Stories',
-        //     'href' => 'admin.impact_stories.index',
-        //     'icon' => 'BookOpen',
-        //     'permission_resource' => 'impact_stories',
-        // ],
+        [
+            'title' => 'Site settings',
+            'href' => 'admin.site_settings.edit',
+            'permission_resource' => 'site_settings',
+        ],
+
         // [
         //     'title' => 'Posts',
         //     'href' => 'admin.posts.index',
@@ -258,18 +292,18 @@ return [
         //         ['title' => 'Application Forms', 'href' => 'admin.application_forms.index', 'permission_resource' => 'application_forms'],
         //     ],
         // ],
-        // [
-        //     'title' => 'System',
-        //     'icon' => 'Settings',
-        //     'permission_resource' => null,
-        //     'children' => [
-        //         ['title' => 'Settings', 'href' => 'admin.settings.index', 'permission_resource' => 'settings'],
-        //         ['title' => 'Email Templates', 'href' => 'admin.email_templates.index', 'permission_resource' => 'email_templates'],
-        //         ['title' => 'Redirects', 'href' => 'admin.redirects.index', 'permission_resource' => 'redirects'],
-        //         ['title' => 'Media', 'href' => 'admin.media.index', 'permission_resource' => 'media'],
-        //         ['title' => 'Feedback', 'href' => 'admin.feedback.index', 'permission_resource' => 'feedback'],
-        //     ],
-        // ],
+        [
+            'title' => 'System',
+            'icon' => 'Settings',
+            'permission_resource' => null,
+            'children' => [
+                ['title' => 'Settings', 'href' => 'admin.settings.index', 'permission_resource' => 'settings'],
+                ['title' => 'Email Templates', 'href' => 'admin.email_templates.index', 'permission_resource' => 'email_templates'],
+                ['title' => 'Redirects', 'href' => 'admin.redirects.index', 'permission_resource' => 'redirects'],
+                ['title' => 'Media', 'href' => 'admin.media.index', 'permission_resource' => 'media'],
+                ['title' => 'Feedback', 'href' => 'admin.feedback.index', 'permission_resource' => 'feedback'],
+            ],
+        ],
     ],
 
 ];

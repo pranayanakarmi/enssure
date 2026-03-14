@@ -1,16 +1,24 @@
 <script setup>
-defineProps({
+import { computed } from 'vue';
+
+const props = defineProps({
     title: {
         type: String,
         default: '',
     },
+    heroImageUrl: {
+        type: String,
+        default: null,
+    },
 });
+
+const heroSrc = computed(() => props.heroImageUrl || '/enssure/assets/hero-image.png');
 </script>
 
 <template>
     <section class="w-full h-96 overflow-hidden relative">
         <img
-            src="/enssure/assets/hero-image.png"
+            :src="heroSrc"
             alt="Hero"
             class="w-full h-full object-cover object-top"
         />

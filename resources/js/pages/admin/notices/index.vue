@@ -62,13 +62,29 @@ const breadcrumbItems = [
                                 :key="n.id"
                                 class="flex flex-wrap items-center justify-between gap-4 px-6 py-4"
                             >
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate font-medium text-foreground">
-                                        {{ n.title }}
-                                    </p>
-                                    <p class="truncate text-sm text-muted-foreground">
-                                        {{ n.notice_type || '—' }} · {{ n.deadline_date ? new Date(n.deadline_date).toLocaleDateString() : '—' }}
-                                    </p>
+                                <div class="flex min-w-0 flex-1 items-center gap-4">
+                                    <div class="h-12 w-16 shrink-0 overflow-hidden rounded-md bg-muted">
+                                        <img
+                                            v-if="n.image_url"
+                                            :src="n.image_url"
+                                            :alt="n.title"
+                                            class="h-full w-full object-cover"
+                                        />
+                                        <div
+                                            v-else
+                                            class="flex h-full w-full items-center justify-center text-xs text-muted-foreground"
+                                        >
+                                            —
+                                        </div>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="truncate font-medium text-foreground">
+                                            {{ n.title }}
+                                        </p>
+                                        <p class="truncate text-sm text-muted-foreground">
+                                            {{ n.slug }}
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <Button variant="outline" size="sm" as-child>

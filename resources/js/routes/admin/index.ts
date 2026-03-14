@@ -9,6 +9,7 @@ import testimonials from './testimonials'
 import partners from './partners'
 import galleries from './galleries'
 import galleryImages from './gallery-images'
+import editor_images from './editor_images'
 import impact_stories from './impact_stories'
 import posts from './posts'
 import categories from './categories'
@@ -47,10 +48,15 @@ import home_testimonials_sections from './home_testimonials_sections'
 import home_partners_sections from './home_partners_sections'
 import home_support_sections from './home_support_sections'
 import home_contact_cta_sections from './home_contact_cta_sections'
+import about_page_hero from './about_page_hero'
+import about_main_sections from './about_main_sections'
+import about_content_sections from './about_content_sections'
+import impact_page_hero from './impact_page_hero'
+import impact_page_sections from './impact_page_sections'
 import footerColumns from './footer-columns'
 import footer_columns from './footer_columns'
 import footer_links from './footer_links'
-import footer_settings from './footer_settings'
+import site_settings from './site_settings'
 import faqs from './faqs'
 import publications from './publications'
 import contacts from './contacts'
@@ -61,7 +67,7 @@ import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
 /**
-* @see routes/admin.php:72
+* @see routes/admin.php:78
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -75,7 +81,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/admin.php:72
+* @see routes/admin.php:78
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -83,7 +89,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/admin.php:72
+* @see routes/admin.php:78
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -92,7 +98,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:72
+* @see routes/admin.php:78
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -101,7 +107,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/admin.php:72
+* @see routes/admin.php:78
 * @route '/admin'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -110,7 +116,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/admin.php:72
+* @see routes/admin.php:78
 * @route '/admin'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -119,7 +125,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:72
+* @see routes/admin.php:78
 * @route '/admin'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -146,6 +152,7 @@ const admin = {
     partners: Object.assign(partners, partners),
     galleries: Object.assign(galleries, galleries),
     galleryImages: Object.assign(galleryImages, galleryImages),
+    editor_images: Object.assign(editor_images, editor_images),
     impact_stories: Object.assign(impact_stories, impact_stories),
     posts: Object.assign(posts, posts),
     categories: Object.assign(categories, categories),
@@ -184,10 +191,15 @@ const admin = {
     home_partners_sections: Object.assign(home_partners_sections, home_partners_sections),
     home_support_sections: Object.assign(home_support_sections, home_support_sections),
     home_contact_cta_sections: Object.assign(home_contact_cta_sections, home_contact_cta_sections),
+    about_page_hero: Object.assign(about_page_hero, about_page_hero),
+    about_main_sections: Object.assign(about_main_sections, about_main_sections),
+    about_content_sections: Object.assign(about_content_sections, about_content_sections),
+    impact_page_hero: Object.assign(impact_page_hero, impact_page_hero),
+    impact_page_sections: Object.assign(impact_page_sections, impact_page_sections),
     footerColumns: Object.assign(footerColumns, footerColumns),
     footer_columns: Object.assign(footer_columns, footer_columns),
     footer_links: Object.assign(footer_links, footer_links),
-    footer_settings: Object.assign(footer_settings, footer_settings),
+    site_settings: Object.assign(site_settings, site_settings),
     faqs: Object.assign(faqs, faqs),
     publications: Object.assign(publications, publications),
     contacts: Object.assign(contacts, contacts),

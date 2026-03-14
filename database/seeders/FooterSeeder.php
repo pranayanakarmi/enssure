@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\FooterColumn;
-use App\Models\FooterSetting;
+use App\Models\SiteSetting;
 use Illuminate\Database\Seeder;
 
 class FooterSeeder extends Seeder
@@ -34,14 +34,14 @@ class FooterSeeder extends Seeder
             $info->links()->create(['label' => $link[0], 'url' => $link[1], 'order' => $i]);
         }
 
-        if (! FooterSetting::exists()) {
-            FooterSetting::create([
-                'copyright_text' => '© Copyright 2008 - 2026 enssure | Privacy Policy | Terms of Service',
-                'social_links' => [
-                    ['platform' => 'facebook', 'url' => 'https://facebook.com'],
-                    ['platform' => 'x', 'url' => 'https://x.com'],
-                    ['platform' => 'youtube', 'url' => 'https://youtube.com'],
-                ],
+        if (! SiteSetting::exists()) {
+            SiteSetting::create([
+                'facebook_url' => 'https://facebook.com',
+                'x_url' => 'https://x.com',
+                'youtube_url' => 'https://youtube.com',
+                'header_phone_1' => '+977 1 6636073/6636191',
+                'header_phone_2' => '+977 1 6632091',
+                'header_email' => 'enssure.np@helvetas.org',
             ]);
         }
     }

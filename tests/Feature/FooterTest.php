@@ -7,14 +7,16 @@ beforeEach(function () {
     $this->seed(FooterSeeder::class);
 });
 
-test('home page includes footer columns and footer setting in shared props', function () {
+test('home page includes footer columns and site setting in shared props', function () {
     $response = $this->get(route('home'));
 
     $response->assertOk();
     $response->assertInertia(fn ($page) => $page
         ->has('footerColumns')
-        ->has('footerSetting')
-        ->where('footerSetting.copyright_text', '© Copyright 2008 - 2026 enssure | Privacy Policy | Terms of Service')
+        ->has('siteSetting')
+        ->has('siteSetting.header_phone_1')
+        ->has('siteSetting.header_email')
+        ->has('siteSetting.social_links')
     );
     expect(FooterColumn::count())->toBe(4);
 });

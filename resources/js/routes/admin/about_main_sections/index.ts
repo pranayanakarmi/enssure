@@ -1,8 +1,8 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../wayfinder'
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::edit
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:15
+* @route '/admin/about-page/main-section/edit'
 */
 export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(options),
@@ -11,22 +11,22 @@ export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 edit.definition = {
     methods: ["get","head"],
-    url: '/admin/footer-settings/edit',
+    url: '/admin/about-page/main-section/edit',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::edit
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:15
+* @route '/admin/about-page/main-section/edit'
 */
 edit.url = (options?: RouteQueryOptions) => {
     return edit.definition.url + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::edit
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:15
+* @route '/admin/about-page/main-section/edit'
 */
 edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(options),
@@ -34,9 +34,9 @@ edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::edit
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:15
+* @route '/admin/about-page/main-section/edit'
 */
 edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(options),
@@ -44,9 +44,9 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::edit
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:15
+* @route '/admin/about-page/main-section/edit'
 */
 const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: edit.url(options),
@@ -54,9 +54,9 @@ const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::edit
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:15
+* @route '/admin/about-page/main-section/edit'
 */
 editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: edit.url(options),
@@ -64,9 +64,9 @@ editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::edit
-* @see app/Http/Controllers/Admin/FooterSettingController.php:14
-* @route '/admin/footer-settings/edit'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::edit
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:15
+* @route '/admin/about-page/main-section/edit'
 */
 editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: edit.url({
@@ -81,9 +81,9 @@ editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 edit.form = editForm
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::update
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:46
+* @route '/admin/about-page/main-section'
 */
 export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
@@ -92,22 +92,22 @@ export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => (
 
 update.definition = {
     methods: ["put"],
-    url: '/admin/footer-settings',
+    url: '/admin/about-page/main-section',
 } satisfies RouteDefinition<["put"]>
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::update
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:46
+* @route '/admin/about-page/main-section'
 */
 update.url = (options?: RouteQueryOptions) => {
     return update.definition.url + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::update
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:46
+* @route '/admin/about-page/main-section'
 */
 update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
@@ -115,9 +115,9 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::update
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:46
+* @route '/admin/about-page/main-section'
 */
 const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url({
@@ -130,9 +130,9 @@ const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =>
 })
 
 /**
-* @see \App\Http\Controllers\Admin\FooterSettingController::update
-* @see app/Http/Controllers/Admin/FooterSettingController.php:37
-* @route '/admin/footer-settings'
+* @see \App\Http\Controllers\Admin\AboutMainSectionController::update
+* @see app/Http/Controllers/Admin/AboutMainSectionController.php:46
+* @route '/admin/about-page/main-section'
 */
 updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url({
@@ -146,9 +146,9 @@ updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => (
 
 update.form = updateForm
 
-const footer_settings = {
+const about_main_sections = {
     edit: Object.assign(edit, edit),
     update: Object.assign(update, update),
 }
 
-export default footer_settings
+export default about_main_sections

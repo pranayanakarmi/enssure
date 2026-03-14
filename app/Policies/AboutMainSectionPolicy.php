@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
-class FooterSettingPolicy extends ContentPolicyBase
+class AboutMainSectionPolicy extends ContentPolicyBase
 {
     protected function resourceName(): string
     {
-        return 'footer_settings';
+        return 'about_main_sections';
     }
 }

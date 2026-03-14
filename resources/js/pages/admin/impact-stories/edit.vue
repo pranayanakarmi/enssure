@@ -1,8 +1,11 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
+import { Trash2 } from 'lucide-vue-next';
+import { ref, computed, onBeforeUnmount } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import RichTextEditor from '@/components/RichTextEditor.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,15 +21,53 @@ const props = defineProps({
 const form = useForm({
     title: props.impactStory.title ?? '',
     slug: props.impactStory.slug ?? '',
-    person_name: props.impactStory.person_name ?? '',
     person_title: props.impactStory.person_title ?? '',
     location: props.impactStory.location ?? '',
     story: props.impactStory.story ?? '',
-    image: props.impactStory.image ?? '',
+    image: null,
+    remove_image: false,
     video_url: props.impactStory.video_url ?? '',
-    published_at: props.impactStory.published_at ? props.impactStory.published_at.slice(0, 10) : '',
-    order: props.impactStory.order ?? 0,
 });
+
+const imagePreviewUrl = ref(null);
+
+function onImageChange(event) {
+    if (imagePreviewUrl.value) {
+        URL.revokeObjectURL(imagePreviewUrl.value);
+        imagePreviewUrl.value = null;
+    }
+    const file = event.target.files?.[0] || null;
+    form.image = file;
+    form.remove_image = false;
+    if (file) {
+        imagePreviewUrl.value = URL.createObjectURL(file);
+    }
+}
+
+onBeforeUnmount(() => {
+    if (imagePreviewUrl.value) {
+        URL.revokeObjectURL(imagePreviewUrl.value);
+    }
+});
+
+const imageDisplayUrl = computed(() => {
+    if (form.remove_image) return null;
+    return imagePreviewUrl.value ?? props.impactStory.image_url;
+});
+
+const imageInputRef = ref(null);
+
+function removeImage() {
+    form.remove_image = true;
+    form.image = null;
+    if (imagePreviewUrl.value) {
+        URL.revokeObjectURL(imagePreviewUrl.value);
+        imagePreviewUrl.value = null;
+    }
+    if (imageInputRef.value) {
+        imageInputRef.value.value = '';
+    }
+}
 
 const breadcrumbItems = [
     { title: 'Impact Stories', href: '/admin/impact_stories' },
@@ -48,7 +89,7 @@ const breadcrumbItems = [
 
                 <form
                     class="space-y-6"
-                    @submit.prevent="form.put(`/admin/impact_stories/${impactStory.id}`)"
+                    @submit.prevent="form.put(`/admin/impact_stories/${impactStory.id}`, { forceFormData: true })"
                 >
                     <div class="grid gap-2">
                         <Label for="title">Title</Label>
@@ -70,33 +111,50 @@ const breadcrumbItems = [
                         <InputError :message="form.errors.slug" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="person_name">Person name</Label>
-                        <Input
-                            id="person_name"
-                            v-model="form.person_name"
-                            type="text"
-                        />
-                        <InputError :message="form.errors.person_name" />
+                        <Label for="image">Featured image</Label>
+                        <div
+                            v-if="imageDisplayUrl"
+                            class="mb-3 flex flex-wrap items-start gap-4 rounded-md border border-sidebar-border bg-muted/30 p-4"
+                        >
+                            <img
+                                :src="imageDisplayUrl"
+                                alt="Preview"
+                                class="h-32 w-40 shrink-0 rounded border object-cover"
+                            />
+                            <div class="flex min-w-0 flex-1 flex-col gap-3">
+                                <p class="text-xs text-muted-foreground">
+                                    Current or chosen image. Select a new file to replace, or remove it.
+                                </p>
+                                <button
+                                    type="button"
+                                    class="inline-flex w-fit shrink-0 items-center justify-center gap-1.5 rounded-md bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                                    @click="removeImage"
+                                >
+                                    <Trash2 class="size-3.5" />
+                                    Remove image
+                                </button>
+                            </div>
+                        </div>
+                        <div class="max-w-md">
+                            <input
+                                ref="imageInputRef"
+                                id="image"
+                                type="file"
+                                accept="image/*"
+                                class="block w-full cursor-pointer rounded-md border border-input bg-background px-3 py-2 text-sm file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-foreground hover:file:bg-primary/90"
+                                @change="onImageChange"
+                            />
+                        </div>
+                        <InputError :message="form.errors.image" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="story">Story</Label>
-                        <textarea
+                        <Label for="story">Content</Label>
+                        <RichTextEditor
                             id="story"
                             v-model="form.story"
-                            rows="4"
-                            class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            placeholder="Enter story content..."
                         />
                         <InputError :message="form.errors.story" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="order">Order</Label>
-                        <Input
-                            id="order"
-                            v-model.number="form.order"
-                            type="number"
-                            min="0"
-                        />
-                        <InputError :message="form.errors.order" />
                     </div>
                     <div class="flex items-center gap-4">
                         <Button type="submit" :disabled="form.processing">

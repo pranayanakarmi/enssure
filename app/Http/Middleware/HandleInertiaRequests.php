@@ -3,11 +3,12 @@
 namespace App\Http\Middleware;
 
 use App\Models\FooterColumn;
-use App\Models\FooterSetting;
 use App\Models\Menu;
 use App\Models\NewsTickerItem;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -68,13 +69,29 @@ class HandleInertiaRequests extends Middleware
                 ])
                 ->values()
                 ->all(),
-            'footerSetting' => function () {
-                $s = FooterSetting::first();
+            'siteSetting' => function () {
+                $s = SiteSetting::first();
 
-                return $s ? [
-                    'copyright_text' => $s->copyright_text,
-                    'social_links' => $s->social_links ?? [],
-                ] : null;
+                if (! $s) {
+                    return null;
+                }
+
+                return [
+                    'social_links' => array_filter([
+                        ['platform' => 'facebook', 'url' => $s->facebook_url ?? ''],
+                        ['platform' => 'x', 'url' => $s->x_url ?? ''],
+                        ['platform' => 'youtube', 'url' => $s->youtube_url ?? ''],
+                    ], fn ($l) => ! empty($l['url'])),
+                    'header_phone_1' => $s->header_phone_1,
+                    'header_phone_2' => $s->header_phone_2,
+                    'header_fax' => $s->header_fax,
+                    'header_email' => $s->header_email,
+                    'logo_left_url' => $s->logo_left ? Storage::disk('public')->url($s->logo_left) : null,
+                    'logo_center_url' => $s->logo_center ? Storage::disk('public')->url($s->logo_center) : null,
+                    'logo_right_url' => $s->logo_right ? Storage::disk('public')->url($s->logo_right) : null,
+                    'footer_privacy_policy_url' => $s->footer_privacy_policy_url,
+                    'footer_terms_of_service_url' => $s->footer_terms_of_service_url,
+                ];
             },
             'newsTickerItems' => NewsTickerItem::published()->orderBy('order')->limit(20)->get(['id', 'title', 'url'])->toArray(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',

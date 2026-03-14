@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Models\ImpactStory;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreImpactStoryRequest extends FormRequest
 {
@@ -19,15 +20,12 @@ class StoreImpactStoryRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
-            'person_name' => ['nullable', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique('impact_stories', 'slug')],
             'person_title' => ['nullable', 'string', 'max:255'],
             'location' => ['nullable', 'string', 'max:255'],
             'story' => ['nullable', 'string'],
-            'image' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
             'video_url' => ['nullable', 'string', 'max:255'],
-            'published_at' => ['nullable', 'date'],
-            'order' => ['nullable', 'integer', 'min:0'],
         ];
     }
 }

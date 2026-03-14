@@ -12,20 +12,10 @@ class ImpactStory extends Model
     protected $fillable = [
         'title',
         'slug',
-        'person_name',
         'person_title',
         'location',
         'story',
         'image',
         'video_url',
-        'published_at',
-        'order',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'published_at' => 'datetime',
-        ];
-    }
 }

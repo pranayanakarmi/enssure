@@ -12,20 +12,16 @@ class Notice extends Model
     protected $fillable = [
         'title',
         'slug',
-        'notice_type',
         'content',
+        'image',
         'attachment',
-        'deadline_date',
         'is_featured',
-        'published_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'deadline_date' => 'date',
             'is_featured' => 'boolean',
-            'published_at' => 'datetime',
         ];
     }
 }

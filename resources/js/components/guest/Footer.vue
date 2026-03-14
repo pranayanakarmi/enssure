@@ -5,11 +5,12 @@ import { computed } from 'vue';
 const page = usePage();
 
 const footerColumns = computed(() => page.props.footerColumns ?? []);
-const footerSetting = computed(() => page.props.footerSetting ?? null);
+const siteSetting = computed(() => page.props.siteSetting ?? null);
 
-const copyrightText = computed(() => footerSetting.value?.copyright_text ?? '© Copyright 2008 - 2026 enssure | Privacy Policy | Terms of Service');
+const privacyUrl = computed(() => siteSetting.value?.footer_privacy_policy_url ?? '');
+const termsUrl = computed(() => siteSetting.value?.footer_terms_of_service_url ?? '');
 const socialLinks = computed(() => {
-    const links = footerSetting.value?.social_links ?? [
+    const links = siteSetting.value?.social_links ?? [
         { platform: 'facebook', url: 'https://facebook.com' },
         { platform: 'x', url: 'https://x.com' },
         { platform: 'youtube', url: 'https://youtube.com' },
@@ -60,8 +61,26 @@ const socialIcons = {
                 <div
                     class="flex flex-col md:flex-row items-center justify-between gap-4"
                 >
-                    <p class="font-thin text-sm">
-                        {{ copyrightText }}
+                    <p class="font-thin text-sm flex flex-wrap items-center gap-x-1">
+                        <span>© Copyright 2008 - {{ new Date().getFullYear() }} enssure</span>
+                        <template v-if="privacyUrl || termsUrl">
+                            <span> | </span>
+                            <a
+                                v-if="privacyUrl"
+                                :href="privacyUrl"
+                                class="hover:text-[#B91C1C] transition-colors"
+                            >
+                                Privacy Policy
+                            </a>
+                            <template v-if="privacyUrl && termsUrl"> | </template>
+                            <a
+                                v-if="termsUrl"
+                                :href="termsUrl"
+                                class="hover:text-[#B91C1C] transition-colors"
+                            >
+                                Terms of Service
+                            </a>
+                        </template>
                     </p>
                     <div class="flex items-center gap-3">
                         <a

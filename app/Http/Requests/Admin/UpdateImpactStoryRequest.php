@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateImpactStoryRequest extends FormRequest
 {
@@ -18,15 +19,18 @@ class UpdateImpactStoryRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
-            'person_name' => ['nullable', 'string', 'max:255'],
+            'slug' => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('impact_stories', 'slug')->ignore($this->route('impact_story')),
+            ],
             'person_title' => ['nullable', 'string', 'max:255'],
             'location' => ['nullable', 'string', 'max:255'],
             'story' => ['nullable', 'string'],
-            'image' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
+            'remove_image' => ['nullable', 'boolean'],
             'video_url' => ['nullable', 'string', 'max:255'],
-            'published_at' => ['nullable', 'date'],
-            'order' => ['nullable', 'integer', 'min:0'],
         ];
     }
 }

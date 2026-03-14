@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateNoticeRequest extends FormRequest
 {
@@ -18,13 +19,17 @@ class UpdateNoticeRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
-            'notice_type' => ['nullable', 'string', 'max:50'],
+            'slug' => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('notices', 'slug')->ignore($this->route('notice')),
+            ],
             'content' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
+            'remove_image' => ['nullable', 'boolean'],
             'attachment' => ['nullable', 'string', 'max:255'],
-            'deadline_date' => ['nullable', 'date'],
             'is_featured' => ['nullable', 'boolean'],
-            'published_at' => ['nullable', 'date'],
         ];
     }
 }

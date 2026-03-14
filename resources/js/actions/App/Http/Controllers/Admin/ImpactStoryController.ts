@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::index
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:15
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:17
 * @route '/admin/impact_stories'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::index
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:15
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:17
 * @route '/admin/impact_stories'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::index
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:15
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:17
 * @route '/admin/impact_stories'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::index
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:15
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:17
 * @route '/admin/impact_stories'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::index
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:15
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:17
 * @route '/admin/impact_stories'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -55,7 +55,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::index
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:15
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:17
 * @route '/admin/impact_stories'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -65,7 +65,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::index
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:15
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:17
 * @route '/admin/impact_stories'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -219,7 +219,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::edit
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:52
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:64
 * @route '/admin/impact_stories/{impact_story}/edit'
 */
 export const edit = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -234,7 +234,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::edit
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:52
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:64
 * @route '/admin/impact_stories/{impact_story}/edit'
 */
 edit.url = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -267,7 +267,7 @@ edit.url = (args: { impact_story: number | { id: number } } | [impact_story: num
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::edit
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:52
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:64
 * @route '/admin/impact_stories/{impact_story}/edit'
 */
 edit.get = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -277,7 +277,7 @@ edit.get = (args: { impact_story: number | { id: number } } | [impact_story: num
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::edit
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:52
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:64
 * @route '/admin/impact_stories/{impact_story}/edit'
 */
 edit.head = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -287,7 +287,7 @@ edit.head = (args: { impact_story: number | { id: number } } | [impact_story: nu
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::edit
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:52
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:64
 * @route '/admin/impact_stories/{impact_story}/edit'
 */
 const editForm = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -297,7 +297,7 @@ const editForm = (args: { impact_story: number | { id: number } } | [impact_stor
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::edit
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:52
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:64
 * @route '/admin/impact_stories/{impact_story}/edit'
 */
 editForm.get = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -307,7 +307,7 @@ editForm.get = (args: { impact_story: number | { id: number } } | [impact_story:
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::edit
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:52
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:64
 * @route '/admin/impact_stories/{impact_story}/edit'
 */
 editForm.head = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -324,7 +324,7 @@ edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::update
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:75
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:85
 * @route '/admin/impact_stories/{impact_story}'
 */
 export const update = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -339,7 +339,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::update
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:75
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:85
 * @route '/admin/impact_stories/{impact_story}'
 */
 update.url = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -372,7 +372,7 @@ update.url = (args: { impact_story: number | { id: number } } | [impact_story: n
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::update
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:75
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:85
 * @route '/admin/impact_stories/{impact_story}'
 */
 update.put = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -382,7 +382,7 @@ update.put = (args: { impact_story: number | { id: number } } | [impact_story: n
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::update
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:75
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:85
 * @route '/admin/impact_stories/{impact_story}'
 */
 update.patch = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -392,7 +392,7 @@ update.patch = (args: { impact_story: number | { id: number } } | [impact_story:
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::update
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:75
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:85
 * @route '/admin/impact_stories/{impact_story}'
 */
 const updateForm = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -407,7 +407,7 @@ const updateForm = (args: { impact_story: number | { id: number } } | [impact_st
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::update
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:75
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:85
 * @route '/admin/impact_stories/{impact_story}'
 */
 updateForm.put = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -422,7 +422,7 @@ updateForm.put = (args: { impact_story: number | { id: number } } | [impact_stor
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::update
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:75
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:85
 * @route '/admin/impact_stories/{impact_story}'
 */
 updateForm.patch = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -439,7 +439,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::destroy
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:83
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:112
 * @route '/admin/impact_stories/{impact_story}'
 */
 export const destroy = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -454,7 +454,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::destroy
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:83
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:112
 * @route '/admin/impact_stories/{impact_story}'
 */
 destroy.url = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -487,7 +487,7 @@ destroy.url = (args: { impact_story: number | { id: number } } | [impact_story: 
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::destroy
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:83
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:112
 * @route '/admin/impact_stories/{impact_story}'
 */
 destroy.delete = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -497,7 +497,7 @@ destroy.delete = (args: { impact_story: number | { id: number } } | [impact_stor
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::destroy
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:83
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:112
 * @route '/admin/impact_stories/{impact_story}'
 */
 const destroyForm = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -512,7 +512,7 @@ const destroyForm = (args: { impact_story: number | { id: number } } | [impact_s
 
 /**
 * @see \App\Http\Controllers\Admin\ImpactStoryController::destroy
-* @see app/Http/Controllers/Admin/ImpactStoryController.php:83
+* @see app/Http/Controllers/Admin/ImpactStoryController.php:112
 * @route '/admin/impact_stories/{impact_story}'
 */
 destroyForm.delete = (args: { impact_story: number | { id: number } } | [impact_story: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
