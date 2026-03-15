@@ -100,16 +100,6 @@ function relatedNoticeImage(n) {
                         </div>
                     </header>
 
-                    <div class="mb-10">
-                        <div class="rounded-3xl overflow-hidden border shadow-sm">
-                            <img
-                                :src="noticeImageUrl"
-                                :alt="notice.title"
-                                class="w-full h-auto object-cover"
-                            />
-                        </div>
-                    </div>
-
                     <div
                         v-if="notice.content"
                         class="notice-content text-xl leading-relaxed text-gray-900 prose prose-lg max-w-none [&_img]:mt-4 [&_img]:mb-6 [&_img]:rounded-lg [&_img]:block"

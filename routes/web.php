@@ -3,6 +3,8 @@
 use App\Models\AboutContentSection;
 use App\Models\AboutMainSection;
 use App\Models\AboutPageHero;
+use App\Models\Gallery;
+use App\Models\GalleryPageSection;
 use App\Models\HomeAboutSection;
 use App\Models\HomeContactCtaSection;
 use App\Models\HomeCoverageSection;
@@ -28,10 +30,10 @@ use Laravel\Fortify\Features;
 Route::get('/', function () {
     $homeReachSection = HomeReachSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
     $homeAboutSection = HomeAboutSection::first();
-    $homeGallerySection = HomeGallerySection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
-    $homeImpactStoriesSection = HomeImpactStoriesSection::first();
+    $homeGallerySection = HomeGallerySection::with('galleries')->first();
+    $homeImpactStoriesSection = HomeImpactStoriesSection::with('impactStories')->first();
     $homeCoverageSection = HomeCoverageSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
-    $homeNewsSection = HomeNewsSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
+    $homeNewsSection = HomeNewsSection::with('notices')->first();
     $homeTestimonialsSection = HomeTestimonialsSection::first();
     $homePartnersSection = HomePartnersSection::first();
     $homeSupportSection = HomeSupportSection::first();
@@ -116,11 +118,11 @@ Route::get('/', function () {
             'description' => $homeGallerySection->description,
             'cta_text' => $homeGallerySection->cta_text,
             'cta_url' => $homeGallerySection->cta_url,
-            'items' => $homeGallerySection->items->map(fn ($item) => [
-                'id' => $item->id,
-                'image_url' => $item->image ? Storage::disk('public')->url($item->image) : null,
-                'text' => $item->text,
-                'order' => $item->order,
+            'galleries' => $homeGallerySection->galleries->map(fn ($gallery) => [
+                'id' => $gallery->id,
+                'title' => $gallery->title,
+                'slug' => $gallery->slug,
+                'cover_image_url' => $gallery->cover_image ? Storage::disk('public')->url($gallery->cover_image) : null,
             ])->values()->all(),
         ] : null,
         'homeImpactStoriesSection' => $homeImpactStoriesSection ? [
@@ -129,6 +131,12 @@ Route::get('/', function () {
             'description' => $homeImpactStoriesSection->description,
             'cta_text' => $homeImpactStoriesSection->cta_text,
             'cta_url' => $homeImpactStoriesSection->cta_url,
+            'stories' => $homeImpactStoriesSection->impactStories->map(fn ($story) => [
+                'id' => $story->id,
+                'title' => $story->title,
+                'slug' => $story->slug,
+                'image_url' => $story->image ? Storage::disk('public')->url($story->image) : null,
+            ])->values()->all(),
         ] : null,
         'homeCoverageSection' => $homeCoverageSection ? [
             'badge_text' => $homeCoverageSection->badge_text,
@@ -152,11 +160,11 @@ Route::get('/', function () {
             'description' => $homeNewsSection->description,
             'cta_text' => $homeNewsSection->cta_text,
             'cta_url' => $homeNewsSection->cta_url,
-            'items' => $homeNewsSection->items->map(fn ($item) => [
-                'title' => $item->title,
-                'image_url' => $item->image ? Storage::disk('public')->url($item->image) : null,
-                'link_url' => $item->link_url,
-                'order' => $item->order,
+            'items' => $homeNewsSection->notices->map(fn ($notice) => [
+                'title' => $notice->title,
+                'image_url' => $notice->image ? Storage::disk('public')->url($notice->image) : null,
+                'link_url' => '/notices/'.$notice->slug,
+                'order' => $notice->pivot->order,
             ])->values()->all(),
         ] : null,
         'homeTestimonialsSection' => $homeTestimonialsSection ? [
@@ -197,6 +205,7 @@ Route::get('about', function () {
     $hero = AboutPageHero::first();
     $mainSection = AboutMainSection::first();
     $contentSection = AboutContentSection::first();
+    $homeReachSection = HomeReachSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
 
     return Inertia::render('About', [
         'aboutPageHero' => $hero ? [
@@ -223,6 +232,22 @@ Route::get('about', function () {
         'aboutContentSection' => $contentSection ? [
             'paragraph_1' => $contentSection->paragraph_1,
             'paragraph_2' => $contentSection->paragraph_2,
+        ] : null,
+        'homeReachSection' => $homeReachSection ? [
+            'badge_text' => $homeReachSection->badge_text,
+            'title' => $homeReachSection->title,
+            'description' => strip_tags(
+                $homeReachSection->description,
+                '<p><br><strong><em><u><a><ul><ol><li><h2><h3>'
+            ),
+            'items' => $homeReachSection->items->map(fn ($item) => [
+                'value' => $item->value,
+                'suffix' => $item->suffix,
+                'label' => $item->label,
+                'image_url' => $item->image ? Storage::disk('public')->url($item->image) : null,
+                'link_url' => $item->link_url,
+                'order' => $item->order,
+            ])->values()->all(),
         ] : null,
     ]);
 })->name('about');
@@ -333,7 +358,58 @@ Route::get('impact-stories/{impact_story:slug}', function (ImpactStory $impact_s
     ]);
 })->name('impact-stories.show');
 Route::get('contact', fn () => Inertia::render('Contact'))->name('contact');
-Route::get('gallery', fn () => Inertia::render('Gallery'))->name('gallery');
+Route::get('gallery', function () {
+    $section = GalleryPageSection::first();
+    $albums = Gallery::withCount('images')
+        ->orderByDesc('created_at')
+        ->get()
+        ->map(fn (Gallery $g) => [
+            'title' => $g->title,
+            'slug' => $g->slug,
+            'description' => $g->description,
+            'images_count' => $g->images_count,
+            'cover_image_url' => $g->cover_image
+                ? Storage::disk('public')->url($g->cover_image)
+                : null,
+        ])
+        ->values()
+        ->all();
+    $partners = Partner::orderBy('order')
+        ->get()
+        ->map(fn ($p) => [
+            'name' => $p->name,
+            'logo_url' => $p->logo
+                ? (str_starts_with($p->logo, 'http') ? $p->logo : Storage::disk('public')->url($p->logo))
+                : null,
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('Gallery', [
+        'galleryPageSection' => $section ? [
+            'title' => $section->title,
+            'description' => $section->description,
+        ] : null,
+        'albums' => $albums,
+        'partners' => $partners,
+    ]);
+})->name('gallery');
+Route::get('gallery/{gallery:slug}', function (Gallery $gallery) {
+    $gallery->load(['images' => fn ($q) => $q->orderBy('order')]);
+
+    return Inertia::render('GalleryShow', [
+        'gallery' => [
+            'title' => $gallery->title,
+            'slug' => $gallery->slug,
+            'description' => $gallery->description,
+            'images' => $gallery->images->map(fn ($i) => [
+                'id' => $i->id,
+                'image_url' => $i->image_path ? Storage::disk('public')->url($i->image_path) : null,
+                'caption' => $i->caption,
+            ])->values()->all(),
+        ],
+    ]);
+})->name('gallery.show');
 Route::get('team', fn () => Inertia::render('Team'))->name('team');
 Route::get('vacancy', fn () => Inertia::render('Vacancy'))->name('vacancy');
 

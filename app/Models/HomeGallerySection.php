@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class HomeGallerySection extends Model
 {
@@ -15,8 +15,10 @@ class HomeGallerySection extends Model
         'cta_url',
     ];
 
-    public function items(): HasMany
+    public function galleries(): BelongsToMany
     {
-        return $this->hasMany(HomeGallerySectionItem::class)->orderBy('order');
+        return $this->belongsToMany(Gallery::class, 'home_gallery_section_gallery')
+            ->withPivot('order')
+            ->orderByPivot('order');
     }
 }

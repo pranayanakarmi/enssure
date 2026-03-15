@@ -19,9 +19,9 @@ class StoreGalleryRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:galleries,slug', 'alpha_dash'],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:galleries,slug', 'alpha_dash'],
             'description' => ['nullable', 'string'],
-            'event_date' => ['nullable', 'date'],
+            'cover_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
         ];
     }
 }

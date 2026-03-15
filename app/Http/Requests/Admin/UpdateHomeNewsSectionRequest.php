@@ -27,6 +27,8 @@ class UpdateHomeNewsSectionRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'cta_text' => ['nullable', 'string', 'max:255'],
             'cta_url' => ['nullable', 'string', 'max:2048'],
+            'notice_ids' => ['nullable', 'array'],
+            'notice_ids.*' => ['integer', 'exists:notices,id'],
         ];
     }
 }

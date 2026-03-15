@@ -1,6 +1,7 @@
 <script setup>
-import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import { ref, computed, onBeforeUnmount } from 'vue';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import HomeGallerySectionController from '@/actions/App/Http/Controllers/Admin/HomeGallerySectionController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -14,6 +15,10 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    galleries: {
+        type: Array,
+        default: () => [],
+    },
 });
 
 const section = computed(() => props.homeGallerySection ?? {
@@ -23,7 +28,7 @@ const section = computed(() => props.homeGallerySection ?? {
     description: '',
     cta_text: '',
     cta_url: '',
-    items: [],
+    gallery_ids: [],
 });
 
 const form = useForm({
@@ -32,60 +37,57 @@ const form = useForm({
     description: section.value.description ?? '',
     cta_text: section.value.cta_text ?? '',
     cta_url: section.value.cta_url ?? '',
+    gallery_ids: section.value.gallery_ids ?? [],
 });
 
-const items = computed(() => section.value.items ?? []);
+const selectedGalleries = computed(() =>
+    form.gallery_ids
+        .map((id) => props.galleries.find((g) => g.id === id))
+        .filter(Boolean),
+);
 
-const itemForm = useForm({
-    text: '',
-    image: null,
-    order: items.value.length,
-});
+function addGallery(gallery) {
+    if (form.gallery_ids.includes(gallery.id)) return;
+    form.gallery_ids = [...form.gallery_ids, gallery.id];
+}
 
-const itemImagePreviewUrl = ref(null);
+function removeGallery(galleryId) {
+    form.gallery_ids = form.gallery_ids.filter((id) => id !== galleryId);
+}
 
-function onItemImageChange(event) {
-    if (itemImagePreviewUrl.value) {
-        URL.revokeObjectURL(itemImagePreviewUrl.value);
-        itemImagePreviewUrl.value = null;
-    }
-    const file = event.target.files?.[0] || null;
-    itemForm.image = file;
-    if (file) {
-        itemImagePreviewUrl.value = URL.createObjectURL(file);
+function toggleGallery(gallery) {
+    if (isSelected(gallery.id)) {
+        removeGallery(gallery.id);
+    } else {
+        addGallery(gallery);
     }
 }
 
-onBeforeUnmount(() => {
-    if (itemImagePreviewUrl.value) {
-        URL.revokeObjectURL(itemImagePreviewUrl.value);
-    }
-});
-
-function addItem() {
-    itemForm.post('/admin/home-gallery-section/items', {
-        forceFormData: true,
-        onSuccess: () => {
-            if (itemImagePreviewUrl.value) {
-                URL.revokeObjectURL(itemImagePreviewUrl.value);
-                itemImagePreviewUrl.value = null;
-            }
-            itemForm.image = null;
-            itemForm.text = '';
-            itemForm.order = items.value.length;
-            const input = document.getElementById('item_image');
-            if (input) {
-                input.value = '';
-            }
-        },
-    });
+function isSelected(galleryId) {
+    return form.gallery_ids.includes(galleryId);
 }
 
-function removeItem(itemId) {
-    if (confirm('Remove this gallery item?')) {
-        router.delete(`/admin/home-gallery-section-items/${itemId}`);
-    }
+function selectedPosition(galleryId) {
+    const index = form.gallery_ids.indexOf(galleryId);
+    return index === -1 ? null : index + 1;
 }
+
+function moveUp(index) {
+    if (index <= 0) return;
+    const next = [...form.gallery_ids];
+    [next[index - 1], next[index]] = [next[index], next[index - 1]];
+    form.gallery_ids = next;
+}
+
+function moveDown(index) {
+    if (index >= form.gallery_ids.length - 1) return;
+    const next = [...form.gallery_ids];
+    [next[index], next[index + 1]] = [next[index + 1], next[index]];
+    form.gallery_ids = next;
+}
+
+const page = usePage();
+const successMessage = computed(() => page.props.flash?.success ?? null);
 
 const breadcrumbItems = [
     { title: 'Home Page', href: '/admin' },
@@ -97,6 +99,12 @@ const breadcrumbItems = [
     <AppLayout :breadcrumbs="breadcrumbItems">
         <Head title="Edit Gallery section" />
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+            <div
+                v-if="successMessage"
+                class="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800"
+            >
+                {{ successMessage }}
+            </div>
             <div class="space-y-6">
                 <Heading
                     variant="small"
@@ -105,7 +113,7 @@ const breadcrumbItems = [
                 />
                 <form
                     class="space-y-6"
-                    @submit.prevent="form.put('/admin/home-gallery-section')"
+                    @submit.prevent="form.put(HomeGallerySectionController.update.url())"
                 >
                     <div class="grid gap-2">
                         <Label for="badge_text">Badge text</Label>
@@ -158,6 +166,153 @@ const breadcrumbItems = [
                         />
                         <InputError :message="form.errors.cta_url" />
                     </div>
+
+                    <Card>
+                        <CardHeader>
+                            <span class="font-medium">Gallery albums</span>
+                            <p class="text-sm text-muted-foreground">
+                                Select which gallery albums from
+                                <Link
+                                    href="/admin/galleries"
+                                    class="text-primary underline hover:no-underline"
+                                >
+                                    Galleries
+                                </Link>
+                                to display on the home page. Order determines display order.
+                            </p>
+                        </CardHeader>
+                        <CardContent class="space-y-6 p-6">
+                            <div
+                                v-if="selectedGalleries.length"
+                                class="space-y-3"
+                            >
+                                <p class="text-sm font-medium text-muted-foreground">
+                                    Selected for home page (in order)
+                                </p>
+                                <ul class="space-y-2 rounded-md border border-sidebar-border p-3">
+                                    <li
+                                        v-for="(gallery, index) in selectedGalleries"
+                                        :key="gallery.id"
+                                        class="flex items-center justify-between gap-4 rounded border border-transparent bg-muted/30 px-3 py-2"
+                                    >
+                                        <div class="flex min-w-0 flex-1 items-center gap-3">
+                                            <div class="h-12 w-16 shrink-0 overflow-hidden rounded border bg-muted">
+                                                <img
+                                                    v-if="gallery.cover_image_url"
+                                                    :src="gallery.cover_image_url"
+                                                    :alt="gallery.title"
+                                                    class="h-full w-full object-cover"
+                                                />
+                                                <div
+                                                    v-else
+                                                    class="flex h-full w-full items-center justify-center text-xs text-muted-foreground"
+                                                >
+                                                    No image
+                                                </div>
+                                            </div>
+                                            <span class="truncate font-medium">{{ gallery.title }}</span>
+                                            <span class="text-xs text-muted-foreground">#{{ index + 1 }}</span>
+                                        </div>
+                                        <div class="flex shrink-0 gap-1">
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="sm"
+                                                :disabled="index === 0"
+                                                @click="moveUp(index)"
+                                            >
+                                                Up
+                                            </Button>
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="sm"
+                                                :disabled="index === selectedGalleries.length - 1"
+                                                @click="moveDown(index)"
+                                            >
+                                                Down
+                                            </Button>
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="sm"
+                                                @click="removeGallery(gallery.id)"
+                                            >
+                                                Remove
+                                            </Button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="space-y-3">
+                                <p class="text-sm font-medium text-muted-foreground">
+                                    Select albums to show on the home page
+                                </p>
+                                <ul
+                                    v-if="galleries.length"
+                                    class="space-y-2 rounded-md border border-sidebar-border p-3"
+                                >
+                                    <li
+                                        v-for="gallery in galleries"
+                                        :key="gallery.id"
+                                        class="flex cursor-pointer items-center gap-4 rounded border border-transparent px-3 py-2 transition-colors hover:bg-muted/50"
+                                        :class="{ 'bg-primary/5 border-primary/20': isSelected(gallery.id) }"
+                                        @click="toggleGallery(gallery)"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            :checked="isSelected(gallery.id)"
+                                            class="h-4 w-4 shrink-0 rounded border-input"
+                                            @click.stop
+                                            @change="toggleGallery(gallery)"
+                                        />
+                                        <div class="h-12 w-16 shrink-0 overflow-hidden rounded border bg-muted">
+                                            <img
+                                                v-if="gallery.cover_image_url"
+                                                :src="gallery.cover_image_url"
+                                                :alt="gallery.title"
+                                                class="h-full w-full object-cover"
+                                            />
+                                            <div
+                                                v-else
+                                                class="flex h-full w-full items-center justify-center text-xs text-muted-foreground"
+                                            >
+                                                No image
+                                            </div>
+                                        </div>
+                                        <span class="min-w-0 flex-1 truncate font-medium">{{ gallery.title }}</span>
+                                        <span
+                                            v-if="isSelected(gallery.id)"
+                                            class="shrink-0 rounded-full bg-primary/15 px-2 py-0.5 text-xs font-medium text-primary"
+                                        >
+                                            Selected #{{ selectedPosition(gallery.id) }}
+                                        </span>
+                                        <span
+                                            v-else
+                                            class="shrink-0 text-xs text-muted-foreground"
+                                        >
+                                            Not selected
+                                        </span>
+                                    </li>
+                                </ul>
+                                <p
+                                    v-else
+                                    class="py-4 text-center text-sm text-muted-foreground"
+                                >
+                                    No gallery albums yet. Create albums in
+                                    <Link
+                                        href="/admin/galleries"
+                                        class="text-primary underline hover:no-underline"
+                                    >
+                                        Galleries
+                                    </Link>
+                                    .
+                                </p>
+                                <InputError :message="form.errors.gallery_ids" />
+                            </div>
+                        </CardContent>
+                    </Card>
+
                     <div class="flex items-center gap-4">
                         <Button
                             type="submit"
@@ -173,147 +328,6 @@ const breadcrumbItems = [
                         </Button>
                     </div>
                 </form>
-
-                <Card>
-                    <CardHeader>
-                        <span class="font-medium">Gallery items</span>
-                        <p class="text-sm text-muted-foreground">
-                            Add gallery items with image and caption text, or edit and remove existing ones.
-                        </p>
-                    </CardHeader>
-                    <CardContent class="space-y-6 p-6">
-                        <form
-                            class="grid gap-4 rounded-lg border border-sidebar-border p-4 sm:grid-cols-2"
-                            @submit.prevent="addItem"
-                        >
-                            <div class="sm:col-span-2">
-                                <Label for="item_text">Caption text</Label>
-                                <Input
-                                    id="item_text"
-                                    v-model="itemForm.text"
-                                    type="text"
-                                    placeholder="e.g. This section provides a visual record..."
-                                />
-                                <InputError :message="itemForm.errors.text" />
-                            </div>
-                            <div class="sm:col-span-2">
-                                <Label for="item_image">Image</Label>
-                                <div
-                                    v-if="itemImagePreviewUrl"
-                                    class="mb-3 flex items-start gap-3 rounded-md border border-sidebar-border bg-muted/30 p-3"
-                                >
-                                    <img
-                                        :src="itemImagePreviewUrl"
-                                        alt="Preview"
-                                        class="h-24 w-40 rounded border object-cover"
-                                    />
-                                    <p class="text-xs text-muted-foreground">
-                                        Chosen image. Click “Add gallery item” to upload.
-                                    </p>
-                                </div>
-                                <div class="max-w-md">
-                                    <input
-                                        id="item_image"
-                                        type="file"
-                                        accept="image/*"
-                                        class="block w-full cursor-pointer rounded-md border border-input bg-background px-3 py-2 text-sm file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-foreground hover:file:bg-primary/90"
-                                        @change="onItemImageChange"
-                                    />
-                                </div>
-                                <InputError :message="itemForm.errors.image" />
-                            </div>
-                            <div>
-                                <Label for="item_order">Order</Label>
-                                <Input
-                                    id="item_order"
-                                    v-model.number="itemForm.order"
-                                    type="number"
-                                    min="0"
-                                />
-                                <InputError :message="itemForm.errors.order" />
-                            </div>
-                            <div class="flex items-end">
-                                <Button
-                                    type="submit"
-                                    variant="secondary"
-                                    :disabled="itemForm.processing"
-                                >
-                                    Add gallery item
-                                </Button>
-                            </div>
-                        </form>
-
-                        <div class="overflow-x-auto rounded-md border border-sidebar-border">
-                            <table class="w-full text-sm">
-                                <thead>
-                                    <tr class="border-b border-sidebar-border bg-muted/50">
-                                        <th class="px-4 py-3 text-left font-medium">Image</th>
-                                        <th class="px-4 py-3 text-left font-medium">Text</th>
-                                        <th class="px-4 py-3 text-left font-medium">Order</th>
-                                        <th class="px-4 py-3 text-right font-medium">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        v-for="item in items"
-                                        :key="item.id"
-                                        class="border-b border-sidebar-border last:border-0"
-                                    >
-                                        <td class="px-4 py-3">
-                                            <div class="h-14 w-24 overflow-hidden rounded border bg-muted">
-                                                <img
-                                                    v-if="item.image_url"
-                                                    :src="item.image_url"
-                                                    alt=""
-                                                    class="h-full w-full object-cover"
-                                                />
-                                                <div
-                                                    v-else
-                                                    class="flex h-full w-full items-center justify-center text-xs text-muted-foreground"
-                                                >
-                                                    No image
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="max-w-[200px] truncate px-4 py-3 text-muted-foreground">
-                                            {{ item.text || '—' }}
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            {{ item.order }}
-                                        </td>
-                                        <td class="px-4 py-3 text-right">
-                                            <div class="flex justify-end gap-2">
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                    as-child
-                                                >
-                                                    <Link :href="`/admin/home-gallery-section-items/${item.id}/edit`">
-                                                        Edit
-                                                    </Link>
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    type="button"
-                                                    @click="removeItem(item.id)"
-                                                >
-                                                    Remove
-                                                </Button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div
-                                v-if="!items.length"
-                                class="py-8 text-center text-sm text-muted-foreground"
-                            >
-                                No gallery items yet. Add one above.
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
             </div>
         </div>
     </AppLayout>

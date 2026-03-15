@@ -27,6 +27,8 @@ class UpdateHomeGallerySectionRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'cta_text' => ['nullable', 'string', 'max:255'],
             'cta_url' => ['nullable', 'string', 'max:500'],
+            'gallery_ids' => ['nullable', 'array'],
+            'gallery_ids.*' => ['integer', 'exists:galleries,id'],
         ];
     }
 }

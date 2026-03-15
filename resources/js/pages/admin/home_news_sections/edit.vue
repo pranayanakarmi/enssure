@@ -1,10 +1,9 @@
 <script setup>
-import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import { ref, computed, onBeforeUnmount } from 'vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -13,6 +12,10 @@ const props = defineProps({
     homeNewsSection: {
         type: Object,
         default: null,
+    },
+    allNotices: {
+        type: Array,
+        default: () => [],
     },
 });
 
@@ -23,7 +26,7 @@ const section = computed(() => props.homeNewsSection ?? {
     description: '',
     cta_text: '',
     cta_url: '',
-    items: [],
+    notice_ids: [],
 });
 
 const form = useForm({
@@ -32,61 +35,23 @@ const form = useForm({
     description: section.value.description ?? '',
     cta_text: section.value.cta_text ?? '',
     cta_url: section.value.cta_url ?? '',
+    notice_ids: section.value.notice_ids ?? [],
 });
 
-const items = computed(() => section.value.items ?? []);
-
-const itemForm = useForm({
-    title: '',
-    image: null,
-    link_url: '',
-    order: items.value.length,
-});
-
-const itemImagePreviewUrl = ref(null);
-
-function onItemImageChange(event) {
-    if (itemImagePreviewUrl.value) {
-        URL.revokeObjectURL(itemImagePreviewUrl.value);
-        itemImagePreviewUrl.value = null;
-    }
-    const file = event.target.files?.[0] || null;
-    itemForm.image = file;
-    if (file) {
-        itemImagePreviewUrl.value = URL.createObjectURL(file);
-    }
+function isNoticeSelected(noticeId) {
+    return form.notice_ids.includes(noticeId);
 }
 
-onBeforeUnmount(() => {
-    if (itemImagePreviewUrl.value) {
-        URL.revokeObjectURL(itemImagePreviewUrl.value);
+function toggleNotice(notice) {
+    const ids = new Set(form.notice_ids);
+    if (ids.has(notice.id)) {
+        ids.delete(notice.id);
+    } else {
+        ids.add(notice.id);
     }
-});
-
-function addItem() {
-    itemForm.post('/admin/home-news-section/items', {
-        forceFormData: true,
-        onSuccess: () => {
-            if (itemImagePreviewUrl.value) {
-                URL.revokeObjectURL(itemImagePreviewUrl.value);
-                itemImagePreviewUrl.value = null;
-            }
-            itemForm.image = null;
-            itemForm.title = '';
-            itemForm.link_url = '';
-            itemForm.order = items.value.length;
-            const input = document.getElementById('item_image');
-            if (input) {
-                input.value = '';
-            }
-        },
-    });
-}
-
-function removeItem(itemId) {
-    if (confirm('Remove this news item?')) {
-        router.delete(`/admin/home-news-section-items/${itemId}`);
-    }
+        form.notice_ids = props.allNotices
+        .filter((n) => ids.has(n.id))
+        .map((n) => n.id);
 }
 
 const breadcrumbItems = [
@@ -160,6 +125,57 @@ const breadcrumbItems = [
                         />
                         <InputError :message="form.errors.cta_url" />
                     </div>
+                    <div class="grid gap-2">
+                        <div class="flex items-center justify-between">
+                            <Label>Notices to show on home page</Label>
+                            <Link
+                                :href="'/admin/notices'"
+                                class="text-sm text-primary hover:underline"
+                            >
+                                Manage notices
+                            </Link>
+                        </div>
+                        <p class="text-xs text-muted-foreground">
+                            Select which notices appear in the home page news block. Order follows the list.
+                        </p>
+                        <ul class="max-h-64 space-y-2 overflow-y-auto rounded-md border border-input bg-muted/30 p-3">
+                            <li
+                                v-for="notice in allNotices"
+                                :key="notice.id"
+                                class="flex cursor-pointer items-center gap-3 rounded-md px-2 py-1.5 hover:bg-muted/50"
+                                @click="toggleNotice(notice)"
+                            >
+                                <input
+                                    type="checkbox"
+                                    :checked="isNoticeSelected(notice.id)"
+                                    class="h-4 w-4 rounded border-input"
+                                    @click.stop
+                                    @change="toggleNotice(notice)"
+                                />
+                                <img
+                                    v-if="notice.image_url"
+                                    :src="notice.image_url"
+                                    :alt="notice.title"
+                                    class="h-10 w-14 shrink-0 rounded object-cover"
+                                />
+                                <span
+                                    v-else
+                                    class="flex h-10 w-14 shrink-0 items-center justify-center rounded bg-muted text-xs text-muted-foreground"
+                                >
+                                    No image
+                                </span>
+                                <span class="min-w-0 flex-1 truncate text-sm">{{ notice.title }}</span>
+                            </li>
+                            <li
+                                v-if="!allNotices.length"
+                                class="py-4 text-center text-sm text-muted-foreground"
+                            >
+                                No notices yet.
+                                <Link href="/admin/notices/create" class="text-primary hover:underline">Create one</Link>.
+                            </li>
+                        </ul>
+                        <InputError :message="form.errors.notice_ids" />
+                    </div>
                     <div class="flex items-center gap-4">
                         <Button
                             type="submit"
@@ -175,161 +191,6 @@ const breadcrumbItems = [
                         </Button>
                     </div>
                 </form>
-
-                <Card>
-                    <CardHeader>
-                        <span class="font-medium">News items</span>
-                        <p class="text-sm text-muted-foreground">
-                            Add featured news items with title, image and link, or edit and remove existing ones.
-                        </p>
-                    </CardHeader>
-                    <CardContent class="space-y-6 p-6">
-                        <form
-                            class="grid gap-4 rounded-lg border border-sidebar-border p-4 sm:grid-cols-2"
-                            @submit.prevent="addItem"
-                        >
-                            <div class="sm:col-span-2">
-                                <Label for="item_title">Title</Label>
-                                <Input
-                                    id="item_title"
-                                    v-model="itemForm.title"
-                                    type="text"
-                                    placeholder="e.g. Article headline"
-                                />
-                                <InputError :message="itemForm.errors.title" />
-                            </div>
-                            <div class="sm:col-span-2">
-                                <Label for="item_image">Image (optional)</Label>
-                                <div
-                                    v-if="itemImagePreviewUrl"
-                                    class="mb-3 flex items-start gap-3 rounded-md border border-sidebar-border bg-muted/30 p-3"
-                                >
-                                    <img
-                                        :src="itemImagePreviewUrl"
-                                        alt="Preview"
-                                        class="h-24 w-40 rounded border object-cover"
-                                    />
-                                    <p class="text-xs text-muted-foreground">
-                                        Chosen image. Click “Add item” to upload.
-                                    </p>
-                                </div>
-                                <div class="max-w-md">
-                                    <input
-                                        id="item_image"
-                                        type="file"
-                                        accept="image/*"
-                                        class="block w-full cursor-pointer rounded-md border border-input bg-background px-3 py-2 text-sm file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-foreground hover:file:bg-primary/90"
-                                        @change="onItemImageChange"
-                                    />
-                                </div>
-                                <InputError :message="itemForm.errors.image" />
-                            </div>
-                            <div class="sm:col-span-2">
-                                <Label for="item_link_url">Link URL</Label>
-                                <Input
-                                    id="item_link_url"
-                                    v-model="itemForm.link_url"
-                                    type="text"
-                                    placeholder="https:// or /path"
-                                />
-                                <InputError :message="itemForm.errors.link_url" />
-                            </div>
-                            <div>
-                                <Label for="item_order">Order</Label>
-                                <Input
-                                    id="item_order"
-                                    v-model.number="itemForm.order"
-                                    type="number"
-                                    min="0"
-                                />
-                                <InputError :message="itemForm.errors.order" />
-                            </div>
-                            <div class="flex items-end">
-                                <Button
-                                    type="submit"
-                                    variant="secondary"
-                                    :disabled="itemForm.processing"
-                                >
-                                    Add item
-                                </Button>
-                            </div>
-                        </form>
-
-                        <div class="overflow-x-auto rounded-md border border-sidebar-border">
-                            <table class="w-full text-sm">
-                                <thead>
-                                    <tr class="border-b border-sidebar-border bg-muted/50">
-                                        <th class="px-4 py-3 text-left font-medium">Image</th>
-                                        <th class="px-4 py-3 text-left font-medium">Title</th>
-                                        <th class="px-4 py-3 text-left font-medium">Link</th>
-                                        <th class="px-4 py-3 text-left font-medium">Order</th>
-                                        <th class="px-4 py-3 text-right font-medium">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        v-for="item in items"
-                                        :key="item.id"
-                                        class="border-b border-sidebar-border last:border-0"
-                                    >
-                                        <td class="px-4 py-3">
-                                            <div class="h-14 w-24 overflow-hidden rounded border bg-muted">
-                                                <img
-                                                    v-if="item.image_url"
-                                                    :src="item.image_url"
-                                                    :alt="item.title || 'News'"
-                                                    class="h-full w-full object-cover"
-                                                />
-                                                <div
-                                                    v-else
-                                                    class="flex h-full w-full items-center justify-center text-xs text-muted-foreground"
-                                                >
-                                                    —
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 font-medium">
-                                            {{ item.title || '—' }}
-                                        </td>
-                                        <td class="px-4 py-3 truncate max-w-[120px] text-muted-foreground">
-                                            {{ item.link_url || '—' }}
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            {{ item.order }}
-                                        </td>
-                                        <td class="px-4 py-3 text-right">
-                                            <div class="flex justify-end gap-2">
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                    as-child
-                                                >
-                                                    <Link :href="`/admin/home-news-section-items/${item.id}/edit`">
-                                                        Edit
-                                                    </Link>
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    type="button"
-                                                    @click="removeItem(item.id)"
-                                                >
-                                                    Remove
-                                                </Button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div
-                                v-if="!items.length"
-                                class="py-8 text-center text-sm text-muted-foreground"
-                            >
-                                No news items yet. Add one above.
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
             </div>
         </div>
     </AppLayout>

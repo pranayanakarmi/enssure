@@ -37,18 +37,17 @@ import news_ticker_items from './news_ticker_items'
 import home_about_sections from './home_about_sections'
 import home_impact_stories_sections from './home_impact_stories_sections'
 import home_gallery_sections from './home_gallery_sections'
-import home_gallery_section_items from './home_gallery_section_items'
 import home_reach_sections from './home_reach_sections'
 import home_reach_items from './home_reach_items'
 import home_coverage_sections from './home_coverage_sections'
 import home_coverage_section_items from './home_coverage_section_items'
 import home_news_sections from './home_news_sections'
-import home_news_section_items from './home_news_section_items'
 import home_testimonials_sections from './home_testimonials_sections'
 import home_partners_sections from './home_partners_sections'
 import home_support_sections from './home_support_sections'
 import home_contact_cta_sections from './home_contact_cta_sections'
 import about_page_hero from './about_page_hero'
+import gallery_page_section from './gallery_page_section'
 import about_main_sections from './about_main_sections'
 import about_content_sections from './about_content_sections'
 import impact_page_hero from './impact_page_hero'
@@ -67,7 +66,7 @@ import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
 /**
-* @see routes/admin.php:78
+* @see routes/admin.php:77
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -81,7 +80,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/admin.php:78
+* @see routes/admin.php:77
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -89,7 +88,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/admin.php:78
+* @see routes/admin.php:77
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -98,7 +97,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:78
+* @see routes/admin.php:77
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -107,7 +106,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/admin.php:78
+* @see routes/admin.php:77
 * @route '/admin'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -116,7 +115,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/admin.php:78
+* @see routes/admin.php:77
 * @route '/admin'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -125,7 +124,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:78
+* @see routes/admin.php:77
 * @route '/admin'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -180,18 +179,17 @@ const admin = {
     home_about_sections: Object.assign(home_about_sections, home_about_sections),
     home_impact_stories_sections: Object.assign(home_impact_stories_sections, home_impact_stories_sections),
     home_gallery_sections: Object.assign(home_gallery_sections, home_gallery_sections),
-    home_gallery_section_items: Object.assign(home_gallery_section_items, home_gallery_section_items),
     home_reach_sections: Object.assign(home_reach_sections, home_reach_sections),
     home_reach_items: Object.assign(home_reach_items, home_reach_items),
     home_coverage_sections: Object.assign(home_coverage_sections, home_coverage_sections),
     home_coverage_section_items: Object.assign(home_coverage_section_items, home_coverage_section_items),
     home_news_sections: Object.assign(home_news_sections, home_news_sections),
-    home_news_section_items: Object.assign(home_news_section_items, home_news_section_items),
     home_testimonials_sections: Object.assign(home_testimonials_sections, home_testimonials_sections),
     home_partners_sections: Object.assign(home_partners_sections, home_partners_sections),
     home_support_sections: Object.assign(home_support_sections, home_support_sections),
     home_contact_cta_sections: Object.assign(home_contact_cta_sections, home_contact_cta_sections),
     about_page_hero: Object.assign(about_page_hero, about_page_hero),
+    gallery_page_section: Object.assign(gallery_page_section, gallery_page_section),
     about_main_sections: Object.assign(about_main_sections, about_main_sections),
     about_content_sections: Object.assign(about_content_sections, about_content_sections),
     impact_page_hero: Object.assign(impact_page_hero, impact_page_hero),

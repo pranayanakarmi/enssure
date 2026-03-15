@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::edit
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:14
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:16
 * @route '/admin/home-impact-stories-section/edit'
 */
 export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::edit
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:14
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:16
 * @route '/admin/home-impact-stories-section/edit'
 */
 edit.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ edit.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::edit
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:14
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:16
 * @route '/admin/home-impact-stories-section/edit'
 */
 edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::edit
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:14
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:16
 * @route '/admin/home-impact-stories-section/edit'
 */
 edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::edit
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:14
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:16
 * @route '/admin/home-impact-stories-section/edit'
 */
 const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -55,7 +55,7 @@ const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::edit
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:14
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:16
 * @route '/admin/home-impact-stories-section/edit'
 */
 editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -65,7 +65,7 @@ editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::edit
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:14
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:16
 * @route '/admin/home-impact-stories-section/edit'
 */
 editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -82,7 +82,7 @@ edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::update
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:39
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:56
 * @route '/admin/home-impact-stories-section'
 */
 export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -97,7 +97,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::update
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:39
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:56
 * @route '/admin/home-impact-stories-section'
 */
 update.url = (options?: RouteQueryOptions) => {
@@ -106,7 +106,7 @@ update.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::update
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:39
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:56
 * @route '/admin/home-impact-stories-section'
 */
 update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -116,7 +116,7 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::update
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:39
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:56
 * @route '/admin/home-impact-stories-section'
 */
 const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -131,7 +131,7 @@ const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =>
 
 /**
 * @see \App\Http\Controllers\Admin\HomeImpactStoriesSectionController::update
-* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:39
+* @see app/Http/Controllers/Admin/HomeImpactStoriesSectionController.php:56
 * @route '/admin/home-impact-stories-section'
 */
 updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateHomeGallerySectionRequest;
+use App\Models\Gallery;
 use App\Models\HomeGallerySection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -25,13 +26,15 @@ class HomeGallerySectionController extends Controller
 
         $this->authorize('update', $section);
 
-        $section->load(['items' => fn ($q) => $q->orderBy('order')]);
+        $section->load('galleries');
 
-        $items = $section->items->map(fn ($item) => [
-            'id' => $item->id,
-            'image_url' => $item->image ? Storage::disk('public')->url($item->image) : null,
-            'text' => $item->text,
-            'order' => $item->order,
+        $galleryIds = $section->galleries->pluck('id')->values()->all();
+
+        $allGalleries = Gallery::query()->orderBy('title')->get()->map(fn ($gallery) => [
+            'id' => $gallery->id,
+            'title' => $gallery->title,
+            'slug' => $gallery->slug,
+            'cover_image_url' => $gallery->cover_image ? Storage::disk('public')->url($gallery->cover_image) : null,
         ])->values()->all();
 
         return Inertia::render('admin/home_gallery_sections/edit', [
@@ -42,8 +45,9 @@ class HomeGallerySectionController extends Controller
                 'description' => $section->description,
                 'cta_text' => $section->cta_text,
                 'cta_url' => $section->cta_url,
-                'items' => $items,
+                'gallery_ids' => $galleryIds,
             ],
+            'galleries' => $allGalleries,
         ]);
     }
 
@@ -52,15 +56,21 @@ class HomeGallerySectionController extends Controller
         $section = HomeGallerySection::first();
 
         if (! $section) {
-            $section = HomeGallerySection::create($request->validated());
+            $section = HomeGallerySection::create($request->safe()->only([
+                'badge_text', 'title', 'description', 'cta_text', 'cta_url',
+            ]));
             $this->authorize('update', $section);
-
-            return back()->with('success', 'Home Gallery section created successfully.');
+        } else {
+            $this->authorize('update', $section);
+            $section->update($request->safe()->only([
+                'badge_text', 'title', 'description', 'cta_text', 'cta_url',
+            ]));
         }
 
-        $this->authorize('update', $section);
-
-        $section->update($request->validated());
+        $galleryIds = $request->validated('gallery_ids', []);
+        $galleryIds = is_array($galleryIds) ? array_values(array_map('intval', array_filter($galleryIds))) : [];
+        $sync = collect($galleryIds)->mapWithKeys(fn ($id, $index) => [$id => ['order' => $index]])->all();
+        $section->galleries()->sync($sync);
 
         return back()->with('success', 'Home Gallery section updated successfully.');
     }

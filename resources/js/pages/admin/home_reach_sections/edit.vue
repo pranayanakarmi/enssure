@@ -63,7 +63,7 @@ onBeforeUnmount(() => {
 });
 
 function addItem() {
-    itemForm.post('/admin/home-reach-section/items', {
+    itemForm.post('/admin/impact-and-milestones/items', {
         forceFormData: true,
         onSuccess: () => {
             if (itemImagePreviewUrl.value) {
@@ -86,29 +86,29 @@ function addItem() {
 
 function removeItem(itemId) {
     if (confirm('Remove this stat card?')) {
-        router.delete(`/admin/home-reach-items/${itemId}`);
+        router.delete(`/admin/impact-and-milestones-items/${itemId}`);
     }
 }
 
 const breadcrumbItems = [
     { title: 'Home Page', href: '#' },
-    { title: 'Our Reach', href: '#' },
+    { title: 'Impact & Milestones', href: '#' },
 ];
 </script>
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Edit Our Reach section" />
+        <Head title="Edit Impact & Milestones" />
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="space-y-6">
                 <Heading
                     variant="small"
-                    title="Our Reach section"
-                    description="Edit the badge, title and description shown on the home page."
+                    title="Impact & Milestones"
+                    description="Edit the badge, title and description shown on the home and about pages."
                 />
                 <form
                     class="space-y-6"
-                    @submit.prevent="form.put('/admin/home-reach-section')"
+                    @submit.prevent="form.put('/admin/impact-and-milestones')"
                 >
                     <div class="grid gap-2">
                         <Label for="badge_text">Badge text</Label>
@@ -307,7 +307,7 @@ const breadcrumbItems = [
                                                     size="sm"
                                                     as-child
                                                 >
-                                                    <Link :href="`/admin/home-reach-items/${item.id}/edit`">
+                                                    <Link :href="`/admin/impact-and-milestones-items/${item.id}/edit`">
                                                         Edit
                                                     </Link>
                                                 </Button>

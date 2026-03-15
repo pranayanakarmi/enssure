@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class HomeNewsSection extends Model
 {
@@ -15,8 +15,10 @@ class HomeNewsSection extends Model
         'cta_url',
     ];
 
-    public function items(): HasMany
+    public function notices(): BelongsToMany
     {
-        return $this->hasMany(HomeNewsSectionItem::class)->orderBy('order');
+        return $this->belongsToMany(Notice::class, 'home_news_section_notice')
+            ->withPivot('order')
+            ->orderByPivot('order');
     }
 }

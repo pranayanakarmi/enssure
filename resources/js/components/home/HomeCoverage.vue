@@ -74,19 +74,19 @@ const coverageStats = computed(() => {
                         <li
                             v-for="(stat, i) in coverageStats"
                             :key="i"
-                            class="flex space-x-5"
+                            class="flex items-center gap-5"
                         >
                             <img
                                 v-if="stat.icon"
                                 :src="stat.icon"
                                 :alt="stat.label"
-                                class="w-10 h-10 object-contain flex-shrink-0"
+                                class="w-10 h-10 flex-shrink-0 object-contain"
                             />
-                            <div>
-                                <h2 class="text-xl font-semibold">
+                            <div class="flex min-w-0 flex-col">
+                                <h2 class="block text-xl font-semibold leading-tight text-[#101010]">
                                     {{ stat.value }}
                                 </h2>
-                                <span class="text-[#515151] text-xs">
+                                <span class="mt-0.5 block text-xs text-[#515151]">
                                     {{ stat.label }}
                                 </span>
                             </div>

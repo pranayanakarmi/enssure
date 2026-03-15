@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::update
-* @see app/Http/Controllers/Admin/GalleryImageController.php:21
+* @see app/Http/Controllers/Admin/GalleryImageController.php:28
 * @route '/admin/gallery-images/{gallery_image}'
 */
 export const update = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -16,7 +16,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::update
-* @see app/Http/Controllers/Admin/GalleryImageController.php:21
+* @see app/Http/Controllers/Admin/GalleryImageController.php:28
 * @route '/admin/gallery-images/{gallery_image}'
 */
 update.url = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ update.url = (args: { gallery_image: number | { id: number } } | [gallery_image:
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::update
-* @see app/Http/Controllers/Admin/GalleryImageController.php:21
+* @see app/Http/Controllers/Admin/GalleryImageController.php:28
 * @route '/admin/gallery-images/{gallery_image}'
 */
 update.put = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -59,7 +59,7 @@ update.put = (args: { gallery_image: number | { id: number } } | [gallery_image:
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::update
-* @see app/Http/Controllers/Admin/GalleryImageController.php:21
+* @see app/Http/Controllers/Admin/GalleryImageController.php:28
 * @route '/admin/gallery-images/{gallery_image}'
 */
 const updateForm = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -74,7 +74,7 @@ const updateForm = (args: { gallery_image: number | { id: number } } | [gallery_
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::update
-* @see app/Http/Controllers/Admin/GalleryImageController.php:21
+* @see app/Http/Controllers/Admin/GalleryImageController.php:28
 * @route '/admin/gallery-images/{gallery_image}'
 */
 updateForm.put = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -91,7 +91,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::destroy
-* @see app/Http/Controllers/Admin/GalleryImageController.php:28
+* @see app/Http/Controllers/Admin/GalleryImageController.php:35
 * @route '/admin/gallery-images/{gallery_image}'
 */
 export const destroy = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -106,7 +106,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::destroy
-* @see app/Http/Controllers/Admin/GalleryImageController.php:28
+* @see app/Http/Controllers/Admin/GalleryImageController.php:35
 * @route '/admin/gallery-images/{gallery_image}'
 */
 destroy.url = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -139,7 +139,7 @@ destroy.url = (args: { gallery_image: number | { id: number } } | [gallery_image
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::destroy
-* @see app/Http/Controllers/Admin/GalleryImageController.php:28
+* @see app/Http/Controllers/Admin/GalleryImageController.php:35
 * @route '/admin/gallery-images/{gallery_image}'
 */
 destroy.delete = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -149,7 +149,7 @@ destroy.delete = (args: { gallery_image: number | { id: number } } | [gallery_im
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::destroy
-* @see app/Http/Controllers/Admin/GalleryImageController.php:28
+* @see app/Http/Controllers/Admin/GalleryImageController.php:35
 * @route '/admin/gallery-images/{gallery_image}'
 */
 const destroyForm = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -164,7 +164,7 @@ const destroyForm = (args: { gallery_image: number | { id: number } } | [gallery
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::destroy
-* @see app/Http/Controllers/Admin/GalleryImageController.php:28
+* @see app/Http/Controllers/Admin/GalleryImageController.php:35
 * @route '/admin/gallery-images/{gallery_image}'
 */
 destroyForm.delete = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

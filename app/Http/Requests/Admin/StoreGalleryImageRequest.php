@@ -18,7 +18,7 @@ class StoreGalleryImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image_path' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
             'caption' => ['nullable', 'string', 'max:255'],
             'order' => ['nullable', 'integer', 'min:0'],
         ];

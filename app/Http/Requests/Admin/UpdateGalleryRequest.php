@@ -21,9 +21,10 @@ class UpdateGalleryRequest extends FormRequest
 
         return [
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', Rule::unique('galleries', 'slug')->ignore($gallery->id), 'alpha_dash'],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique('galleries', 'slug')->ignore($gallery->id), 'alpha_dash'],
             'description' => ['nullable', 'string'],
-            'event_date' => ['nullable', 'date'],
+            'cover_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
+            'remove_cover_image' => ['nullable', 'boolean'],
         ];
     }
 }

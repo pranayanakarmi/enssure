@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, usePage, router } from '@inertiajs/vue3';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -15,26 +15,33 @@ defineProps({
 const page = usePage();
 const success = page.props.flash?.success;
 
+function deleteAlbum(gallery) {
+    if (!confirm(`Delete album "${gallery.title}"? This will also remove all images in this album.`)) {
+        return;
+    }
+    router.delete(`/admin/galleries/${gallery.id}`);
+}
+
 const breadcrumbItems = [
-    { title: 'Home Page', href: '#' },
-    { title: 'Galleries', href: '/admin/galleries' },
+    { title: 'Gallery Page', href: '#' },
+    { title: 'Albums', href: '/admin/galleries' },
 ];
 </script>
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Galleries" />
+        <Head title="Albums" />
 
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="space-y-6">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <Heading
                         variant="small"
-                        title="Galleries"
-                        description="Manage image galleries"
+                        title="Albums"
+                        description="Manage gallery albums. Each album has a title, cover image, and images inside."
                     />
                     <Button as-child>
-                        <Link href="/admin/galleries/create">Add gallery</Link>
+                        <Link href="/admin/galleries/create">Add album</Link>
                     </Button>
                 </div>
 
@@ -63,19 +70,44 @@ const breadcrumbItems = [
                                 :key="g.id"
                                 class="flex flex-wrap items-center justify-between gap-4 px-6 py-4"
                             >
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate font-medium text-foreground">
-                                        {{ g.title }}
-                                    </p>
-                                    <p class="truncate text-sm text-muted-foreground">
-                                        {{ g.slug }} · {{ g.images_count ?? 0 }} images
-                                    </p>
+                                <div class="flex min-w-0 flex-1 items-center gap-4">
+                                    <div class="h-14 w-14 shrink-0 overflow-hidden rounded-md border bg-muted">
+                                        <img
+                                            v-if="g.cover_image_url"
+                                            :src="g.cover_image_url"
+                                            :alt="g.title"
+                                            class="h-full w-full object-cover"
+                                        />
+                                        <div
+                                            v-else
+                                            class="flex h-full w-full items-center justify-center text-xs text-muted-foreground"
+                                        >
+                                            No cover
+                                        </div>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="truncate font-medium text-foreground">
+                                            {{ g.title }}
+                                        </p>
+                                        <p class="truncate text-sm text-muted-foreground">
+                                            {{ g.slug }} · {{ g.images_count ?? 0 }} images
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <Button variant="outline" size="sm" as-child>
                                         <Link :href="`/admin/galleries/${g.id}/edit`">
                                             Edit
                                         </Link>
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        type="button"
+                                        class="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                                        @click="deleteAlbum(g)"
+                                    >
+                                        Delete
                                     </Button>
                                 </div>
                             </div>

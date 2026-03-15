@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             FirstAdminSeeder::class,
             HomeAboutSectionSeeder::class,
             AboutPageHeroSeeder::class,
+            GalleryPageSectionSeeder::class,
             AboutMainSectionSeeder::class,
             AboutContentSectionSeeder::class,
             ImpactPageHeroSeeder::class,

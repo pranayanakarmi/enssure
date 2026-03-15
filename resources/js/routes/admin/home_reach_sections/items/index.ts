@@ -2,7 +2,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
@@ -11,13 +11,13 @@ export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => (
 
 store.definition = {
     methods: ["post"],
-    url: '/admin/home-reach-section/items',
+    url: '/admin/impact-and-milestones/items',
 } satisfies RouteDefinition<["post"]>
 
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 store.url = (options?: RouteQueryOptions) => {
     return store.definition.url + queryParams(options)
@@ -26,7 +26,7 @@ store.url = (options?: RouteQueryOptions) => {
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
@@ -36,7 +36,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: store.url(options),
@@ -46,7 +46,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: store.url(options),

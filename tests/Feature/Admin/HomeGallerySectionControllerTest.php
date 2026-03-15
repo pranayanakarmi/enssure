@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Gallery;
 use App\Models\HomeGallerySection;
 use App\Models\User;
 use Database\Seeders\ContentPermissionsSeeder;
@@ -34,6 +35,7 @@ test('admin user can access admin home gallery section edit', function () {
     $response->assertInertia(fn ($page) => $page
         ->component('admin/home_gallery_sections/edit')
         ->has('homeGallerySection')
+        ->has('galleries')
     );
 });
 
@@ -55,7 +57,8 @@ test('admin user can update home gallery section', function () {
         'title' => 'Updated Title',
         'description' => 'Updated description',
         'cta_text' => 'Explore gallery',
-        'cta_url' => '/galleries',
+        'cta_url' => '/gallery',
+        'gallery_ids' => [],
     ]);
 
     $response->assertRedirect();
@@ -64,7 +67,55 @@ test('admin user can update home gallery section', function () {
     expect($section->title)->toBe('Updated Title');
     expect($section->description)->toBe('Updated description');
     expect($section->cta_text)->toBe('Explore gallery');
-    expect($section->cta_url)->toBe('/galleries');
+    expect($section->cta_url)->toBe('/gallery');
+});
+
+test('admin user can update home gallery section with selected gallery albums', function () {
+    $section = HomeGallerySection::create([
+        'badge_text' => 'Gallery',
+        'title' => 'Gallery Section',
+        'description' => 'Description',
+        'cta_text' => 'View all',
+        'cta_url' => '/gallery',
+    ]);
+
+    $gallery1 = Gallery::create([
+        'title' => 'Capacity development programs',
+        'slug' => 'capacity-development-programs',
+        'description' => null,
+        'cover_image' => null,
+    ]);
+    $gallery2 = Gallery::create([
+        'title' => 'Collaborative workshops',
+        'slug' => 'collaborative-workshops',
+        'description' => null,
+        'cover_image' => null,
+    ]);
+    $gallery3 = Gallery::create([
+        'title' => 'Documenting milestones',
+        'slug' => 'documenting-milestones',
+        'description' => null,
+        'cover_image' => null,
+    ]);
+
+    $user = User::factory()->create();
+    $user->assignRole('admin');
+    $this->actingAs($user);
+
+    $response = $this->put(route('admin.home_gallery_sections.update'), [
+        'badge_text' => 'Gallery',
+        'title' => 'Gallery Section',
+        'description' => 'Description',
+        'cta_text' => 'View all',
+        'cta_url' => '/gallery',
+        'gallery_ids' => [$gallery2->id, $gallery1->id, $gallery3->id],
+    ]);
+
+    $response->assertRedirect();
+    $section->refresh();
+    $section->load('galleries');
+    $orderedIds = $section->galleries->pluck('id')->values()->all();
+    expect($orderedIds)->toBe([$gallery2->id, $gallery1->id, $gallery3->id]);
 });
 
 test('home page returns home gallery section when record exists', function () {

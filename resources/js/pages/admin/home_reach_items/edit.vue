@@ -31,7 +31,7 @@ const form = useForm({
 
 const breadcrumbItems = [
     { title: 'Home Page', href: '#' },
-    { title: 'Our Reach', href: '/admin/home-reach-section/edit' },
+    { title: 'Impact & Milestones', href: '/admin/impact-and-milestones/edit' },
     { title: 'Edit stat card', href: '#' },
 ];
 </script>
@@ -48,7 +48,7 @@ const breadcrumbItems = [
                 />
                 <form
                     class="space-y-6"
-                    @submit.prevent="form.post(`/admin/home-reach-items/${homeReachItem.id}`, { forceFormData: true })"
+                    @submit.prevent="form.post(`/admin/impact-and-milestones-items/${homeReachItem.id}`, { forceFormData: true })"
                 >
                     <div class="grid gap-2">
                         <Label for="value">Value</Label>
@@ -137,7 +137,7 @@ const breadcrumbItems = [
                             variant="outline"
                             as-child
                         >
-                            <Link href="/admin/home-reach-section/edit">Back to Our Reach</Link>
+                            <Link href="/admin/impact-and-milestones/edit">Back to Impact & Milestones</Link>
                         </Button>
                     </div>
                 </form>

@@ -1,8 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../wayfinder'
-import items from './items'
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::edit
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:15
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:16
 * @route '/admin/home-news-section/edit'
 */
 export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -17,7 +16,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::edit
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:15
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:16
 * @route '/admin/home-news-section/edit'
 */
 edit.url = (options?: RouteQueryOptions) => {
@@ -26,7 +25,7 @@ edit.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::edit
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:15
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:16
 * @route '/admin/home-news-section/edit'
 */
 edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -36,7 +35,7 @@ edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::edit
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:15
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:16
 * @route '/admin/home-news-section/edit'
 */
 edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -46,7 +45,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::edit
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:15
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:16
 * @route '/admin/home-news-section/edit'
 */
 const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -56,7 +55,7 @@ const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::edit
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:15
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:16
 * @route '/admin/home-news-section/edit'
 */
 editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -66,7 +65,7 @@ editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::edit
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:15
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:16
 * @route '/admin/home-news-section/edit'
 */
 editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -83,7 +82,7 @@ edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::update
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:51
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:56
 * @route '/admin/home-news-section'
 */
 export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -98,7 +97,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::update
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:51
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:56
 * @route '/admin/home-news-section'
 */
 update.url = (options?: RouteQueryOptions) => {
@@ -107,7 +106,7 @@ update.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::update
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:51
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:56
 * @route '/admin/home-news-section'
 */
 update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -117,7 +116,7 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::update
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:51
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:56
 * @route '/admin/home-news-section'
 */
 const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -132,7 +131,7 @@ const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =>
 
 /**
 * @see \App\Http\Controllers\Admin\HomeNewsSectionController::update
-* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:51
+* @see app/Http/Controllers/Admin/HomeNewsSectionController.php:56
 * @route '/admin/home-news-section'
 */
 updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -150,7 +149,6 @@ update.form = updateForm
 const home_news_sections = {
     edit: Object.assign(edit, edit),
     update: Object.assign(update, update),
-    items: Object.assign(items, items),
 }
 
 export default home_news_sections

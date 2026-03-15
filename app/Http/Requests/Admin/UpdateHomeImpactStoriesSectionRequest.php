@@ -27,6 +27,8 @@ class UpdateHomeImpactStoriesSectionRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'cta_text' => ['nullable', 'string', 'max:255'],
             'cta_url' => ['nullable', 'string', 'max:500'],
+            'impact_story_ids' => ['nullable', 'array'],
+            'impact_story_ids.*' => ['integer', 'exists:impact_stories,id'],
         ];
     }
 }

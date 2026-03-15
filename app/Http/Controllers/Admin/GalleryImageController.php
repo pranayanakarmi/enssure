@@ -13,7 +13,14 @@ class GalleryImageController extends Controller
 {
     public function store(StoreGalleryImageRequest $request, Gallery $gallery): RedirectResponse
     {
-        $gallery->images()->create($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image_path'] = $request->file('image')->store('gallery-images', 'public');
+        }
+
+        unset($data['image']);
+        $gallery->images()->create($data);
 
         return back()->with('success', 'Image added.');
     }

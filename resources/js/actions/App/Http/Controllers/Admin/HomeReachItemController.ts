@@ -2,7 +2,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
@@ -11,13 +11,13 @@ export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => (
 
 store.definition = {
     methods: ["post"],
-    url: '/admin/home-reach-section/items',
+    url: '/admin/impact-and-milestones/items',
 } satisfies RouteDefinition<["post"]>
 
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 store.url = (options?: RouteQueryOptions) => {
     return store.definition.url + queryParams(options)
@@ -26,7 +26,7 @@ store.url = (options?: RouteQueryOptions) => {
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
@@ -36,7 +36,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: store.url(options),
@@ -46,7 +46,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::store
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:17
-* @route '/admin/home-reach-section/items'
+* @route '/admin/impact-and-milestones/items'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: store.url(options),
@@ -58,7 +58,7 @@ store.form = storeForm
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::edit
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:34
-* @route '/admin/home-reach-items/{home_reach_item}/edit'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}/edit'
 */
 export const edit = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
@@ -67,13 +67,13 @@ export const edit = (args: { home_reach_item: number | { id: number } } | [home_
 
 edit.definition = {
     methods: ["get","head"],
-    url: '/admin/home-reach-items/{home_reach_item}/edit',
+    url: '/admin/impact-and-milestones-items/{home_reach_item}/edit',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::edit
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:34
-* @route '/admin/home-reach-items/{home_reach_item}/edit'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}/edit'
 */
 edit.url = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
@@ -106,7 +106,7 @@ edit.url = (args: { home_reach_item: number | { id: number } } | [home_reach_ite
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::edit
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:34
-* @route '/admin/home-reach-items/{home_reach_item}/edit'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}/edit'
 */
 edit.get = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
@@ -116,7 +116,7 @@ edit.get = (args: { home_reach_item: number | { id: number } } | [home_reach_ite
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::edit
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:34
-* @route '/admin/home-reach-items/{home_reach_item}/edit'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}/edit'
 */
 edit.head = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
@@ -126,7 +126,7 @@ edit.head = (args: { home_reach_item: number | { id: number } } | [home_reach_it
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::edit
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:34
-* @route '/admin/home-reach-items/{home_reach_item}/edit'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}/edit'
 */
 const editForm = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: edit.url(args, options),
@@ -136,7 +136,7 @@ const editForm = (args: { home_reach_item: number | { id: number } } | [home_rea
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::edit
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:34
-* @route '/admin/home-reach-items/{home_reach_item}/edit'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}/edit'
 */
 editForm.get = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: edit.url(args, options),
@@ -146,7 +146,7 @@ editForm.get = (args: { home_reach_item: number | { id: number } } | [home_reach
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::edit
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:34
-* @route '/admin/home-reach-items/{home_reach_item}/edit'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}/edit'
 */
 editForm.head = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: edit.url(args, {
@@ -163,7 +163,7 @@ edit.form = editForm
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::update
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:57
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 export const update = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
@@ -172,13 +172,13 @@ export const update = (args: { home_reach_item: number | { id: number } } | [hom
 
 update.definition = {
     methods: ["put"],
-    url: '/admin/home-reach-items/{home_reach_item}',
+    url: '/admin/impact-and-milestones-items/{home_reach_item}',
 } satisfies RouteDefinition<["put"]>
 
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::update
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:57
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 update.url = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
@@ -211,7 +211,7 @@ update.url = (args: { home_reach_item: number | { id: number } } | [home_reach_i
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::update
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:57
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 update.put = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
@@ -221,7 +221,7 @@ update.put = (args: { home_reach_item: number | { id: number } } | [home_reach_i
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::update
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:57
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 const updateForm = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
@@ -236,7 +236,7 @@ const updateForm = (args: { home_reach_item: number | { id: number } } | [home_r
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::update
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:57
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 updateForm.put = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
@@ -253,7 +253,7 @@ update.form = updateForm
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::destroy
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:74
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 export const destroy = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
@@ -262,13 +262,13 @@ export const destroy = (args: { home_reach_item: number | { id: number } } | [ho
 
 destroy.definition = {
     methods: ["delete"],
-    url: '/admin/home-reach-items/{home_reach_item}',
+    url: '/admin/impact-and-milestones-items/{home_reach_item}',
 } satisfies RouteDefinition<["delete"]>
 
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::destroy
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:74
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 destroy.url = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
@@ -301,7 +301,7 @@ destroy.url = (args: { home_reach_item: number | { id: number } } | [home_reach_
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::destroy
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:74
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 destroy.delete = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
@@ -311,7 +311,7 @@ destroy.delete = (args: { home_reach_item: number | { id: number } } | [home_rea
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::destroy
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:74
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 const destroyForm = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: destroy.url(args, {
@@ -326,7 +326,7 @@ const destroyForm = (args: { home_reach_item: number | { id: number } } | [home_
 /**
 * @see \App\Http\Controllers\Admin\HomeReachItemController::destroy
 * @see app/Http/Controllers/Admin/HomeReachItemController.php:74
-* @route '/admin/home-reach-items/{home_reach_item}'
+* @route '/admin/impact-and-milestones-items/{home_reach_item}'
 */
 destroyForm.delete = (args: { home_reach_item: number | { id: number } } | [home_reach_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: destroy.url(args, {

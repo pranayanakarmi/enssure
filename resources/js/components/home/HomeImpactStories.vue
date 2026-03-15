@@ -25,7 +25,17 @@ const title = computed(() => props.storiesSection?.title ?? fallbackTitle);
 const description = computed(() => props.storiesSection?.description ?? fallbackDescription);
 const ctaText = computed(() => props.storiesSection?.cta_text ?? fallbackCtaText);
 const ctaUrl = computed(() => props.storiesSection?.cta_url ?? fallbackCtaUrl);
-const stories = computed(() => fallbackStories);
+const stories = computed(() => {
+    const sectionStories = props.storiesSection?.stories;
+    if (sectionStories && sectionStories.length > 0) {
+        return sectionStories.map((s) => ({
+            image: s.image_url ?? '',
+            title: s.title,
+            slug: s.slug,
+        }));
+    }
+    return fallbackStories.map((s) => ({ ...s, slug: null }));
+});
 </script>
 
 <template>
@@ -81,12 +91,19 @@ const stories = computed(() => fallbackStories);
                         >
                             {{ story.title }}
                         </h3>
-                        <button
-                            type="button"
+                        <Link
+                            v-if="story.slug"
+                            :href="`/impact-stories/${story.slug}`"
                             class="inline-flex items-center justify-center px-7 py-2.5 bg-[#B91C1C] rounded-full text-white text-sm uppercase font-semibold hover:bg-[#d11b23] transition-colors"
                         >
                             View details
-                        </button>
+                        </Link>
+                        <span
+                            v-else
+                            class="inline-flex items-center justify-center px-7 py-2.5 bg-[#B91C1C] rounded-full text-white text-sm uppercase font-semibold"
+                        >
+                            View details
+                        </span>
                     </div>
                 </div>
             </div>

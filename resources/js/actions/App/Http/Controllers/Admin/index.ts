@@ -36,18 +36,17 @@ import NewsTickerItemController from './NewsTickerItemController'
 import HomeAboutSectionController from './HomeAboutSectionController'
 import HomeImpactStoriesSectionController from './HomeImpactStoriesSectionController'
 import HomeGallerySectionController from './HomeGallerySectionController'
-import HomeGallerySectionItemController from './HomeGallerySectionItemController'
 import HomeReachSectionController from './HomeReachSectionController'
 import HomeReachItemController from './HomeReachItemController'
 import HomeCoverageSectionController from './HomeCoverageSectionController'
 import HomeCoverageSectionItemController from './HomeCoverageSectionItemController'
 import HomeNewsSectionController from './HomeNewsSectionController'
-import HomeNewsSectionItemController from './HomeNewsSectionItemController'
 import HomeTestimonialsSectionController from './HomeTestimonialsSectionController'
 import HomePartnersSectionController from './HomePartnersSectionController'
 import HomeSupportSectionController from './HomeSupportSectionController'
 import HomeContactCtaSectionController from './HomeContactCtaSectionController'
 import AboutPageHeroController from './AboutPageHeroController'
+import GalleryPageSectionController from './GalleryPageSectionController'
 import AboutMainSectionController from './AboutMainSectionController'
 import AboutContentSectionController from './AboutContentSectionController'
 import ImpactPageHeroController from './ImpactPageHeroController'
@@ -104,18 +103,17 @@ const Admin = {
     HomeAboutSectionController: Object.assign(HomeAboutSectionController, HomeAboutSectionController),
     HomeImpactStoriesSectionController: Object.assign(HomeImpactStoriesSectionController, HomeImpactStoriesSectionController),
     HomeGallerySectionController: Object.assign(HomeGallerySectionController, HomeGallerySectionController),
-    HomeGallerySectionItemController: Object.assign(HomeGallerySectionItemController, HomeGallerySectionItemController),
     HomeReachSectionController: Object.assign(HomeReachSectionController, HomeReachSectionController),
     HomeReachItemController: Object.assign(HomeReachItemController, HomeReachItemController),
     HomeCoverageSectionController: Object.assign(HomeCoverageSectionController, HomeCoverageSectionController),
     HomeCoverageSectionItemController: Object.assign(HomeCoverageSectionItemController, HomeCoverageSectionItemController),
     HomeNewsSectionController: Object.assign(HomeNewsSectionController, HomeNewsSectionController),
-    HomeNewsSectionItemController: Object.assign(HomeNewsSectionItemController, HomeNewsSectionItemController),
     HomeTestimonialsSectionController: Object.assign(HomeTestimonialsSectionController, HomeTestimonialsSectionController),
     HomePartnersSectionController: Object.assign(HomePartnersSectionController, HomePartnersSectionController),
     HomeSupportSectionController: Object.assign(HomeSupportSectionController, HomeSupportSectionController),
     HomeContactCtaSectionController: Object.assign(HomeContactCtaSectionController, HomeContactCtaSectionController),
     AboutPageHeroController: Object.assign(AboutPageHeroController, AboutPageHeroController),
+    GalleryPageSectionController: Object.assign(GalleryPageSectionController, GalleryPageSectionController),
     AboutMainSectionController: Object.assign(AboutMainSectionController, AboutMainSectionController),
     AboutContentSectionController: Object.assign(AboutContentSectionController, AboutContentSectionController),
     ImpactPageHeroController: Object.assign(ImpactPageHeroController, ImpactPageHeroController),

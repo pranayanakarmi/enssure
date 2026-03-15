@@ -11,15 +11,8 @@ class Gallery extends Model
         'title',
         'slug',
         'description',
-        'event_date',
+        'cover_image',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'event_date' => 'date',
-        ];
-    }
 
     public function images(): HasMany
     {
