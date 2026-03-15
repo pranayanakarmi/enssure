@@ -21,6 +21,8 @@ use App\Models\ImpactStory;
 use App\Models\Notice;
 use App\Models\Partner;
 use App\Models\Slider;
+use App\Models\TeamMember;
+use App\Models\TeamPageContent;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -410,7 +412,50 @@ Route::get('gallery/{gallery:slug}', function (Gallery $gallery) {
         ],
     ]);
 })->name('gallery.show');
-Route::get('team', fn () => Inertia::render('Team'))->name('team');
+Route::get('team', function () {
+    $content = TeamPageContent::first();
+    $teamContent = $content ? [
+        'title' => $content->title ?? 'Our Team',
+        'description' => $content->description,
+        'banner_image_url' => $content->banner_image
+            ? Storage::disk('public')->url($content->banner_image)
+            : null,
+    ] : [
+        'title' => 'Our Team',
+        'description' => null,
+        'banner_image_url' => null,
+    ];
+
+    $executiveMembers = TeamMember::where('type', 'executive_committee')
+        ->orderBy('name')
+        ->get()
+        ->map(fn (TeamMember $t) => [
+            'name' => $t->name,
+            'job_title' => $t->job_title,
+            'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
+            'social_links' => $t->social_links ?? [],
+        ])
+        ->values()
+        ->all();
+
+    $staffMembers = TeamMember::where('type', 'staff')
+        ->orderBy('name')
+        ->get()
+        ->map(fn (TeamMember $t) => [
+            'name' => $t->name,
+            'job_title' => $t->job_title,
+            'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
+            'social_links' => $t->social_links ?? [],
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('Team', [
+        'teamContent' => $teamContent,
+        'executiveMembers' => $executiveMembers,
+        'staffMembers' => $staffMembers,
+    ]);
+})->name('team');
 Route::get('vacancy', fn () => Inertia::render('Vacancy'))->name('vacancy');
 
 Route::get('dashboard', function () {

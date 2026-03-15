@@ -30,6 +30,7 @@ import provinces from './provinces'
 import districts from './districts'
 import documents from './documents'
 import team_members from './team_members'
+import team_page_content from './team_page_content'
 import events from './events'
 import eventRegistrations from './event-registrations'
 import newsletters from './newsletters'
@@ -66,7 +67,7 @@ import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
 /**
-* @see routes/admin.php:77
+* @see routes/admin.php:78
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -80,7 +81,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/admin.php:77
+* @see routes/admin.php:78
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -88,7 +89,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/admin.php:77
+* @see routes/admin.php:78
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -97,7 +98,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:77
+* @see routes/admin.php:78
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -106,7 +107,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/admin.php:77
+* @see routes/admin.php:78
 * @route '/admin'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -115,7 +116,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/admin.php:77
+* @see routes/admin.php:78
 * @route '/admin'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -124,7 +125,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:77
+* @see routes/admin.php:78
 * @route '/admin'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -172,6 +173,7 @@ const admin = {
     districts: Object.assign(districts, districts),
     documents: Object.assign(documents, documents),
     team_members: Object.assign(team_members, team_members),
+    team_page_content: Object.assign(team_page_content, team_page_content),
     events: Object.assign(events, events),
     eventRegistrations: Object.assign(eventRegistrations, eventRegistrations),
     newsletters: Object.assign(newsletters, newsletters),

@@ -57,6 +57,7 @@ return [
         'home_support_sections',
         'home_contact_cta_sections',
         'about_page_hero',
+        'team_page_content',
         'gallery_page_section',
         'about_main_sections',
         'about_content_sections',
@@ -161,6 +162,16 @@ return [
                 ['title' => 'Hero', 'href' => 'admin.about_page_hero.edit', 'permission_resource' => 'about_page_hero'],
                 ['title' => 'Main section', 'href' => 'admin.about_main_sections.edit', 'permission_resource' => 'about_main_sections'],
                 ['title' => 'Content section', 'href' => 'admin.about_content_sections.edit', 'permission_resource' => 'about_content_sections'],
+            ],
+        ],
+        [
+            'title' => 'Our Team',
+            'icon' => 'UsersRound',
+            'permission_resource' => null,
+            'children' => [
+                ['title' => 'Content', 'href' => 'admin.team_page_content.edit', 'permission_resource' => 'team_page_content'],
+                ['title' => 'Executive Committee', 'href' => 'admin.team_members.executive_index', 'permission_resource' => 'team_members'],
+                ['title' => 'Staff', 'href' => 'admin.team_members.staff_index', 'permission_resource' => 'team_members'],
             ],
         ],
         [

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TeamMember extends Model
 {
     protected $fillable = [
+        'type',
         'name',
         'job_title',
         'department',
@@ -15,7 +16,6 @@ class TeamMember extends Model
         'qualifications',
         'expertise',
         'social_links',
-        'order',
     ];
 
     protected function casts(): array

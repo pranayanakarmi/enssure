@@ -29,6 +29,7 @@ import ProvinceController from './ProvinceController'
 import DistrictController from './DistrictController'
 import DocumentController from './DocumentController'
 import TeamMemberController from './TeamMemberController'
+import TeamPageContentController from './TeamPageContentController'
 import EventController from './EventController'
 import EventRegistrationController from './EventRegistrationController'
 import NewsletterController from './NewsletterController'
@@ -96,6 +97,7 @@ const Admin = {
     DistrictController: Object.assign(DistrictController, DistrictController),
     DocumentController: Object.assign(DocumentController, DocumentController),
     TeamMemberController: Object.assign(TeamMemberController, TeamMemberController),
+    TeamPageContentController: Object.assign(TeamPageContentController, TeamPageContentController),
     EventController: Object.assign(EventController, EventController),
     EventRegistrationController: Object.assign(EventRegistrationController, EventRegistrationController),
     NewsletterController: Object.assign(NewsletterController, NewsletterController),
