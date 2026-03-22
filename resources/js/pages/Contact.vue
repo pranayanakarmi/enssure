@@ -1,7 +1,37 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
-import GuestLayout from '@/layouts/GuestLayout.vue';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import PageHero from '@/components/guest/PageHero.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
+
+const props = defineProps({
+    contactFeedbackContent: {
+        type: Object,
+        default: () => ({
+            title: '',
+            description: '',
+        }),
+    },
+});
+
+const page = usePage();
+const flashSuccess = computed(() => page.props.flash?.success ?? null);
+
+const form = useForm({
+    name: '',
+    email: '',
+    feedback_text: '',
+});
+
+function submitFeedback() {
+    form.post('/contact/feedback', {
+        preserveScroll: true,
+        onSuccess: () => {
+            form.reset();
+            form.clearErrors();
+        },
+    });
+}
 
 const partnerLogos = [
     '/enssure/assets/ac6be776c5bec31df9cf5f1bed529200ddb74c1a.png',
@@ -21,42 +51,65 @@ const partnerLogos = [
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex gap-5 flex-col lg:flex-row">
                     <div class="flex flex-col w-full">
-                        <h1 class="text-4xl font-semibold mb-4 text-black leading-[1.1]">
-                            Please register your <br />
-                            feedback/complaint
+                        <h1 class="text-4xl font-semibold mb-4 text-black leading-[1.1] whitespace-pre-line">
+                            {{ contactFeedbackContent.title }}
                         </h1>
-                        <p class="text-[18px] leading-relaxed text-gray-800 max-w-md">
-                            If you have any questions, feedback or complaints about the quality of our programs, are aware of any irregularities, or would like to report about behaviour of staff, please notify us by completing the form below. All submissions will be kept confidential.
+                        <p
+                            v-if="contactFeedbackContent.description"
+                            class="text-[18px] leading-relaxed text-gray-800 max-w-md"
+                        >
+                            {{ contactFeedbackContent.description }}
                         </p>
                     </div>
 
-                    <form class="space-y-6 w-full" @submit.prevent>
+                    <form class="space-y-6 w-full" @submit.prevent="submitFeedback">
+                        <p
+                            v-if="flashSuccess"
+                            class="rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800"
+                            role="status"
+                        >
+                            {{ flashSuccess }}
+                        </p>
                         <div>
-                            <label class="block text-[15px] font-semibold mb-2 text-gray-900">Full Name (Optional)</label>
+                            <label class="block text-[15px] font-semibold mb-2 text-gray-900" for="contact-name">Full Name (Optional)</label>
                             <input
+                                id="contact-name"
+                                v-model="form.name"
                                 type="text"
+                                autocomplete="name"
                                 class="w-full border border-gray-200 p-3 rounded-sm focus:outline-none focus:border-[#B91C1C] bg-white"
                             />
+                            <p v-if="form.errors.name" class="mt-1 text-sm text-red-600">{{ form.errors.name }}</p>
                         </div>
                         <div>
-                            <label class="block text-[15px] font-semibold mb-2 text-gray-900">Email</label>
+                            <label class="block text-[15px] font-semibold mb-2 text-gray-900" for="contact-email">Email</label>
                             <input
+                                id="contact-email"
+                                v-model="form.email"
                                 type="email"
+                                required
+                                autocomplete="email"
                                 class="w-full border border-gray-200 p-3 rounded-sm focus:outline-none focus:border-[#B91C1C] bg-white"
                             />
+                            <p v-if="form.errors.email" class="mt-1 text-sm text-red-600">{{ form.errors.email }}</p>
                         </div>
                         <div>
-                            <label class="block text-[15px] font-semibold mb-2 text-gray-900">Feedback/Complaint</label>
+                            <label class="block text-[15px] font-semibold mb-2 text-gray-900" for="contact-message">Feedback/Complaint</label>
                             <textarea
+                                id="contact-message"
+                                v-model="form.feedback_text"
                                 rows="8"
+                                required
                                 class="w-full border border-gray-200 p-3 rounded-sm focus:outline-none focus:border-[#B91C1C] bg-white"
                             />
+                            <p v-if="form.errors.feedback_text" class="mt-1 text-sm text-red-600">{{ form.errors.feedback_text }}</p>
                         </div>
                         <button
-                            type="button"
-                            class="w-full bg-[#A3D121] hover:bg-[#92bc1d] text-white font-bold py-4 uppercase tracking-widest text-sm transition-all duration-200 rounded-sm"
+                            type="submit"
+                            class="w-full bg-[#A3D121] hover:bg-[#92bc1d] disabled:opacity-60 text-white font-bold py-4 uppercase tracking-widest text-sm transition-all duration-200 rounded-sm"
+                            :disabled="form.processing"
                         >
-                            Submit
+                            {{ form.processing ? 'Submitting…' : 'Submit' }}
                         </button>
                     </form>
                 </div>

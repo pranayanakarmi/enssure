@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController as PublicContactController;
 use App\Models\AboutContentSection;
 use App\Models\AboutMainSection;
 use App\Models\AboutPageHero;
@@ -359,7 +360,10 @@ Route::get('impact-stories/{impact_story:slug}', function (ImpactStory $impact_s
             ->all(),
     ]);
 })->name('impact-stories.show');
-Route::get('contact', fn () => Inertia::render('Contact'))->name('contact');
+Route::get('contact', [PublicContactController::class, 'show'])->name('contact');
+Route::post('contact/feedback', [PublicContactController::class, 'store'])
+    ->middleware('throttle:10,1')
+    ->name('contact.feedback.store');
 Route::get('gallery', function () {
     $section = GalleryPageSection::first();
     $albums = Gallery::withCount('images')

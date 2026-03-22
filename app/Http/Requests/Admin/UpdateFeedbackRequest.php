@@ -24,7 +24,6 @@ class UpdateFeedbackRequest extends FormRequest
             'email' => ['nullable', 'email'],
             'feedback_text' => ['nullable', 'string'],
             'is_public' => ['nullable', 'boolean'],
-            'response' => ['nullable', 'string'],
         ];
     }
 }

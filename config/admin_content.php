@@ -37,6 +37,7 @@ return [
         'testimonials',
         'settings',
         'contacts',
+        'contact_feedback_content',
         'application_forms',
         'team_members',
         'events',
@@ -191,6 +192,15 @@ return [
             'permission_resource' => 'notices',
         ],
         [
+            'title' => 'Contact us',
+            'icon' => 'Mail',
+            'permission_resource' => null,
+            'children' => [
+                ['title' => 'Contact Us page', 'href' => 'admin.contact_feedback_content.edit', 'permission_resource' => 'contact_feedback_content'],
+                ['title' => 'Feedback submissions', 'href' => 'admin.feedback.index', 'permission_resource' => 'feedback'],
+            ],
+        ],
+        [
             'title' => 'Footer',
             'icon' => 'PanelBottom',
             'permission_resource' => null,
@@ -321,7 +331,6 @@ return [
                 ['title' => 'Email Templates', 'href' => 'admin.email_templates.index', 'permission_resource' => 'email_templates'],
                 ['title' => 'Redirects', 'href' => 'admin.redirects.index', 'permission_resource' => 'redirects'],
                 ['title' => 'Media', 'href' => 'admin.media.index', 'permission_resource' => 'media'],
-                ['title' => 'Feedback', 'href' => 'admin.feedback.index', 'permission_resource' => 'feedback'],
             ],
         ],
     ],

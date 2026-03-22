@@ -29,11 +29,11 @@ const breadcrumbItems = [
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <Heading
                         variant="small"
-                        title="Feedback"
-                        description="Manage feedback"
+                        title="Feedback submissions"
+                        description="Messages sent from the public Contact page form. Edit the section title and text under Feedback → Contact section."
                     />
-                    <Button as-child>
-                        <Link href="/admin/feedback/create">Add</Link>
+                    <Button variant="outline" as-child>
+                        <Link href="/admin/contact-feedback-content/edit">Edit contact section</Link>
                     </Button>
                 </div>
 

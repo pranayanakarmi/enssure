@@ -2,7 +2,6 @@
 import { Head, Link } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3';
 import Heading from '@/components/Heading.vue';
-import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,7 +17,6 @@ const form = useForm({
     email: props.feedback.email ?? '',
     feedback_text: props.feedback.feedback_text ?? '',
     is_public: props.feedback.is_public ?? false,
-    response: props.feedback.response ?? '',
 });
 
 const breadcrumbItems = [
@@ -47,12 +45,13 @@ const breadcrumbItems = [
                         <Input id="feedback_type" v-model="form.feedback_type" type="text" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="feedback_text">Feedback</Label>
-                        <Input id="feedback_text" v-model="form.feedback_text" type="text" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="response">Response</Label>
-                        <Input id="response" v-model="form.response" type="text" />
+                        <Label for="feedback_text">Message</Label>
+                        <textarea
+                            id="feedback_text"
+                            v-model="form.feedback_text"
+                            rows="10"
+                            class="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
                     </div>
                     <div class="flex items-center gap-4">
                         <Button type="submit" :disabled="form.processing">Save</Button>

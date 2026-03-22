@@ -19,7 +19,6 @@ class Feedback extends Model
         'feedback_text',
         'is_public',
         'responded_by',
-        'response',
         'responded_at',
     ];
 

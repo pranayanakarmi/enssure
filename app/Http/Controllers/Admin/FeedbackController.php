@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreFeedbackRequest;
 use App\Http\Requests\Admin\UpdateFeedbackRequest;
 use App\Models\Feedback;
 use Illuminate\Http\RedirectResponse;
@@ -35,21 +34,6 @@ class FeedbackController extends Controller
         ]);
     }
 
-    public function create(): Response
-    {
-        $this->authorize('create', Feedback::class);
-
-        return Inertia::render('admin/feedback/create');
-    }
-
-    public function store(StoreFeedbackRequest $request): RedirectResponse
-    {
-        Feedback::create($request->validated());
-
-        return to_route('admin.feedback.index')
-            ->with('success', 'Feedback created successfully.');
-    }
-
     public function edit(Feedback $feedback): Response
     {
         $this->authorize('update', $feedback);
@@ -64,7 +48,6 @@ class FeedbackController extends Controller
                 'email' => $f->email,
                 'feedback_text' => $f->feedback_text,
                 'is_public' => $f->is_public,
-                'response' => $f->response,
             ],
         ]);
     }

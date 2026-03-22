@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommitteeController;
 use App\Http\Controllers\Admin\CommitteeMemberController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\ContactFeedbackContentController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\DocumentController;
@@ -128,6 +129,8 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('team_members', TeamMemberController::class)->except(['show']);
     Route::get('team-page/content/edit', [TeamPageContentController::class, 'edit'])->name('team_page_content.edit');
     Route::put('team-page/content', [TeamPageContentController::class, 'update'])->name('team_page_content.update');
+    Route::get('contact-feedback-content/edit', [ContactFeedbackContentController::class, 'edit'])->name('contact_feedback_content.edit');
+    Route::put('contact-feedback-content', [ContactFeedbackContentController::class, 'update'])->name('contact_feedback_content.update');
     Route::resource('events', EventController::class)->except(['show']);
     Route::post('events/{event}/registrations', [EventRegistrationController::class, 'store'])->name('events.registrations.store');
     Route::get('event-registrations/{event_registration}/edit', [EventRegistrationController::class, 'edit'])->name('event-registrations.edit');
@@ -191,5 +194,5 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('email_templates', EmailTemplateController::class)->except(['show']);
     Route::resource('redirects', RedirectController::class)->except(['show']);
     Route::resource('media', MediaController::class)->except(['show']);
-    Route::resource('feedback', FeedbackController::class)->except(['show']);
+    Route::resource('feedback', FeedbackController::class)->only(['index', 'edit', 'update', 'destroy']);
 });
