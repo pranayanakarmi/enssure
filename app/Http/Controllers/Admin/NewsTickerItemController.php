@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreNewsTickerItemRequest;
 use App\Http\Requests\Admin\UpdateNewsTickerItemRequest;
+use App\Models\HomeNewsSection;
 use App\Models\NewsTickerItem;
+use App\Models\Notice;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,20 +19,32 @@ class NewsTickerItemController extends Controller
     {
         $this->authorize('viewAny', NewsTickerItem::class);
 
-        $items = NewsTickerItem::orderBy('order')
+        $homeNewsSection = HomeNewsSection::with('notices')->first();
+
+        $homeNewsNoticeIds = $homeNewsSection
+            ? $homeNewsSection->notices->pluck('id')->values()->all()
+            : [];
+
+        $allNotices = Notice::query()
+            ->orderBy('title')
             ->get()
-            ->map(fn (NewsTickerItem $item) => [
-                'id' => $item->id,
-                'title' => $item->title,
-                'url' => $item->url,
-                'order' => $item->order,
-                'is_published' => $item->is_published,
+            ->map(fn (Notice $n) => [
+                'id' => $n->id,
+                'title' => $n->title,
+                'slug' => $n->slug,
+                'image_url' => $n->image ? Storage::disk('public')->url($n->image) : null,
             ])
             ->values()
             ->all();
 
+        $canUpdateHomeNewsNotices = $homeNewsSection
+            ? auth()->user()->can('update', $homeNewsSection)
+            : auth()->user()->can('create', HomeNewsSection::class);
+
         return Inertia::render('admin/news_ticker_items/index', [
-            'newsTickerItems' => $items,
+            'allNotices' => $allNotices,
+            'homeNewsNoticeIds' => $homeNewsNoticeIds,
+            'canUpdateHomeNewsNotices' => $canUpdateHomeNewsNotices,
         ]);
     }
 

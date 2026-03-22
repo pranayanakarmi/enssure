@@ -2,6 +2,7 @@
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
 import { ref, onBeforeUnmount } from 'vue';
+import CopyablePublicUrl from '@/components/CopyablePublicUrl.vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import RichTextEditor from '@/components/RichTextEditor.vue';
@@ -9,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { useNoticePublicUrl } from '@/composables/useNoticePublicUrl';
 
 const form = useForm({
     title: '',
@@ -18,6 +20,8 @@ const form = useForm({
     attachment: '',
     is_featured: false,
 });
+
+const { publicNoticeUrl } = useNoticePublicUrl(form);
 
 const imagePreviewUrl = ref(null);
 
@@ -81,6 +85,7 @@ const breadcrumbItems = [
                         />
                         <InputError :message="form.errors.slug" />
                     </div>
+                    <CopyablePublicUrl :url="publicNoticeUrl" />
                     <div class="grid gap-2">
                         <Label for="image">Featured image</Label>
                         <div

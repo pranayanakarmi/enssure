@@ -30,6 +30,37 @@ test('admin user can access admin notices index', function () {
     );
 });
 
+test('admin user can access admin notices create', function () {
+    $user = User::factory()->create();
+    $user->assignRole('admin');
+    $this->actingAs($user);
+
+    $response = $this->get(route('admin.notices.create'));
+    $response->assertSuccessful();
+    $response->assertInertia(fn ($page) => $page->component('admin/notices/create'));
+});
+
+test('admin user can access admin notices edit', function () {
+    $notice = Notice::create([
+        'title' => 'Editable Notice',
+        'slug' => 'editable-notice',
+        'content' => '<p>Content</p>',
+    ]);
+
+    $user = User::factory()->create();
+    $user->assignRole('admin');
+    $this->actingAs($user);
+
+    $response = $this->get(route('admin.notices.edit', $notice));
+    $response->assertSuccessful();
+    $response->assertInertia(fn ($page) => $page
+        ->component('admin/notices/edit')
+        ->has('notice')
+        ->where('notice.id', $notice->id)
+        ->where('notice.slug', 'editable-notice')
+    );
+});
+
 test('admin user can create notice with image', function () {
     Storage::fake('public');
 

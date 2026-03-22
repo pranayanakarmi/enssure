@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::index
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:15
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:18
 * @route '/admin/news_ticker_items'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::index
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:15
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:18
 * @route '/admin/news_ticker_items'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::index
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:15
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:18
 * @route '/admin/news_ticker_items'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::index
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:15
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:18
 * @route '/admin/news_ticker_items'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::index
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:15
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:18
 * @route '/admin/news_ticker_items'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -55,7 +55,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::index
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:15
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:18
 * @route '/admin/news_ticker_items'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -65,7 +65,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::index
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:15
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:18
 * @route '/admin/news_ticker_items'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -82,7 +82,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::create
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:36
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
 * @route '/admin/news_ticker_items/create'
 */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -97,7 +97,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::create
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:36
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
 * @route '/admin/news_ticker_items/create'
 */
 create.url = (options?: RouteQueryOptions) => {
@@ -106,7 +106,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::create
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:36
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
 * @route '/admin/news_ticker_items/create'
 */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -116,7 +116,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::create
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:36
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
 * @route '/admin/news_ticker_items/create'
 */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -126,7 +126,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::create
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:36
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
 * @route '/admin/news_ticker_items/create'
 */
 const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -136,7 +136,7 @@ const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::create
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:36
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
 * @route '/admin/news_ticker_items/create'
 */
 createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -146,7 +146,7 @@ createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::create
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:36
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
 * @route '/admin/news_ticker_items/create'
 */
 createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -163,7 +163,7 @@ create.form = createForm
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::store
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:43
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:58
 * @route '/admin/news_ticker_items'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -178,7 +178,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::store
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:43
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:58
 * @route '/admin/news_ticker_items'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -187,7 +187,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::store
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:43
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:58
 * @route '/admin/news_ticker_items'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -197,7 +197,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::store
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:43
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:58
 * @route '/admin/news_ticker_items'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -207,7 +207,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::store
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:43
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:58
 * @route '/admin/news_ticker_items'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -219,7 +219,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::edit
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
 * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
 */
 export const edit = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -234,7 +234,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::edit
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
 * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
 */
 edit.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -267,7 +267,7 @@ edit.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker_i
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::edit
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
 * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
 */
 edit.get = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -277,7 +277,7 @@ edit.get = (args: { news_ticker_item: number | { id: number } } | [news_ticker_i
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::edit
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
 * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
 */
 edit.head = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -287,7 +287,7 @@ edit.head = (args: { news_ticker_item: number | { id: number } } | [news_ticker_
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::edit
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
 * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
 */
 const editForm = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -297,7 +297,7 @@ const editForm = (args: { news_ticker_item: number | { id: number } } | [news_ti
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::edit
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
 * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
 */
 editForm.get = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -307,7 +307,7 @@ editForm.get = (args: { news_ticker_item: number | { id: number } } | [news_tick
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::edit
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:51
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
 * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
 */
 editForm.head = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -324,7 +324,7 @@ edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::update
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:68
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 export const update = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -339,7 +339,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::update
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:68
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 update.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -372,7 +372,7 @@ update.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::update
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:68
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 update.put = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -382,7 +382,7 @@ update.put = (args: { news_ticker_item: number | { id: number } } | [news_ticker
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::update
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:68
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 update.patch = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -392,7 +392,7 @@ update.patch = (args: { news_ticker_item: number | { id: number } } | [news_tick
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::update
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:68
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 const updateForm = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -407,7 +407,7 @@ const updateForm = (args: { news_ticker_item: number | { id: number } } | [news_
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::update
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:68
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 updateForm.put = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -422,7 +422,7 @@ updateForm.put = (args: { news_ticker_item: number | { id: number } } | [news_ti
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::update
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:68
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 updateForm.patch = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -439,7 +439,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::destroy
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:76
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 export const destroy = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -454,7 +454,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::destroy
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:76
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 destroy.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -487,7 +487,7 @@ destroy.url = (args: { news_ticker_item: number | { id: number } } | [news_ticke
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::destroy
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:76
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 destroy.delete = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -497,7 +497,7 @@ destroy.delete = (args: { news_ticker_item: number | { id: number } } | [news_ti
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::destroy
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:76
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 const destroyForm = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -512,7 +512,7 @@ const destroyForm = (args: { news_ticker_item: number | { id: number } } | [news
 
 /**
 * @see \App\Http\Controllers\Admin\NewsTickerItemController::destroy
-* @see app/Http/Controllers/Admin/NewsTickerItemController.php:76
+* @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
 * @route '/admin/news_ticker_items/{news_ticker_item}'
 */
 destroyForm.delete = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

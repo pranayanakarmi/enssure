@@ -1,21 +1,31 @@
 <?php
 
-use App\Models\NewsTickerItem;
+use App\Models\HomeNewsSection;
+use App\Models\Notice;
 use Inertia\Testing\AssertableInertia as Assert;
 
-test('home page receives news ticker items from shared props', function () {
-    NewsTickerItem::create([
-        'title' => 'First headline',
-        'url' => null,
-        'order' => 0,
-        'is_published' => true,
+test('home page news ticker uses home news section notices in pivot order', function () {
+    $second = Notice::create([
+        'title' => 'Second notice',
+        'slug' => 'second-notice',
+        'content' => '<p>B</p>',
+    ]);
+    $first = Notice::create([
+        'title' => 'First notice',
+        'slug' => 'first-notice',
+        'content' => '<p>A</p>',
     ]);
 
-    NewsTickerItem::create([
-        'title' => 'Second headline',
-        'url' => '/posts/slug',
-        'order' => 1,
-        'is_published' => true,
+    $section = HomeNewsSection::create([
+        'badge_text' => 'Updates',
+        'title' => 'Latest News',
+        'description' => '',
+        'cta_text' => 'View all',
+        'cta_url' => '/notices',
+    ]);
+    $section->notices()->sync([
+        $first->id => ['order' => 0],
+        $second->id => ['order' => 1],
     ]);
 
     $response = $this->get(route('home'));
@@ -23,41 +33,48 @@ test('home page receives news ticker items from shared props', function () {
     $response->assertOk();
     $response->assertInertia(fn (Assert $page) => $page
         ->has('newsTickerItems', 2)
-        ->where('newsTickerItems.0.title', 'First headline')
-        ->where('newsTickerItems.0.url', null)
-        ->where('newsTickerItems.1.title', 'Second headline')
-        ->where('newsTickerItems.1.url', '/posts/slug')
+        ->where('newsTickerItems.0.title', 'First notice')
+        ->where('newsTickerItems.0.url', '/notices/first-notice')
+        ->where('newsTickerItems.1.title', 'Second notice')
+        ->where('newsTickerItems.1.url', '/notices/second-notice')
     );
 });
 
-test('news ticker only returns published items ordered by order', function () {
-    NewsTickerItem::create([
-        'title' => 'Draft',
-        'url' => null,
-        'order' => 2,
-        'is_published' => false,
+test('home page news ticker returns at most twenty notices', function () {
+    $section = HomeNewsSection::create([
+        'badge_text' => 'Updates',
+        'title' => 'Latest News',
+        'description' => '',
+        'cta_text' => 'View all',
+        'cta_url' => '/notices',
     ]);
 
-    NewsTickerItem::create([
-        'title' => 'Published second',
-        'url' => null,
-        'order' => 1,
-        'is_published' => true,
-    ]);
-
-    NewsTickerItem::create([
-        'title' => 'Published first',
-        'url' => null,
-        'order' => 0,
-        'is_published' => true,
-    ]);
+    $sync = [];
+    for ($i = 0; $i < 25; $i++) {
+        $n = Notice::create([
+            'title' => "Notice {$i}",
+            'slug' => "notice-{$i}",
+            'content' => '<p>x</p>',
+        ]);
+        $sync[$n->id] = ['order' => $i];
+    }
+    $section->notices()->sync($sync);
 
     $response = $this->get(route('home'));
 
     $response->assertOk();
     $response->assertInertia(fn (Assert $page) => $page
-        ->has('newsTickerItems', 2)
-        ->where('newsTickerItems.0.title', 'Published first')
-        ->where('newsTickerItems.1.title', 'Published second')
+        ->has('newsTickerItems', 20)
+        ->where('newsTickerItems.0.title', 'Notice 0')
+        ->where('newsTickerItems.19.title', 'Notice 19')
+    );
+});
+
+test('home page news ticker is empty when no home news section exists', function () {
+    $response = $this->get(route('home'));
+
+    $response->assertOk();
+    $response->assertInertia(fn (Assert $page) => $page
+        ->has('newsTickerItems', 0)
     );
 });

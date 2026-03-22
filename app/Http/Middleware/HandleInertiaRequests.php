@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Models\FooterColumn;
+use App\Models\HomeNewsSection;
 use App\Models\Menu;
-use App\Models\NewsTickerItem;
+use App\Models\Notice;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -93,13 +94,37 @@ class HandleInertiaRequests extends Middleware
                     'footer_terms_of_service_url' => $s->footer_terms_of_service_url,
                 ];
             },
-            'newsTickerItems' => NewsTickerItem::published()->orderBy('order')->limit(20)->get(['id', 'title', 'url'])->toArray(),
+            'newsTickerItems' => fn () => self::newsTickerItemsFromHomeNotices(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
             ],
         ];
+    }
+
+    /**
+     * Headlines for the guest layout ticker: same notices as the home page Latest News block (pivot order, max 20).
+     *
+     * @return list<array{id: int, title: string, url: string}>
+     */
+    protected static function newsTickerItemsFromHomeNotices(): array
+    {
+        $section = HomeNewsSection::query()->with('notices')->first();
+
+        if (! $section) {
+            return [];
+        }
+
+        return $section->notices
+            ->take(20)
+            ->map(fn (Notice $notice) => [
+                'id' => $notice->id,
+                'title' => $notice->title,
+                'url' => '/notices/'.$notice->slug,
+            ])
+            ->values()
+            ->all();
     }
 
     /**
