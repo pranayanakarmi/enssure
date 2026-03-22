@@ -66,6 +66,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\TrainingBatchController;
 use App\Http\Controllers\Admin\TrainingProgramController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\VacancyApplicationController;
 use App\Http\Controllers\Admin\VacancyController;
 use Illuminate\Support\Facades\Route;
 
@@ -104,6 +105,9 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('pages', PageController::class)->except(['show']);
     Route::resource('notices', NoticeController::class)->except(['show']);
     Route::resource('vacancies', VacancyController::class)->except(['show']);
+    Route::get('vacancy-applications', [VacancyApplicationController::class, 'index'])->name('vacancy_applications.index');
+    Route::get('vacancy-applications/{vacancy_application}', [VacancyApplicationController::class, 'show'])->name('vacancy_applications.show');
+    Route::delete('vacancy-applications/{vacancy_application}', [VacancyApplicationController::class, 'destroy'])->name('vacancy_applications.destroy');
     Route::resource('menus', MenuController::class)->except(['show']);
     Route::post('menus/{menu}/items', [MenuItemController::class, 'store'])->name('menus.items.store');
     Route::get('menu-items/{menu_item}/edit', [MenuItemController::class, 'edit'])->name('menu-items.edit');

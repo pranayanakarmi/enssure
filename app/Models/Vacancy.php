@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Vacancy extends Model
 {
@@ -30,5 +33,51 @@ class Vacancy extends Model
             'application_deadline' => 'date',
             'published_at' => 'datetime',
         ];
+    }
+
+    /**
+     * @return HasMany<VacancyApplication, $this>
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(VacancyApplication::class);
+    }
+
+    /**
+     * Vacancies that should appear on the public listing: open, published, and still accepting applications.
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopePublishedForPublic(Builder $query): Builder
+    {
+        return $query->where('status', 'open')
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now())
+            ->where(function (Builder $q) {
+                $q->whereNull('application_deadline')
+                    ->orWhereDate('application_deadline', '>=', now()->toDateString());
+            });
+    }
+
+    public static function generateUniqueSlug(string $positionTitle, ?int $exceptId = null): string
+    {
+        $base = Str::slug($positionTitle);
+        if ($base === '') {
+            $base = 'vacancy';
+        }
+
+        $slug = $base;
+        $suffix = 1;
+
+        while (static::query()
+            ->when($exceptId !== null, fn (Builder $q) => $q->where('id', '!=', $exceptId))
+            ->where('slug', $slug)
+            ->exists()) {
+            $slug = $base.'-'.$suffix;
+            $suffix++;
+        }
+
+        return $slug;
     }
 }

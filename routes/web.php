@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ContactController as PublicContactController;
+use App\Http\Controllers\VacancyApplicationController;
+use App\Http\Controllers\VacancyPageController;
 use App\Models\AboutContentSection;
 use App\Models\AboutMainSection;
 use App\Models\AboutPageHero;
@@ -462,7 +464,11 @@ Route::get('team', function () {
         'staffMembers' => $staffMembers,
     ]);
 })->name('team');
-Route::get('vacancy', fn () => Inertia::render('Vacancy'))->name('vacancy');
+Route::get('vacancy', [VacancyPageController::class, 'index'])->name('vacancy');
+Route::get('vacancy/{vacancy:slug}', [VacancyPageController::class, 'show'])->name('vacancy.show');
+Route::post('vacancy/{vacancy:slug}/apply', [VacancyApplicationController::class, 'store'])
+    ->middleware('throttle:10,1')
+    ->name('vacancy.apply');
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');

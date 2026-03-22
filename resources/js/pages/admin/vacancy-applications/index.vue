@@ -1,12 +1,12 @@
 <script setup>
-import { Head, Link, usePage, router } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 defineProps({
-    vacancies: {
+    applications: {
         type: Array,
         default: () => [],
     },
@@ -15,32 +15,40 @@ defineProps({
 const page = usePage();
 const success = page.props.flash?.success;
 
-function deleteVacancy(v) {
-    if (!confirm(`Delete vacancy "${v.position_title}"?`)) {
-        return;
+function formatSubmitted(iso) {
+    if (!iso) {
+        return '—';
     }
-    router.delete(`/admin/vacancies/${v.id}`);
+    try {
+        return new Date(iso).toLocaleString(undefined, {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+        });
+    } catch {
+        return iso;
+    }
 }
 
 const breadcrumbItems = [
     { title: 'Vacancies', href: '/admin/vacancies' },
+    { title: 'Applications', href: '/admin/vacancy-applications' },
 ];
 </script>
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Vacancies" />
+        <Head title="Vacancy applications" />
 
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="space-y-6">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <Heading
                         variant="small"
-                        title="Vacancies"
-                        description="Manage job vacancies"
+                        title="Vacancy applications"
+                        description="Applications submitted from the public Vacancies pages (listing and job detail)."
                     />
-                    <Button as-child>
-                        <Link href="/admin/vacancies/create">Add vacancy</Link>
+                    <Button variant="outline" as-child>
+                        <Link href="/admin/vacancies">Manage job listings</Link>
                     </Button>
                 </div>
 
@@ -60,44 +68,38 @@ const breadcrumbItems = [
 
                 <Card>
                     <CardHeader class="sr-only">
-                        <span>Vacancy list</span>
+                        <span>Applications list</span>
                     </CardHeader>
                     <CardContent class="p-0">
                         <div class="divide-y divide-sidebar-border">
                             <div
-                                v-for="v in (vacancies || [])"
-                                :key="v.id"
+                                v-for="a in (applications || [])"
+                                :key="a.id"
                                 class="flex flex-wrap items-center justify-between gap-4 px-6 py-4"
                             >
                                 <div class="min-w-0 flex-1">
                                     <p class="truncate font-medium text-foreground">
-                                        {{ v.position_title }}
+                                        {{ a.name }} · {{ a.email }}
                                     </p>
                                     <p class="truncate text-sm text-muted-foreground">
-                                        {{ v.location || '—' }} · {{ v.job_type || '—' }} · {{ v.status }}
+                                        {{ a.vacancy_title || '—' }}
+                                        <span v-if="a.phone"> · {{ a.phone }}</span>
+                                        · {{ formatSubmitted(a.submitted_at) }}
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <Button variant="outline" size="sm" as-child>
-                                        <Link :href="`/admin/vacancies/${v.id}/edit`">
-                                            Edit
+                                        <Link :href="`/admin/vacancy-applications/${a.id}`">
+                                            View
                                         </Link>
-                                    </Button>
-                                    <Button
-                                        variant="destructive"
-                                        size="sm"
-                                        type="button"
-                                        @click="deleteVacancy(v)"
-                                    >
-                                        Delete
                                     </Button>
                                 </div>
                             </div>
                             <div
-                                v-if="!(vacancies || []).length"
+                                v-if="!(applications || []).length"
                                 class="px-6 py-12 text-center text-sm text-muted-foreground"
                             >
-                                No vacancies yet.
+                                No applications yet.
                             </div>
                         </div>
                     </CardContent>

@@ -3,10 +3,14 @@ import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import RichTextEditor from '@/components/RichTextEditor.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
+
+const selectClass =
+    'flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm';
 
 const props = defineProps({
     vacancy: {
@@ -17,7 +21,6 @@ const props = defineProps({
 
 const form = useForm({
     position_title: props.vacancy.position_title ?? '',
-    slug: props.vacancy.slug ?? '',
     job_description: props.vacancy.job_description ?? '',
     requirements: props.vacancy.requirements ?? '',
     location: props.vacancy.location ?? '',
@@ -27,7 +30,9 @@ const form = useForm({
     application_instructions: props.vacancy.application_instructions ?? '',
     tor_file: props.vacancy.tor_file ?? '',
     status: props.vacancy.status ?? 'open',
-    published_at: props.vacancy.published_at ? props.vacancy.published_at.slice(0, 10) : '',
+    published_at: props.vacancy.published_at
+        ? String(props.vacancy.published_at).slice(0, 10)
+        : '',
 });
 
 const breadcrumbItems = [
@@ -60,24 +65,17 @@ const breadcrumbItems = [
                             type="text"
                             required
                         />
+                        <p class="text-xs text-muted-foreground">
+                            The URL slug is updated automatically when you save, based on the position title.
+                        </p>
                         <InputError :message="form.errors.position_title" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="slug">Slug</Label>
-                        <Input
-                            id="slug"
-                            v-model="form.slug"
-                            type="text"
-                        />
-                        <InputError :message="form.errors.slug" />
-                    </div>
-                    <div class="grid gap-2">
                         <Label for="job_description">Job description</Label>
-                        <textarea
+                        <RichTextEditor
                             id="job_description"
                             v-model="form.job_description"
-                            rows="4"
-                            class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                            placeholder="Describe the role, responsibilities, and benefits..."
                         />
                         <InputError :message="form.errors.job_description" />
                     </div>
@@ -92,11 +90,16 @@ const breadcrumbItems = [
                     </div>
                     <div class="grid gap-2">
                         <Label for="job_type">Job type</Label>
-                        <Input
+                        <select
                             id="job_type"
                             v-model="form.job_type"
-                            type="text"
-                        />
+                            :class="selectClass"
+                        >
+                            <option value="">Select job type</option>
+                            <option value="full_time">Full time</option>
+                            <option value="part_time">Part time</option>
+                            <option value="contract">Contract</option>
+                        </select>
                         <InputError :message="form.errors.job_type" />
                     </div>
                     <div class="grid gap-2">
@@ -119,12 +122,27 @@ const breadcrumbItems = [
                         <InputError :message="form.errors.application_deadline" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="status">Status</Label>
+                        <Label for="published_at">Published at</Label>
                         <Input
+                            id="published_at"
+                            v-model="form.published_at"
+                            type="date"
+                        />
+                        <p class="text-xs text-muted-foreground">
+                            Vacancies appear on the public site when published at is set and status is open.
+                        </p>
+                        <InputError :message="form.errors.published_at" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="status">Status</Label>
+                        <select
                             id="status"
                             v-model="form.status"
-                            type="text"
-                        />
+                            :class="selectClass"
+                        >
+                            <option value="open">Open</option>
+                            <option value="closed">Closed</option>
+                        </select>
                         <InputError :message="form.errors.status" />
                     </div>
                     <div class="flex items-center gap-4">

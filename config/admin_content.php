@@ -24,6 +24,7 @@ return [
         'impact_stories',
         'notices',
         'vacancies',
+        'vacancy_applications',
         'committees',
         'committee_members',
         'documents',
@@ -190,6 +191,15 @@ return [
             'href' => 'admin.notices.index',
             'icon' => 'Newspaper',
             'permission_resource' => 'notices',
+        ],
+        [
+            'title' => 'Vacancies',
+            'icon' => 'Briefcase',
+            'permission_resource' => null,
+            'children' => [
+                ['title' => 'Job listings', 'href' => 'admin.vacancies.index', 'permission_resource' => 'vacancies'],
+                ['title' => 'Applications', 'href' => 'admin.vacancy_applications.index', 'permission_resource' => 'vacancy_applications'],
+            ],
         ],
         [
             'title' => 'Contact us',

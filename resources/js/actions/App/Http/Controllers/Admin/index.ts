@@ -16,6 +16,7 @@ import TagController from './TagController'
 import PageController from './PageController'
 import NoticeController from './NoticeController'
 import VacancyController from './VacancyController'
+import VacancyApplicationController from './VacancyApplicationController'
 import MenuController from './MenuController'
 import MenuItemController from './MenuItemController'
 import TrainingProgramController from './TrainingProgramController'
@@ -85,6 +86,7 @@ const Admin = {
     PageController: Object.assign(PageController, PageController),
     NoticeController: Object.assign(NoticeController, NoticeController),
     VacancyController: Object.assign(VacancyController, VacancyController),
+    VacancyApplicationController: Object.assign(VacancyApplicationController, VacancyApplicationController),
     MenuController: Object.assign(MenuController, MenuController),
     MenuItemController: Object.assign(MenuItemController, MenuItemController),
     TrainingProgramController: Object.assign(TrainingProgramController, TrainingProgramController),

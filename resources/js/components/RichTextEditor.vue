@@ -2,6 +2,7 @@
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
+import { TableKit } from '@tiptap/extension-table';
 import StarterKit from '@tiptap/starter-kit';
 import { useEditor, EditorContent } from '@tiptap/vue-3';
 import {
@@ -22,8 +23,24 @@ import {
     Heading3,
     RemoveFormatting,
     Pilcrow,
+    Table2,
+    Columns2,
+    Rows,
+    TableColumnsSplit,
+    TableRowsSplit,
+    Trash2,
+    Combine,
+    SplitSquareHorizontal,
 } from 'lucide-vue-next';
+import { onClickOutside } from '@vueuse/core';
 import { ref, watch, onBeforeUnmount } from 'vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
+const TABLE_GRID_SIZE = 10;
+const TABLE_MAX_DIM = 30;
+const tableGridCellCount = TABLE_GRID_SIZE * TABLE_GRID_SIZE;
 
 const props = defineProps({
     modelValue: {
@@ -53,6 +70,11 @@ const editor = useEditor({
     content: props.modelValue || '',
     extensions: [
         StarterKit,
+        TableKit.configure({
+            table: {
+                resizable: true,
+            },
+        }),
         Image.configure({
             HTMLAttributes: { class: 'rounded-lg max-w-full h-auto' },
         }),
@@ -67,7 +89,7 @@ const editor = useEditor({
     editorProps: {
         attributes: {
             class:
-                'min-h-[160px] w-full p-3 text-foreground focus:outline-none [&_p]:mb-2 [&_ul]:list-disc [&_ol]:list-decimal [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:text-lg [&_h3]:font-semibold',
+                'min-h-[160px] w-full p-3 text-foreground focus:outline-none [&_p]:mb-2 [&_ul]:list-disc [&_ol]:list-decimal [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:text-lg [&_h3]:font-semibold [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-border [&_td]:p-2 [&_td]:align-top [&_th]:border [&_th]:border-border [&_th]:bg-muted/50 [&_th]:p-2 [&_th]:text-left [&_th]:font-semibold',
         },
     },
     onUpdate: ({ editor: e }) => {
@@ -79,6 +101,73 @@ const editor = useEditor({
 });
 
 const toolbarUpdate = ref(0);
+
+const tablePickerWrapRef = ref(null);
+const showTablePicker = ref(false);
+const tableHoverRow = ref(2);
+const tableHoverCol = ref(2);
+const tableCustomRows = ref(3);
+const tableCustomCols = ref(3);
+const tableWithHeaderRow = ref(true);
+
+onClickOutside(tablePickerWrapRef, () => {
+    showTablePicker.value = false;
+});
+
+function toggleTablePicker() {
+    showTablePicker.value = !showTablePicker.value;
+    if (showTablePicker.value) {
+        tableHoverRow.value = 2;
+        tableHoverCol.value = 2;
+        tableCustomRows.value = 3;
+        tableCustomCols.value = 3;
+        tableWithHeaderRow.value = true;
+    }
+}
+
+function onTableGridMouseEnter(cellIndex) {
+    const r = Math.floor(cellIndex / TABLE_GRID_SIZE);
+    const c = cellIndex % TABLE_GRID_SIZE;
+    tableHoverRow.value = r;
+    tableHoverCol.value = c;
+    tableCustomRows.value = r + 1;
+    tableCustomCols.value = c + 1;
+}
+
+function isTableGridCellHighlighted(cellIndex) {
+    const r = Math.floor(cellIndex / TABLE_GRID_SIZE);
+    const c = cellIndex % TABLE_GRID_SIZE;
+    return r <= tableHoverRow.value && c <= tableHoverCol.value;
+}
+
+function onCustomDimensionInput() {
+    const r = Math.min(Math.max(1, Number(tableCustomRows.value) || 1), TABLE_MAX_DIM);
+    const c = Math.min(Math.max(1, Number(tableCustomCols.value) || 1), TABLE_MAX_DIM);
+    tableCustomRows.value = r;
+    tableCustomCols.value = c;
+    tableHoverRow.value = Math.min(r, TABLE_GRID_SIZE) - 1;
+    tableHoverCol.value = Math.min(c, TABLE_GRID_SIZE) - 1;
+}
+
+function performInsertTable() {
+    const rows = Math.min(Math.max(1, Number(tableCustomRows.value) || 1), TABLE_MAX_DIM);
+    const cols = Math.min(Math.max(1, Number(tableCustomCols.value) || 1), TABLE_MAX_DIM);
+    editor.value
+        ?.chain()
+        .focus()
+        .insertTable({
+            rows,
+            cols,
+            withHeaderRow: tableWithHeaderRow.value && rows >= 1,
+        })
+        .run();
+    showTablePicker.value = false;
+}
+
+function onTableGridClick(cellIndex) {
+    onTableGridMouseEnter(cellIndex);
+    performInsertTable();
+}
 
 watch(
     () => props.modelValue,
@@ -190,6 +279,42 @@ function setParagraph() {
 
 function clearFormatting() {
     editor.value?.chain().focus().clearNodes().unsetAllMarks().run();
+}
+
+function addColumnBefore() {
+    editor.value?.chain().focus().addColumnBefore().run();
+}
+
+function addColumnAfter() {
+    editor.value?.chain().focus().addColumnAfter().run();
+}
+
+function deleteColumn() {
+    editor.value?.chain().focus().deleteColumn().run();
+}
+
+function addRowBefore() {
+    editor.value?.chain().focus().addRowBefore().run();
+}
+
+function addRowAfter() {
+    editor.value?.chain().focus().addRowAfter().run();
+}
+
+function deleteRow() {
+    editor.value?.chain().focus().deleteRow().run();
+}
+
+function deleteTable() {
+    editor.value?.chain().focus().deleteTable().run();
+}
+
+function mergeCells() {
+    editor.value?.chain().focus().mergeCells().run();
+}
+
+function splitCell() {
+    editor.value?.chain().focus().splitCell().run();
 }
 
 onBeforeUnmount(() => {
@@ -413,6 +538,232 @@ onBeforeUnmount(() => {
                 >
                     <ListOrdered class="h-4 w-4" />
                 </button>
+                <span
+                    class="mx-0.5 h-4 w-px bg-border"
+                    aria-hidden="true"
+                />
+                <div
+                    ref="tablePickerWrapRef"
+                    class="relative inline-flex"
+                >
+                    <button
+                        type="button"
+                        :class="[
+                            'rounded p-1.5 transition-colors hover:bg-muted',
+                            showTablePicker ? 'bg-muted text-foreground' : 'text-muted-foreground',
+                        ]"
+                        title="Insert table"
+                        aria-haspopup="dialog"
+                        :aria-expanded="showTablePicker"
+                        @click="toggleTablePicker"
+                    >
+                        <Table2 class="h-4 w-4" />
+                    </button>
+                    <div
+                        v-show="showTablePicker"
+                        class="absolute left-0 top-full z-[200] mt-1 w-[min(100vw-2rem,20rem)] rounded-md border border-border bg-popover p-3 shadow-md"
+                        role="dialog"
+                        aria-label="Insert table"
+                        @click.stop
+                    >
+                        <p class="mb-1 text-xs font-medium text-foreground">
+                            Insert table
+                        </p>
+                        <p class="mb-2 text-xs text-muted-foreground">
+                            Hover or click the grid (up to {{ TABLE_GRID_SIZE }}×{{ TABLE_GRID_SIZE }}), or set rows and columns (up to {{ TABLE_MAX_DIM }} each).
+                        </p>
+                        <div
+                            class="mb-2 grid w-fit gap-0.5"
+                            :style="{
+                                gridTemplateColumns: `repeat(${TABLE_GRID_SIZE}, minmax(0, 1fr))`,
+                            }"
+                            role="grid"
+                        >
+                            <button
+                                v-for="i in tableGridCellCount"
+                                :key="i"
+                                type="button"
+                                class="h-3 w-3 rounded-sm border border-border transition-colors"
+                                :class="
+                                    isTableGridCellHighlighted(i - 1)
+                                        ? 'border-primary bg-primary'
+                                        : 'bg-muted/50 hover:bg-muted'
+                                "
+                                :aria-label="`Table ${Math.floor((i - 1) / TABLE_GRID_SIZE) + 1} by ${((i - 1) % TABLE_GRID_SIZE) + 1}`"
+                                @mouseenter="onTableGridMouseEnter(i - 1)"
+                                @click="onTableGridClick(i - 1)"
+                            />
+                        </div>
+                        <p class="mb-3 text-center text-xs font-medium tabular-nums text-muted-foreground">
+                            {{ tableCustomRows }} × {{ tableCustomCols }}
+                        </p>
+                        <div class="flex gap-3">
+                            <div class="grid flex-1 gap-1.5">
+                                <Label
+                                    for="table-insert-rows"
+                                    class="text-xs"
+                                >Rows</Label>
+                                <Input
+                                    id="table-insert-rows"
+                                    v-model.number="tableCustomRows"
+                                    type="number"
+                                    min="1"
+                                    :max="TABLE_MAX_DIM"
+                                    class="h-9"
+                                    @input="onCustomDimensionInput"
+                                />
+                            </div>
+                            <div class="grid flex-1 gap-1.5">
+                                <Label
+                                    for="table-insert-cols"
+                                    class="text-xs"
+                                >Columns</Label>
+                                <Input
+                                    id="table-insert-cols"
+                                    v-model.number="tableCustomCols"
+                                    type="number"
+                                    min="1"
+                                    :max="TABLE_MAX_DIM"
+                                    class="h-9"
+                                    @input="onCustomDimensionInput"
+                                />
+                            </div>
+                        </div>
+                        <label class="mt-3 flex cursor-pointer items-center gap-2 text-sm">
+                            <input
+                                v-model="tableWithHeaderRow"
+                                type="checkbox"
+                                class="rounded border-input"
+                            />
+                            <span>Include header row</span>
+                        </label>
+                        <div class="mt-3 flex justify-end gap-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                @click="showTablePicker = false"
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                type="button"
+                                size="sm"
+                                @click="performInsertTable"
+                            >
+                                Insert
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().addColumnBefore() ? 'cursor-not-allowed opacity-50' : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Add column before"
+                    :disabled="!editor.can().addColumnBefore()"
+                    @click="addColumnBefore"
+                >
+                    <Columns2 class="h-4 w-4 rotate-180" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().addColumnAfter() ? 'cursor-not-allowed opacity-50' : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Add column after"
+                    :disabled="!editor.can().addColumnAfter()"
+                    @click="addColumnAfter"
+                >
+                    <Columns2 class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().deleteColumn() ? 'cursor-not-allowed opacity-50' : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Delete column"
+                    :disabled="!editor.can().deleteColumn()"
+                    @click="deleteColumn"
+                >
+                    <TableColumnsSplit class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().addRowBefore() ? 'cursor-not-allowed opacity-50' : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Add row before"
+                    :disabled="!editor.can().addRowBefore()"
+                    @click="addRowBefore"
+                >
+                    <Rows class="h-4 w-4 rotate-180" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().addRowAfter() ? 'cursor-not-allowed opacity-50' : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Add row after"
+                    :disabled="!editor.can().addRowAfter()"
+                    @click="addRowAfter"
+                >
+                    <Rows class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().deleteRow() ? 'cursor-not-allowed opacity-50' : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Delete row"
+                    :disabled="!editor.can().deleteRow()"
+                    @click="deleteRow"
+                >
+                    <TableRowsSplit class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().mergeCells() ? 'cursor-not-allowed opacity-50' : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Merge cells"
+                    :disabled="!editor.can().mergeCells()"
+                    @click="mergeCells"
+                >
+                    <Combine class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().splitCell() ? 'cursor-not-allowed opacity-50' : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Split cell"
+                    :disabled="!editor.can().splitCell()"
+                    @click="splitCell"
+                >
+                    <SplitSquareHorizontal class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().deleteTable() ? 'cursor-not-allowed opacity-50' : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Delete table"
+                    :disabled="!editor.can().deleteTable()"
+                    @click="deleteTable"
+                >
+                    <Trash2 class="h-4 w-4" />
+                </button>
             </div>
             <EditorContent
                 :editor="editor"
@@ -480,5 +831,10 @@ onBeforeUnmount(() => {
     max-width: 100%;
     height: auto;
     border-radius: 0.5rem;
+}
+
+.rich-text-editor-content :deep(.tableWrapper) {
+    margin: 0.5rem 0;
+    overflow-x: auto;
 }
 </style>

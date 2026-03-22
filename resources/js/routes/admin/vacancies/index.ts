@@ -219,7 +219,7 @@ store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::edit
-* @see app/Http/Controllers/Admin/VacancyController.php:54
+* @see app/Http/Controllers/Admin/VacancyController.php:58
 * @route '/admin/vacancies/{vacancy}/edit'
 */
 export const edit = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -234,7 +234,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::edit
-* @see app/Http/Controllers/Admin/VacancyController.php:54
+* @see app/Http/Controllers/Admin/VacancyController.php:58
 * @route '/admin/vacancies/{vacancy}/edit'
 */
 edit.url = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -267,7 +267,7 @@ edit.url = (args: { vacancy: number | { id: number } } | [vacancy: number | { id
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::edit
-* @see app/Http/Controllers/Admin/VacancyController.php:54
+* @see app/Http/Controllers/Admin/VacancyController.php:58
 * @route '/admin/vacancies/{vacancy}/edit'
 */
 edit.get = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -277,7 +277,7 @@ edit.get = (args: { vacancy: number | { id: number } } | [vacancy: number | { id
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::edit
-* @see app/Http/Controllers/Admin/VacancyController.php:54
+* @see app/Http/Controllers/Admin/VacancyController.php:58
 * @route '/admin/vacancies/{vacancy}/edit'
 */
 edit.head = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -287,7 +287,7 @@ edit.head = (args: { vacancy: number | { id: number } } | [vacancy: number | { i
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::edit
-* @see app/Http/Controllers/Admin/VacancyController.php:54
+* @see app/Http/Controllers/Admin/VacancyController.php:58
 * @route '/admin/vacancies/{vacancy}/edit'
 */
 const editForm = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -297,7 +297,7 @@ const editForm = (args: { vacancy: number | { id: number } } | [vacancy: number 
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::edit
-* @see app/Http/Controllers/Admin/VacancyController.php:54
+* @see app/Http/Controllers/Admin/VacancyController.php:58
 * @route '/admin/vacancies/{vacancy}/edit'
 */
 editForm.get = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -307,7 +307,7 @@ editForm.get = (args: { vacancy: number | { id: number } } | [vacancy: number | 
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::edit
-* @see app/Http/Controllers/Admin/VacancyController.php:54
+* @see app/Http/Controllers/Admin/VacancyController.php:58
 * @route '/admin/vacancies/{vacancy}/edit'
 */
 editForm.head = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -324,7 +324,7 @@ edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::update
-* @see app/Http/Controllers/Admin/VacancyController.php:77
+* @see app/Http/Controllers/Admin/VacancyController.php:80
 * @route '/admin/vacancies/{vacancy}'
 */
 export const update = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -339,7 +339,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::update
-* @see app/Http/Controllers/Admin/VacancyController.php:77
+* @see app/Http/Controllers/Admin/VacancyController.php:80
 * @route '/admin/vacancies/{vacancy}'
 */
 update.url = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -372,7 +372,7 @@ update.url = (args: { vacancy: number | { id: number } } | [vacancy: number | { 
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::update
-* @see app/Http/Controllers/Admin/VacancyController.php:77
+* @see app/Http/Controllers/Admin/VacancyController.php:80
 * @route '/admin/vacancies/{vacancy}'
 */
 update.put = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -382,7 +382,7 @@ update.put = (args: { vacancy: number | { id: number } } | [vacancy: number | { 
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::update
-* @see app/Http/Controllers/Admin/VacancyController.php:77
+* @see app/Http/Controllers/Admin/VacancyController.php:80
 * @route '/admin/vacancies/{vacancy}'
 */
 update.patch = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -392,7 +392,7 @@ update.patch = (args: { vacancy: number | { id: number } } | [vacancy: number | 
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::update
-* @see app/Http/Controllers/Admin/VacancyController.php:77
+* @see app/Http/Controllers/Admin/VacancyController.php:80
 * @route '/admin/vacancies/{vacancy}'
 */
 const updateForm = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -407,7 +407,7 @@ const updateForm = (args: { vacancy: number | { id: number } } | [vacancy: numbe
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::update
-* @see app/Http/Controllers/Admin/VacancyController.php:77
+* @see app/Http/Controllers/Admin/VacancyController.php:80
 * @route '/admin/vacancies/{vacancy}'
 */
 updateForm.put = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -422,7 +422,7 @@ updateForm.put = (args: { vacancy: number | { id: number } } | [vacancy: number 
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::update
-* @see app/Http/Controllers/Admin/VacancyController.php:77
+* @see app/Http/Controllers/Admin/VacancyController.php:80
 * @route '/admin/vacancies/{vacancy}'
 */
 updateForm.patch = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -439,7 +439,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::destroy
-* @see app/Http/Controllers/Admin/VacancyController.php:85
+* @see app/Http/Controllers/Admin/VacancyController.php:92
 * @route '/admin/vacancies/{vacancy}'
 */
 export const destroy = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -454,7 +454,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::destroy
-* @see app/Http/Controllers/Admin/VacancyController.php:85
+* @see app/Http/Controllers/Admin/VacancyController.php:92
 * @route '/admin/vacancies/{vacancy}'
 */
 destroy.url = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -487,7 +487,7 @@ destroy.url = (args: { vacancy: number | { id: number } } | [vacancy: number | {
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::destroy
-* @see app/Http/Controllers/Admin/VacancyController.php:85
+* @see app/Http/Controllers/Admin/VacancyController.php:92
 * @route '/admin/vacancies/{vacancy}'
 */
 destroy.delete = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -497,7 +497,7 @@ destroy.delete = (args: { vacancy: number | { id: number } } | [vacancy: number 
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::destroy
-* @see app/Http/Controllers/Admin/VacancyController.php:85
+* @see app/Http/Controllers/Admin/VacancyController.php:92
 * @route '/admin/vacancies/{vacancy}'
 */
 const destroyForm = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -512,7 +512,7 @@ const destroyForm = (args: { vacancy: number | { id: number } } | [vacancy: numb
 
 /**
 * @see \App\Http\Controllers\Admin\VacancyController::destroy
-* @see app/Http/Controllers/Admin/VacancyController.php:85
+* @see app/Http/Controllers/Admin/VacancyController.php:92
 * @route '/admin/vacancies/{vacancy}'
 */
 destroyForm.delete = (args: { vacancy: number | { id: number } } | [vacancy: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

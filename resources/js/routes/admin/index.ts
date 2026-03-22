@@ -17,6 +17,7 @@ import tags from './tags'
 import pages from './pages'
 import notices from './notices'
 import vacancies from './vacancies'
+import vacancy_applications from './vacancy_applications'
 import menus from './menus'
 import menuItems from './menu-items'
 import training_programs from './training_programs'
@@ -68,7 +69,7 @@ import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
 /**
-* @see routes/admin.php:79
+* @see routes/admin.php:80
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -82,7 +83,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/admin.php:79
+* @see routes/admin.php:80
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -90,7 +91,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/admin.php:79
+* @see routes/admin.php:80
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -99,7 +100,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:79
+* @see routes/admin.php:80
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -108,7 +109,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/admin.php:79
+* @see routes/admin.php:80
 * @route '/admin'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -117,7 +118,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/admin.php:79
+* @see routes/admin.php:80
 * @route '/admin'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -126,7 +127,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:79
+* @see routes/admin.php:80
 * @route '/admin'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -161,6 +162,7 @@ const admin = {
     pages: Object.assign(pages, pages),
     notices: Object.assign(notices, notices),
     vacancies: Object.assign(vacancies, vacancies),
+    vacancy_applications: Object.assign(vacancy_applications, vacancy_applications),
     menus: Object.assign(menus, menus),
     menuItems: Object.assign(menuItems, menuItems),
     training_programs: Object.assign(training_programs, training_programs),

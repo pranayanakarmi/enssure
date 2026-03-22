@@ -45,7 +45,11 @@ class VacancyController extends Controller
 
     public function store(StoreVacancyRequest $request): RedirectResponse
     {
-        Vacancy::create($request->validated());
+        $data = $request->validated();
+        unset($data['slug']);
+        $data['slug'] = Vacancy::generateUniqueSlug($data['position_title']);
+
+        Vacancy::create($data);
 
         return to_route('admin.vacancies.index')
             ->with('success', 'Vacancy created successfully.');
@@ -59,7 +63,6 @@ class VacancyController extends Controller
             'vacancy' => [
                 'id' => $vacancy->id,
                 'position_title' => $vacancy->position_title,
-                'slug' => $vacancy->slug,
                 'job_description' => $vacancy->job_description,
                 'requirements' => $vacancy->requirements,
                 'location' => $vacancy->location,
@@ -76,7 +79,11 @@ class VacancyController extends Controller
 
     public function update(UpdateVacancyRequest $request, Vacancy $vacancy): RedirectResponse
     {
-        $vacancy->update($request->validated());
+        $data = $request->validated();
+        unset($data['slug']);
+        $data['slug'] = Vacancy::generateUniqueSlug($data['position_title'], $vacancy->id);
+
+        $vacancy->update($data);
 
         return to_route('admin.vacancies.index')
             ->with('success', 'Vacancy updated successfully.');

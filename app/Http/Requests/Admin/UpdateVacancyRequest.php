@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateVacancyRequest extends FormRequest
 {
@@ -18,16 +19,15 @@ class UpdateVacancyRequest extends FormRequest
     {
         return [
             'position_title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
             'job_description' => ['nullable', 'string'],
             'requirements' => ['nullable', 'string'],
             'location' => ['nullable', 'string', 'max:255'],
-            'job_type' => ['nullable', 'string', 'max:30'],
+            'job_type' => ['nullable', 'string', Rule::in(['full_time', 'part_time', 'contract'])],
             'number_of_positions' => ['nullable', 'integer', 'min:1'],
             'application_deadline' => ['nullable', 'date'],
             'application_instructions' => ['nullable', 'string'],
             'tor_file' => ['nullable', 'string', 'max:255'],
-            'status' => ['nullable', 'string', 'max:30'],
+            'status' => ['nullable', 'string', Rule::in(['open', 'closed'])],
             'published_at' => ['nullable', 'date'],
         ];
     }
