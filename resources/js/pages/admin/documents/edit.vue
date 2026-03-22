@@ -12,12 +12,23 @@ const props = defineProps({
     document: { type: Object, required: true },
 });
 
+const allowedTypes = ['report', 'documents'];
+
+const initialType = allowedTypes.includes(props.document.document_type)
+    ? props.document.document_type
+    : 'report';
+
 const form = useForm({
     title: props.document.title ?? '',
     description: props.document.description ?? '',
-    document_type: props.document.document_type ?? '',
-    file_path: props.document.file_path ?? '',
+    document_type: initialType,
+    file: null,
 });
+
+function onFileChange(event) {
+    const file = event.target.files?.[0] || null;
+    form.file = file;
+}
 
 const breadcrumbItems = [
     { title: 'Documents', href: '/admin/documents' },
@@ -31,19 +42,59 @@ const breadcrumbItems = [
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="space-y-6">
                 <Heading variant="small" title="Edit document" :description="document.title" />
-                <form class="space-y-6" @submit.prevent="form.put(`/admin/documents/${document.id}`)">
+                <form
+                    class="space-y-6"
+                    @submit.prevent="form.put(`/admin/documents/${document.id}`, { forceFormData: true })"
+                >
                     <div class="grid gap-2">
                         <Label for="title">Title</Label>
                         <Input id="title" v-model="form.title" type="text" required />
                         <InputError :message="form.errors.title" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="document_type">Type</Label>
-                        <Input id="document_type" v-model="form.document_type" type="text" />
+                        <Label for="description">Description</Label>
+                        <Input id="description" v-model="form.description" type="text" />
+                        <InputError :message="form.errors.description" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="file_path">File path</Label>
-                        <Input id="file_path" v-model="form.file_path" type="text" />
+                        <Label for="document_type">Type</Label>
+                        <select
+                            id="document_type"
+                            v-model="form.document_type"
+                            required
+                            class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                        >
+                            <option value="report">Report</option>
+                            <option value="documents">Documents</option>
+                        </select>
+                        <InputError :message="form.errors.document_type" />
+                    </div>
+                    <div class="grid gap-2">
+                        <p class="text-sm text-muted-foreground">
+                            Current file:
+                            <a
+                                :href="document.file_url"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-primary underline underline-offset-2"
+                            >
+                                Open current PDF
+                            </a>
+                            <span v-if="document.file_extension" class="text-muted-foreground">
+                                ({{ document.file_extension }})
+                            </span>
+                        </p>
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="file">Replace PDF (optional)</Label>
+                        <Input
+                            id="file"
+                            type="file"
+                            accept="application/pdf,.pdf"
+                            class="cursor-pointer"
+                            @change="onFileChange"
+                        />
+                        <InputError :message="form.errors.file" />
                     </div>
                     <div class="flex items-center gap-4">
                         <Button type="submit" :disabled="form.processing">Save</Button>

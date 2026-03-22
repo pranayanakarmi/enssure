@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController as PublicContactController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VacancyApplicationController;
 use App\Http\Controllers\VacancyPageController;
 use App\Models\AboutContentSection;
@@ -464,6 +465,10 @@ Route::get('team', function () {
         'staffMembers' => $staffMembers,
     ]);
 })->name('team');
+Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+Route::get('reports/{document}', [ReportController::class, 'show'])
+    ->whereNumber('document')
+    ->name('reports.show');
 Route::get('vacancy', [VacancyPageController::class, 'index'])->name('vacancy');
 Route::get('vacancy/{vacancy:slug}', [VacancyPageController::class, 'show'])->name('vacancy.show');
 Route::post('vacancy/{vacancy:slug}/apply', [VacancyApplicationController::class, 'store'])

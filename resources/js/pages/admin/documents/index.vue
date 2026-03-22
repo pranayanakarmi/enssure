@@ -71,6 +71,21 @@ const breadcrumbItems = [
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">
+                                    <Button
+                                        v-if="(d.file_extension || '').toLowerCase() === 'pdf'"
+                                        variant="outline"
+                                        size="sm"
+                                        as-child
+                                    >
+                                        <Link :href="`/reports/${d.id}`" target="_blank" rel="noopener noreferrer">
+                                            View
+                                        </Link>
+                                    </Button>
+                                    <Button v-else variant="outline" size="sm" as-child>
+                                        <Link :href="d.file_url" target="_blank" rel="noopener noreferrer">
+                                            Open
+                                        </Link>
+                                    </Button>
                                     <Button variant="outline" size="sm" as-child>
                                         <Link :href="`/admin/documents/${d.id}/edit`">
                                             Edit

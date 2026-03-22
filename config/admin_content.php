@@ -193,6 +193,12 @@ return [
             'permission_resource' => 'notices',
         ],
         [
+            'title' => 'Reports',
+            'href' => 'admin.documents.index',
+            'icon' => 'FileStack',
+            'permission_resource' => 'documents',
+        ],
+        [
             'title' => 'Vacancies',
             'icon' => 'Briefcase',
             'permission_resource' => null,
