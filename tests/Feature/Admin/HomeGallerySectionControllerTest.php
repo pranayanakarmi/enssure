@@ -137,3 +137,37 @@ test('home page returns home gallery section when record exists', function () {
         ->where('homeGallerySection.cta_text', 'View all gallery')
     );
 });
+
+test('home page includes gallery album images for carousel', function () {
+    $section = HomeGallerySection::create([
+        'badge_text' => 'Gallery',
+        'title' => 'Pictures',
+        'description' => 'Desc',
+        'cta_text' => 'View all',
+        'cta_url' => '/gallery',
+    ]);
+
+    $gallery = Gallery::create([
+        'title' => 'Home Album',
+        'slug' => 'home-album',
+        'description' => 'Album desc',
+        'cover_image' => null,
+    ]);
+
+    $gallery->images()->create([
+        'image_path' => 'gallery-images/home.jpg',
+        'caption' => 'Home caption',
+        'order' => 0,
+    ]);
+
+    $section->galleries()->attach($gallery->id, ['order' => 0]);
+
+    $response = $this->get(route('home'));
+
+    $response->assertOk();
+    $response->assertInertia(fn ($page) => $page
+        ->component('Welcome')
+        ->has('homeGallerySection.galleries.0.images', 1)
+        ->where('homeGallerySection.galleries.0.images.0.caption', 'Home caption')
+    );
+});

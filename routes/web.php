@@ -38,7 +38,9 @@ use Laravel\Fortify\Features;
 Route::get('/', function () {
     $homeReachSection = HomeReachSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
     $homeAboutSection = HomeAboutSection::first();
-    $homeGallerySection = HomeGallerySection::with('galleries')->first();
+    $homeGallerySection = HomeGallerySection::with([
+        'galleries' => fn ($q) => $q->with(['images' => fn ($iq) => $iq->orderBy('order')]),
+    ])->first();
     $homeImpactStoriesSection = HomeImpactStoriesSection::with('impactStories')->first();
     $homeCoverageSection = HomeCoverageSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
     $homeNewsSection = HomeNewsSection::with('notices')->first();
@@ -130,7 +132,13 @@ Route::get('/', function () {
                 'id' => $gallery->id,
                 'title' => $gallery->title,
                 'slug' => $gallery->slug,
+                'description' => $gallery->description,
                 'cover_image_url' => $gallery->cover_image ? Storage::disk('public')->url($gallery->cover_image) : null,
+                'images' => $gallery->images->map(fn ($i) => [
+                    'id' => $i->id,
+                    'image_url' => $i->image_path ? Storage::disk('public')->url($i->image_path) : null,
+                    'caption' => $i->caption,
+                ])->values()->all(),
             ])->values()->all(),
         ] : null,
         'homeImpactStoriesSection' => $homeImpactStoriesSection ? [
@@ -371,7 +379,9 @@ Route::post('contact/feedback', [PublicContactController::class, 'store'])
     ->name('contact.feedback.store');
 Route::get('gallery', function () {
     $section = GalleryPageSection::first();
-    $albums = Gallery::withCount('images')
+    $albums = Gallery::query()
+        ->with(['images' => fn ($q) => $q->orderBy('order')])
+        ->withCount('images')
         ->orderByDesc('created_at')
         ->get()
         ->map(fn (Gallery $g) => [
@@ -382,6 +392,11 @@ Route::get('gallery', function () {
             'cover_image_url' => $g->cover_image
                 ? Storage::disk('public')->url($g->cover_image)
                 : null,
+            'images' => $g->images->map(fn ($i) => [
+                'id' => $i->id,
+                'image_url' => $i->image_path ? Storage::disk('public')->url($i->image_path) : null,
+                'caption' => $i->caption,
+            ])->values()->all(),
         ])
         ->values()
         ->all();

@@ -38,6 +38,36 @@ test('gallery page shows albums with cover and link to show', function () {
     );
 });
 
+test('gallery page includes ordered images for each album', function () {
+    $album = Gallery::create([
+        'title' => 'Album With Photos',
+        'slug' => 'album-with-photos',
+        'description' => null,
+        'cover_image' => null,
+    ]);
+
+    $album->images()->create([
+        'image_path' => 'gallery-images/one.jpg',
+        'caption' => 'First',
+        'order' => 0,
+    ]);
+    $album->images()->create([
+        'image_path' => 'gallery-images/two.jpg',
+        'caption' => 'Second',
+        'order' => 1,
+    ]);
+
+    $response = $this->get(route('gallery'));
+
+    $response->assertOk();
+    $response->assertInertia(fn ($page) => $page
+        ->component('Gallery')
+        ->has('albums.0.images', 2)
+        ->where('albums.0.images.0.caption', 'First')
+        ->where('albums.0.images.1.caption', 'Second')
+    );
+});
+
 test('gallery show returns 200 with gallery and images', function () {
     $gallery = Gallery::create([
         'title' => 'My Album',

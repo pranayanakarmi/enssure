@@ -1,8 +1,9 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
-import GuestLayout from '@/layouts/GuestLayout.vue';
+import { computed, ref } from 'vue';
+import GalleryAlbumCarouselModal from '@/components/guest/GalleryAlbumCarouselModal.vue';
 import PageHero from '@/components/guest/PageHero.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
 
 const props = defineProps({
     galleryPageSection: {
@@ -24,6 +25,16 @@ const sectionDescription = computed(
     () => props.galleryPageSection?.description
         ?? 'This section provides a visual record of our activities and outcomes. See the faces, places, and practical work that define the federalised TVET system we support.',
 );
+
+const activeAlbum = ref(null);
+
+function openAlbumCarousel(album) {
+    activeAlbum.value = album;
+}
+
+function closeAlbumCarousel() {
+    activeAlbum.value = null;
+}
 </script>
 
 <template>
@@ -43,11 +54,12 @@ const sectionDescription = computed(
                     </p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <Link
+                    <button
                         v-for="(album, i) in albums"
                         :key="album.slug || i"
-                        :href="`/gallery/${album.slug}`"
-                        class="group relative rounded-[30px] overflow-hidden aspect-square cursor-pointer block"
+                        type="button"
+                        class="group relative rounded-[30px] overflow-hidden aspect-square cursor-pointer block w-full text-left border-0 p-0 bg-transparent"
+                        @click="openAlbumCarousel(album)"
                     >
                         <img
                             v-if="album.cover_image_url"
@@ -73,8 +85,13 @@ const sectionDescription = computed(
                                 {{ album.images_count }} image{{ album.images_count !== 1 ? 's' : '' }}
                             </p>
                         </div>
-                    </Link>
+                    </button>
                 </div>
+
+                <GalleryAlbumCarouselModal
+                    :album="activeAlbum"
+                    @close="closeAlbumCarousel"
+                />
                 <div
                     v-if="!albums.length"
                     class="py-16 text-center text-gray-500"

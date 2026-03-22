@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import GalleryAlbumCarouselModal from '@/components/guest/GalleryAlbumCarouselModal.vue';
 
 const fallbackBadge = 'Gallery';
 const fallbackTitle = 'The ENSSURE Journey in Pictures';
@@ -21,6 +22,16 @@ const description = computed(() => props.gallerySection?.description ?? fallback
 const ctaText = computed(() => props.gallerySection?.cta_text ?? fallbackCtaText);
 const ctaUrl = computed(() => props.gallerySection?.cta_url ?? fallbackCtaUrl);
 const galleries = computed(() => props.gallerySection?.galleries ?? []);
+
+const activeAlbum = ref(null);
+
+function openAlbumCarousel(album) {
+    activeAlbum.value = album;
+}
+
+function closeAlbumCarousel() {
+    activeAlbum.value = null;
+}
 </script>
 
 <template>
@@ -54,11 +65,12 @@ const galleries = computed(() => props.gallerySection?.galleries ?? []);
                 v-if="galleries.length"
                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
-                <Link
+                <button
                     v-for="gallery in galleries"
                     :key="gallery.id"
-                    :href="`/gallery/${gallery.slug}`"
-                    class="group relative rounded-[30px] overflow-hidden aspect-square cursor-pointer block"
+                    type="button"
+                    class="group relative rounded-[30px] overflow-hidden aspect-square cursor-pointer block w-full text-left border-0 p-0 bg-transparent"
+                    @click="openAlbumCarousel(gallery)"
                 >
                     <img
                         v-if="gallery.cover_image_url"
@@ -83,8 +95,14 @@ const galleries = computed(() => props.gallerySection?.galleries ?? []);
                             {{ gallery.title }}
                         </p>
                     </div>
-                </Link>
+                </button>
             </div>
+
+            <GalleryAlbumCarouselModal
+                :album="activeAlbum"
+                @close="closeAlbumCarousel"
+            />
+
             <div
                 v-if="ctaText"
                 class="flex justify-center mt-12"
