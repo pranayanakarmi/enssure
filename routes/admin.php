@@ -41,6 +41,8 @@ use App\Http\Controllers\Admin\HomeTestimonialsSectionController;
 use App\Http\Controllers\Admin\ImpactPageHeroController;
 use App\Http\Controllers\Admin\ImpactPageSectionController;
 use App\Http\Controllers\Admin\ImpactStoryController;
+use App\Http\Controllers\Admin\InfographicController;
+use App\Http\Controllers\Admin\InfographicsPageContentController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuItemController;
@@ -133,6 +135,9 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('team_members', TeamMemberController::class)->except(['show']);
     Route::get('team-page/content/edit', [TeamPageContentController::class, 'edit'])->name('team_page_content.edit');
     Route::put('team-page/content', [TeamPageContentController::class, 'update'])->name('team_page_content.update');
+    Route::get('infographics-page/content/edit', [InfographicsPageContentController::class, 'edit'])->name('infographics_page_content.edit');
+    Route::put('infographics-page/content', [InfographicsPageContentController::class, 'update'])->name('infographics_page_content.update');
+    Route::resource('infographics', InfographicController::class)->except(['show']);
     Route::get('contact-feedback-content/edit', [ContactFeedbackContentController::class, 'edit'])->name('contact_feedback_content.edit');
     Route::put('contact-feedback-content', [ContactFeedbackContentController::class, 'update'])->name('contact_feedback_content.update');
     Route::resource('events', EventController::class)->except(['show']);

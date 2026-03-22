@@ -60,6 +60,8 @@ return [
         'home_contact_cta_sections',
         'about_page_hero',
         'team_page_content',
+        'infographics',
+        'infographics_page_content',
         'gallery_page_section',
         'about_main_sections',
         'about_content_sections',
@@ -174,6 +176,15 @@ return [
                 ['title' => 'Content', 'href' => 'admin.team_page_content.edit', 'permission_resource' => 'team_page_content'],
                 ['title' => 'Executive Committee', 'href' => 'admin.team_members.executive_index', 'permission_resource' => 'team_members'],
                 ['title' => 'Staff', 'href' => 'admin.team_members.staff_index', 'permission_resource' => 'team_members'],
+            ],
+        ],
+        [
+            'title' => 'Infographics Page',
+            'icon' => 'FileText',
+            'permission_resource' => null,
+            'children' => [
+                ['title' => 'Page / Hero', 'href' => 'admin.infographics_page_content.edit', 'permission_resource' => 'infographics_page_content'],
+                ['title' => 'Infographics', 'href' => 'admin.infographics.index', 'permission_resource' => 'infographics'],
             ],
         ],
         [

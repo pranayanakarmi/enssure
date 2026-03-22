@@ -22,6 +22,8 @@ use App\Models\HomeTestimonialsSection;
 use App\Models\ImpactPageHero;
 use App\Models\ImpactPageSection;
 use App\Models\ImpactStory;
+use App\Models\Infographic;
+use App\Models\InfographicsPageContent;
 use App\Models\Notice;
 use App\Models\Partner;
 use App\Models\Slider;
@@ -465,6 +467,35 @@ Route::get('team', function () {
         'staffMembers' => $staffMembers,
     ]);
 })->name('team');
+Route::get('infographics', function () {
+    $content = InfographicsPageContent::first();
+    $pageContent = $content ? [
+        'title' => $content->title ?? 'Infographics',
+        'banner_image_url' => $content->banner_image
+            ? Storage::disk('public')->url($content->banner_image)
+            : null,
+    ] : [
+        'title' => 'Infographics',
+        'banner_image_url' => null,
+    ];
+
+    $infographics = Infographic::query()
+        ->orderBy('sort_order')
+        ->orderBy('id')
+        ->get()
+        ->map(fn (Infographic $row) => [
+            'id' => $row->id,
+            'title' => $row->title,
+            'image_url' => Storage::disk('public')->url($row->image),
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('Infographics', [
+        'pageContent' => $pageContent,
+        'infographics' => $infographics,
+    ]);
+})->name('infographics');
 Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
 Route::get('reports/{document}', [ReportController::class, 'show'])
     ->whereNumber('document')

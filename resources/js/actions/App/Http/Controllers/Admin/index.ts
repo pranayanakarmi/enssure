@@ -31,6 +31,8 @@ import DistrictController from './DistrictController'
 import DocumentController from './DocumentController'
 import TeamMemberController from './TeamMemberController'
 import TeamPageContentController from './TeamPageContentController'
+import InfographicsPageContentController from './InfographicsPageContentController'
+import InfographicController from './InfographicController'
 import ContactFeedbackContentController from './ContactFeedbackContentController'
 import EventController from './EventController'
 import EventRegistrationController from './EventRegistrationController'
@@ -101,6 +103,8 @@ const Admin = {
     DocumentController: Object.assign(DocumentController, DocumentController),
     TeamMemberController: Object.assign(TeamMemberController, TeamMemberController),
     TeamPageContentController: Object.assign(TeamPageContentController, TeamPageContentController),
+    InfographicsPageContentController: Object.assign(InfographicsPageContentController, InfographicsPageContentController),
+    InfographicController: Object.assign(InfographicController, InfographicController),
     ContactFeedbackContentController: Object.assign(ContactFeedbackContentController, ContactFeedbackContentController),
     EventController: Object.assign(EventController, EventController),
     EventRegistrationController: Object.assign(EventRegistrationController, EventRegistrationController),
