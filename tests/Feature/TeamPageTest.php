@@ -27,11 +27,13 @@ test('team page shows content and members from database', function () {
         'type' => 'executive_committee',
         'name' => 'Jane Chair',
         'job_title' => 'Chairperson',
+        'department' => 'Board',
     ]);
     TeamMember::create([
         'type' => 'staff',
         'name' => 'John Staff',
         'job_title' => 'Coordinator',
+        'department' => 'Programmes',
     ]);
 
     $response = $this->get(route('team'));
@@ -45,7 +47,9 @@ test('team page shows content and members from database', function () {
         ->has('staffMembers', 1)
         ->where('executiveMembers.0.name', 'Jane Chair')
         ->where('executiveMembers.0.job_title', 'Chairperson')
+        ->where('executiveMembers.0.department', 'Board')
         ->where('staffMembers.0.name', 'John Staff')
         ->where('staffMembers.0.job_title', 'Coordinator')
+        ->where('staffMembers.0.department', 'Programmes')
     );
 });

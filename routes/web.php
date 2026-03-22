@@ -431,6 +431,7 @@ Route::get('team', function () {
         ->get()
         ->map(fn (TeamMember $t) => [
             'name' => $t->name,
+            'department' => $t->department,
             'job_title' => $t->job_title,
             'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
             'social_links' => $t->social_links ?? [],
@@ -443,6 +444,7 @@ Route::get('team', function () {
         ->get()
         ->map(fn (TeamMember $t) => [
             'name' => $t->name,
+            'department' => $t->department,
             'job_title' => $t->job_title,
             'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
             'social_links' => $t->social_links ?? [],

@@ -96,7 +96,7 @@ const breadcrumbItems = computed(() => [
                         <InputError :message="form.errors.name" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="job_title">Job title</Label>
+                        <Label for="job_title">Job title / Post</Label>
                         <Input id="job_title" v-model="form.job_title" type="text" />
                     </div>
                     <div class="grid gap-2">

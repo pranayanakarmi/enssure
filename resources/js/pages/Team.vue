@@ -1,9 +1,9 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
-import { Facebook, Twitter } from 'lucide-vue-next';
-import GuestLayout from '@/layouts/GuestLayout.vue';
 import PageHero from '@/components/guest/PageHero.vue';
+import TeamMembersTable from '@/components/guest/TeamMembersTable.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
 
 const props = defineProps({
     teamContent: {
@@ -75,109 +75,16 @@ const partnerLogos = [
                     </div>
                 </div>
 
-                <div
+                <TeamMembersTable
                     v-show="activeTab === 'executive'"
-                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-                >
-                    <div
-                        v-for="(member, i) in executiveMembers"
-                        :key="`exec-${i}`"
-                        class="bg-white border border-gray-200 rounded-xl p-8 flex flex-col items-center text-center shadow-sm"
-                    >
-                        <div class="w-32 h-32 rounded-full mb-6 overflow-hidden bg-gray-300 shrink-0">
-                            <img
-                                v-if="member.photo_url"
-                                :src="member.photo_url"
-                                :alt="member.name"
-                                class="w-full h-full object-cover"
-                            />
-                            <div v-else class="w-full h-full" />
-                        </div>
-                        <h3 class="text-[15px] font-bold text-gray-900 leading-tight">
-                            {{ member.name }}
-                        </h3>
-                        <p class="text-xs text-gray-500 mt-1 mb-4 font-medium">
-                            {{ member.job_title || '—' }}
-                        </p>
-                        <div class="flex space-x-4 text-blue-600">
-                            <a
-                                v-if="member.social_links?.facebook"
-                                :href="member.social_links.facebook"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="hover:opacity-80"
-                                aria-label="Facebook"
-                            >
-                                <Facebook class="w-4 h-4" />
-                            </a>
-                            <a
-                                v-if="member.social_links?.twitter"
-                                :href="member.social_links.twitter"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="text-black hover:opacity-80"
-                                aria-label="X"
-                            >
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div
+                    :members="executiveMembers"
+                    empty-message="No executive committee members listed yet."
+                />
+                <TeamMembersTable
                     v-show="activeTab === 'staff'"
-                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-                >
-                    <div
-                        v-for="(member, i) in staffMembers"
-                        :key="`staff-${i}`"
-                        class="bg-white border border-gray-200 rounded-xl p-8 flex flex-col items-center text-center shadow-sm"
-                    >
-                        <div class="w-32 h-32 rounded-full mb-6 overflow-hidden bg-gray-300 shrink-0">
-                            <img
-                                v-if="member.photo_url"
-                                :src="member.photo_url"
-                                :alt="member.name"
-                                class="w-full h-full object-cover"
-                            />
-                            <div v-else class="w-full h-full" />
-                        </div>
-                        <h3 class="text-[15px] font-bold text-gray-900 leading-tight">
-                            {{ member.name }}
-                        </h3>
-                        <p class="text-xs text-gray-500 mt-1 mb-4 font-medium">
-                            {{ member.job_title || '—' }}
-                        </p>
-                        <div class="flex space-x-4 text-blue-600">
-                            <a
-                                v-if="member.social_links?.facebook"
-                                :href="member.social_links.facebook"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="hover:opacity-80"
-                                aria-label="Facebook"
-                            >
-                                <Facebook class="w-4 h-4" />
-                            </a>
-                            <a
-                                v-if="member.social_links?.twitter"
-                                :href="member.social_links.twitter"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="text-black hover:opacity-80"
-                                aria-label="X"
-                            >
-                                <svg class="w-4 h-4" fill="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                    :members="staffMembers"
+                    empty-message="No staff members listed yet."
+                />
             </div>
         </section>
 
