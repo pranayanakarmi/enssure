@@ -202,6 +202,11 @@ const breadcrumbItems = [
                         <InputError :message="form.errors['related_documents.0']" />
                     </div>
                     <div class="flex items-center gap-4">
+                        <Button variant="outline" as-child>
+                            <a :href="`/vacancy/${vacancy.slug}`" target="_blank" rel="noopener noreferrer">
+                                View
+                            </a>
+                        </Button>
                         <Button type="submit" :disabled="form.processing">
                             Save
                         </Button>

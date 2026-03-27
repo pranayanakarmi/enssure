@@ -79,6 +79,11 @@ const breadcrumbItems = [
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <Button variant="outline" size="sm" as-child>
+                                        <a :href="`/vacancy/${v.slug}`" target="_blank" rel="noopener noreferrer">
+                                            View
+                                        </a>
+                                    </Button>
+                                    <Button variant="outline" size="sm" as-child>
                                         <Link :href="`/admin/vacancies/${v.id}/edit`">
                                             Edit
                                         </Link>

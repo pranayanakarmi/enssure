@@ -69,6 +69,7 @@ class VacancyController extends Controller
             'vacancy' => [
                 'id' => $vacancy->id,
                 'position_title' => $vacancy->position_title,
+                'slug' => $vacancy->slug,
                 'job_description' => $vacancy->job_description,
                 'requirements' => $vacancy->requirements,
                 'location' => $vacancy->location,
