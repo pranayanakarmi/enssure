@@ -41,6 +41,7 @@ class VacancyPageController extends Controller
         if (! Vacancy::query()->publishedForPublic()->whereKey($vacancy->id)->exists()) {
             abort(404);
         }
+        $vacancy->load('relatedDocuments');
 
         return Inertia::render('VacancyDetail', [
             'vacancy' => $this->vacancyForDetailPage($vacancy),
@@ -65,6 +66,11 @@ class VacancyPageController extends Controller
             'published_at' => $v->published_at?->format('j F Y'),
             'application_deadline' => $v->application_deadline?->format('j F Y'),
             'tor_file_url' => $this->publicFileUrl($v->tor_file),
+            'related_documents' => $v->relatedDocuments->map(fn ($document) => [
+                'id' => $document->id,
+                'file_name' => $document->file_name,
+                'file_url' => $this->publicFileUrl($document->file_path),
+            ])->values()->all(),
         ];
     }
 

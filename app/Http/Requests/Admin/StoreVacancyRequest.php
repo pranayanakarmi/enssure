@@ -28,6 +28,8 @@ class StoreVacancyRequest extends FormRequest
             'application_deadline' => ['nullable', 'date'],
             'application_instructions' => ['nullable', 'string'],
             'tor_file' => ['nullable', 'string', 'max:255'],
+            'related_documents' => ['nullable', 'array'],
+            'related_documents.*' => ['file', 'mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,csv,txt', 'max:20480'],
             'status' => ['nullable', 'string', Rule::in(['open', 'closed'])],
             'published_at' => ['nullable', 'date'],
         ];

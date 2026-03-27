@@ -61,6 +61,13 @@ it('shows vacancy detail for a published vacancy', function () {
         'published_at' => now()->subDay(),
         'application_deadline' => now()->addMonth(),
     ]);
+    $vacancy->relatedDocuments()->create([
+        'file_path' => 'vacancies/related-documents/sample.pdf',
+        'file_name' => 'sample.pdf',
+        'file_extension' => 'pdf',
+        'file_size' => 1200,
+        'order' => 0,
+    ]);
 
     $response = $this->get(route('vacancy.show', ['vacancy' => $vacancy->slug]));
     $response->assertSuccessful();
@@ -68,6 +75,8 @@ it('shows vacancy detail for a published vacancy', function () {
         ->component('VacancyDetail')
         ->where('vacancy.slug', 'detail-role-1')
         ->where('vacancy.title', 'Detail Role')
+        ->has('vacancy.related_documents', 1)
+        ->where('vacancy.related_documents.0.file_name', 'sample.pdf')
     );
 });
 

@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import RichTextEditor from '@/components/RichTextEditor.vue';
@@ -29,11 +30,29 @@ const form = useForm({
     application_deadline: props.vacancy.application_deadline ?? '',
     application_instructions: props.vacancy.application_instructions ?? '',
     tor_file: props.vacancy.tor_file ?? '',
+    related_documents: [],
+    remove_related_document_ids: [],
     status: props.vacancy.status ?? 'open',
     published_at: props.vacancy.published_at
         ? String(props.vacancy.published_at).slice(0, 10)
         : '',
 });
+
+const currentRelatedDocuments = ref([...(props.vacancy.related_documents ?? [])]);
+
+const visibleRelatedDocuments = computed(() => currentRelatedDocuments.value.filter(
+    (document) => !form.remove_related_document_ids.includes(document.id),
+));
+
+function onRelatedDocumentsChange(event) {
+    form.related_documents = Array.from(event.target.files || []);
+}
+
+function removeRelatedDocument(documentId) {
+    if (!form.remove_related_document_ids.includes(documentId)) {
+        form.remove_related_document_ids.push(documentId);
+    }
+}
 
 const breadcrumbItems = [
     { title: 'Vacancies', href: '/admin/vacancies' },
@@ -55,7 +74,7 @@ const breadcrumbItems = [
 
                 <form
                     class="space-y-6"
-                    @submit.prevent="form.put(`/admin/vacancies/${vacancy.id}`)"
+                    @submit.prevent="form.put(`/admin/vacancies/${vacancy.id}`, { forceFormData: true })"
                 >
                     <div class="grid gap-2">
                         <Label for="position_title">Position title</Label>
@@ -144,6 +163,43 @@ const breadcrumbItems = [
                             <option value="closed">Closed</option>
                         </select>
                         <InputError :message="form.errors.status" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="related_documents">Related documents</Label>
+                        <div
+                            v-if="visibleRelatedDocuments.length"
+                            class="space-y-2 rounded-md border p-3"
+                        >
+                            <div
+                                v-for="document in visibleRelatedDocuments"
+                                :key="document.id"
+                                class="flex flex-wrap items-center justify-between gap-2 text-sm"
+                            >
+                                <a
+                                    :href="document.file_url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-primary underline underline-offset-2"
+                                >
+                                    {{ document.file_name }}
+                                </a>
+                                <Button type="button" variant="outline" size="sm" @click="removeRelatedDocument(document.id)">
+                                    Remove
+                                </Button>
+                            </div>
+                        </div>
+                        <Input
+                            id="related_documents"
+                            type="file"
+                            multiple
+                            class="cursor-pointer"
+                            @change="onRelatedDocumentsChange"
+                        />
+                        <p class="text-xs text-muted-foreground">
+                            Upload additional related documents (PDF, DOCX, XLSX, PPTX, CSV, TXT).
+                        </p>
+                        <InputError :message="form.errors.related_documents" />
+                        <InputError :message="form.errors['related_documents.0']" />
                     </div>
                     <div class="flex items-center gap-4">
                         <Button type="submit" :disabled="form.processing">

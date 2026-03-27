@@ -27,6 +27,10 @@ class UpdateVacancyRequest extends FormRequest
             'application_deadline' => ['nullable', 'date'],
             'application_instructions' => ['nullable', 'string'],
             'tor_file' => ['nullable', 'string', 'max:255'],
+            'related_documents' => ['nullable', 'array'],
+            'related_documents.*' => ['file', 'mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,csv,txt', 'max:20480'],
+            'remove_related_document_ids' => ['nullable', 'array'],
+            'remove_related_document_ids.*' => ['integer', 'exists:vacancy_related_documents,id'],
             'status' => ['nullable', 'string', Rule::in(['open', 'closed'])],
             'published_at' => ['nullable', 'date'],
         ];

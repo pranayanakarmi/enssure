@@ -143,6 +143,27 @@ const metaLine = computed(() => {
                     />
                 </div>
 
+                <div
+                    v-if="vacancy.related_documents?.length"
+                    class="mt-10"
+                >
+                    <h2 class="text-lg font-bold text-gray-900 mb-3">
+                        Related documents
+                    </h2>
+                    <div class="flex flex-col gap-2">
+                        <a
+                            v-for="document in vacancy.related_documents"
+                            :key="document.id"
+                            :href="document.file_url"
+                            :download="document.file_name || 'related-document.pdf'"
+                            class="inline-flex w-fit items-center gap-2 rounded-lg border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-800 hover:border-[#B91C1C] hover:text-[#B91C1C] transition-colors"
+                        >
+                            <FileDown class="w-4 h-4" />
+                            Download {{ document.file_name }}
+                        </a>
+                    </div>
+                </div>
+
                 <div class="mt-10 flex flex-wrap gap-4">
                     <button
                         type="button"

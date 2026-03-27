@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Vacancy extends Model
@@ -44,6 +45,14 @@ class Vacancy extends Model
     }
 
     /**
+     * @return HasMany<VacancyRelatedDocument, $this>
+     */
+    public function relatedDocuments(): HasMany
+    {
+        return $this->hasMany(VacancyRelatedDocument::class)->orderBy('order')->orderBy('id');
+    }
+
+    /**
      * Vacancies that should appear on the public listing: open, published, and still accepting applications.
      *
      * @param  Builder<static>  $query
@@ -79,5 +88,14 @@ class Vacancy extends Model
         }
 
         return $slug;
+    }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Vacancy $vacancy): void {
+            $vacancy->relatedDocuments->each(function (VacancyRelatedDocument $document): void {
+                Storage::disk('public')->delete($document->file_path);
+            });
+        });
     }
 }

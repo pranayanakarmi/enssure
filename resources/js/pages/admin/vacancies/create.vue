@@ -22,9 +22,14 @@ const form = useForm({
     application_deadline: '',
     application_instructions: '',
     tor_file: '',
+    related_documents: [],
     status: 'open',
     published_at: '',
 });
+
+function onRelatedDocumentsChange(event) {
+    form.related_documents = Array.from(event.target.files || []);
+}
 
 const breadcrumbItems = [
     { title: 'Vacancies', href: '/admin/vacancies' },
@@ -46,7 +51,7 @@ const breadcrumbItems = [
 
                 <form
                     class="space-y-6"
-                    @submit.prevent="form.post('/admin/vacancies')"
+                    @submit.prevent="form.post('/admin/vacancies', { forceFormData: true })"
                 >
                     <div class="grid gap-2">
                         <Label for="position_title">Position title</Label>
@@ -132,6 +137,21 @@ const breadcrumbItems = [
                             <option value="closed">Closed</option>
                         </select>
                         <InputError :message="form.errors.status" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="related_documents">Related documents</Label>
+                        <Input
+                            id="related_documents"
+                            type="file"
+                            multiple
+                            class="cursor-pointer"
+                            @change="onRelatedDocumentsChange"
+                        />
+                        <p class="text-xs text-muted-foreground">
+                            Upload one or more related documents (PDF, DOCX, XLSX, PPTX, CSV, TXT).
+                        </p>
+                        <InputError :message="form.errors.related_documents" />
+                        <InputError :message="form.errors['related_documents.0']" />
                     </div>
                     <div class="flex items-center gap-4">
                         <Button type="submit" :disabled="form.processing">

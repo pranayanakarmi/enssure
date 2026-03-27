@@ -4,6 +4,8 @@ use App\Models\User;
 use App\Models\Vacancy;
 use Database\Seeders\ContentPermissionsSeeder;
 use Database\Seeders\RoleSeeder;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
@@ -42,4 +44,25 @@ it('appends a numeric suffix when the slug already exists', function () {
     ])->assertRedirect(route('admin.vacancies.index'));
 
     expect(Vacancy::query()->where('slug', 'senior-project-manager-1')->exists())->toBeTrue();
+});
+
+it('stores related documents when creating a vacancy', function () {
+    Storage::fake('public');
+
+    $user = User::factory()->create();
+    $user->assignRole('admin');
+    $this->actingAs($user);
+
+    $first = UploadedFile::fake()->create('job-description.pdf', 50, 'application/pdf');
+    $second = UploadedFile::fake()->create('annex.docx', 50, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+
+    $this->post(route('admin.vacancies.store'), [
+        'position_title' => 'Program Officer',
+        'status' => 'open',
+        'related_documents' => [$first, $second],
+    ])->assertRedirect(route('admin.vacancies.index'));
+
+    $vacancy = Vacancy::query()->where('slug', 'program-officer')->first();
+    expect($vacancy)->not->toBeNull();
+    expect($vacancy->relatedDocuments()->count())->toBe(2);
 });
