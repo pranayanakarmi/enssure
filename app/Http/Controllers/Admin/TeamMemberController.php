@@ -45,6 +45,7 @@ class TeamMemberController extends Controller
                 'name' => $t->name,
                 'job_title' => $t->job_title,
                 'department' => $t->department,
+                'location' => $t->location,
                 'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
             ])
             ->values()
@@ -67,6 +68,7 @@ class TeamMemberController extends Controller
 
         return Inertia::render('admin/team-members/create', [
             'listingType' => $type,
+            'locationOptions' => TeamMember::LOCATIONS,
         ]);
     }
 
@@ -107,6 +109,7 @@ class TeamMemberController extends Controller
                 'name' => $t->name,
                 'job_title' => $t->job_title,
                 'department' => $t->department,
+                'location' => $t->location,
                 'photo' => $t->photo,
                 'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
                 'bio' => $t->bio,
@@ -114,6 +117,7 @@ class TeamMemberController extends Controller
                 'expertise' => $t->expertise,
                 'social_links' => $t->social_links,
             ],
+            'locationOptions' => TeamMember::LOCATIONS,
         ]);
     }
 

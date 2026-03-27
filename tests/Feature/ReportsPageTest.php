@@ -26,14 +26,26 @@ test('guest sees pdf documents on reports index', function () {
 });
 
 test('reports index respects id query when valid', function () {
-    $first = Document::factory()->create(['title' => 'First']);
-    $second = Document::factory()->create(['title' => 'Second']);
+    $first = Document::factory()->create(['title' => 'First', 'order' => 0]);
+    $second = Document::factory()->create(['title' => 'Second', 'order' => 1]);
 
     $this->get(route('reports.index', ['id' => $second->id]))
         ->assertOk()
         ->assertInertia(fn ($page) => $page
             ->where('selectedId', $second->id)
             ->where('reports.1.title', 'Second')
+        );
+});
+
+test('reports index is sorted by order first', function () {
+    Document::factory()->create(['title' => 'Later By Title', 'order' => 2]);
+    Document::factory()->create(['title' => 'Earlier By Order', 'order' => 1]);
+
+    $this->get(route('reports.index'))
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page
+            ->where('reports.0.title', 'Earlier By Order')
+            ->where('reports.1.title', 'Later By Title')
         );
 });
 

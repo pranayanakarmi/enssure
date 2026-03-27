@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Models\TeamMember;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreTeamMemberRequest extends FormRequest
 {
@@ -22,6 +23,7 @@ class StoreTeamMemberRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'job_title' => ['nullable', 'string', 'max:255'],
             'department' => ['nullable', 'string', 'max:255'],
+            'location' => ['nullable', Rule::in(TeamMember::LOCATIONS)],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
             'bio' => ['nullable', 'string'],
             'qualifications' => ['nullable', 'string'],

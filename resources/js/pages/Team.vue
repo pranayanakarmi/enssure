@@ -83,6 +83,7 @@ const partnerLogos = [
                 <TeamMembersTable
                     v-show="activeTab === 'staff'"
                     :members="staffMembers"
+                    show-location-column
                     empty-message="No staff members listed yet."
                 />
             </div>

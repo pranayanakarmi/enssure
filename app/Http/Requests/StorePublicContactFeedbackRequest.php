@@ -19,6 +19,7 @@ class StorePublicContactFeedbackRequest extends FormRequest
         return [
             'name' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
+            'type' => ['required', 'string', 'in:feedback,complaint'],
             'feedback_text' => ['required', 'string', 'min:10', 'max:10000'],
         ];
     }

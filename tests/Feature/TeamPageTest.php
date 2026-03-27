@@ -28,12 +28,14 @@ test('team page shows content and members from database', function () {
         'name' => 'Jane Chair',
         'job_title' => 'Chairperson',
         'department' => 'Board',
+        'location' => 'Federal',
     ]);
     TeamMember::create([
         'type' => 'staff',
         'name' => 'John Staff',
         'job_title' => 'Coordinator',
         'department' => 'Programmes',
+        'location' => 'Bagmati Pradesh',
     ]);
 
     $response = $this->get(route('team'));
@@ -48,8 +50,10 @@ test('team page shows content and members from database', function () {
         ->where('executiveMembers.0.name', 'Jane Chair')
         ->where('executiveMembers.0.job_title', 'Chairperson')
         ->where('executiveMembers.0.department', 'Board')
+        ->where('executiveMembers.0.location', 'Federal')
         ->where('staffMembers.0.name', 'John Staff')
         ->where('staffMembers.0.job_title', 'Coordinator')
         ->where('staffMembers.0.department', 'Programmes')
+        ->where('staffMembers.0.location', 'Bagmati Pradesh')
     );
 });

@@ -1,11 +1,13 @@
 <script setup>
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { GripVertical } from 'lucide-vue-next';
+import { ref, watch } from 'vue';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import AppLayout from '@/layouts/AppLayout.vue';
 
-defineProps({
+const props = defineProps({
     documents: {
         type: Array,
         default: () => [],
@@ -18,6 +20,73 @@ const success = page.props.flash?.success;
 const breadcrumbItems = [
     { title: 'Documents', href: '/admin/documents' },
 ];
+
+const localDocuments = ref([...(props.documents || [])]);
+const draggingDocumentId = ref(null);
+const isSavingOrder = ref(false);
+
+watch(
+    () => props.documents,
+    (nextDocuments) => {
+        localDocuments.value = [...(nextDocuments || [])];
+    },
+);
+
+function onDragStart(documentId) {
+    draggingDocumentId.value = documentId;
+}
+
+function onDragOver(event) {
+    event.preventDefault();
+}
+
+function moveDocumentBefore(targetId) {
+    if (!draggingDocumentId.value || draggingDocumentId.value === targetId) {
+        return;
+    }
+
+    const items = [...localDocuments.value];
+    const sourceIndex = items.findIndex((item) => item.id === draggingDocumentId.value);
+    const targetIndex = items.findIndex((item) => item.id === targetId);
+
+    if (sourceIndex < 0 || targetIndex < 0) {
+        return;
+    }
+
+    const [moved] = items.splice(sourceIndex, 1);
+    items.splice(targetIndex, 0, moved);
+
+    localDocuments.value = items.map((item, index) => ({
+        ...item,
+        order: index,
+    }));
+}
+
+function saveOrder() {
+    isSavingOrder.value = true;
+
+    router.post(
+        '/admin/documents/reorder',
+        {
+            documents: localDocuments.value.map((item, index) => ({
+                id: item.id,
+                order: index,
+            })),
+        },
+        {
+            preserveScroll: true,
+            onFinish: () => {
+                draggingDocumentId.value = null;
+                isSavingOrder.value = false;
+            },
+        },
+    );
+}
+
+function onDrop(targetId) {
+    moveDocumentBefore(targetId);
+    saveOrder();
+}
 </script>
 
 <template>
@@ -58,16 +127,21 @@ const breadcrumbItems = [
                     <CardContent class="p-0">
                         <div class="divide-y divide-sidebar-border">
                             <div
-                                v-for="d in (documents || [])"
+                                v-for="d in localDocuments"
                                 :key="d.id"
+                                draggable="true"
                                 class="flex flex-wrap items-center justify-between gap-4 px-6 py-4"
+                                @dragstart="onDragStart(d.id)"
+                                @dragover="onDragOver"
+                                @drop="onDrop(d.id)"
                             >
                                 <div class="min-w-0 flex-1">
-                                    <p class="truncate font-medium text-foreground">
+                                    <p class="truncate font-medium text-foreground flex items-center gap-2">
+                                        <GripVertical class="size-4 text-muted-foreground" />
                                         {{ d.title }}
                                     </p>
                                     <p class="truncate text-sm text-muted-foreground">
-                                        {{ d.document_type || '—' }} · {{ d.file_extension || '—' }}
+                                        Order: {{ d.order ?? 0 }} · {{ d.document_type || '—' }} · {{ d.file_extension || '—' }}
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">
@@ -94,11 +168,14 @@ const breadcrumbItems = [
                                 </div>
                             </div>
                             <div
-                                v-if="!(documents || []).length"
+                                v-if="!localDocuments.length"
                                 class="px-6 py-12 text-center text-sm text-muted-foreground"
                             >
                                 No documents yet.
                             </div>
+                        </div>
+                        <div v-if="isSavingOrder" class="px-6 py-3 text-xs text-muted-foreground">
+                            Saving new order...
                         </div>
                     </CardContent>
                 </Card>

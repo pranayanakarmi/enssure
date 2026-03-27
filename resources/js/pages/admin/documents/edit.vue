@@ -4,6 +4,7 @@ import { useForm } from '@inertiajs/vue3';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -17,11 +18,13 @@ const allowedTypes = ['report', 'documents'];
 const initialType = allowedTypes.includes(props.document.document_type)
     ? props.document.document_type
     : 'report';
+const initialOrder = Number(props.document.order ?? 0);
 
 const form = useForm({
     title: props.document.title ?? '',
     description: props.document.description ?? '',
     document_type: initialType,
+    order: Number.isFinite(initialOrder) ? initialOrder : 0,
     file: null,
 });
 
@@ -70,20 +73,44 @@ const breadcrumbItems = [
                         <InputError :message="form.errors.document_type" />
                     </div>
                     <div class="grid gap-2">
-                        <p class="text-sm text-muted-foreground">
-                            Current file:
-                            <a
-                                :href="document.file_url"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="text-primary underline underline-offset-2"
-                            >
-                                Open current PDF
-                            </a>
-                            <span v-if="document.file_extension" class="text-muted-foreground">
-                                ({{ document.file_extension }})
-                            </span>
-                        </p>
+                        <Label for="order">Order</Label>
+                        <Input id="order" v-model.number="form.order" type="number" min="0" />
+                        <InputError :message="form.errors.order" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Card>
+                            <CardHeader class="pb-3">
+                                <div class="flex flex-wrap items-center justify-between gap-3">
+                                    <CardTitle class="text-base">
+                                        {{ document.title || 'PDF Preview' }}
+                                    </CardTitle>
+                                    <div class="flex items-center gap-2">
+                                        <a
+                                            :href="document.file_url"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="inline-flex h-8 items-center justify-center rounded-md border border-input bg-background px-3 text-xs font-medium hover:bg-accent hover:text-accent-foreground"
+                                        >
+                                            Open in new tab
+                                        </a>
+                                        <a
+                                            :href="document.file_url"
+                                            :download="`${document.title || 'document'}.pdf`"
+                                            class="inline-flex h-8 items-center justify-center rounded-md border border-input bg-background px-3 text-xs font-medium hover:bg-accent hover:text-accent-foreground"
+                                        >
+                                            Download
+                                        </a>
+                                    </div>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <iframe
+                                    :src="document.file_url"
+                                    :title="document.title || 'Document PDF'"
+                                    class="h-[28rem] w-full rounded-md border border-border bg-muted"
+                                />
+                            </CardContent>
+                        </Card>
                     </div>
                     <div class="grid gap-2">
                         <Label for="file">Replace PDF (optional)</Label>

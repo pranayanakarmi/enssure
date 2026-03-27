@@ -39,7 +39,7 @@ class ContactController extends Controller
         $data = $request->validated();
 
         Feedback::create([
-            'feedback_type' => 'contact',
+            'feedback_type' => $data['type'],
             'feedbackable_type' => PublicContactFeedbackSource::class,
             'feedbackable_id' => 1,
             'name' => $data['name'] ?? null,

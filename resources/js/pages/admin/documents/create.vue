@@ -8,10 +8,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 
+const props = defineProps({
+    nextOrder: {
+        type: Number,
+        default: 0,
+    },
+});
+
 const form = useForm({
     title: '',
     description: '',
     document_type: 'report',
+    order: props.nextOrder,
     file: null,
 });
 
@@ -58,6 +66,11 @@ const breadcrumbItems = [
                             <option value="documents">Documents</option>
                         </select>
                         <InputError :message="form.errors.document_type" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="order">Order</Label>
+                        <Input id="order" v-model.number="form.order" type="number" min="0" />
+                        <InputError :message="form.errors.order" />
                     </div>
                     <div class="grid gap-2">
                         <Label for="file">PDF file</Label>

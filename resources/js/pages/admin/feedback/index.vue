@@ -67,13 +67,13 @@ const breadcrumbItems = [
                                         {{ f.name || '—' }} · {{ f.email || '—' }}
                                     </p>
                                     <p class="truncate text-sm text-muted-foreground">
-                                        {{ f.feedback_type || '—' }} · {{ f.feedback_text || '—' }} · {{ f.is_public ? 'Public' : 'Private' }}
+                                        {{ f.feedback_type === 'complaint' ? 'Complaint' : 'Feedback' }}
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <Button variant="outline" size="sm" as-child>
-                                        <Link :href="`/admin/feedback/${f.id}/edit`">
-                                            Edit
+                                        <Link :href="`/admin/feedback/${f.id}`">
+                                            View
                                         </Link>
                                     </Button>
                                 </div>

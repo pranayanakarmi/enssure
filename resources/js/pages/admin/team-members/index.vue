@@ -108,6 +108,12 @@ const breadcrumbItems = computed(() => [
                                         <p class="truncate text-sm text-muted-foreground">
                                             {{ t.job_title || '' }}
                                         </p>
+                                        <p
+                                            v-if="t.location"
+                                            class="truncate text-xs text-muted-foreground"
+                                        >
+                                            {{ t.location }}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2">

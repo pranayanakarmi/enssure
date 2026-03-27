@@ -15,6 +15,7 @@ class ReportController extends Controller
     {
         $reports = Document::query()
             ->whereRaw('LOWER(file_extension) = ?', ['pdf'])
+            ->orderBy('order')
             ->orderBy('title')
             ->get()
             ->map(fn (Document $d) => [

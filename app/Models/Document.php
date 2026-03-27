@@ -16,5 +16,6 @@ class Document extends Model
         'file_path',
         'file_size',
         'file_extension',
+        'order',
     ];
 }

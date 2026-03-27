@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\TeamMember;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTeamMemberRequest extends FormRequest
 {
@@ -21,6 +23,7 @@ class UpdateTeamMemberRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'job_title' => ['nullable', 'string', 'max:255'],
             'department' => ['nullable', 'string', 'max:255'],
+            'location' => ['nullable', Rule::in(TeamMember::LOCATIONS)],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
             'remove_photo' => ['nullable', 'boolean'],
             'bio' => ['nullable', 'string'],

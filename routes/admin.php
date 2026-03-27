@@ -129,6 +129,7 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::delete('committee-members/{committee_member}', [CommitteeMemberController::class, 'destroy'])->name('committee-members.destroy');
     Route::resource('provinces', ProvinceController::class)->except(['show']);
     Route::resource('districts', DistrictController::class)->except(['show']);
+    Route::post('documents/reorder', [DocumentController::class, 'reorder'])->name('documents.reorder');
     Route::resource('documents', DocumentController::class)->except(['show']);
     Route::get('team_members/executive', [TeamMemberController::class, 'index'])->name('team_members.executive_index');
     Route::get('team_members/staff', [TeamMemberController::class, 'index'])->name('team_members.staff_index');
@@ -203,5 +204,5 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('email_templates', EmailTemplateController::class)->except(['show']);
     Route::resource('redirects', RedirectController::class)->except(['show']);
     Route::resource('media', MediaController::class)->except(['show']);
-    Route::resource('feedback', FeedbackController::class)->only(['index', 'edit', 'update', 'destroy']);
+    Route::resource('feedback', FeedbackController::class)->only(['index', 'show', 'destroy']);
 });

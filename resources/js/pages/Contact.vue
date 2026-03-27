@@ -20,6 +20,7 @@ const flashSuccess = computed(() => page.props.flash?.success ?? null);
 const form = useForm({
     name: '',
     email: '',
+    type: 'feedback',
     feedback_text: '',
 });
 
@@ -92,6 +93,19 @@ const partnerLogos = [
                                 class="w-full border border-gray-200 p-3 rounded-sm focus:outline-none focus:border-[#B91C1C] bg-white"
                             />
                             <p v-if="form.errors.email" class="mt-1 text-sm text-red-600">{{ form.errors.email }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-[15px] font-semibold mb-2 text-gray-900" for="contact-type">Type</label>
+                            <select
+                                id="contact-type"
+                                v-model="form.type"
+                                required
+                                class="w-full border border-gray-200 p-3 rounded-sm focus:outline-none focus:border-[#B91C1C] bg-white"
+                            >
+                                <option value="feedback">Feedback</option>
+                                <option value="complaint">Complaint</option>
+                            </select>
+                            <p v-if="form.errors.type" class="mt-1 text-sm text-red-600">{{ form.errors.type }}</p>
                         </div>
                         <div>
                             <label class="block text-[15px] font-semibold mb-2 text-gray-900" for="contact-message">Feedback/Complaint</label>

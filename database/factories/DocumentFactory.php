@@ -24,6 +24,7 @@ class DocumentFactory extends Factory
             'file_path' => 'documents/'.fake()->uuid().'.pdf',
             'file_size' => 1024,
             'file_extension' => 'pdf',
+            'order' => 0,
         ];
     }
 

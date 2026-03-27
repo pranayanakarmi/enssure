@@ -116,6 +116,22 @@ test('store redirects to staff index when type is staff', function () {
     expect(TeamMember::where('type', 'staff')->where('name', 'New Staff')->exists())->toBeTrue();
 });
 
+test('store saves selected location for team member', function () {
+    $user = User::factory()->create();
+    $user->assignRole('admin');
+    $this->actingAs($user);
+
+    $response = $this->post(route('admin.team_members.store'), [
+        'type' => 'staff',
+        'name' => 'Regional Staff',
+        'job_title' => 'Officer',
+        'location' => 'Bagmati Pradesh',
+    ]);
+
+    $response->assertRedirect(route('admin.team_members.staff_index'));
+    expect(TeamMember::where('name', 'Regional Staff')->value('location'))->toBe('Bagmati Pradesh');
+});
+
 test('update redirects to correct index by member type', function () {
     $member = TeamMember::create([
         'type' => 'executive_committee',
@@ -133,6 +149,28 @@ test('update redirects to correct index by member type', function () {
     ]);
 
     $response->assertRedirect(route('admin.team_members.executive_index'));
+});
+
+test('update persists location changes', function () {
+    $member = TeamMember::create([
+        'type' => 'staff',
+        'name' => 'Staff',
+        'job_title' => 'Officer',
+        'location' => 'Federal',
+    ]);
+    $user = User::factory()->create();
+    $user->assignRole('admin');
+    $this->actingAs($user);
+
+    $response = $this->put(route('admin.team_members.update', $member), [
+        'type' => 'staff',
+        'name' => 'Staff',
+        'job_title' => 'Officer',
+        'location' => 'Karnali Pradesh',
+    ]);
+
+    $response->assertRedirect(route('admin.team_members.staff_index'));
+    expect($member->fresh()->location)->toBe('Karnali Pradesh');
 });
 
 test('destroy redirects to correct index by member type', function () {

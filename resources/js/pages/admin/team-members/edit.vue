@@ -9,8 +9,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 
+const selectClass =
+    'flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm';
+
 const props = defineProps({
     teamMember: { type: Object, required: true },
+    locationOptions: {
+        type: Array,
+        default: () => [],
+    },
 });
 
 const form = useForm({
@@ -18,6 +25,7 @@ const form = useForm({
     name: props.teamMember.name ?? '',
     job_title: props.teamMember.job_title ?? '',
     department: props.teamMember.department ?? '',
+    location: props.teamMember.location ?? '',
     photo: null,
     remove_photo: false,
     facebook_url: props.teamMember.social_links?.facebook ?? '',
@@ -102,6 +110,16 @@ const breadcrumbItems = computed(() => [
                     <div class="grid gap-2">
                         <Label for="department">Department</Label>
                         <Input id="department" v-model="form.department" type="text" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="location">Location</Label>
+                        <select id="location" v-model="form.location" :class="selectClass">
+                            <option value="">Select location</option>
+                            <option v-for="locationOption in locationOptions" :key="locationOption" :value="locationOption">
+                                {{ locationOption }}
+                            </option>
+                        </select>
+                        <InputError :message="form.errors.location" />
                     </div>
                     <div class="grid gap-2">
                         <Label for="facebook_url">Facebook URL</Label>

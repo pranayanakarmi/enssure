@@ -21,6 +21,7 @@ class StoreDocumentRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'document_type' => ['required', 'string', 'in:report,documents'],
+            'order' => ['required', 'integer', 'min:0'],
             'file' => ['required', 'file', 'mimes:pdf', 'max:20480'],
         ];
     }
