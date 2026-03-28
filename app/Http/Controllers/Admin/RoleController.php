@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Permission\Models\Permission;
@@ -19,13 +20,12 @@ class RoleController extends Controller
     {
         $this->authorize('viewAny', Role::class);
 
-        $roles = Role::with('permissions')
+        $roles = Role::query()
             ->orderBy('name')
             ->get()
             ->map(fn (Role $role) => [
                 'id' => $role->id,
                 'name' => $role->name,
-                'permissions' => $role->permissions->pluck('name')->all(),
                 'users_count' => $role->users()->count(),
             ])
             ->values()
@@ -44,7 +44,7 @@ class RoleController extends Controller
         $this->authorize('create', Role::class);
 
         return Inertia::render('admin/roles/create', [
-            'permissions' => $this->availablePermissions(),
+            'permission_groups' => $this->permissionGroupsForUi(),
         ]);
     }
 
@@ -87,7 +87,7 @@ class RoleController extends Controller
                 'name' => $role->name,
                 'permissions' => $role->permissions->pluck('name')->all(),
             ],
-            'permissions' => $this->availablePermissions(),
+            'permission_groups' => $this->permissionGroupsForUi(),
         ]);
     }
 
@@ -134,5 +134,81 @@ class RoleController extends Controller
     private function availablePermissions(): array
     {
         return Permission::orderBy('name')->pluck('name')->all();
+    }
+
+    /**
+     * Group permissions by content resource (module) for the admin UI.
+     *
+     * @return array<int, array{key: string, label: string, permissions: array<int, array{name: string, action: string, action_label: string}>}>
+     */
+    private function permissionGroupsForUi(): array
+    {
+        $flat = $this->availablePermissions();
+        $actionsOrder = array_flip(config('admin_content.actions', ['view', 'create', 'update', 'delete']));
+        $canonicalResources = config('admin_content.resources', []);
+
+        /** @var array<string, array<int, array{name: string, action: string, action_label: string}>> $byResource */
+        $byResource = [];
+        /** @var array<int, array{name: string, action: string, action_label: string}> $other */
+        $other = [];
+
+        foreach ($flat as $name) {
+            if (preg_match('/^(view|create|update|delete) (.+)$/', $name, $matches)) {
+                $action = $matches[1];
+                $resource = $matches[2];
+                $byResource[$resource][] = [
+                    'name' => $name,
+                    'action' => $action,
+                    'action_label' => Str::title($action),
+                ];
+            } else {
+                $other[] = [
+                    'name' => $name,
+                    'action' => '',
+                    'action_label' => $name,
+                ];
+            }
+        }
+
+        foreach ($byResource as $resource => &$items) {
+            usort($items, function (array $a, array $b) use ($actionsOrder): int {
+                return ($actionsOrder[$a['action']] ?? 99) <=> ($actionsOrder[$b['action']] ?? 99);
+            });
+        }
+        unset($items);
+
+        $groups = [];
+
+        foreach ($canonicalResources as $resource) {
+            if (empty($byResource[$resource])) {
+                continue;
+            }
+            $groups[] = [
+                'key' => $resource,
+                'label' => Str::title(str_replace('_', ' ', $resource)),
+                'permissions' => $byResource[$resource],
+            ];
+            unset($byResource[$resource]);
+        }
+
+        ksort($byResource);
+
+        foreach ($byResource as $resource => $items) {
+            $groups[] = [
+                'key' => $resource,
+                'label' => Str::title(str_replace('_', ' ', $resource)),
+                'permissions' => $items,
+            ];
+        }
+
+        if ($other !== []) {
+            $groups[] = [
+                'key' => '_other',
+                'label' => 'Other',
+                'permissions' => $other,
+            ];
+        }
+
+        return $groups;
     }
 }

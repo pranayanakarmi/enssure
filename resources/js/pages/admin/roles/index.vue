@@ -37,7 +37,7 @@ function deleteRole(role) {
                     <Heading
                         variant="small"
                         title="Roles"
-                        description="Manage application roles and their permissions"
+                        description="Manage application roles. Edit a role to change its permissions."
                     />
                     <Button as-child>
                         <Link href="/admin/roles/create">Add role</Link>
@@ -89,18 +89,6 @@ function deleteRole(role) {
                                     </p>
                                     <p class="mt-0.5 text-sm text-muted-foreground">
                                         {{ role.users_count }} {{ role.users_count === 1 ? 'user' : 'users' }}
-                                    </p>
-                                    <div v-if="role.permissions.length" class="mt-1 flex flex-wrap gap-1">
-                                        <span
-                                            v-for="perm in role.permissions"
-                                            :key="perm"
-                                            class="inline-flex items-center rounded-md bg-sidebar-accent px-2 py-0.5 text-xs font-medium text-sidebar-accent-foreground"
-                                        >
-                                            {{ perm }}
-                                        </span>
-                                    </div>
-                                    <p v-else class="mt-0.5 text-xs text-muted-foreground">
-                                        No permissions assigned
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">

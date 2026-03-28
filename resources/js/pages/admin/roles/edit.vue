@@ -1,11 +1,13 @@
 <script setup>
 import { computed } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import RolePermissionGroups from '@/components/admin/RolePermissionGroups.vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({
@@ -13,7 +15,7 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    permissions: {
+    permission_groups: {
         type: Array,
         default: () => [],
     },
@@ -46,48 +48,54 @@ function submit() {
                     :description="`Update the ${role?.name} role and its permissions`"
                 />
 
-                <form @submit.prevent="submit" class="space-y-6">
-                    <div class="grid gap-2">
-                        <Label for="name">Name</Label>
-                        <Input
-                            id="name"
-                            v-model="form.name"
-                            type="text"
-                            required
-                            placeholder="Role name"
-                        />
-                        <InputError :message="form.errors.name" />
-                    </div>
-
-                    <div v-if="permissions.length" class="grid gap-2">
-                        <Label>Permissions</Label>
-                        <div class="flex flex-wrap gap-4">
-                            <label
-                                v-for="perm in permissions"
-                                :key="perm"
-                                class="flex items-center gap-2"
-                            >
-                                <input
-                                    type="checkbox"
-                                    :value="perm"
-                                    v-model="form.permissions"
-                                    class="rounded border-sidebar-border"
-                                />
-                                <span class="text-sm">{{ perm }}</span>
-                            </label>
+                <form
+                    class="space-y-8"
+                    @submit.prevent="submit"
+                >
+                    <section class="space-y-3">
+                        <div>
+                            <h2 class="text-sm font-semibold text-foreground">
+                                Role details
+                            </h2>
+                            <p class="mt-0.5 text-sm text-muted-foreground">
+                                Internal name used across the admin (e.g. editor, moderator).
+                            </p>
                         </div>
+                        <div class="max-w-md grid gap-2">
+                            <Label for="name">Name</Label>
+                            <Input
+                                id="name"
+                                v-model="form.name"
+                                type="text"
+                                required
+                                placeholder="Role name"
+                                autocomplete="off"
+                            />
+                            <InputError :message="form.errors.name" />
+                        </div>
+                    </section>
+
+                    <Separator />
+
+                    <section class="space-y-3">
+                        <RolePermissionGroups
+                            v-model="form.permissions"
+                            :permission-groups="permission_groups"
+                        />
                         <InputError :message="form.errors.permissions" />
-                    </div>
+                    </section>
 
-                    <p v-else class="text-sm text-muted-foreground">
-                        No permissions have been created yet. Permissions can be added programmatically.
-                    </p>
-
-                    <div class="flex items-center gap-4">
-                        <Button type="submit" :disabled="form.processing">
+                    <div class="flex flex-wrap items-center gap-3 border-t border-border/80 pt-6">
+                        <Button
+                            type="submit"
+                            :disabled="form.processing"
+                        >
                             Update role
                         </Button>
-                        <Button variant="outline" as-child>
+                        <Button
+                            variant="outline"
+                            as-child
+                        >
                             <Link href="/admin/roles">Cancel</Link>
                         </Button>
                     </div>
