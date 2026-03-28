@@ -1,9 +1,9 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see routes/web.php:346
 * @route '/impact-stories/{impact_story}'
 */
-export const show = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -17,7 +17,7 @@ show.definition = {
 * @see routes/web.php:346
 * @route '/impact-stories/{impact_story}'
 */
-show.url = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
+show.url = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { impact_story: args }
     }
@@ -49,7 +49,7 @@ show.url = (args: { impact_story: string | { slug: string } } | [impact_story: s
 * @see routes/web.php:346
 * @route '/impact-stories/{impact_story}'
 */
-show.get = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -58,44 +58,10 @@ show.get = (args: { impact_story: string | { slug: string } } | [impact_story: s
 * @see routes/web.php:346
 * @route '/impact-stories/{impact_story}'
 */
-show.head = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
-
-/**
-* @see routes/web.php:346
-* @route '/impact-stories/{impact_story}'
-*/
-const showForm = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: show.url(args, options),
-    method: 'get',
-})
-
-/**
-* @see routes/web.php:346
-* @route '/impact-stories/{impact_story}'
-*/
-showForm.get = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: show.url(args, options),
-    method: 'get',
-})
-
-/**
-* @see routes/web.php:346
-* @route '/impact-stories/{impact_story}'
-*/
-showForm.head = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: show.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-show.form = showForm
 
 const impactStories = {
     show: Object.assign(show, show),

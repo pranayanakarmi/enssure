@@ -3,12 +3,22 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UpdateInfographicRequest extends FormRequest
 {
     public function authorize(): bool
     {
         return $this->user()->can('update', $this->route('infographic'));
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if ($this->filled('slug')) {
+            $normalized = Str::slug($this->string('slug')->toString());
+            $this->merge(['slug' => $normalized !== '' ? $normalized : null]);
+        }
     }
 
     /**
@@ -18,8 +28,12 @@ class UpdateInfographicRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:10240'],
-            'sort_order' => ['nullable', 'integer', 'min:0', 'max:999999'],
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('infographics', 'slug')->ignore($this->route('infographic')),
+            ],
         ];
     }
 }

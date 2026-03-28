@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\EditorImageUploadController::__invoke
 * @see app/Http/Controllers/Admin/EditorImageUploadController.php:13
@@ -32,27 +32,5 @@ EditorImageUploadController.post = (options?: RouteQueryOptions): RouteDefinitio
     url: EditorImageUploadController.url(options),
     method: 'post',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\EditorImageUploadController::__invoke
-* @see app/Http/Controllers/Admin/EditorImageUploadController.php:13
-* @route '/admin/editor-images'
-*/
-const EditorImageUploadControllerForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: EditorImageUploadController.url(options),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\EditorImageUploadController::__invoke
-* @see app/Http/Controllers/Admin/EditorImageUploadController.php:13
-* @route '/admin/editor-images'
-*/
-EditorImageUploadControllerForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: EditorImageUploadController.url(options),
-    method: 'post',
-})
-
-EditorImageUploadController.form = EditorImageUploadControllerForm
 
 export default EditorImageUploadController

@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\ApplicationFormController::index
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:15
@@ -42,43 +42,6 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
     method: 'head',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::index
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:15
-* @route '/admin/application_forms'
-*/
-const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::index
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:15
-* @route '/admin/application_forms'
-*/
-indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::index
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:15
-* @route '/admin/application_forms'
-*/
-indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url({
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\ApplicationFormController::create
@@ -125,43 +88,6 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::create
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:37
-* @route '/admin/application_forms/create'
-*/
-const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: create.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::create
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:37
-* @route '/admin/application_forms/create'
-*/
-createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: create.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::create
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:37
-* @route '/admin/application_forms/create'
-*/
-createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: create.url({
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-create.form = createForm
-
-/**
 * @see \App\Http\Controllers\Admin\ApplicationFormController::store
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:44
 * @route '/admin/application_forms'
@@ -196,33 +122,11 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::store
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:44
-* @route '/admin/application_forms'
-*/
-const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::store
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:44
-* @route '/admin/application_forms'
-*/
-storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
-    method: 'post',
-})
-
-store.form = storeForm
-
-/**
 * @see \App\Http\Controllers\Admin\ApplicationFormController::edit
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:52
 * @route '/admin/application_forms/{application_form}/edit'
 */
-export const edit = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -237,7 +141,7 @@ edit.definition = {
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:52
 * @route '/admin/application_forms/{application_form}/edit'
 */
-edit.url = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { application_form: args }
     }
@@ -270,7 +174,7 @@ edit.url = (args: { application_form: number | { id: number } } | [application_f
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:52
 * @route '/admin/application_forms/{application_form}/edit'
 */
-edit.get = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -280,54 +184,17 @@ edit.get = (args: { application_form: number | { id: number } } | [application_f
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:52
 * @route '/admin/application_forms/{application_form}/edit'
 */
-edit.head = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::edit
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:52
-* @route '/admin/application_forms/{application_form}/edit'
-*/
-const editForm = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: edit.url(args, options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::edit
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:52
-* @route '/admin/application_forms/{application_form}/edit'
-*/
-editForm.get = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: edit.url(args, options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::edit
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:52
-* @route '/admin/application_forms/{application_form}/edit'
-*/
-editForm.head = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: edit.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\ApplicationFormController::update
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:72
 * @route '/admin/application_forms/{application_form}'
 */
-export const update = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -342,7 +209,7 @@ update.definition = {
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:72
 * @route '/admin/application_forms/{application_form}'
 */
-update.url = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { application_form: args }
     }
@@ -375,7 +242,7 @@ update.url = (args: { application_form: number | { id: number } } | [application
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:72
 * @route '/admin/application_forms/{application_form}'
 */
-update.put = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -385,64 +252,17 @@ update.put = (args: { application_form: number | { id: number } } | [application
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:72
 * @route '/admin/application_forms/{application_form}'
 */
-update.patch = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::update
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:72
-* @route '/admin/application_forms/{application_form}'
-*/
-const updateForm = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PUT',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::update
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:72
-* @route '/admin/application_forms/{application_form}'
-*/
-updateForm.put = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PUT',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::update
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:72
-* @route '/admin/application_forms/{application_form}'
-*/
-updateForm.patch = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PATCH',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\ApplicationFormController::destroy
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:80
 * @route '/admin/application_forms/{application_form}'
 */
-export const destroy = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -457,7 +277,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:80
 * @route '/admin/application_forms/{application_form}'
 */
-destroy.url = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { application_form: args }
     }
@@ -490,42 +310,10 @@ destroy.url = (args: { application_form: number | { id: number } } | [applicatio
 * @see app/Http/Controllers/Admin/ApplicationFormController.php:80
 * @route '/admin/application_forms/{application_form}'
 */
-destroy.delete = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { application_form: string | number | { id: string | number } } | [application_form: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::destroy
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:80
-* @route '/admin/application_forms/{application_form}'
-*/
-const destroyForm = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\ApplicationFormController::destroy
-* @see app/Http/Controllers/Admin/ApplicationFormController.php:80
-* @route '/admin/application_forms/{application_form}'
-*/
-destroyForm.delete = (args: { application_form: number | { id: number } } | [application_form: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-destroy.form = destroyForm
 
 const application_forms = {
     index: Object.assign(index, index),

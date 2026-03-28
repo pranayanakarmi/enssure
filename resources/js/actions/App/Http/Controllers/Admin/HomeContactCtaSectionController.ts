@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\HomeContactCtaSectionController::edit
 * @see app/Http/Controllers/Admin/HomeContactCtaSectionController.php:15
@@ -44,43 +44,6 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Admin\HomeContactCtaSectionController::edit
-* @see app/Http/Controllers/Admin/HomeContactCtaSectionController.php:15
-* @route '/admin/home-contact-cta-section/edit'
-*/
-const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: edit.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\HomeContactCtaSectionController::edit
-* @see app/Http/Controllers/Admin/HomeContactCtaSectionController.php:15
-* @route '/admin/home-contact-cta-section/edit'
-*/
-editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: edit.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\HomeContactCtaSectionController::edit
-* @see app/Http/Controllers/Admin/HomeContactCtaSectionController.php:15
-* @route '/admin/home-contact-cta-section/edit'
-*/
-editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: edit.url({
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-edit.form = editForm
-
-/**
 * @see \App\Http\Controllers\Admin\HomeContactCtaSectionController::update
 * @see app/Http/Controllers/Admin/HomeContactCtaSectionController.php:41
 * @route '/admin/home-contact-cta-section'
@@ -113,38 +76,6 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
     method: 'put',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\HomeContactCtaSectionController::update
-* @see app/Http/Controllers/Admin/HomeContactCtaSectionController.php:41
-* @route '/admin/home-contact-cta-section'
-*/
-const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url({
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PUT',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\HomeContactCtaSectionController::update
-* @see app/Http/Controllers/Admin/HomeContactCtaSectionController.php:41
-* @route '/admin/home-contact-cta-section'
-*/
-updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url({
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PUT',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-update.form = updateForm
 
 const HomeContactCtaSectionController = { edit, update }
 

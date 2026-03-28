@@ -1,10 +1,10 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::store
 * @see app/Http/Controllers/Admin/GalleryImageController.php:14
 * @route '/admin/galleries/{gallery}/images'
 */
-export const store = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { gallery: string | number | { id: string | number } } | [gallery: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
 * @see app/Http/Controllers/Admin/GalleryImageController.php:14
 * @route '/admin/galleries/{gallery}/images'
 */
-store.url = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+store.url = (args: { gallery: string | number | { id: string | number } } | [gallery: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { gallery: args }
     }
@@ -52,39 +52,17 @@ store.url = (args: { gallery: number | { id: number } } | [gallery: number | { i
 * @see app/Http/Controllers/Admin/GalleryImageController.php:14
 * @route '/admin/galleries/{gallery}/images'
 */
-store.post = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { gallery: string | number | { id: string | number } } | [gallery: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\GalleryImageController::store
-* @see app/Http/Controllers/Admin/GalleryImageController.php:14
-* @route '/admin/galleries/{gallery}/images'
-*/
-const storeForm = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(args, options),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\GalleryImageController::store
-* @see app/Http/Controllers/Admin/GalleryImageController.php:14
-* @route '/admin/galleries/{gallery}/images'
-*/
-storeForm.post = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(args, options),
-    method: 'post',
-})
-
-store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::update
 * @see app/Http/Controllers/Admin/GalleryImageController.php:28
 * @route '/admin/gallery-images/{gallery_image}'
 */
-export const update = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { gallery_image: string | number | { id: string | number } } | [gallery_image: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -99,7 +77,7 @@ update.definition = {
 * @see app/Http/Controllers/Admin/GalleryImageController.php:28
 * @route '/admin/gallery-images/{gallery_image}'
 */
-update.url = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { gallery_image: string | number | { id: string | number } } | [gallery_image: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { gallery_image: args }
     }
@@ -132,49 +110,17 @@ update.url = (args: { gallery_image: number | { id: number } } | [gallery_image:
 * @see app/Http/Controllers/Admin/GalleryImageController.php:28
 * @route '/admin/gallery-images/{gallery_image}'
 */
-update.put = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { gallery_image: string | number | { id: string | number } } | [gallery_image: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\GalleryImageController::update
-* @see app/Http/Controllers/Admin/GalleryImageController.php:28
-* @route '/admin/gallery-images/{gallery_image}'
-*/
-const updateForm = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PUT',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\GalleryImageController::update
-* @see app/Http/Controllers/Admin/GalleryImageController.php:28
-* @route '/admin/gallery-images/{gallery_image}'
-*/
-updateForm.put = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PUT',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::destroy
 * @see app/Http/Controllers/Admin/GalleryImageController.php:35
 * @route '/admin/gallery-images/{gallery_image}'
 */
-export const destroy = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { gallery_image: string | number | { id: string | number } } | [gallery_image: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -189,7 +135,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Admin/GalleryImageController.php:35
 * @route '/admin/gallery-images/{gallery_image}'
 */
-destroy.url = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { gallery_image: string | number | { id: string | number } } | [gallery_image: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { gallery_image: args }
     }
@@ -222,42 +168,10 @@ destroy.url = (args: { gallery_image: number | { id: number } } | [gallery_image
 * @see app/Http/Controllers/Admin/GalleryImageController.php:35
 * @route '/admin/gallery-images/{gallery_image}'
 */
-destroy.delete = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { gallery_image: string | number | { id: string | number } } | [gallery_image: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
-
-/**
-* @see \App\Http\Controllers\Admin\GalleryImageController::destroy
-* @see app/Http/Controllers/Admin/GalleryImageController.php:35
-* @route '/admin/gallery-images/{gallery_image}'
-*/
-const destroyForm = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\Admin\GalleryImageController::destroy
-* @see app/Http/Controllers/Admin/GalleryImageController.php:35
-* @route '/admin/gallery-images/{gallery_image}'
-*/
-destroyForm.delete = (args: { gallery_image: number | { id: number } } | [gallery_image: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: destroy.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'DELETE',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-destroy.form = destroyForm
 
 const GalleryImageController = { store, update, destroy }
 

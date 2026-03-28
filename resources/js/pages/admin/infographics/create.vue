@@ -1,6 +1,5 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { ref, onBeforeUnmount } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -10,42 +9,8 @@ import AppLayout from '@/layouts/AppLayout.vue';
 
 const form = useForm({
     title: '',
-    sort_order: 0,
-    image: null,
+    slug: '',
 });
-
-const imagePreviewUrl = ref(null);
-
-function onImageChange(event) {
-    if (imagePreviewUrl.value) {
-        URL.revokeObjectURL(imagePreviewUrl.value);
-        imagePreviewUrl.value = null;
-    }
-    const file = event.target.files?.[0] || null;
-    form.image = file;
-    if (file) {
-        imagePreviewUrl.value = URL.createObjectURL(file);
-    }
-}
-
-onBeforeUnmount(() => {
-    if (imagePreviewUrl.value) {
-        URL.revokeObjectURL(imagePreviewUrl.value);
-    }
-});
-
-const imageInputRef = ref(null);
-
-function clearImage() {
-    form.image = null;
-    if (imagePreviewUrl.value) {
-        URL.revokeObjectURL(imagePreviewUrl.value);
-        imagePreviewUrl.value = null;
-    }
-    if (imageInputRef.value) {
-        imageInputRef.value.value = '';
-    }
-}
 
 const breadcrumbItems = [
     { title: 'Infographics Page', href: '#' },
@@ -63,56 +28,28 @@ const breadcrumbItems = [
                 <form class="space-y-6" @submit.prevent="form.post('/admin/infographics', { forceFormData: true })">
                     <div class="grid gap-2">
                         <Label for="title">Title</Label>
-                        <Input id="title" v-model="form.title" type="text" required />
+                        <Input
+                            id="title"
+                            v-model="form.title"
+                            type="text"
+                            required
+                            placeholder="Public name for this infographic"
+                        />
                         <InputError :message="form.errors.title" />
                     </div>
                     <div class="grid gap-2">
-                        <Label for="sort_order">Sort order</Label>
+                        <Label for="slug">Slug</Label>
                         <Input
-                            id="sort_order"
-                            v-model.number="form.sort_order"
-                            type="number"
-                            min="0"
-                            step="1"
+                            id="slug"
+                            v-model="form.slug"
+                            type="text"
+                            required
+                            placeholder="e.g. youth-outcomes"
                         />
-                        <InputError :message="form.errors.sort_order" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="image">Image</Label>
-                        <div
-                            v-if="imagePreviewUrl"
-                            class="mb-3 flex flex-wrap items-start gap-4 rounded-md border border-sidebar-border bg-muted/30 p-4"
-                        >
-                            <img
-                                :src="imagePreviewUrl"
-                                alt="Image preview"
-                                class="h-40 max-w-full shrink-0 rounded border object-contain"
-                            />
-                            <div class="flex min-w-0 flex-1 flex-col gap-3">
-                                <p class="text-xs text-muted-foreground">
-                                    Selected image. Choose another to replace.
-                                </p>
-                                <button
-                                    type="button"
-                                    class="inline-flex w-fit shrink-0 items-center justify-center gap-1.5 rounded-md bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-                                    @click="clearImage"
-                                >
-                                    Clear
-                                </button>
-                            </div>
-                        </div>
-                        <div class="max-w-md">
-                            <input
-                                ref="imageInputRef"
-                                id="image"
-                                type="file"
-                                accept="image/*"
-                                required
-                                class="block w-full cursor-pointer rounded-md border border-input bg-background px-3 py-2 text-sm file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-primary-foreground hover:file:bg-primary/90"
-                                @change="onImageChange"
-                            />
-                        </div>
-                        <InputError :message="form.errors.image" />
+                        <p class="text-xs text-muted-foreground">
+                            Used in the public URL: /infographics/your-slug
+                        </p>
+                        <InputError :message="form.errors.slug" />
                     </div>
                     <div class="flex items-center gap-4">
                         <Button type="submit" :disabled="form.processing">Create</Button>

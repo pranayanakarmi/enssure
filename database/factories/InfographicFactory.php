@@ -17,9 +17,8 @@ class InfographicFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(4),
-            'image' => 'infographics/placeholder.png',
-            'sort_order' => fake()->numberBetween(0, 100),
+            'title' => fake()->sentence(3, true),
+            'slug' => 'infographic-'.fake()->unique()->numerify('########'),
         ];
     }
 }

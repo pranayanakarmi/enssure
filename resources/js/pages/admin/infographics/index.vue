@@ -15,11 +15,11 @@ defineProps({
 const page = usePage();
 const success = page.props.flash?.success;
 
-function destroyInfographic(id) {
+function destroyInfographic(slug) {
     if (! confirm('Delete this infographic?')) {
         return;
     }
-    router.delete(`/admin/infographics/${id}`);
+    router.delete(`/admin/infographics/${slug}`);
 }
 
 const breadcrumbItems = [
@@ -67,27 +67,23 @@ const breadcrumbItems = [
                         <div class="divide-y divide-sidebar-border">
                             <div
                                 v-for="row in (infographics || [])"
-                                :key="row.id"
+                                :key="row.slug"
                                 class="flex flex-wrap items-center justify-between gap-4 px-6 py-4"
                             >
-                                <div class="flex min-w-0 flex-1 flex-wrap items-center gap-4">
-                                    <img
-                                        :src="row.image_url"
-                                        :alt="row.title"
-                                        class="h-16 w-24 shrink-0 rounded border object-cover"
-                                    />
-                                    <div class="min-w-0 flex-1">
-                                        <p class="truncate font-medium text-foreground">
-                                            {{ row.title }}
-                                        </p>
-                                        <p class="truncate text-sm text-muted-foreground">
-                                            Sort order: {{ row.sort_order }}
-                                        </p>
-                                    </div>
+                                <div class="min-w-0 flex-1">
+                                    <p class="truncate font-medium text-foreground">
+                                        {{ row.label }}
+                                    </p>
+                                    <p class="truncate text-xs text-muted-foreground">
+                                        /{{ row.slug }}
+                                    </p>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <Button variant="outline" size="sm" as-child>
-                                        <Link :href="`/admin/infographics/${row.id}/edit`">
+                                        <a :href="row.public_url" target="_blank" rel="noopener noreferrer">View</a>
+                                    </Button>
+                                    <Button variant="outline" size="sm" as-child>
+                                        <Link :href="`/admin/infographics/${row.slug}/edit`">
                                             Edit
                                         </Link>
                                     </Button>
@@ -95,7 +91,7 @@ const breadcrumbItems = [
                                         variant="destructive"
                                         size="sm"
                                         type="button"
-                                        @click="destroyInfographic(row.id)"
+                                        @click="destroyInfographic(row.slug)"
                                     >
                                         Delete
                                     </Button>

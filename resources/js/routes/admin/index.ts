@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
 import users from './users'
 import roles from './roles'
 import sliders from './sliders'
@@ -34,6 +34,7 @@ import team_members from './team_members'
 import team_page_content from './team_page_content'
 import infographics_page_content from './infographics_page_content'
 import infographics from './infographics'
+import infographic_items from './infographic_items'
 import contact_feedback_content from './contact_feedback_content'
 import events from './events'
 import eventRegistrations from './event-registrations'
@@ -71,7 +72,7 @@ import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
 /**
-* @see routes/admin.php:82
+* @see routes/admin.php:83
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -85,7 +86,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/admin.php:82
+* @see routes/admin.php:83
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -93,7 +94,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/admin.php:82
+* @see routes/admin.php:83
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -102,47 +103,13 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:82
+* @see routes/admin.php:83
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
     method: 'head',
 })
-
-/**
-* @see routes/admin.php:82
-* @route '/admin'
-*/
-const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
-
-/**
-* @see routes/admin.php:82
-* @route '/admin'
-*/
-indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
-
-/**
-* @see routes/admin.php:82
-* @route '/admin'
-*/
-indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url({
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-index.form = indexForm
 
 const admin = {
     index: Object.assign(index, index),
@@ -181,6 +148,7 @@ const admin = {
     team_page_content: Object.assign(team_page_content, team_page_content),
     infographics_page_content: Object.assign(infographics_page_content, infographics_page_content),
     infographics: Object.assign(infographics, infographics),
+    infographic_items: Object.assign(infographic_items, infographic_items),
     contact_feedback_content: Object.assign(contact_feedback_content, contact_feedback_content),
     events: Object.assign(events, events),
     eventRegistrations: Object.assign(eventRegistrations, eventRegistrations),

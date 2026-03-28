@@ -497,13 +497,13 @@ Route::get('infographics', function () {
     ];
 
     $infographics = Infographic::query()
-        ->orderBy('sort_order')
+        ->orderBy('slug')
         ->orderBy('id')
         ->get()
         ->map(fn (Infographic $row) => [
             'id' => $row->id,
-            'title' => $row->title,
-            'image_url' => Storage::disk('public')->url($row->image),
+            'slug' => $row->slug,
+            'label' => $row->displayLabel(),
         ])
         ->values()
         ->all();
@@ -513,6 +513,35 @@ Route::get('infographics', function () {
         'infographics' => $infographics,
     ]);
 })->name('infographics');
+Route::get('infographics/{infographic:slug}', function (Infographic $infographic) {
+    $content = InfographicsPageContent::first();
+    $pageContent = $content ? [
+        'title' => $content->title ?? 'Infographics',
+        'banner_image_url' => $content->banner_image
+            ? Storage::disk('public')->url($content->banner_image)
+            : null,
+    ] : [
+        'title' => 'Infographics',
+        'banner_image_url' => null,
+    ];
+
+    $infographic->load(['items' => fn ($query) => $query->orderBy('sort_order')->orderBy('id')]);
+
+    return Inertia::render('InfographicShow', [
+        'pageContent' => $pageContent,
+        'infographic' => [
+            'id' => $infographic->id,
+            'slug' => $infographic->slug,
+            'label' => $infographic->displayLabel(),
+            'items' => $infographic->items->map(fn ($item) => [
+                'id' => $item->id,
+                'title' => $item->title,
+                'sort_order' => $item->sort_order,
+                'image_url' => Storage::disk('public')->url($item->image),
+            ])->values()->all(),
+        ],
+    ]);
+})->name('infographics.show');
 Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
 Route::get('reports/{document}', [ReportController::class, 'show'])
     ->whereNumber('document')
