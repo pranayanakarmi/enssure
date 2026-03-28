@@ -1,12 +1,15 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
+import CopyablePublicUrl from '@/components/CopyablePublicUrl.vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import RichTextEditor from '@/components/RichTextEditor.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { usePagePublicUrl } from '@/composables/usePagePublicUrl';
 
 defineProps({
     pages: {
@@ -25,6 +28,8 @@ const form = useForm({
     published_at: '',
 });
 
+const { publicPageUrl } = usePagePublicUrl(form);
+
 const breadcrumbItems = [
     { title: 'Pages', href: '/admin/pages' },
     { title: 'Create', href: '/admin/pages/create' },
@@ -40,7 +45,7 @@ const breadcrumbItems = [
                 <Heading
                     variant="small"
                     title="Create page"
-                    description="Add a new page"
+                    description="Add a new page with rich text. Published pages appear at /pages/your-slug."
                 />
 
                 <form
@@ -63,16 +68,42 @@ const breadcrumbItems = [
                             id="slug"
                             v-model="form.slug"
                             type="text"
+                            placeholder="Auto-generated from title if empty"
                         />
                         <InputError :message="form.errors.slug" />
                     </div>
+                    <CopyablePublicUrl
+                        v-if="form.published_at && publicPageUrl"
+                        :url="publicPageUrl"
+                        label="Public page URL"
+                    />
+                    <div class="grid gap-2">
+                        <Label for="meta_title">Meta title (SEO)</Label>
+                        <Input
+                            id="meta_title"
+                            v-model="form.meta_title"
+                            type="text"
+                            placeholder="Optional; defaults to page title in the browser tab"
+                        />
+                        <InputError :message="form.errors.meta_title" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="meta_description">Meta description (SEO)</Label>
+                        <textarea
+                            id="meta_description"
+                            v-model="form.meta_description"
+                            rows="3"
+                            class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                            placeholder="Optional summary for search engines"
+                        />
+                        <InputError :message="form.errors.meta_description" />
+                    </div>
                     <div class="grid gap-2">
                         <Label for="content">Content</Label>
-                        <textarea
+                        <RichTextEditor
                             id="content"
                             v-model="form.content"
-                            rows="6"
-                            class="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                            placeholder="Enter page content..."
                         />
                         <InputError :message="form.errors.content" />
                     </div>
@@ -96,6 +127,9 @@ const breadcrumbItems = [
                     </div>
                     <div class="grid gap-2">
                         <Label for="published_at">Published at</Label>
+                        <p class="text-xs text-muted-foreground">
+                            Pages only appear publicly when this is set and not in the future. Clear to save as a draft.
+                        </p>
                         <Input
                             id="published_at"
                             v-model="form.published_at"

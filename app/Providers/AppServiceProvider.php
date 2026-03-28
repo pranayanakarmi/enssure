@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\User;
 use App\Policies\RolePolicy;
@@ -39,6 +40,13 @@ class AppServiceProvider extends ServiceProvider
 
         Route::bind('published_post', function (string $value): Post {
             return Post::query()
+                ->published()
+                ->where('slug', $value)
+                ->firstOrFail();
+        });
+
+        Route::bind('published_page', function (string $value): Page {
+            return Page::query()
                 ->published()
                 ->where('slug', $value)
                 ->firstOrFail();

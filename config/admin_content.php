@@ -208,6 +208,12 @@ return [
             ],
         ],
         [
+            'title' => 'Pages',
+            'href' => 'admin.pages.index',
+            'icon' => 'File',
+            'permission_resource' => 'pages',
+        ],
+        [
             'title' => 'News and Articles',
             'href' => 'admin.notices.index',
             'icon' => 'Newspaper',
@@ -251,12 +257,6 @@ return [
             'permission_resource' => 'site_settings',
         ],
 
-        // [
-        //     'title' => 'Pages',
-        //     'href' => 'admin.pages.index',
-        //     'icon' => 'File',
-        //     'permission_resource' => 'pages',
-        // ],
         // [
         //     'title' => 'Notices',
         //     'href' => 'admin.notices.index',

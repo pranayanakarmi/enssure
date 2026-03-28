@@ -25,6 +25,7 @@ use App\Models\ImpactStory;
 use App\Models\Infographic;
 use App\Models\InfographicsPageContent;
 use App\Models\Notice;
+use App\Models\Page;
 use App\Models\Partner;
 use App\Models\Post;
 use App\Models\Slider;
@@ -375,6 +376,23 @@ Route::get('posts/{published_post:slug}', function (Post $published_post) {
             ->all(),
     ]);
 })->name('posts.show');
+Route::get('pages/{published_page:slug}', function (Page $published_page) {
+    $htmlAllow = '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>';
+
+    return Inertia::render('PageShow', [
+        'page' => [
+            'title' => $published_page->title,
+            'slug' => $published_page->slug,
+            'meta_title' => $published_page->meta_title,
+            'meta_description' => $published_page->meta_description,
+            'published_at' => $published_page->published_at?->toISOString(),
+            'content' => $published_page->content
+                ? strip_tags($published_page->content, $htmlAllow)
+                : null,
+            'share_url' => url()->route('pages.show', ['published_page' => $published_page->slug]),
+        ],
+    ]);
+})->name('pages.show');
 Route::get('impact-stories', function () {
     $hero = ImpactPageHero::first();
     $section = ImpactPageSection::first();

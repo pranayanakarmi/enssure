@@ -30,7 +30,7 @@ const breadcrumbItems = [
                     <Heading
                         variant="small"
                         title="Pages"
-                        description="Manage static pages"
+                        description="Drafts (no published date) are hidden from the public site at /pages/your-slug."
                     />
                     <Button as-child>
                         <Link href="/admin/pages/create">Add page</Link>
@@ -70,7 +70,17 @@ const breadcrumbItems = [
                                         {{ p.parent || '—' }} · {{ p.published_at ? new Date(p.published_at).toLocaleDateString() : 'Draft' }}
                                     </p>
                                 </div>
-                                <div class="flex items-center gap-2">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <Button
+                                        v-if="p.published_at"
+                                        variant="outline"
+                                        size="sm"
+                                        as-child
+                                    >
+                                        <Link :href="`/pages/${p.slug}`" target="_blank" rel="noopener noreferrer">
+                                            View live
+                                        </Link>
+                                    </Button>
                                     <Button variant="outline" size="sm" as-child>
                                         <Link :href="`/admin/pages/${p.id}/edit`">
                                             Edit

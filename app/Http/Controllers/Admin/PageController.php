@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StorePageRequest;
 use App\Http\Requests\Admin\UpdatePageRequest;
 use App\Models\Page;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -48,7 +49,12 @@ class PageController extends Controller
 
     public function store(StorePageRequest $request): RedirectResponse
     {
-        Page::create($request->validated());
+        $data = $request->validated();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($request->title) ?: ('page-'.Str::lower(Str::random(8)));
+        }
+
+        Page::create($data);
 
         return to_route('admin.pages.index')
             ->with('success', 'Page created successfully.');
@@ -77,8 +83,13 @@ class PageController extends Controller
 
     public function update(UpdatePageRequest $request, Page $page): RedirectResponse
     {
+        $data = $request->validated();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($request->title) ?: ('page-'.Str::lower(Str::random(8)));
+        }
+
         $page->update([
-            ...$request->validated(),
+            ...$data,
             'updated_by' => $request->user()->id,
         ]);
 
