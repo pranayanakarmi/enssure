@@ -1,14 +1,32 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import GuestLayout from '@/layouts/GuestLayout.vue';
+import { computed, ref } from 'vue';
+import GalleryImageLightbox from '@/components/guest/GalleryImageLightbox.vue';
 import PageHero from '@/components/guest/PageHero.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
 
-defineProps({
+const props = defineProps({
     gallery: {
         type: Object,
         required: true,
     },
 });
+
+const gridImages = computed(() =>
+    (props.gallery.images || []).filter((img) => img?.image_url),
+);
+
+const lightboxOpen = ref(false);
+const lightboxInitialIndex = ref(0);
+
+function openLightbox(index) {
+    lightboxInitialIndex.value = index;
+    lightboxOpen.value = true;
+}
+
+function closeLightbox() {
+    lightboxOpen.value = false;
+}
 </script>
 
 <template>
@@ -36,30 +54,40 @@ defineProps({
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div
-                        v-for="(img, i) in (gallery.images || [])"
+                    <button
+                        v-for="(img, i) in gridImages"
                         :key="img.id || i"
-                        class="group relative rounded-[30px] overflow-hidden aspect-square"
+                        type="button"
+                        class="group relative aspect-square w-full cursor-pointer overflow-hidden rounded-[30px] border-0 bg-transparent p-0 text-left"
+                        @click="openLightbox(i)"
                     >
                         <img
                             v-if="img.image_url"
                             :src="img.image_url"
                             :alt="img.caption || ''"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
-                        <div class="absolute inset-0 bg-[rgba(7,87,195,0.75)] opacity-0 group-hover:opacity-100 transition duration-500" />
+                        <div class="absolute inset-0 bg-[rgba(7,87,195,0.75)] opacity-0 transition duration-500 group-hover:opacity-100" />
                         <div
                             v-if="img.caption"
-                            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500"
+                            class="absolute inset-0 flex items-center justify-center opacity-0 transition duration-500 group-hover:opacity-100"
                         >
-                            <p class="text-white text-lg text-center px-8 leading-relaxed">
+                            <p class="px-8 text-center text-lg leading-relaxed text-white">
                                 {{ img.caption }}
                             </p>
                         </div>
-                    </div>
+                    </button>
                 </div>
+
+                <GalleryImageLightbox
+                    :open="lightboxOpen"
+                    :images="gridImages"
+                    :initial-index="lightboxInitialIndex"
+                    :title="gallery.title"
+                    @close="closeLightbox"
+                />
                 <div
-                    v-if="!(gallery.images || []).length"
+                    v-if="!gridImages.length"
                     class="py-16 text-center text-gray-500"
                 >
                     No images in this album yet.
