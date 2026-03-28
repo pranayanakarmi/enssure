@@ -4,6 +4,8 @@ namespace App\Http\Requests\Admin;
 
 use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -17,6 +19,12 @@ class StoreCategoryRequest extends FormRequest
         if ($this->has('parent_id') && $this->input('parent_id') === '') {
             $this->merge(['parent_id' => null]);
         }
+        if ($this->has('slug') && trim((string) $this->input('slug')) === '') {
+            $this->merge(['slug' => null]);
+        }
+        if (! $this->filled('slug') && $this->filled('name')) {
+            $this->merge(['slug' => Str::slug($this->string('name')->toString())]);
+        }
     }
 
     /**
@@ -26,7 +34,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255', Rule::unique('categories', 'slug')],
             'description' => ['nullable', 'string'],
             'parent_id' => ['nullable', 'integer', 'exists:categories,id'],
         ];

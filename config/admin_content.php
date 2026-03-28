@@ -198,6 +198,16 @@ return [
             ],
         ],
         [
+            'title' => 'Posts',
+            'icon' => 'FileText',
+            'permission_resource' => null,
+            'children' => [
+                ['title' => 'All posts', 'href' => 'admin.posts.index', 'permission_resource' => 'posts'],
+                ['title' => 'Categories', 'href' => 'admin.categories.index', 'permission_resource' => 'categories'],
+                ['title' => 'Tags', 'href' => 'admin.tags.index', 'permission_resource' => 'tags'],
+            ],
+        ],
+        [
             'title' => 'News and Articles',
             'href' => 'admin.notices.index',
             'icon' => 'Newspaper',
@@ -241,24 +251,6 @@ return [
             'permission_resource' => 'site_settings',
         ],
 
-        // [
-        //     'title' => 'Posts',
-        //     'href' => 'admin.posts.index',
-        //     'icon' => 'FileText',
-        //     'permission_resource' => 'posts',
-        // ],
-        // [
-        //     'title' => 'Categories',
-        //     'href' => 'admin.categories.index',
-        //     'icon' => 'Folder',
-        //     'permission_resource' => 'categories',
-        // ],
-        // [
-        //     'title' => 'Tags',
-        //     'href' => 'admin.tags.index',
-        //     'icon' => 'Tag',
-        //     'permission_resource' => 'tags',
-        // ],
         // [
         //     'title' => 'Pages',
         //     'href' => 'admin.pages.index',

@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\NoticeController::index
 * @see app/Http/Controllers/Admin/NoticeController.php:17
@@ -42,6 +42,43 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::index
+* @see app/Http/Controllers/Admin/NoticeController.php:17
+* @route '/admin/notices'
+*/
+const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::index
+* @see app/Http/Controllers/Admin/NoticeController.php:17
+* @route '/admin/notices'
+*/
+indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::index
+* @see app/Http/Controllers/Admin/NoticeController.php:17
+* @route '/admin/notices'
+*/
+indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\NoticeController::create
@@ -88,6 +125,43 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Admin\NoticeController::create
+* @see app/Http/Controllers/Admin/NoticeController.php:38
+* @route '/admin/notices/create'
+*/
+const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::create
+* @see app/Http/Controllers/Admin/NoticeController.php:38
+* @route '/admin/notices/create'
+*/
+createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::create
+* @see app/Http/Controllers/Admin/NoticeController.php:38
+* @route '/admin/notices/create'
+*/
+createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+create.form = createForm
+
+/**
 * @see \App\Http\Controllers\Admin\NoticeController::store
 * @see app/Http/Controllers/Admin/NoticeController.php:45
 * @route '/admin/notices'
@@ -122,11 +196,33 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Admin\NoticeController::store
+* @see app/Http/Controllers/Admin/NoticeController.php:45
+* @route '/admin/notices'
+*/
+const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::store
+* @see app/Http/Controllers/Admin/NoticeController.php:45
+* @route '/admin/notices'
+*/
+storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+store.form = storeForm
+
+/**
 * @see \App\Http\Controllers\Admin\NoticeController::edit
 * @see app/Http/Controllers/Admin/NoticeController.php:65
 * @route '/admin/notices/{notice}/edit'
 */
-export const edit = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -141,7 +237,7 @@ edit.definition = {
 * @see app/Http/Controllers/Admin/NoticeController.php:65
 * @route '/admin/notices/{notice}/edit'
 */
-edit.url = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { notice: args }
     }
@@ -174,7 +270,7 @@ edit.url = (args: { notice: string | number | { id: string | number } } | [notic
 * @see app/Http/Controllers/Admin/NoticeController.php:65
 * @route '/admin/notices/{notice}/edit'
 */
-edit.get = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -184,17 +280,54 @@ edit.get = (args: { notice: string | number | { id: string | number } } | [notic
 * @see app/Http/Controllers/Admin/NoticeController.php:65
 * @route '/admin/notices/{notice}/edit'
 */
-edit.head = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::edit
+* @see app/Http/Controllers/Admin/NoticeController.php:65
+* @route '/admin/notices/{notice}/edit'
+*/
+const editForm = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::edit
+* @see app/Http/Controllers/Admin/NoticeController.php:65
+* @route '/admin/notices/{notice}/edit'
+*/
+editForm.get = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::edit
+* @see app/Http/Controllers/Admin/NoticeController.php:65
+* @route '/admin/notices/{notice}/edit'
+*/
+editForm.head = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\NoticeController::update
 * @see app/Http/Controllers/Admin/NoticeController.php:83
 * @route '/admin/notices/{notice}'
 */
-export const update = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -209,7 +342,7 @@ update.definition = {
 * @see app/Http/Controllers/Admin/NoticeController.php:83
 * @route '/admin/notices/{notice}'
 */
-update.url = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { notice: args }
     }
@@ -242,7 +375,7 @@ update.url = (args: { notice: string | number | { id: string | number } } | [not
 * @see app/Http/Controllers/Admin/NoticeController.php:83
 * @route '/admin/notices/{notice}'
 */
-update.put = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -252,17 +385,64 @@ update.put = (args: { notice: string | number | { id: string | number } } | [not
 * @see app/Http/Controllers/Admin/NoticeController.php:83
 * @route '/admin/notices/{notice}'
 */
-update.patch = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::update
+* @see app/Http/Controllers/Admin/NoticeController.php:83
+* @route '/admin/notices/{notice}'
+*/
+const updateForm = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::update
+* @see app/Http/Controllers/Admin/NoticeController.php:83
+* @route '/admin/notices/{notice}'
+*/
+updateForm.put = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::update
+* @see app/Http/Controllers/Admin/NoticeController.php:83
+* @route '/admin/notices/{notice}'
+*/
+updateForm.patch = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PATCH',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\NoticeController::destroy
 * @see app/Http/Controllers/Admin/NoticeController.php:110
 * @route '/admin/notices/{notice}'
 */
-export const destroy = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -277,7 +457,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Admin/NoticeController.php:110
 * @route '/admin/notices/{notice}'
 */
-destroy.url = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { notice: args }
     }
@@ -310,10 +490,42 @@ destroy.url = (args: { notice: string | number | { id: string | number } } | [no
 * @see app/Http/Controllers/Admin/NoticeController.php:110
 * @route '/admin/notices/{notice}'
 */
-destroy.delete = (args: { notice: string | number | { id: string | number } } | [notice: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::destroy
+* @see app/Http/Controllers/Admin/NoticeController.php:110
+* @route '/admin/notices/{notice}'
+*/
+const destroyForm = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\NoticeController::destroy
+* @see app/Http/Controllers/Admin/NoticeController.php:110
+* @route '/admin/notices/{notice}'
+*/
+destroyForm.delete = (args: { notice: number | { id: number } } | [notice: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+destroy.form = destroyForm
 
 const notices = {
     index: Object.assign(index, index),

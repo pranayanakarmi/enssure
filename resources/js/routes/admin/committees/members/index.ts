@@ -1,10 +1,10 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\CommitteeMemberController::store
 * @see app/Http/Controllers/Admin/CommitteeMemberController.php:17
 * @route '/admin/committees/{committee}/members'
 */
-export const store = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
 * @see app/Http/Controllers/Admin/CommitteeMemberController.php:17
 * @route '/admin/committees/{committee}/members'
 */
-store.url = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { committee: args }
     }
@@ -52,10 +52,32 @@ store.url = (args: { committee: string | number | { id: string | number } } | [c
 * @see app/Http/Controllers/Admin/CommitteeMemberController.php:17
 * @route '/admin/committees/{committee}/members'
 */
-store.post = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\CommitteeMemberController::store
+* @see app/Http/Controllers/Admin/CommitteeMemberController.php:17
+* @route '/admin/committees/{committee}/members'
+*/
+const storeForm = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\CommitteeMemberController::store
+* @see app/Http/Controllers/Admin/CommitteeMemberController.php:17
+* @route '/admin/committees/{committee}/members'
+*/
+storeForm.post = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+store.form = storeForm
 
 const members = {
     store: Object.assign(store, store),

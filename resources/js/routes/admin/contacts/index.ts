@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\ContactController::index
 * @see app/Http/Controllers/Admin/ContactController.php:15
@@ -42,6 +42,43 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::index
+* @see app/Http/Controllers/Admin/ContactController.php:15
+* @route '/admin/contacts'
+*/
+const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::index
+* @see app/Http/Controllers/Admin/ContactController.php:15
+* @route '/admin/contacts'
+*/
+indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::index
+* @see app/Http/Controllers/Admin/ContactController.php:15
+* @route '/admin/contacts'
+*/
+indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\ContactController::create
@@ -88,6 +125,43 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Admin\ContactController::create
+* @see app/Http/Controllers/Admin/ContactController.php:36
+* @route '/admin/contacts/create'
+*/
+const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::create
+* @see app/Http/Controllers/Admin/ContactController.php:36
+* @route '/admin/contacts/create'
+*/
+createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::create
+* @see app/Http/Controllers/Admin/ContactController.php:36
+* @route '/admin/contacts/create'
+*/
+createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+create.form = createForm
+
+/**
 * @see \App\Http\Controllers\Admin\ContactController::store
 * @see app/Http/Controllers/Admin/ContactController.php:43
 * @route '/admin/contacts'
@@ -122,11 +196,33 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Admin\ContactController::store
+* @see app/Http/Controllers/Admin/ContactController.php:43
+* @route '/admin/contacts'
+*/
+const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::store
+* @see app/Http/Controllers/Admin/ContactController.php:43
+* @route '/admin/contacts'
+*/
+storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+store.form = storeForm
+
+/**
 * @see \App\Http\Controllers\Admin\ContactController::edit
 * @see app/Http/Controllers/Admin/ContactController.php:51
 * @route '/admin/contacts/{contact}/edit'
 */
-export const edit = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -141,7 +237,7 @@ edit.definition = {
 * @see app/Http/Controllers/Admin/ContactController.php:51
 * @route '/admin/contacts/{contact}/edit'
 */
-edit.url = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { contact: args }
     }
@@ -174,7 +270,7 @@ edit.url = (args: { contact: string | number | { id: string | number } } | [cont
 * @see app/Http/Controllers/Admin/ContactController.php:51
 * @route '/admin/contacts/{contact}/edit'
 */
-edit.get = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -184,17 +280,54 @@ edit.get = (args: { contact: string | number | { id: string | number } } | [cont
 * @see app/Http/Controllers/Admin/ContactController.php:51
 * @route '/admin/contacts/{contact}/edit'
 */
-edit.head = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::edit
+* @see app/Http/Controllers/Admin/ContactController.php:51
+* @route '/admin/contacts/{contact}/edit'
+*/
+const editForm = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::edit
+* @see app/Http/Controllers/Admin/ContactController.php:51
+* @route '/admin/contacts/{contact}/edit'
+*/
+editForm.get = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::edit
+* @see app/Http/Controllers/Admin/ContactController.php:51
+* @route '/admin/contacts/{contact}/edit'
+*/
+editForm.head = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\ContactController::update
 * @see app/Http/Controllers/Admin/ContactController.php:68
 * @route '/admin/contacts/{contact}'
 */
-export const update = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -209,7 +342,7 @@ update.definition = {
 * @see app/Http/Controllers/Admin/ContactController.php:68
 * @route '/admin/contacts/{contact}'
 */
-update.url = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { contact: args }
     }
@@ -242,7 +375,7 @@ update.url = (args: { contact: string | number | { id: string | number } } | [co
 * @see app/Http/Controllers/Admin/ContactController.php:68
 * @route '/admin/contacts/{contact}'
 */
-update.put = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -252,17 +385,64 @@ update.put = (args: { contact: string | number | { id: string | number } } | [co
 * @see app/Http/Controllers/Admin/ContactController.php:68
 * @route '/admin/contacts/{contact}'
 */
-update.patch = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::update
+* @see app/Http/Controllers/Admin/ContactController.php:68
+* @route '/admin/contacts/{contact}'
+*/
+const updateForm = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::update
+* @see app/Http/Controllers/Admin/ContactController.php:68
+* @route '/admin/contacts/{contact}'
+*/
+updateForm.put = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::update
+* @see app/Http/Controllers/Admin/ContactController.php:68
+* @route '/admin/contacts/{contact}'
+*/
+updateForm.patch = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PATCH',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\ContactController::destroy
 * @see app/Http/Controllers/Admin/ContactController.php:76
 * @route '/admin/contacts/{contact}'
 */
-export const destroy = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -277,7 +457,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Admin/ContactController.php:76
 * @route '/admin/contacts/{contact}'
 */
-destroy.url = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { contact: args }
     }
@@ -310,10 +490,42 @@ destroy.url = (args: { contact: string | number | { id: string | number } } | [c
 * @see app/Http/Controllers/Admin/ContactController.php:76
 * @route '/admin/contacts/{contact}'
 */
-destroy.delete = (args: { contact: string | number | { id: string | number } } | [contact: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::destroy
+* @see app/Http/Controllers/Admin/ContactController.php:76
+* @route '/admin/contacts/{contact}'
+*/
+const destroyForm = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\ContactController::destroy
+* @see app/Http/Controllers/Admin/ContactController.php:76
+* @route '/admin/contacts/{contact}'
+*/
+destroyForm.delete = (args: { contact: number | { id: number } } | [contact: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+destroy.form = destroyForm
 
 const contacts = {
     index: Object.assign(index, index),

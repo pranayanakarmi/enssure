@@ -1,10 +1,10 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\FooterLinkController::store
 * @see app/Http/Controllers/Admin/FooterLinkController.php:16
 * @route '/admin/footer-columns/{footer_column}/links'
 */
-export const store = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
 * @see app/Http/Controllers/Admin/FooterLinkController.php:16
 * @route '/admin/footer-columns/{footer_column}/links'
 */
-store.url = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { footer_column: args }
     }
@@ -52,10 +52,32 @@ store.url = (args: { footer_column: string | number | { id: string | number } } 
 * @see app/Http/Controllers/Admin/FooterLinkController.php:16
 * @route '/admin/footer-columns/{footer_column}/links'
 */
-store.post = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\FooterLinkController::store
+* @see app/Http/Controllers/Admin/FooterLinkController.php:16
+* @route '/admin/footer-columns/{footer_column}/links'
+*/
+const storeForm = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\FooterLinkController::store
+* @see app/Http/Controllers/Admin/FooterLinkController.php:16
+* @route '/admin/footer-columns/{footer_column}/links'
+*/
+storeForm.post = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+store.form = storeForm
 
 const links = {
     store: Object.assign(store, store),

@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\HomePartnersSectionController::edit
 * @see app/Http/Controllers/Admin/HomePartnersSectionController.php:14
@@ -44,6 +44,43 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Admin\HomePartnersSectionController::edit
+* @see app/Http/Controllers/Admin/HomePartnersSectionController.php:14
+* @route '/admin/home-partners-section/edit'
+*/
+const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\HomePartnersSectionController::edit
+* @see app/Http/Controllers/Admin/HomePartnersSectionController.php:14
+* @route '/admin/home-partners-section/edit'
+*/
+editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\HomePartnersSectionController::edit
+* @see app/Http/Controllers/Admin/HomePartnersSectionController.php:14
+* @route '/admin/home-partners-section/edit'
+*/
+editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+edit.form = editForm
+
+/**
 * @see \App\Http\Controllers\Admin\HomePartnersSectionController::update
 * @see app/Http/Controllers/Admin/HomePartnersSectionController.php:33
 * @route '/admin/home-partners-section'
@@ -76,6 +113,38 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
     method: 'put',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\HomePartnersSectionController::update
+* @see app/Http/Controllers/Admin/HomePartnersSectionController.php:33
+* @route '/admin/home-partners-section'
+*/
+const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\HomePartnersSectionController::update
+* @see app/Http/Controllers/Admin/HomePartnersSectionController.php:33
+* @route '/admin/home-partners-section'
+*/
+updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
 
 const home_partners_sections = {
     edit: Object.assign(edit, edit),

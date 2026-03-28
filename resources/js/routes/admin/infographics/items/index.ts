@@ -1,10 +1,10 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\InfographicItemController::reorder
 * @see app/Http/Controllers/Admin/InfographicItemController.php:19
 * @route '/admin/infographics/{infographic}/items/reorder'
 */
-export const reorder = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const reorder = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: reorder.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ reorder.definition = {
 * @see app/Http/Controllers/Admin/InfographicItemController.php:19
 * @route '/admin/infographics/{infographic}/items/reorder'
 */
-reorder.url = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+reorder.url = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { infographic: args }
     }
@@ -52,17 +52,39 @@ reorder.url = (args: { infographic: string | number | { slug: string | number } 
 * @see app/Http/Controllers/Admin/InfographicItemController.php:19
 * @route '/admin/infographics/{infographic}/items/reorder'
 */
-reorder.post = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+reorder.post = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: reorder.url(args, options),
     method: 'post',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicItemController::reorder
+* @see app/Http/Controllers/Admin/InfographicItemController.php:19
+* @route '/admin/infographics/{infographic}/items/reorder'
+*/
+const reorderForm = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: reorder.url(args, options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicItemController::reorder
+* @see app/Http/Controllers/Admin/InfographicItemController.php:19
+* @route '/admin/infographics/{infographic}/items/reorder'
+*/
+reorderForm.post = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: reorder.url(args, options),
+    method: 'post',
+})
+
+reorder.form = reorderForm
 
 /**
 * @see \App\Http\Controllers\Admin\InfographicItemController::store
 * @see app/Http/Controllers/Admin/InfographicItemController.php:35
 * @route '/admin/infographics/{infographic}/items'
 */
-export const store = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -77,7 +99,7 @@ store.definition = {
 * @see app/Http/Controllers/Admin/InfographicItemController.php:35
 * @route '/admin/infographics/{infographic}/items'
 */
-store.url = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { infographic: args }
     }
@@ -110,10 +132,32 @@ store.url = (args: { infographic: string | number | { slug: string | number } } 
 * @see app/Http/Controllers/Admin/InfographicItemController.php:35
 * @route '/admin/infographics/{infographic}/items'
 */
-store.post = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicItemController::store
+* @see app/Http/Controllers/Admin/InfographicItemController.php:35
+* @route '/admin/infographics/{infographic}/items'
+*/
+const storeForm = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicItemController::store
+* @see app/Http/Controllers/Admin/InfographicItemController.php:35
+* @route '/admin/infographics/{infographic}/items'
+*/
+storeForm.post = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+store.form = storeForm
 
 const items = {
     reorder: Object.assign(reorder, reorder),

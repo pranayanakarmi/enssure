@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\BannerController::index
 * @see app/Http/Controllers/Admin/BannerController.php:15
@@ -42,6 +42,43 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::index
+* @see app/Http/Controllers/Admin/BannerController.php:15
+* @route '/admin/banners'
+*/
+const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::index
+* @see app/Http/Controllers/Admin/BannerController.php:15
+* @route '/admin/banners'
+*/
+indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::index
+* @see app/Http/Controllers/Admin/BannerController.php:15
+* @route '/admin/banners'
+*/
+indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Admin\BannerController::create
@@ -88,6 +125,43 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Admin\BannerController::create
+* @see app/Http/Controllers/Admin/BannerController.php:37
+* @route '/admin/banners/create'
+*/
+const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::create
+* @see app/Http/Controllers/Admin/BannerController.php:37
+* @route '/admin/banners/create'
+*/
+createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::create
+* @see app/Http/Controllers/Admin/BannerController.php:37
+* @route '/admin/banners/create'
+*/
+createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+create.form = createForm
+
+/**
 * @see \App\Http\Controllers\Admin\BannerController::store
 * @see app/Http/Controllers/Admin/BannerController.php:44
 * @route '/admin/banners'
@@ -120,6 +194,28 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
     method: 'post',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::store
+* @see app/Http/Controllers/Admin/BannerController.php:44
+* @route '/admin/banners'
+*/
+const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::store
+* @see app/Http/Controllers/Admin/BannerController.php:44
+* @route '/admin/banners'
+*/
+storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\BannerController::show
@@ -184,11 +280,48 @@ show.head = (args: { banner: string | number } | [banner: string | number ] | st
 })
 
 /**
+* @see \App\Http\Controllers\Admin\BannerController::show
+* @see app/Http/Controllers/Admin/BannerController.php:0
+* @route '/admin/banners/{banner}'
+*/
+const showForm = (args: { banner: string | number } | [banner: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::show
+* @see app/Http/Controllers/Admin/BannerController.php:0
+* @route '/admin/banners/{banner}'
+*/
+showForm.get = (args: { banner: string | number } | [banner: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::show
+* @see app/Http/Controllers/Admin/BannerController.php:0
+* @route '/admin/banners/{banner}'
+*/
+showForm.head = (args: { banner: string | number } | [banner: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+show.form = showForm
+
+/**
 * @see \App\Http\Controllers\Admin\BannerController::edit
 * @see app/Http/Controllers/Admin/BannerController.php:52
 * @route '/admin/banners/{banner}/edit'
 */
-export const edit = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -203,7 +336,7 @@ edit.definition = {
 * @see app/Http/Controllers/Admin/BannerController.php:52
 * @route '/admin/banners/{banner}/edit'
 */
-edit.url = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { banner: args }
     }
@@ -236,7 +369,7 @@ edit.url = (args: { banner: string | number | { id: string | number } } | [banne
 * @see app/Http/Controllers/Admin/BannerController.php:52
 * @route '/admin/banners/{banner}/edit'
 */
-edit.get = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -246,17 +379,54 @@ edit.get = (args: { banner: string | number | { id: string | number } } | [banne
 * @see app/Http/Controllers/Admin/BannerController.php:52
 * @route '/admin/banners/{banner}/edit'
 */
-edit.head = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::edit
+* @see app/Http/Controllers/Admin/BannerController.php:52
+* @route '/admin/banners/{banner}/edit'
+*/
+const editForm = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::edit
+* @see app/Http/Controllers/Admin/BannerController.php:52
+* @route '/admin/banners/{banner}/edit'
+*/
+editForm.get = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::edit
+* @see app/Http/Controllers/Admin/BannerController.php:52
+* @route '/admin/banners/{banner}/edit'
+*/
+editForm.head = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\BannerController::update
 * @see app/Http/Controllers/Admin/BannerController.php:71
 * @route '/admin/banners/{banner}'
 */
-export const update = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -271,7 +441,7 @@ update.definition = {
 * @see app/Http/Controllers/Admin/BannerController.php:71
 * @route '/admin/banners/{banner}'
 */
-update.url = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { banner: args }
     }
@@ -304,7 +474,7 @@ update.url = (args: { banner: string | number | { id: string | number } } | [ban
 * @see app/Http/Controllers/Admin/BannerController.php:71
 * @route '/admin/banners/{banner}'
 */
-update.put = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -314,17 +484,64 @@ update.put = (args: { banner: string | number | { id: string | number } } | [ban
 * @see app/Http/Controllers/Admin/BannerController.php:71
 * @route '/admin/banners/{banner}'
 */
-update.patch = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::update
+* @see app/Http/Controllers/Admin/BannerController.php:71
+* @route '/admin/banners/{banner}'
+*/
+const updateForm = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::update
+* @see app/Http/Controllers/Admin/BannerController.php:71
+* @route '/admin/banners/{banner}'
+*/
+updateForm.put = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::update
+* @see app/Http/Controllers/Admin/BannerController.php:71
+* @route '/admin/banners/{banner}'
+*/
+updateForm.patch = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PATCH',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\BannerController::destroy
 * @see app/Http/Controllers/Admin/BannerController.php:79
 * @route '/admin/banners/{banner}'
 */
-export const destroy = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -339,7 +556,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Admin/BannerController.php:79
 * @route '/admin/banners/{banner}'
 */
-destroy.url = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { banner: args }
     }
@@ -372,10 +589,42 @@ destroy.url = (args: { banner: string | number | { id: string | number } } | [ba
 * @see app/Http/Controllers/Admin/BannerController.php:79
 * @route '/admin/banners/{banner}'
 */
-destroy.delete = (args: { banner: string | number | { id: string | number } } | [banner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::destroy
+* @see app/Http/Controllers/Admin/BannerController.php:79
+* @route '/admin/banners/{banner}'
+*/
+const destroyForm = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\BannerController::destroy
+* @see app/Http/Controllers/Admin/BannerController.php:79
+* @route '/admin/banners/{banner}'
+*/
+destroyForm.delete = (args: { banner: number | { id: number } } | [banner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+destroy.form = destroyForm
 
 const BannerController = { index, create, store, show, edit, update, destroy }
 

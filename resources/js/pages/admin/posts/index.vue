@@ -30,7 +30,7 @@ const breadcrumbItems = [
                     <Heading
                         variant="small"
                         title="Posts"
-                        description="Manage blog posts"
+                        description="Drafts (no published date) are hidden from the public blog at /posts."
                     />
                     <Button as-child>
                         <Link href="/admin/posts/create">Add post</Link>
@@ -70,7 +70,17 @@ const breadcrumbItems = [
                                         {{ p.category || '—' }} · {{ p.published_at ? new Date(p.published_at).toLocaleDateString() : 'Draft' }}
                                     </p>
                                 </div>
-                                <div class="flex items-center gap-2">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <Button
+                                        v-if="p.published_at"
+                                        variant="outline"
+                                        size="sm"
+                                        as-child
+                                    >
+                                        <Link :href="`/posts/${p.slug}`" target="_blank" rel="noopener noreferrer">
+                                            View live
+                                        </Link>
+                                    </Button>
                                     <Button variant="outline" size="sm" as-child>
                                         <Link :href="`/admin/posts/${p.id}/edit`">
                                             Edit

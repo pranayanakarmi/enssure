@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -49,13 +51,25 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request): RedirectResponse
     {
+        $data = $request->validated();
+        $tags = $data['tags'] ?? [];
+        unset($data['tags']);
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($request->title);
+        }
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('posts', 'public');
+        } else {
+            unset($data['image']);
+        }
+
         $post = Post::create([
-            ...$request->safe()->except('tags'),
+            ...$data,
             'created_by' => $request->user()->id,
         ]);
-        if ($request->filled('tags')) {
-            $post->tags()->sync($request->input('tags'));
-        }
+        $post->tags()->sync($tags);
 
         return to_route('admin.posts.index')
             ->with('success', 'Post created successfully.');
@@ -75,6 +89,7 @@ class PostController extends Controller
                 'excerpt' => $post->excerpt,
                 'content' => $post->content,
                 'image' => $post->image,
+                'image_url' => $post->image ? Storage::disk('public')->url($post->image) : null,
                 'category_id' => $post->category_id,
                 'published_at' => $post->published_at?->toISOString(),
                 'tags' => $post->tags->pluck('id')->all(),
@@ -86,8 +101,29 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, Post $post): RedirectResponse
     {
-        $post->update($request->safe()->except('tags'));
-        $post->tags()->sync($request->input('tags', []));
+        $data = $request->validated();
+        $tags = $data['tags'] ?? [];
+        unset($data['tags']);
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($request->title);
+        }
+
+        if ($request->boolean('remove_image') && $post->image) {
+            Storage::disk('public')->delete($post->image);
+            $data['image'] = null;
+        } elseif ($request->hasFile('image')) {
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+            $data['image'] = $request->file('image')->store('posts', 'public');
+        } else {
+            unset($data['image']);
+        }
+        unset($data['remove_image']);
+
+        $post->update($data);
+        $post->tags()->sync($tags);
 
         return to_route('admin.posts.index')
             ->with('success', 'Post updated successfully.');

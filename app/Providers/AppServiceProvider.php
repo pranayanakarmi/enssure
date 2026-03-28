@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
 use App\Models\User;
 use App\Policies\RolePolicy;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Spatie\Permission\Models\Role;
@@ -33,6 +35,13 @@ class AppServiceProvider extends ServiceProvider
             if ($user->hasRole('super_admin')) {
                 return true;
             }
+        });
+
+        Route::bind('published_post', function (string $value): Post {
+            return Post::query()
+                ->published()
+                ->where('slug', $value)
+                ->firstOrFail();
         });
 
         $this->configureDefaults();

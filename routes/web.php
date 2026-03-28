@@ -26,6 +26,7 @@ use App\Models\Infographic;
 use App\Models\InfographicsPageContent;
 use App\Models\Notice;
 use App\Models\Partner;
+use App\Models\Post;
 use App\Models\Slider;
 use App\Models\TeamMember;
 use App\Models\TeamPageContent;
@@ -314,6 +315,66 @@ Route::get('notices/{notice:slug}', function (Notice $notice) {
             ->all(),
     ]);
 })->name('notices.show');
+Route::get('posts', function () {
+    $posts = Post::query()
+        ->published()
+        ->with(['category:id,name'])
+        ->orderByDesc('published_at')
+        ->orderByDesc('created_at')
+        ->get()
+        ->map(fn (Post $p) => [
+            'id' => $p->id,
+            'title' => $p->title,
+            'slug' => $p->slug,
+            'excerpt' => $p->excerpt,
+            'image_url' => $p->image ? Storage::disk('public')->url($p->image) : null,
+            'published_at' => $p->published_at?->toISOString(),
+            'category' => $p->category?->name,
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('BlogIndex', [
+        'posts' => $posts,
+    ]);
+})->name('posts.index');
+Route::get('posts/{published_post:slug}', function (Post $published_post) {
+    $published_post->load(['category:id,name', 'tags:id,name']);
+
+    $htmlAllow = '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>';
+
+    return Inertia::render('BlogShow', [
+        'post' => [
+            'id' => $published_post->id,
+            'title' => $published_post->title,
+            'slug' => $published_post->slug,
+            'excerpt' => $published_post->excerpt,
+            'published_at' => $published_post->published_at?->toISOString(),
+            'share_url' => url()->route('posts.show', ['published_post' => $published_post->slug]),
+            'content' => $published_post->content
+                ? strip_tags($published_post->content, $htmlAllow)
+                : null,
+            'image_url' => $published_post->image ? Storage::disk('public')->url($published_post->image) : null,
+            'category' => $published_post->category?->name,
+            'tags' => $published_post->tags->pluck('name')->values()->all(),
+        ],
+        'relatedPosts' => Post::query()
+            ->published()
+            ->where('id', '!=', $published_post->id)
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->limit(3)
+            ->get()
+            ->map(fn (Post $p) => [
+                'id' => $p->id,
+                'title' => $p->title,
+                'slug' => $p->slug,
+                'image_url' => $p->image ? Storage::disk('public')->url($p->image) : null,
+            ])
+            ->values()
+            ->all(),
+    ]);
+})->name('posts.show');
 Route::get('impact-stories', function () {
     $hero = ImpactPageHero::first();
     $section = ImpactPageSection::first();

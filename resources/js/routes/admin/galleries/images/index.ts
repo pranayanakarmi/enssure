@@ -1,10 +1,10 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\GalleryImageController::store
 * @see app/Http/Controllers/Admin/GalleryImageController.php:14
 * @route '/admin/galleries/{gallery}/images'
 */
-export const store = (args: { gallery: string | number | { id: string | number } } | [gallery: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
 * @see app/Http/Controllers/Admin/GalleryImageController.php:14
 * @route '/admin/galleries/{gallery}/images'
 */
-store.url = (args: { gallery: string | number | { id: string | number } } | [gallery: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { gallery: args }
     }
@@ -52,10 +52,32 @@ store.url = (args: { gallery: string | number | { id: string | number } } | [gal
 * @see app/Http/Controllers/Admin/GalleryImageController.php:14
 * @route '/admin/galleries/{gallery}/images'
 */
-store.post = (args: { gallery: string | number | { id: string | number } } | [gallery: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\GalleryImageController::store
+* @see app/Http/Controllers/Admin/GalleryImageController.php:14
+* @route '/admin/galleries/{gallery}/images'
+*/
+const storeForm = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\GalleryImageController::store
+* @see app/Http/Controllers/Admin/GalleryImageController.php:14
+* @route '/admin/galleries/{gallery}/images'
+*/
+storeForm.post = (args: { gallery: number | { id: number } } | [gallery: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+store.form = storeForm
 
 const images = {
     store: Object.assign(store, store),

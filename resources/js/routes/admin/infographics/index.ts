@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 import items from './items'
 /**
 * @see \App\Http\Controllers\Admin\InfographicController::index
@@ -45,6 +45,43 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Admin\InfographicController::index
+* @see app/Http/Controllers/Admin/InfographicController.php:16
+* @route '/admin/infographics'
+*/
+const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::index
+* @see app/Http/Controllers/Admin/InfographicController.php:16
+* @route '/admin/infographics'
+*/
+indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::index
+* @see app/Http/Controllers/Admin/InfographicController.php:16
+* @route '/admin/infographics'
+*/
+indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+index.form = indexForm
+
+/**
 * @see \App\Http\Controllers\Admin\InfographicController::create
 * @see app/Http/Controllers/Admin/InfographicController.php:38
 * @route '/admin/infographics/create'
@@ -89,6 +126,43 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Admin\InfographicController::create
+* @see app/Http/Controllers/Admin/InfographicController.php:38
+* @route '/admin/infographics/create'
+*/
+const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::create
+* @see app/Http/Controllers/Admin/InfographicController.php:38
+* @route '/admin/infographics/create'
+*/
+createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::create
+* @see app/Http/Controllers/Admin/InfographicController.php:38
+* @route '/admin/infographics/create'
+*/
+createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+create.form = createForm
+
+/**
 * @see \App\Http\Controllers\Admin\InfographicController::store
 * @see app/Http/Controllers/Admin/InfographicController.php:45
 * @route '/admin/infographics'
@@ -123,11 +197,33 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 })
 
 /**
+* @see \App\Http\Controllers\Admin\InfographicController::store
+* @see app/Http/Controllers/Admin/InfographicController.php:45
+* @route '/admin/infographics'
+*/
+const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::store
+* @see app/Http/Controllers/Admin/InfographicController.php:45
+* @route '/admin/infographics'
+*/
+storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+store.form = storeForm
+
+/**
 * @see \App\Http\Controllers\Admin\InfographicController::edit
 * @see app/Http/Controllers/Admin/InfographicController.php:58
 * @route '/admin/infographics/{infographic}/edit'
 */
-export const edit = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -142,7 +238,7 @@ edit.definition = {
 * @see app/Http/Controllers/Admin/InfographicController.php:58
 * @route '/admin/infographics/{infographic}/edit'
 */
-edit.url = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { infographic: args }
     }
@@ -175,7 +271,7 @@ edit.url = (args: { infographic: string | number | { slug: string | number } } |
 * @see app/Http/Controllers/Admin/InfographicController.php:58
 * @route '/admin/infographics/{infographic}/edit'
 */
-edit.get = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -185,17 +281,54 @@ edit.get = (args: { infographic: string | number | { slug: string | number } } |
 * @see app/Http/Controllers/Admin/InfographicController.php:58
 * @route '/admin/infographics/{infographic}/edit'
 */
-edit.head = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::edit
+* @see app/Http/Controllers/Admin/InfographicController.php:58
+* @route '/admin/infographics/{infographic}/edit'
+*/
+const editForm = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::edit
+* @see app/Http/Controllers/Admin/InfographicController.php:58
+* @route '/admin/infographics/{infographic}/edit'
+*/
+editForm.get = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::edit
+* @see app/Http/Controllers/Admin/InfographicController.php:58
+* @route '/admin/infographics/{infographic}/edit'
+*/
+editForm.head = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\InfographicController::update
 * @see app/Http/Controllers/Admin/InfographicController.php:80
 * @route '/admin/infographics/{infographic}'
 */
-export const update = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -210,7 +343,7 @@ update.definition = {
 * @see app/Http/Controllers/Admin/InfographicController.php:80
 * @route '/admin/infographics/{infographic}'
 */
-update.url = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { infographic: args }
     }
@@ -243,7 +376,7 @@ update.url = (args: { infographic: string | number | { slug: string | number } }
 * @see app/Http/Controllers/Admin/InfographicController.php:80
 * @route '/admin/infographics/{infographic}'
 */
-update.put = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -253,17 +386,64 @@ update.put = (args: { infographic: string | number | { slug: string | number } }
 * @see app/Http/Controllers/Admin/InfographicController.php:80
 * @route '/admin/infographics/{infographic}'
 */
-update.patch = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::update
+* @see app/Http/Controllers/Admin/InfographicController.php:80
+* @route '/admin/infographics/{infographic}'
+*/
+const updateForm = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::update
+* @see app/Http/Controllers/Admin/InfographicController.php:80
+* @route '/admin/infographics/{infographic}'
+*/
+updateForm.put = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::update
+* @see app/Http/Controllers/Admin/InfographicController.php:80
+* @route '/admin/infographics/{infographic}'
+*/
+updateForm.patch = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PATCH',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\InfographicController::destroy
 * @see app/Http/Controllers/Admin/InfographicController.php:93
 * @route '/admin/infographics/{infographic}'
 */
-export const destroy = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -278,7 +458,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Admin/InfographicController.php:93
 * @route '/admin/infographics/{infographic}'
 */
-destroy.url = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { infographic: args }
     }
@@ -311,10 +491,42 @@ destroy.url = (args: { infographic: string | number | { slug: string | number } 
 * @see app/Http/Controllers/Admin/InfographicController.php:93
 * @route '/admin/infographics/{infographic}'
 */
-destroy.delete = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::destroy
+* @see app/Http/Controllers/Admin/InfographicController.php:93
+* @route '/admin/infographics/{infographic}'
+*/
+const destroyForm = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\InfographicController::destroy
+* @see app/Http/Controllers/Admin/InfographicController.php:93
+* @route '/admin/infographics/{infographic}'
+*/
+destroyForm.delete = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+destroy.form = destroyForm
 
 const infographics = {
     index: Object.assign(index, index),

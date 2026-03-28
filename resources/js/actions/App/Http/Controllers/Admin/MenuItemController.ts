@@ -1,10 +1,10 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\MenuItemController::store
 * @see app/Http/Controllers/Admin/MenuItemController.php:16
 * @route '/admin/menus/{menu}/items'
 */
-export const store = (args: { menu: string | number | { id: string | number } } | [menu: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { menu: number | { id: number } } | [menu: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
 * @see app/Http/Controllers/Admin/MenuItemController.php:16
 * @route '/admin/menus/{menu}/items'
 */
-store.url = (args: { menu: string | number | { id: string | number } } | [menu: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { menu: number | { id: number } } | [menu: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { menu: args }
     }
@@ -52,17 +52,39 @@ store.url = (args: { menu: string | number | { id: string | number } } | [menu: 
 * @see app/Http/Controllers/Admin/MenuItemController.php:16
 * @route '/admin/menus/{menu}/items'
 */
-store.post = (args: { menu: string | number | { id: string | number } } | [menu: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { menu: number | { id: number } } | [menu: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\MenuItemController::store
+* @see app/Http/Controllers/Admin/MenuItemController.php:16
+* @route '/admin/menus/{menu}/items'
+*/
+const storeForm = (args: { menu: number | { id: number } } | [menu: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\MenuItemController::store
+* @see app/Http/Controllers/Admin/MenuItemController.php:16
+* @route '/admin/menus/{menu}/items'
+*/
+storeForm.post = (args: { menu: number | { id: number } } | [menu: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
+    method: 'post',
+})
+
+store.form = storeForm
 
 /**
 * @see \App\Http\Controllers\Admin\MenuItemController::edit
 * @see app/Http/Controllers/Admin/MenuItemController.php:23
 * @route '/admin/menu-items/{menu_item}/edit'
 */
-export const edit = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -77,7 +99,7 @@ edit.definition = {
 * @see app/Http/Controllers/Admin/MenuItemController.php:23
 * @route '/admin/menu-items/{menu_item}/edit'
 */
-edit.url = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { menu_item: args }
     }
@@ -110,7 +132,7 @@ edit.url = (args: { menu_item: string | number | { id: string | number } } | [me
 * @see app/Http/Controllers/Admin/MenuItemController.php:23
 * @route '/admin/menu-items/{menu_item}/edit'
 */
-edit.get = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -120,17 +142,54 @@ edit.get = (args: { menu_item: string | number | { id: string | number } } | [me
 * @see app/Http/Controllers/Admin/MenuItemController.php:23
 * @route '/admin/menu-items/{menu_item}/edit'
 */
-edit.head = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\MenuItemController::edit
+* @see app/Http/Controllers/Admin/MenuItemController.php:23
+* @route '/admin/menu-items/{menu_item}/edit'
+*/
+const editForm = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\MenuItemController::edit
+* @see app/Http/Controllers/Admin/MenuItemController.php:23
+* @route '/admin/menu-items/{menu_item}/edit'
+*/
+editForm.get = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\MenuItemController::edit
+* @see app/Http/Controllers/Admin/MenuItemController.php:23
+* @route '/admin/menu-items/{menu_item}/edit'
+*/
+editForm.head = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+edit.form = editForm
 
 /**
 * @see \App\Http\Controllers\Admin\MenuItemController::update
 * @see app/Http/Controllers/Admin/MenuItemController.php:54
 * @route '/admin/menu-items/{menu_item}'
 */
-export const update = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -145,7 +204,7 @@ update.definition = {
 * @see app/Http/Controllers/Admin/MenuItemController.php:54
 * @route '/admin/menu-items/{menu_item}'
 */
-update.url = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { menu_item: args }
     }
@@ -178,17 +237,49 @@ update.url = (args: { menu_item: string | number | { id: string | number } } | [
 * @see app/Http/Controllers/Admin/MenuItemController.php:54
 * @route '/admin/menu-items/{menu_item}'
 */
-update.put = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\MenuItemController::update
+* @see app/Http/Controllers/Admin/MenuItemController.php:54
+* @route '/admin/menu-items/{menu_item}'
+*/
+const updateForm = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\MenuItemController::update
+* @see app/Http/Controllers/Admin/MenuItemController.php:54
+* @route '/admin/menu-items/{menu_item}'
+*/
+updateForm.put = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Admin\MenuItemController::destroy
 * @see app/Http/Controllers/Admin/MenuItemController.php:62
 * @route '/admin/menu-items/{menu_item}'
 */
-export const destroy = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -203,7 +294,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Admin/MenuItemController.php:62
 * @route '/admin/menu-items/{menu_item}'
 */
-destroy.url = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { menu_item: args }
     }
@@ -236,10 +327,42 @@ destroy.url = (args: { menu_item: string | number | { id: string | number } } | 
 * @see app/Http/Controllers/Admin/MenuItemController.php:62
 * @route '/admin/menu-items/{menu_item}'
 */
-destroy.delete = (args: { menu_item: string | number | { id: string | number } } | [menu_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
+
+/**
+* @see \App\Http\Controllers\Admin\MenuItemController::destroy
+* @see app/Http/Controllers/Admin/MenuItemController.php:62
+* @route '/admin/menu-items/{menu_item}'
+*/
+const destroyForm = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\Admin\MenuItemController::destroy
+* @see app/Http/Controllers/Admin/MenuItemController.php:62
+* @route '/admin/menu-items/{menu_item}'
+*/
+destroyForm.delete = (args: { menu_item: number | { id: number } } | [menu_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+destroy.form = destroyForm
 
 const MenuItemController = { store, edit, update, destroy }
 
