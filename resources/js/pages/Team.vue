@@ -78,6 +78,7 @@ const partnerLogos = [
                 <TeamMembersTable
                     v-show="activeTab === 'executive'"
                     :members="executiveMembers"
+                    show-location-column
                     empty-message="No executive committee members listed yet."
                 />
                 <TeamMembersTable

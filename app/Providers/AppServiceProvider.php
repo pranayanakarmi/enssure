@@ -30,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (app()->environment('production')) {
+        URL::forceScheme('https');
+    }
         Gate::policy(Role::class, RolePolicy::class);
 
         Gate::before(function (User $user, string $ability) {
