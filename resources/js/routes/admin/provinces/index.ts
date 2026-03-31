@@ -1,9 +1,9 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::index
- * @see app/Http/Controllers/Admin/ProvinceController.php:15
- * @route '/admin/provinces'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:15
+* @route '/admin/provinces'
+*/
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
     method: 'get',
@@ -16,72 +16,75 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::index
- * @see app/Http/Controllers/Admin/ProvinceController.php:15
- * @route '/admin/provinces'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:15
+* @route '/admin/provinces'
+*/
 index.url = (options?: RouteQueryOptions) => {
     return index.definition.url + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::index
- * @see app/Http/Controllers/Admin/ProvinceController.php:15
- * @route '/admin/provinces'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:15
+* @route '/admin/provinces'
+*/
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
     method: 'get',
 })
+
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::index
- * @see app/Http/Controllers/Admin/ProvinceController.php:15
- * @route '/admin/provinces'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:15
+* @route '/admin/provinces'
+*/
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
     method: 'head',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::index
- * @see app/Http/Controllers/Admin/ProvinceController.php:15
- * @route '/admin/provinces'
- */
-    const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: index.url(options),
-        method: 'get',
-    })
+* @see app/Http/Controllers/Admin/ProvinceController.php:15
+* @route '/admin/provinces'
+*/
+const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::index
- * @see app/Http/Controllers/Admin/ProvinceController.php:15
- * @route '/admin/provinces'
- */
-        indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: index.url(options),
-            method: 'get',
-        })
-            /**
+* @see app/Http/Controllers/Admin/ProvinceController.php:15
+* @route '/admin/provinces'
+*/
+indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::index
- * @see app/Http/Controllers/Admin/ProvinceController.php:15
- * @route '/admin/provinces'
- */
-        indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: index.url({
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    index.form = indexForm
+* @see app/Http/Controllers/Admin/ProvinceController.php:15
+* @route '/admin/provinces'
+*/
+indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+index.form = indexForm
+
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::create
- * @see app/Http/Controllers/Admin/ProvinceController.php:36
- * @route '/admin/provinces/create'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:36
+* @route '/admin/provinces/create'
+*/
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: create.url(options),
     method: 'get',
@@ -94,72 +97,75 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::create
- * @see app/Http/Controllers/Admin/ProvinceController.php:36
- * @route '/admin/provinces/create'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:36
+* @route '/admin/provinces/create'
+*/
 create.url = (options?: RouteQueryOptions) => {
     return create.definition.url + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::create
- * @see app/Http/Controllers/Admin/ProvinceController.php:36
- * @route '/admin/provinces/create'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:36
+* @route '/admin/provinces/create'
+*/
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: create.url(options),
     method: 'get',
 })
+
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::create
- * @see app/Http/Controllers/Admin/ProvinceController.php:36
- * @route '/admin/provinces/create'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:36
+* @route '/admin/provinces/create'
+*/
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: create.url(options),
     method: 'head',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::create
- * @see app/Http/Controllers/Admin/ProvinceController.php:36
- * @route '/admin/provinces/create'
- */
-    const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: create.url(options),
-        method: 'get',
-    })
+* @see app/Http/Controllers/Admin/ProvinceController.php:36
+* @route '/admin/provinces/create'
+*/
+const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::create
- * @see app/Http/Controllers/Admin/ProvinceController.php:36
- * @route '/admin/provinces/create'
- */
-        createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: create.url(options),
-            method: 'get',
-        })
-            /**
+* @see app/Http/Controllers/Admin/ProvinceController.php:36
+* @route '/admin/provinces/create'
+*/
+createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::create
- * @see app/Http/Controllers/Admin/ProvinceController.php:36
- * @route '/admin/provinces/create'
- */
-        createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: create.url({
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    create.form = createForm
+* @see app/Http/Controllers/Admin/ProvinceController.php:36
+* @route '/admin/provinces/create'
+*/
+createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+create.form = createForm
+
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::store
- * @see app/Http/Controllers/Admin/ProvinceController.php:43
- * @route '/admin/provinces'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:43
+* @route '/admin/provinces'
+*/
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
     method: 'post',
@@ -172,49 +178,50 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::store
- * @see app/Http/Controllers/Admin/ProvinceController.php:43
- * @route '/admin/provinces'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:43
+* @route '/admin/provinces'
+*/
 store.url = (options?: RouteQueryOptions) => {
     return store.definition.url + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::store
- * @see app/Http/Controllers/Admin/ProvinceController.php:43
- * @route '/admin/provinces'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:43
+* @route '/admin/provinces'
+*/
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
     method: 'post',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::store
- * @see app/Http/Controllers/Admin/ProvinceController.php:43
- * @route '/admin/provinces'
- */
-    const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: store.url(options),
-        method: 'post',
-    })
+* @see app/Http/Controllers/Admin/ProvinceController.php:43
+* @route '/admin/provinces'
+*/
+const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::store
- * @see app/Http/Controllers/Admin/ProvinceController.php:43
- * @route '/admin/provinces'
- */
-        storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: store.url(options),
-            method: 'post',
-        })
-    
-    store.form = storeForm
+* @see app/Http/Controllers/Admin/ProvinceController.php:43
+* @route '/admin/provinces'
+*/
+storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+store.form = storeForm
+
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::edit
- * @see app/Http/Controllers/Admin/ProvinceController.php:51
- * @route '/admin/provinces/{province}/edit'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:51
+* @route '/admin/provinces/{province}/edit'
+*/
 export const edit = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
@@ -227,31 +234,31 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::edit
- * @see app/Http/Controllers/Admin/ProvinceController.php:51
- * @route '/admin/provinces/{province}/edit'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:51
+* @route '/admin/provinces/{province}/edit'
+*/
 edit.url = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { province: args }
     }
 
-            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
-            args = { province: args.id }
-        }
-    
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { province: args.id }
+    }
+
     if (Array.isArray(args)) {
         args = {
-                    province: args[0],
-                }
+            province: args[0],
+        }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-                        province: typeof args.province === 'object'
-                ? args.province.id
-                : args.province,
-                }
+        province: typeof args.province === 'object'
+        ? args.province.id
+        : args.province,
+    }
 
     return edit.definition.url
             .replace('{province}', parsedArgs.province.toString())
@@ -260,63 +267,66 @@ edit.url = (args: { province: number | { id: number } } | [province: number | { 
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::edit
- * @see app/Http/Controllers/Admin/ProvinceController.php:51
- * @route '/admin/provinces/{province}/edit'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:51
+* @route '/admin/provinces/{province}/edit'
+*/
 edit.get = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
+
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::edit
- * @see app/Http/Controllers/Admin/ProvinceController.php:51
- * @route '/admin/provinces/{province}/edit'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:51
+* @route '/admin/provinces/{province}/edit'
+*/
 edit.head = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::edit
- * @see app/Http/Controllers/Admin/ProvinceController.php:51
- * @route '/admin/provinces/{province}/edit'
- */
-    const editForm = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: edit.url(args, options),
-        method: 'get',
-    })
+* @see app/Http/Controllers/Admin/ProvinceController.php:51
+* @route '/admin/provinces/{province}/edit'
+*/
+const editForm = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::edit
- * @see app/Http/Controllers/Admin/ProvinceController.php:51
- * @route '/admin/provinces/{province}/edit'
- */
-        editForm.get = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: edit.url(args, options),
-            method: 'get',
-        })
-            /**
+* @see app/Http/Controllers/Admin/ProvinceController.php:51
+* @route '/admin/provinces/{province}/edit'
+*/
+editForm.get = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::edit
- * @see app/Http/Controllers/Admin/ProvinceController.php:51
- * @route '/admin/provinces/{province}/edit'
- */
-        editForm.head = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: edit.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    edit.form = editForm
+* @see app/Http/Controllers/Admin/ProvinceController.php:51
+* @route '/admin/provinces/{province}/edit'
+*/
+editForm.head = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+edit.form = editForm
+
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::update
- * @see app/Http/Controllers/Admin/ProvinceController.php:68
- * @route '/admin/provinces/{province}'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:68
+* @route '/admin/provinces/{province}'
+*/
 export const update = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
@@ -329,31 +339,31 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::update
- * @see app/Http/Controllers/Admin/ProvinceController.php:68
- * @route '/admin/provinces/{province}'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:68
+* @route '/admin/provinces/{province}'
+*/
 update.url = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { province: args }
     }
 
-            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
-            args = { province: args.id }
-        }
-    
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { province: args.id }
+    }
+
     if (Array.isArray(args)) {
         args = {
-                    province: args[0],
-                }
+            province: args[0],
+        }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-                        province: typeof args.province === 'object'
-                ? args.province.id
-                : args.province,
-                }
+        province: typeof args.province === 'object'
+        ? args.province.id
+        : args.province,
+    }
 
     return update.definition.url
             .replace('{province}', parsedArgs.province.toString())
@@ -362,73 +372,76 @@ update.url = (args: { province: number | { id: number } } | [province: number | 
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::update
- * @see app/Http/Controllers/Admin/ProvinceController.php:68
- * @route '/admin/provinces/{province}'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:68
+* @route '/admin/provinces/{province}'
+*/
 update.put = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
+
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::update
- * @see app/Http/Controllers/Admin/ProvinceController.php:68
- * @route '/admin/provinces/{province}'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:68
+* @route '/admin/provinces/{province}'
+*/
 update.patch = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::update
- * @see app/Http/Controllers/Admin/ProvinceController.php:68
- * @route '/admin/provinces/{province}'
- */
-    const updateForm = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: update.url(args, {
-                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'PUT',
-                        ...(options?.query ?? options?.mergeQuery ?? {}),
-                    }
-                }),
-        method: 'post',
-    })
+* @see app/Http/Controllers/Admin/ProvinceController.php:68
+* @route '/admin/provinces/{province}'
+*/
+const updateForm = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::update
- * @see app/Http/Controllers/Admin/ProvinceController.php:68
- * @route '/admin/provinces/{province}'
- */
-        updateForm.put = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: update.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'PUT',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-            /**
+* @see app/Http/Controllers/Admin/ProvinceController.php:68
+* @route '/admin/provinces/{province}'
+*/
+updateForm.put = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::update
- * @see app/Http/Controllers/Admin/ProvinceController.php:68
- * @route '/admin/provinces/{province}'
- */
-        updateForm.patch = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: update.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'PATCH',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-    
-    update.form = updateForm
+* @see app/Http/Controllers/Admin/ProvinceController.php:68
+* @route '/admin/provinces/{province}'
+*/
+updateForm.patch = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PATCH',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
+
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::destroy
- * @see app/Http/Controllers/Admin/ProvinceController.php:76
- * @route '/admin/provinces/{province}'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:76
+* @route '/admin/provinces/{province}'
+*/
 export const destroy = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
@@ -441,31 +454,31 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::destroy
- * @see app/Http/Controllers/Admin/ProvinceController.php:76
- * @route '/admin/provinces/{province}'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:76
+* @route '/admin/provinces/{province}'
+*/
 destroy.url = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { province: args }
     }
 
-            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
-            args = { province: args.id }
-        }
-    
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { province: args.id }
+    }
+
     if (Array.isArray(args)) {
         args = {
-                    province: args[0],
-                }
+            province: args[0],
+        }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-                        province: typeof args.province === 'object'
-                ? args.province.id
-                : args.province,
-                }
+        province: typeof args.province === 'object'
+        ? args.province.id
+        : args.province,
+    }
 
     return destroy.definition.url
             .replace('{province}', parsedArgs.province.toString())
@@ -474,52 +487,53 @@ destroy.url = (args: { province: number | { id: number } } | [province: number |
 
 /**
 * @see \App\Http\Controllers\Admin\ProvinceController::destroy
- * @see app/Http/Controllers/Admin/ProvinceController.php:76
- * @route '/admin/provinces/{province}'
- */
+* @see app/Http/Controllers/Admin/ProvinceController.php:76
+* @route '/admin/provinces/{province}'
+*/
 destroy.delete = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::destroy
- * @see app/Http/Controllers/Admin/ProvinceController.php:76
- * @route '/admin/provinces/{province}'
- */
-    const destroyForm = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: destroy.url(args, {
-                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'DELETE',
-                        ...(options?.query ?? options?.mergeQuery ?? {}),
-                    }
-                }),
-        method: 'post',
-    })
+* @see app/Http/Controllers/Admin/ProvinceController.php:76
+* @route '/admin/provinces/{province}'
+*/
+const destroyForm = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\ProvinceController::destroy
- * @see app/Http/Controllers/Admin/ProvinceController.php:76
- * @route '/admin/provinces/{province}'
- */
-        destroyForm.delete = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: destroy.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'DELETE',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-    
-    destroy.form = destroyForm
+* @see app/Http/Controllers/Admin/ProvinceController.php:76
+* @route '/admin/provinces/{province}'
+*/
+destroyForm.delete = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+destroy.form = destroyForm
+
 const provinces = {
     index: Object.assign(index, index),
-create: Object.assign(create, create),
-store: Object.assign(store, store),
-edit: Object.assign(edit, edit),
-update: Object.assign(update, update),
-destroy: Object.assign(destroy, destroy),
+    create: Object.assign(create, create),
+    store: Object.assign(store, store),
+    edit: Object.assign(edit, edit),
+    update: Object.assign(update, update),
+    destroy: Object.assign(destroy, destroy),
 }
 
 export default provinces

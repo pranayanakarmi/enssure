@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController as PublicContactController;
+use App\Http\Controllers\HomeCoverageProvinceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VacancyApplicationController;
 use App\Http\Controllers\VacancyPageController;
@@ -171,6 +172,7 @@ Route::get('/', function () {
                 'icon_url' => $item->icon ? Storage::disk('public')->url($item->icon) : null,
                 'order' => $item->order,
             ])->values()->all(),
+            'province_stats_endpoint_template' => route('home.coverage.provinces.show', ['provinceId' => '__provinceId__']),
         ] : null,
         'homeNewsSection' => $homeNewsSection ? [
             'badge_text' => $homeNewsSection->badge_text,
@@ -218,6 +220,9 @@ Route::get('/', function () {
         'testimonials' => $testimonials,
     ]);
 })->name('home');
+
+Route::get('coverage/provinces/{provinceId}', [HomeCoverageProvinceController::class, 'show'])
+    ->name('home.coverage.provinces.show');
 
 Route::get('about', function () {
     $hero = AboutPageHero::first();

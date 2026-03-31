@@ -1,9 +1,9 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\SliderController::index
- * @see app/Http/Controllers/Admin/SliderController.php:16
- * @route '/admin/sliders'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:16
+* @route '/admin/sliders'
+*/
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
     method: 'get',
@@ -16,72 +16,75 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::index
- * @see app/Http/Controllers/Admin/SliderController.php:16
- * @route '/admin/sliders'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:16
+* @route '/admin/sliders'
+*/
 index.url = (options?: RouteQueryOptions) => {
     return index.definition.url + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::index
- * @see app/Http/Controllers/Admin/SliderController.php:16
- * @route '/admin/sliders'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:16
+* @route '/admin/sliders'
+*/
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
     method: 'get',
 })
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::index
- * @see app/Http/Controllers/Admin/SliderController.php:16
- * @route '/admin/sliders'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:16
+* @route '/admin/sliders'
+*/
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
     method: 'head',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::index
- * @see app/Http/Controllers/Admin/SliderController.php:16
- * @route '/admin/sliders'
- */
-    const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: index.url(options),
-        method: 'get',
-    })
+* @see app/Http/Controllers/Admin/SliderController.php:16
+* @route '/admin/sliders'
+*/
+const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::index
- * @see app/Http/Controllers/Admin/SliderController.php:16
- * @route '/admin/sliders'
- */
-        indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: index.url(options),
-            method: 'get',
-        })
-            /**
+* @see app/Http/Controllers/Admin/SliderController.php:16
+* @route '/admin/sliders'
+*/
+indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(options),
+    method: 'get',
+})
+
+/**
 * @see \App\Http\Controllers\Admin\SliderController::index
- * @see app/Http/Controllers/Admin/SliderController.php:16
- * @route '/admin/sliders'
- */
-        indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: index.url({
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    index.form = indexForm
+* @see app/Http/Controllers/Admin/SliderController.php:16
+* @route '/admin/sliders'
+*/
+indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+index.form = indexForm
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::create
- * @see app/Http/Controllers/Admin/SliderController.php:37
- * @route '/admin/sliders/create'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:37
+* @route '/admin/sliders/create'
+*/
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: create.url(options),
     method: 'get',
@@ -94,72 +97,75 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::create
- * @see app/Http/Controllers/Admin/SliderController.php:37
- * @route '/admin/sliders/create'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:37
+* @route '/admin/sliders/create'
+*/
 create.url = (options?: RouteQueryOptions) => {
     return create.definition.url + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::create
- * @see app/Http/Controllers/Admin/SliderController.php:37
- * @route '/admin/sliders/create'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:37
+* @route '/admin/sliders/create'
+*/
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: create.url(options),
     method: 'get',
 })
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::create
- * @see app/Http/Controllers/Admin/SliderController.php:37
- * @route '/admin/sliders/create'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:37
+* @route '/admin/sliders/create'
+*/
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: create.url(options),
     method: 'head',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::create
- * @see app/Http/Controllers/Admin/SliderController.php:37
- * @route '/admin/sliders/create'
- */
-    const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: create.url(options),
-        method: 'get',
-    })
+* @see app/Http/Controllers/Admin/SliderController.php:37
+* @route '/admin/sliders/create'
+*/
+const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::create
- * @see app/Http/Controllers/Admin/SliderController.php:37
- * @route '/admin/sliders/create'
- */
-        createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: create.url(options),
-            method: 'get',
-        })
-            /**
+* @see app/Http/Controllers/Admin/SliderController.php:37
+* @route '/admin/sliders/create'
+*/
+createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url(options),
+    method: 'get',
+})
+
+/**
 * @see \App\Http\Controllers\Admin\SliderController::create
- * @see app/Http/Controllers/Admin/SliderController.php:37
- * @route '/admin/sliders/create'
- */
-        createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: create.url({
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    create.form = createForm
+* @see app/Http/Controllers/Admin/SliderController.php:37
+* @route '/admin/sliders/create'
+*/
+createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: create.url({
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+create.form = createForm
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::store
- * @see app/Http/Controllers/Admin/SliderController.php:44
- * @route '/admin/sliders'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:44
+* @route '/admin/sliders'
+*/
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
     method: 'post',
@@ -172,49 +178,50 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::store
- * @see app/Http/Controllers/Admin/SliderController.php:44
- * @route '/admin/sliders'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:44
+* @route '/admin/sliders'
+*/
 store.url = (options?: RouteQueryOptions) => {
     return store.definition.url + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::store
- * @see app/Http/Controllers/Admin/SliderController.php:44
- * @route '/admin/sliders'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:44
+* @route '/admin/sliders'
+*/
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
     method: 'post',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::store
- * @see app/Http/Controllers/Admin/SliderController.php:44
- * @route '/admin/sliders'
- */
-    const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: store.url(options),
-        method: 'post',
-    })
+* @see app/Http/Controllers/Admin/SliderController.php:44
+* @route '/admin/sliders'
+*/
+const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::store
- * @see app/Http/Controllers/Admin/SliderController.php:44
- * @route '/admin/sliders'
- */
-        storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: store.url(options),
-            method: 'post',
-        })
-    
-    store.form = storeForm
+* @see app/Http/Controllers/Admin/SliderController.php:44
+* @route '/admin/sliders'
+*/
+storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(options),
+    method: 'post',
+})
+
+store.form = storeForm
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::show
- * @see app/Http/Controllers/Admin/SliderController.php:0
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:0
+* @route '/admin/sliders/{slider}'
+*/
 export const show = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
@@ -227,26 +234,25 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::show
- * @see app/Http/Controllers/Admin/SliderController.php:0
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:0
+* @route '/admin/sliders/{slider}'
+*/
 show.url = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { slider: args }
     }
 
-    
     if (Array.isArray(args)) {
         args = {
-                    slider: args[0],
-                }
+            slider: args[0],
+        }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-                        slider: args.slider,
-                }
+        slider: args.slider,
+    }
 
     return show.definition.url
             .replace('{slider}', parsedArgs.slider.toString())
@@ -255,63 +261,66 @@ show.url = (args: { slider: string | number } | [slider: string | number ] | str
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::show
- * @see app/Http/Controllers/Admin/SliderController.php:0
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:0
+* @route '/admin/sliders/{slider}'
+*/
 show.get = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::show
- * @see app/Http/Controllers/Admin/SliderController.php:0
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:0
+* @route '/admin/sliders/{slider}'
+*/
 show.head = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::show
- * @see app/Http/Controllers/Admin/SliderController.php:0
- * @route '/admin/sliders/{slider}'
- */
-    const showForm = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: show.url(args, options),
-        method: 'get',
-    })
+* @see app/Http/Controllers/Admin/SliderController.php:0
+* @route '/admin/sliders/{slider}'
+*/
+const showForm = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, options),
+    method: 'get',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::show
- * @see app/Http/Controllers/Admin/SliderController.php:0
- * @route '/admin/sliders/{slider}'
- */
-        showForm.get = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: show.url(args, options),
-            method: 'get',
-        })
-            /**
+* @see app/Http/Controllers/Admin/SliderController.php:0
+* @route '/admin/sliders/{slider}'
+*/
+showForm.get = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, options),
+    method: 'get',
+})
+
+/**
 * @see \App\Http\Controllers\Admin\SliderController::show
- * @see app/Http/Controllers/Admin/SliderController.php:0
- * @route '/admin/sliders/{slider}'
- */
-        showForm.head = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: show.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    show.form = showForm
+* @see app/Http/Controllers/Admin/SliderController.php:0
+* @route '/admin/sliders/{slider}'
+*/
+showForm.head = (args: { slider: string | number } | [slider: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: show.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+show.form = showForm
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::edit
- * @see app/Http/Controllers/Admin/SliderController.php:52
- * @route '/admin/sliders/{slider}/edit'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:52
+* @route '/admin/sliders/{slider}/edit'
+*/
 export const edit = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
@@ -324,31 +333,31 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::edit
- * @see app/Http/Controllers/Admin/SliderController.php:52
- * @route '/admin/sliders/{slider}/edit'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:52
+* @route '/admin/sliders/{slider}/edit'
+*/
 edit.url = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { slider: args }
     }
 
-            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
-            args = { slider: args.id }
-        }
-    
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { slider: args.id }
+    }
+
     if (Array.isArray(args)) {
         args = {
-                    slider: args[0],
-                }
+            slider: args[0],
+        }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-                        slider: typeof args.slider === 'object'
-                ? args.slider.id
-                : args.slider,
-                }
+        slider: typeof args.slider === 'object'
+        ? args.slider.id
+        : args.slider,
+    }
 
     return edit.definition.url
             .replace('{slider}', parsedArgs.slider.toString())
@@ -357,63 +366,66 @@ edit.url = (args: { slider: number | { id: number } } | [slider: number | { id: 
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::edit
- * @see app/Http/Controllers/Admin/SliderController.php:52
- * @route '/admin/sliders/{slider}/edit'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:52
+* @route '/admin/sliders/{slider}/edit'
+*/
 edit.get = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::edit
- * @see app/Http/Controllers/Admin/SliderController.php:52
- * @route '/admin/sliders/{slider}/edit'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:52
+* @route '/admin/sliders/{slider}/edit'
+*/
 edit.head = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::edit
- * @see app/Http/Controllers/Admin/SliderController.php:52
- * @route '/admin/sliders/{slider}/edit'
- */
-    const editForm = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: edit.url(args, options),
-        method: 'get',
-    })
+* @see app/Http/Controllers/Admin/SliderController.php:52
+* @route '/admin/sliders/{slider}/edit'
+*/
+const editForm = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::edit
- * @see app/Http/Controllers/Admin/SliderController.php:52
- * @route '/admin/sliders/{slider}/edit'
- */
-        editForm.get = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: edit.url(args, options),
-            method: 'get',
-        })
-            /**
+* @see app/Http/Controllers/Admin/SliderController.php:52
+* @route '/admin/sliders/{slider}/edit'
+*/
+editForm.get = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, options),
+    method: 'get',
+})
+
+/**
 * @see \App\Http\Controllers\Admin\SliderController::edit
- * @see app/Http/Controllers/Admin/SliderController.php:52
- * @route '/admin/sliders/{slider}/edit'
- */
-        editForm.head = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: edit.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    edit.form = editForm
+* @see app/Http/Controllers/Admin/SliderController.php:52
+* @route '/admin/sliders/{slider}/edit'
+*/
+editForm.head = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: edit.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+edit.form = editForm
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::update
- * @see app/Http/Controllers/Admin/SliderController.php:78
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:78
+* @route '/admin/sliders/{slider}'
+*/
 export const update = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
@@ -426,31 +438,31 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::update
- * @see app/Http/Controllers/Admin/SliderController.php:78
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:78
+* @route '/admin/sliders/{slider}'
+*/
 update.url = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { slider: args }
     }
 
-            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
-            args = { slider: args.id }
-        }
-    
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { slider: args.id }
+    }
+
     if (Array.isArray(args)) {
         args = {
-                    slider: args[0],
-                }
+            slider: args[0],
+        }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-                        slider: typeof args.slider === 'object'
-                ? args.slider.id
-                : args.slider,
-                }
+        slider: typeof args.slider === 'object'
+        ? args.slider.id
+        : args.slider,
+    }
 
     return update.definition.url
             .replace('{slider}', parsedArgs.slider.toString())
@@ -459,73 +471,76 @@ update.url = (args: { slider: number | { id: number } } | [slider: number | { id
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::update
- * @see app/Http/Controllers/Admin/SliderController.php:78
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:78
+* @route '/admin/sliders/{slider}'
+*/
 update.put = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::update
- * @see app/Http/Controllers/Admin/SliderController.php:78
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:78
+* @route '/admin/sliders/{slider}'
+*/
 update.patch = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::update
- * @see app/Http/Controllers/Admin/SliderController.php:78
- * @route '/admin/sliders/{slider}'
- */
-    const updateForm = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: update.url(args, {
-                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'PUT',
-                        ...(options?.query ?? options?.mergeQuery ?? {}),
-                    }
-                }),
-        method: 'post',
-    })
+* @see app/Http/Controllers/Admin/SliderController.php:78
+* @route '/admin/sliders/{slider}'
+*/
+const updateForm = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::update
- * @see app/Http/Controllers/Admin/SliderController.php:78
- * @route '/admin/sliders/{slider}'
- */
-        updateForm.put = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: update.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'PUT',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-            /**
+* @see app/Http/Controllers/Admin/SliderController.php:78
+* @route '/admin/sliders/{slider}'
+*/
+updateForm.put = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PUT',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+/**
 * @see \App\Http\Controllers\Admin\SliderController::update
- * @see app/Http/Controllers/Admin/SliderController.php:78
- * @route '/admin/sliders/{slider}'
- */
-        updateForm.patch = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: update.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'PATCH',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-    
-    update.form = updateForm
+* @see app/Http/Controllers/Admin/SliderController.php:78
+* @route '/admin/sliders/{slider}'
+*/
+updateForm.patch = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: update.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'PATCH',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+update.form = updateForm
+
 /**
 * @see \App\Http\Controllers\Admin\SliderController::destroy
- * @see app/Http/Controllers/Admin/SliderController.php:86
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:86
+* @route '/admin/sliders/{slider}'
+*/
 export const destroy = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
@@ -538,31 +553,31 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::destroy
- * @see app/Http/Controllers/Admin/SliderController.php:86
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:86
+* @route '/admin/sliders/{slider}'
+*/
 destroy.url = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { slider: args }
     }
 
-            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
-            args = { slider: args.id }
-        }
-    
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { slider: args.id }
+    }
+
     if (Array.isArray(args)) {
         args = {
-                    slider: args[0],
-                }
+            slider: args[0],
+        }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-                        slider: typeof args.slider === 'object'
-                ? args.slider.id
-                : args.slider,
-                }
+        slider: typeof args.slider === 'object'
+        ? args.slider.id
+        : args.slider,
+    }
 
     return destroy.definition.url
             .replace('{slider}', parsedArgs.slider.toString())
@@ -571,45 +586,46 @@ destroy.url = (args: { slider: number | { id: number } } | [slider: number | { i
 
 /**
 * @see \App\Http\Controllers\Admin\SliderController::destroy
- * @see app/Http/Controllers/Admin/SliderController.php:86
- * @route '/admin/sliders/{slider}'
- */
+* @see app/Http/Controllers/Admin/SliderController.php:86
+* @route '/admin/sliders/{slider}'
+*/
 destroy.delete = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
 
-    /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::destroy
- * @see app/Http/Controllers/Admin/SliderController.php:86
- * @route '/admin/sliders/{slider}'
- */
-    const destroyForm = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: destroy.url(args, {
-                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'DELETE',
-                        ...(options?.query ?? options?.mergeQuery ?? {}),
-                    }
-                }),
-        method: 'post',
-    })
+* @see app/Http/Controllers/Admin/SliderController.php:86
+* @route '/admin/sliders/{slider}'
+*/
+const destroyForm = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
 
-            /**
+/**
 * @see \App\Http\Controllers\Admin\SliderController::destroy
- * @see app/Http/Controllers/Admin/SliderController.php:86
- * @route '/admin/sliders/{slider}'
- */
-        destroyForm.delete = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: destroy.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'DELETE',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-    
-    destroy.form = destroyForm
+* @see app/Http/Controllers/Admin/SliderController.php:86
+* @route '/admin/sliders/{slider}'
+*/
+destroyForm.delete = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: destroy.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'DELETE',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'post',
+})
+
+destroy.form = destroyForm
+
 const SliderController = { index, create, store, show, edit, update, destroy }
 
 export default SliderController
