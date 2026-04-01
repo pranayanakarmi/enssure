@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\PostHero;
 use Inertia\Testing\AssertableInertia as Assert;
 
 test('posts index returns only published posts with correct component', function () {
@@ -75,6 +76,27 @@ test('posts show returns published post detail', function () {
         ->where('post.excerpt', 'Short excerpt')
         ->has('post.content')
         ->has('relatedPosts')
+        ->where('postHero.hero_image_url', null)
+    );
+});
+
+test('posts show returns configured shared hero background image', function () {
+    $post = Post::create([
+        'title' => 'Career Guidance',
+        'slug' => 'career-guidance',
+        'published_at' => now()->subHour(),
+    ]);
+
+    PostHero::create([
+        'hero_image' => 'posts/post-hero.jpg',
+    ]);
+
+    $response = $this->get(route('posts.show', ['published_post' => $post->slug]));
+
+    $response->assertOk();
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('BlogShow')
+        ->where('postHero.hero_image_url', '/storage/posts/post-hero.jpg')
     );
 });
 

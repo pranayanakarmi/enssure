@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Page;
+use App\Models\PageHero;
 use Inertia\Testing\AssertableInertia as Assert;
 
 test('pages show returns published page detail', function () {
@@ -24,6 +25,27 @@ test('pages show returns published page detail', function () {
         ->where('page.meta_title', 'About — ENSSURE')
         ->where('page.meta_description', 'Learn about our work.')
         ->has('page.content')
+        ->where('pageHero.hero_image_url', null)
+    );
+});
+
+test('pages show returns configured shared hero background image', function () {
+    $page = Page::create([
+        'title' => 'Training with OJT',
+        'slug' => 'training-with-ojt',
+        'published_at' => now()->subHour(),
+    ]);
+
+    PageHero::create([
+        'hero_image' => 'pages/training-hero.jpg',
+    ]);
+
+    $response = $this->get(route('pages.show', ['published_page' => $page->slug]));
+
+    $response->assertOk();
+    $response->assertInertia(fn (Assert $inertia) => $inertia
+        ->component('PageShow')
+        ->where('pageHero.hero_image_url', '/storage/pages/training-hero.jpg')
     );
 });
 

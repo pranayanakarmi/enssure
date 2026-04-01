@@ -27,8 +27,10 @@ use App\Models\Infographic;
 use App\Models\InfographicsPageContent;
 use App\Models\Notice;
 use App\Models\Page;
+use App\Models\PageHero;
 use App\Models\Partner;
 use App\Models\Post;
+use App\Models\PostHero;
 use App\Models\Slider;
 use App\Models\TeamMember;
 use App\Models\TeamPageContent;
@@ -346,6 +348,7 @@ Route::get('posts', function () {
 })->name('posts.index');
 Route::get('posts/{published_post:slug}', function (Post $published_post) {
     $published_post->load(['category:id,name', 'tags:id,name']);
+    $postHero = PostHero::first();
 
     $htmlAllow = '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>';
 
@@ -379,10 +382,16 @@ Route::get('posts/{published_post:slug}', function (Post $published_post) {
             ])
             ->values()
             ->all(),
+        'postHero' => [
+            'hero_image_url' => $postHero?->hero_image
+                ? Storage::disk('public')->url($postHero->hero_image)
+                : null,
+        ],
     ]);
 })->name('posts.show');
 Route::get('pages/{published_page:slug}', function (Page $published_page) {
     $htmlAllow = '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>';
+    $pageHero = PageHero::first();
 
     return Inertia::render('PageShow', [
         'page' => [
@@ -395,6 +404,11 @@ Route::get('pages/{published_page:slug}', function (Page $published_page) {
                 ? strip_tags($published_page->content, $htmlAllow)
                 : null,
             'share_url' => url()->route('pages.show', ['published_page' => $published_page->slug]),
+        ],
+        'pageHero' => [
+            'hero_image_url' => $pageHero?->hero_image
+                ? Storage::disk('public')->url($pageHero->hero_image)
+                : null,
         ],
     ]);
 })->name('pages.show');

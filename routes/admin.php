@@ -51,8 +51,10 @@ use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\NewsTickerItemController;
 use App\Http\Controllers\Admin\NoticeController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PageHeroController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\PostHeroController;
 use App\Http\Controllers\Admin\ProvinceController;
 use App\Http\Controllers\Admin\PublicationController;
 use App\Http\Controllers\Admin\RedirectController;
@@ -102,9 +104,13 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
 
     Route::post('editor-images', EditorImageUploadController::class)->name('editor_images.store');
     Route::resource('impact_stories', ImpactStoryController::class)->except(['show']);
+    Route::get('posts/hero/edit', [PostHeroController::class, 'edit'])->name('posts.hero.edit');
+    Route::put('posts/hero', [PostHeroController::class, 'update'])->name('posts.hero.update');
     Route::resource('posts', PostController::class)->except(['show']);
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('tags', TagController::class)->except(['show']);
+    Route::get('pages/hero/edit', [PageHeroController::class, 'edit'])->name('pages.hero.edit');
+    Route::put('pages/hero', [PageHeroController::class, 'update'])->name('pages.hero.update');
     Route::resource('pages', PageController::class)->except(['show']);
     Route::resource('notices', NoticeController::class)->except(['show']);
     Route::resource('vacancies', VacancyController::class)->except(['show']);

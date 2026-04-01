@@ -12,6 +12,7 @@ return [
         'tags',
         'pages',
         'posts',
+        'post_hero',
         'menus',
         'menu_items',
         'provinces',
@@ -67,6 +68,7 @@ return [
         'about_content_sections',
         'impact_page_hero',
         'impact_page_sections',
+        'page_hero',
         'footer_columns',
         'footer_links',
         'site_settings',
@@ -203,15 +205,19 @@ return [
             'permission_resource' => null,
             'children' => [
                 ['title' => 'All posts', 'href' => 'admin.posts.index', 'permission_resource' => 'posts'],
+                ['title' => 'Hero background', 'href' => 'admin.posts.hero.edit', 'permission_resource' => 'post_hero'],
                 ['title' => 'Categories', 'href' => 'admin.categories.index', 'permission_resource' => 'categories'],
                 ['title' => 'Tags', 'href' => 'admin.tags.index', 'permission_resource' => 'tags'],
             ],
         ],
         [
             'title' => 'Pages',
-            'href' => 'admin.pages.index',
             'icon' => 'File',
-            'permission_resource' => 'pages',
+            'permission_resource' => null,
+            'children' => [
+                ['title' => 'All pages', 'href' => 'admin.pages.index', 'permission_resource' => 'pages'],
+                ['title' => 'Hero background', 'href' => 'admin.pages.hero.edit', 'permission_resource' => 'page_hero'],
+            ],
         ],
         [
             'title' => 'News and Articles',
