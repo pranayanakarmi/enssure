@@ -29,7 +29,7 @@ const partnerLogos = [
     <GuestLayout>
         <Head title="Notices - ENSSURE" />
 
-        <PageHero title="Archive Page" />
+        <PageHero title="News and Notice Page" />
 
         <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +65,7 @@ const partnerLogos = [
             </div>
         </section>
 
-        <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
+        <!-- <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-4xl mx-auto mb-12 lg:mb-16">
                     <div class="mb-6 flex justify-center">
@@ -87,7 +87,7 @@ const partnerLogos = [
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <section class="py-20 text-center">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,7 +103,7 @@ const partnerLogos = [
             </div>
         </section>
 
-        <section class="relative py-20 h-96 overflow-hidden">
+        <!-- <section class="relative py-20 h-96 overflow-hidden">
             <img src="/enssure/assets/abe0c310bdf95a63fc03463bc4d17ffa6bede19a.png" alt="" class="absolute inset-0 w-full h-full object-cover" />
             <div class="absolute inset-0 bg-black/40" />
             <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center h-full flex items-center justify-center">
@@ -118,6 +118,6 @@ const partnerLogos = [
                     </Link>
                 </div>
             </div>
-        </section>
+        </section> -->
     </GuestLayout>
 </template>

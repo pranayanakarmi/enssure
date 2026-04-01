@@ -21,6 +21,9 @@ class ReportController extends Controller
             ->map(fn (Document $d) => [
                 'id' => $d->id,
                 'title' => $d->title,
+                'description' => $d->description,
+                'document_type' => $d->document_type,
+                'order' => $d->order,
                 'pdf_url' => Storage::disk('public')->url($d->file_path),
             ])
             ->values()

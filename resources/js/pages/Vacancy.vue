@@ -132,7 +132,7 @@ function formatJobType(value) {
             :vacancy-slug="modalVacancySlug"
         />
 
-        <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
+        <!-- <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-4xl mx-auto mb-12 lg:mb-16">
                     <div class="mb-6 flex justify-center">
@@ -158,7 +158,7 @@ function formatJobType(value) {
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <section class="py-20 text-center">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -178,7 +178,7 @@ function formatJobType(value) {
             </div>
         </section>
 
-        <section class="relative py-20 h-96 overflow-hidden">
+        <!-- <section class="relative py-20 h-96 overflow-hidden">
             <img
                 src="/enssure/assets/abe0c310bdf95a63fc03463bc4d17ffa6bede19a.png"
                 alt=""
@@ -200,6 +200,6 @@ function formatJobType(value) {
                     </Link>
                 </div>
             </div>
-        </section>
+        </section> -->
     </GuestLayout>
 </template>

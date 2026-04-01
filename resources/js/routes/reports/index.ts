@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\ReportController::show
- * @see app/Http/Controllers/ReportController.php:50
+ * @see app/Http/Controllers/ReportController.php:53
  * @route '/reports/{document}'
  */
 export const show = (args: { document: number | { id: number } } | [document: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\ReportController::show
- * @see app/Http/Controllers/ReportController.php:50
+ * @see app/Http/Controllers/ReportController.php:53
  * @route '/reports/{document}'
  */
 show.url = (args: { document: number | { id: number } } | [document: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -127,7 +127,7 @@ show.url = (args: { document: number | { id: number } } | [document: number | { 
 
 /**
 * @see \App\Http\Controllers\ReportController::show
- * @see app/Http/Controllers/ReportController.php:50
+ * @see app/Http/Controllers/ReportController.php:53
  * @route '/reports/{document}'
  */
 show.get = (args: { document: number | { id: number } } | [document: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -136,7 +136,7 @@ show.get = (args: { document: number | { id: number } } | [document: number | { 
 })
 /**
 * @see \App\Http\Controllers\ReportController::show
- * @see app/Http/Controllers/ReportController.php:50
+ * @see app/Http/Controllers/ReportController.php:53
  * @route '/reports/{document}'
  */
 show.head = (args: { document: number | { id: number } } | [document: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -146,7 +146,7 @@ show.head = (args: { document: number | { id: number } } | [document: number | {
 
     /**
 * @see \App\Http\Controllers\ReportController::show
- * @see app/Http/Controllers/ReportController.php:50
+ * @see app/Http/Controllers/ReportController.php:53
  * @route '/reports/{document}'
  */
     const showForm = (args: { document: number | { id: number } } | [document: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -156,7 +156,7 @@ show.head = (args: { document: number | { id: number } } | [document: number | {
 
             /**
 * @see \App\Http\Controllers\ReportController::show
- * @see app/Http/Controllers/ReportController.php:50
+ * @see app/Http/Controllers/ReportController.php:53
  * @route '/reports/{document}'
  */
         showForm.get = (args: { document: number | { id: number } } | [document: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -165,7 +165,7 @@ show.head = (args: { document: number | { id: number } } | [document: number | {
         })
             /**
 * @see \App\Http\Controllers\ReportController::show
- * @see app/Http/Controllers/ReportController.php:50
+ * @see app/Http/Controllers/ReportController.php:53
  * @route '/reports/{document}'
  */
         showForm.head = (args: { document: number | { id: number } } | [document: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

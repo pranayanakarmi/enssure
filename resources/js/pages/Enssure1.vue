@@ -1,689 +1,819 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import { ArrowRight } from 'lucide-vue-next';
-import { computed } from 'vue';
+import {
+  ArrowRight, Users, GraduationCap, Briefcase, HardHat, Building,
+  School, Handshake, Landmark, Scale, UserCog, TrendingUp, Award,
+  BadgeCheck, Clock, UsersRound, BookOpen, FileCheck, Wrench, ChevronDown
+} from 'lucide-vue-next';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 import PageHero from '@/components/guest/PageHero.vue';
-import HomeStats from '@/components/home/HomeStats.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 
-// ----------------------------------------------------------------------
-// Props – all dynamic, with sensible defaults for ENSSURE I
-// ----------------------------------------------------------------------
-const props = defineProps({
-    // Hero section
-    heroTitle: { type: String, default: 'ENSSURE I (2016–2022)' },
-    heroImageUrl: { type: String, default: '/enssure/assets/enssure1-hero.png' },
-
-    // Main overview section
-    overviewTitle: { type: String, default: 'Laying the Foundation for Skills Development' },
-    overviewBody: { type: String, default: null },
-    overviewCardTitle: { type: String, default: 'First Phase\nof ENSSURE' },
-    overviewImageUrl: { type: String, default: '/enssure/assets/enssure1-overview.jpg' },
-    overviewBackgroundImageUrl: { type: String, default: '/enssure/assets/65b138464c2257ee992dd4572f64fbf14b41e638.png' },
-    overviewCtaText: { type: String, default: 'Learn more' },
-    overviewCtaUrl: { type: String, default: '#overview-details' },
-
-    // Two‑column content section
-    contentParagraph1: { type: String, default: null },
-    contentParagraph2: { type: String, default: null },
-
-    // Reach section (reused from HomeStats)
-    homeReachSection: { type: Object, default: null },
-
-    // News ticker items
-    newsItems: { type: Array, default: () => [] },
-
-    // Top stats (6 items)
-    topStats: { type: Array, default: () => [] },
-
-    // Career guidance focus data
-    careerGuidance: { type: Object, default: () => ({}) },
-
-    // Apprenticeship & skills training data
-    apprenticeship: { type: Object, default: () => ({}) },
-
-    // Workforce skill upgrading data
-    workforce: { type: Object, default: () => ({}) },
-
-    // Industry collaboration data
-    industry: { type: Object, default: () => ({}) },
-
-    // Partner logos
-    partnerLogos: { type: Array, default: () => [] },
-
-    // Technical assistance logo
-    assistanceLogo: { type: String, default: '/enssure/assets/c3f97e1b17044bbdeedac32a3818731e2450a527.png' },
+// ─────────────────────────────────────────────
+// DYNAMIC DATA — replace with props/API later
+// ─────────────────────────────────────────────
+const projectInfo = ref({
+  title: 'ENSSURE I',
+  period: '2016 – 2022',
+  tagline: 'Laying the Foundation for Skills Development in Nepal',
+  donor: 'Government of Switzerland',
+  implementer: 'Government of Nepal',
+  budget: 'CHF 12.5 Million',
+  provinces: 7,
+  description: `The first phase of ENSSURE (Enhanced Skills for Sustainable and Rewarding Employment) was a bilateral project of the Government of Nepal and the Government of Switzerland. It established Nepal's dual-VET system, built institutional capacity, and piloted apprenticeship programmes across all seven provinces — transforming how vocational education is delivered nationwide.`,
+  description2: `Key achievements include developing 33 national skill standards, training over 4,200 workers in high-demand trades, and reaching 28,500 youth through career guidance. The phase successfully embedded TVET services within federal structures, creating a scalable model that continues to shape Nepal's skills landscape.`,
 });
 
-// ----------------------------------------------------------------------
-// Default static data (ENSSURE I specific)
-// ----------------------------------------------------------------------
-const defaultTopStats = [
-    { icon: 'fa-users', value: '28,500+', label: 'Youth Reached' },
-    { icon: 'fa-graduation-cap', value: '1,200+', label: 'Apprentices' },
-    { icon: 'fa-briefcase', value: '4,800+', label: 'OJT Enrolled' },
-    { icon: 'fa-helmet-safety', value: '4,200+', label: 'Workers Trained' },
-    { icon: 'fa-building', value: '750+', label: 'Companies Engaged' },
-    { icon: 'fa-chalkboard-user', value: '280+', label: 'Teachers Trained' },
+const heroStats = ref([
+  { key: 'youth', value: 28500, label: 'Youth Reached', icon: Users, color: '#B91C1C' },
+  { key: 'apprentices', value: 1200, label: 'Apprentices', icon: GraduationCap, color: '#233D7E' },
+  { key: 'ojt', value: 4800, label: 'OJT Enrolled', icon: Briefcase, color: '#B91C1C' },
+  { key: 'workers', value: 4200, label: 'Workers Trained', icon: HardHat, color: '#233D7E' },
+  { key: 'companies', value: 750, label: 'Companies Engaged', icon: Building, color: '#B91C1C' },
+  { key: 'teachers', value: 280, label: 'Teachers Trained', icon: BookOpen, color: '#233D7E' },
+]);
+
+const careerGuidance = ref({
+  totalYouth: 28500,
+  schoolSessions: 21000,
+  careerFairSessions: 7500,
+  girlsPercent: 51.2,
+  disadvantagedPercent: 68.4,
+  teachersTrained: 280,
+  womenEducatorsPercent: 32.5,
+  schools: 120,
+  modelSchools: 12,
+  tripartiteMous: 98,
+  directPartners: 15,
+  municipalCurrent: 'NPR 8.4M',
+  municipalPrev: 'NPR 3.6M',
+  careerFacilitators: 12,
+  localGovtPersonnel: 15,
+});
+
+const apprenticeship = ref({
+  dualVet: { enrolled: 1200, graduated: 1100, girlsPercent: 51.2, disadvantagedPercent: 68.4 },
+  ojt: { enrolled: 4800, graduated: 4500, girlsPercent: 47.3, disadvantagedPercent: 65.1 },
+  skillTest: { passRate: 58, passed: 1200, appeared: 2070 },
+});
+
+const workforce = ref({
+  totalTrained: 4200,
+  completed: 4000,
+  inTraining: 200,
+  disadvantagedPercent: 65.3,
+  skillAreas: ['Electrical','Construction','Plumbing','Hospitality','Healthcare','Cooking','Mechanics','ICT','Carpentry','Tailoring'],
+  moreCount: 23,
+});
+
+const industry = ref({
+  companiesEngaged: 750,
+  apprenticesHosted: 1100,
+  traineesHosted: 4500,
+  tvetProvidersOriented: '4K+',
+});
+
+// ─────────────────────────────────────────────
+// Animated counters for all numeric values
+// ─────────────────────────────────────────────
+const animatedValues = ref({});
+
+// All numeric keys that should be animated
+const numericKeys = [
+  // Hero
+  'youth', 'apprentices', 'ojt', 'workers', 'companies', 'teachers',
+  // Career guidance
+  'totalYouth', 'teachersTrained', 'schools', 'modelSchools', 'tripartiteMous',
+  // Apprenticeship
+  'dualVetEnrolled', 'dualVetGraduated', 'ojtEnrolled', 'ojtGraduated',
+  'skillPassed', 'skillAppeared',
+  // Workforce
+  'workersTotal', 'workersCompleted', 'workersInTraining',
+  // Industry
+  'companiesEngaged', 'apprenticesHosted', 'traineesHosted'
 ];
 
-const defaultCareerGuidance = {
-    totalYouthReached: 28500,
-    schoolSessions: 21000,
-    careerFairSessions: 7500,
-    inclusionGirlsPercent: 51.2,
-    inclusionDisadvantagedPercent: 68.4,
-    apprenticeGuidance: 1200,
-    municipalInvestmentCurrent: 'NPR 8.4M',
-    municipalInvestmentPrev: 'NPR 3.6M',
-    teachersTrained: 280,
-    womenEducatorsPercent: 32.5,
-    careerFacilitators: 12,
-    localGovtPersonnel: 15,
-    schools: 120,
-    modelSchools: 12,
-    tripartiteMous: 98,
-    directPartners: 15,
+// Map keys to their target values
+const getTargetValue = (key) => {
+  const targets = {
+    youth: heroStats.value.find(s => s.key === 'youth').value,
+    apprentices: heroStats.value.find(s => s.key === 'apprentices').value,
+    ojt: heroStats.value.find(s => s.key === 'ojt').value,
+    workers: heroStats.value.find(s => s.key === 'workers').value,
+    companies: heroStats.value.find(s => s.key === 'companies').value,
+    teachers: heroStats.value.find(s => s.key === 'teachers').value,
+    totalYouth: careerGuidance.value.totalYouth,
+    teachersTrained: careerGuidance.value.teachersTrained,
+    schools: careerGuidance.value.schools,
+    modelSchools: careerGuidance.value.modelSchools,
+    tripartiteMous: careerGuidance.value.tripartiteMous,
+    dualVetEnrolled: apprenticeship.value.dualVet.enrolled,
+    dualVetGraduated: apprenticeship.value.dualVet.graduated,
+    ojtEnrolled: apprenticeship.value.ojt.enrolled,
+    ojtGraduated: apprenticeship.value.ojt.graduated,
+    skillPassed: apprenticeship.value.skillTest.passed,
+    skillAppeared: apprenticeship.value.skillTest.appeared,
+    workersTotal: workforce.value.totalTrained,
+    workersCompleted: workforce.value.completed,
+    workersInTraining: workforce.value.inTraining,
+    companiesEngaged: industry.value.companiesEngaged,
+    apprenticesHosted: industry.value.apprenticesHosted,
+    traineesHosted: industry.value.traineesHosted,
+  };
+  return targets[key] || 0;
 };
 
-const defaultApprenticeship = {
-    dualVet: {
-        enrolled: 1200,
-        inTraining: 0, // completed
-        graduated: 1100,
-        girlsPercent: 51.2,
-        disadvantagedPercent: 68.4,
-    },
-    ojt: {
-        enrolled: 4800,
-        inTraining: 0,
-        graduated: 4500,
-        girlsPercent: 51.2,
-        disadvantagedPercent: 68.4,
-    },
-    skillTest: {
-        passRate: 58,
-        passed: 1200,
-        appeared: 2070,
-    },
-};
+function animateNumber(key, target, duration = 1500) {
+  const start = performance.now();
+  const startValue = 0;
+  const update = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    animatedValues.value[key] = Math.floor(eased * target);
+    if (progress < 1) requestAnimationFrame(update);
+    else animatedValues.value[key] = target;
+  };
+  requestAnimationFrame(update);
+}
 
-const defaultWorkforce = {
-    totalTrained: 4200,
-    completed: 4000,
-    inTraining: 200,
-    disadvantagedPercent: 65.3,
-    skillAreas: [
-        'Electrical', 'Construction', 'Plumbing', 'Hospitality',
-        'Healthcare', 'Cooking', 'Mechanics', 'ICT', 'Carpentry', 'Tailoring'
-    ],
-    moreCount: 23,
-};
+// IntersectionObserver to start animations when elements appear
+let observers = [];
+onMounted(() => {
+  const elements = document.querySelectorAll('[data-stat-key]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const key = entry.target.getAttribute('data-stat-key');
+        if (key && !animatedValues.value[key]) {
+          animateNumber(key, getTargetValue(key));
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
 
-const defaultIndustry = {
-    companiesEngaged: 750,
-    apprenticesHosted: 1100,
-    traineesHosted: 4500,
-    tvetProvidersOriented: '4K+',
-};
+  elements.forEach(el => observer.observe(el));
+  observers.push(observer);
+});
 
-const defaultPartnerLogos = [
-    '/enssure/assets/ac6be776c5bec31df9cf5f1bed529200ddb74c1a.png',
-    '/enssure/assets/1bfd5b6a208521619b06244790669dd636449742.png',
-    '/enssure/assets/ebbe48ec5c80c20d972673da35584cdc422ccc68.png',
-    '/enssure/assets/d7c2ac1e901bc7bac7279f1006a3053183752132.png',
-];
-
-const defaultNewsItems = [
-    'ENSSURE I concludes with 28,500 youth reached',
-    'Dual‑VET model successfully piloted in 7 provinces',
-    'Over 4,200 workers trained under Phase I',
-    'Partnerships with 750 companies established',
-];
-
-const defaultContentP1 = "The ENSSURE I project (2016–2022) was the first phase of the Enhanced Skills for Sustainable and Rewarding Employment initiative. It focused on establishing the dual‑VET system, building institutional capacity, and piloting apprenticeship programmes across Nepal. The project laid the groundwork for the federalisation of TVET services, creating a model that could be scaled nationwide.";
-const defaultContentP2 = "Key achievements include training over 4,200 workers in high‑demand trades, engaging 750+ companies as training hosts, and reaching 28,500 youth through career guidance sessions. The first phase successfully piloted dual‑VET in seven provinces, developing 33 skill standards and curricula that continue to shape Nepal's TVET sector today.";
-
-// Computed values with fallbacks
-const stats = computed(() => props.topStats.length ? props.topStats : defaultTopStats);
-const career = computed(() => ({ ...defaultCareerGuidance, ...props.careerGuidance }));
-const apprenticeshipData = computed(() => ({ ...defaultApprenticeship, ...props.apprenticeship }));
-const workforceData = computed(() => ({ ...defaultWorkforce, ...props.workforce }));
-const industryData = computed(() => ({ ...defaultIndustry, ...props.industry }));
-const partnerLogosList = computed(() => props.partnerLogos.length ? props.partnerLogos : defaultPartnerLogos);
-const newsList = computed(() => props.newsItems.length ? props.newsItems : defaultNewsItems);
-const paragraph1 = computed(() => props.contentParagraph1 ?? defaultContentP1);
-const paragraph2 = computed(() => props.contentParagraph2 ?? defaultContentP2);
+onUnmounted(() => {
+  observers.forEach(obs => obs.disconnect());
+});
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="ENSSURE I - ENSSURE" />
+  <GuestLayout>
+    <Head title="ENSSURE I – Project Summary" />
 
-        <!-- Hero section -->
-        <PageHero
-            :title="heroTitle"
-            :hero-image-url="heroImageUrl"
-        />
+    <!-- ══════════════════════════════════════════════════
+         CINEMATIC HERO (light version)
+    ══════════════════════════════════════════════════ -->
+    <section class="relative min-h-[92vh] flex flex-col justify-end overflow-hidden">
+      <!-- Background with subtle overlay -->
+      <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+             class="w-full h-full object-cover" alt="" />
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-50 via-gray-50/80 to-gray-50/20" />
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#B91C1C] via-[#ef4444] to-[#B91C1C]" />
+      </div>
 
-        <!-- Main overview section (similar to about.vue) -->
-        <section id="overview" class="py-20 lg:py-24 relative overflow-hidden">
-            <div class="absolute inset-0">
-                <img
-                    :src="overviewBackgroundImageUrl"
-                    alt=""
-                    class="w-full h-full object-cover opacity-30"
-                />
-                <div class="absolute inset-0 bg-gradient-to-b from-white via-white/60 to-transparent" />
-                <div class="absolute inset-0 backdrop-blur-[10px] bg-white/40" />
+      <!-- Floating period badge (light) -->
+      <div class="absolute top-10 right-10 hidden lg:flex flex-col items-center justify-center w-32 h-32 rounded-full border-2 border-[#B91C1C]/40 bg-white/80 backdrop-blur-sm shadow-lg">
+        <span class="text-gray-500 text-xs uppercase tracking-widest">Phase</span>
+        <span class="text-gray-900 text-4xl font-black leading-none">I</span>
+        <span class="text-gray-500 text-xs">2016–2022</span>
+      </div>
+
+      <!-- Hero content -->
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 pt-32">
+        <div class="max-w-4xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="h-px w-12 bg-[#B91C1C]" />
+            <span class="text-[#B91C1C] uppercase tracking-[0.3em] text-sm font-semibold">ENSSURE I · 2016–2022</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-[0.9] tracking-tight mb-6">
+            LAYING<br/>
+            <span class="text-[#B91C1C]">THE</span><br/>
+            FOUNDATION
+          </h1>
+          <p class="text-lg text-gray-600 max-w-2xl leading-relaxed mb-10">
+            {{ projectInfo.description.split('.')[0] }}.
+          </p>
+          <!-- Meta pills (light) -->
+          <div class="flex flex-wrap gap-3">
+            <span class="px-4 py-2 rounded-full border border-gray-300 bg-white/80 text-gray-700 text-sm shadow-sm">🇨🇭 Swiss Development Cooperation</span>
+            <span class="px-4 py-2 rounded-full border border-gray-300 bg-white/80 text-gray-700 text-sm shadow-sm">🇳🇵 Government of Nepal</span>
+            <span class="px-4 py-2 rounded-full border border-[#B91C1C]/40 bg-[#B91C1C]/10 text-gray-800 text-sm font-semibold">{{ projectInfo.budget }}</span>
+            <span class="px-4 py-2 rounded-full border border-gray-300 bg-white/80 text-gray-700 text-sm shadow-sm">7 Provinces</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce">
+        <ChevronDown class="w-5 h-5 text-gray-400" />
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         ANIMATED MEGA STATS BAR (light)
+    ══════════════════════════════════════════════════ -->
+    <section class="bg-white border-y border-gray-200 py-0">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y lg:divide-y-0 divide-gray-200">
+        <div v-for="(stat, i) in heroStats" :key="stat.label"
+             class="flex flex-col items-center justify-center py-10 px-4 text-center group hover:bg-gray-50 transition-colors cursor-default">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3 transition-transform group-hover:scale-110"
+               :style="{ background: stat.color + '22' }">
+            <component :is="stat.icon" class="w-5 h-5" :style="{ color: stat.color }" />
+          </div>
+          <div class="text-2xl font-black text-gray-900 tabular-nums"
+               :data-stat-key="stat.key">
+            {{ animatedValues[stat.key]?.toLocaleString() || '0' }}
+          </div>
+          <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">{{ stat.label }}</div>
+          <div class="w-6 h-0.5 mt-3 rounded-full" :style="{ background: stat.color }" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         PROJECT ABOUT — EDITORIAL TWO-COLUMN (light)
+    ══════════════════════════════════════════════════ -->
+    <section class="py-24 lg:py-32 bg-white relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <!-- Left: image stack -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative">
+              <div class="absolute -inset-4 bg-[#233D7E]/5 rounded-3xl -rotate-2" />
+              <div class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-xl">
+                <img src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                     class="w-full h-full object-cover" alt="ENSSURE I" />
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent" />
+                <div class="absolute bottom-0 left-0 right-0 p-8">
+                  <div class="text-white/70 text-xs uppercase tracking-widest mb-1">Duration</div>
+                  <div class="text-white text-3xl font-black">6 Years</div>
+                  <div class="text-white/60">2016 → 2022</div>
+                </div>
+              </div>
+              <!-- Floating stat card (light) -->
+              <div class="absolute -right-6 top-12 bg-[#B91C1C] rounded-2xl p-5 shadow-xl hidden lg:block">
+                <div class="text-white/80 text-xs uppercase tracking-widest">Provinces</div>
+                <div class="text-white text-5xl font-black leading-none mt-1">7</div>
+              </div>
+              <div class="absolute -bottom-6 -left-6 bg-[#233D7E] rounded-2xl p-5 shadow-xl hidden lg:block">
+                <div class="text-white/80 text-xs">Skill Standards</div>
+                <div class="text-white text-3xl font-black">33</div>
+              </div>
             </div>
-            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div class="relative">
-                        <div class="absolute -rotate-[4deg] bg-[#233D7E] rounded-[30px] w-full aspect-[507/690]" />
-                        <div class="relative rounded-[30px] overflow-hidden aspect-[507/690]">
-                            <img
-                                :src="overviewImageUrl"
-                                alt="ENSSURE I Overview"
-                                class="w-full h-full object-cover"
-                            />
-                        </div>
-                        <div class="absolute w-80 bottom-0 right-0 bg-[#B91C1C] rounded-tl-[40px] rounded-br-[30px] p-8">
-                            <h3 class="text-white text-2xl leading-tight tracking-tight whitespace-pre-line">
-                                {{ overviewCardTitle }}
-                            </h3>
-                        </div>
+          </div>
+
+          <!-- Right: text -->
+          <div class="lg:col-span-7 lg:pt-8">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-8 h-8 rounded-full bg-[#B91C1C] flex items-center justify-center">
+                <span class="text-white text-xs font-black">I</span>
+              </div>
+              <span class="text-[#B91C1C] font-semibold uppercase tracking-widest text-sm">Phase I Overview</span>
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-black text-gray-900 leading-tight mb-8">
+              Nepal's TVET<br/><span class="text-[#B91C1C]">Transformation</span><br/>Begins
+            </h2>
+            <div class="space-y-5 text-gray-600 leading-relaxed text-base">
+              <p>{{ projectInfo.description }}</p>
+              <p>{{ projectInfo.description2 }}</p>
+            </div>
+
+            <!-- Key milestones timeline (light) -->
+            <div class="mt-10 relative">
+              <div class="absolute top-5 left-0 right-0 h-px bg-gray-200" />
+              <div class="grid grid-cols-4 gap-2 relative">
+                <div v-for="(milestone, i) in [
+                  { year: '2016', label: 'Project Launch' },
+                  { year: '2018', label: 'Dual-VET Pilot' },
+                  { year: '2020', label: '33 Standards Set' },
+                  { year: '2022', label: 'Phase Complete' }
+                ]" :key="i" class="flex flex-col items-center pt-2">
+                  <div class="w-3 h-3 rounded-full bg-[#B91C1C] border-2 border-white shadow-sm mb-3 z-10" />
+                  <div class="text-[#B91C1C] font-black text-sm">{{ milestone.year }}</div>
+                  <div class="text-xs text-gray-500 text-center mt-1 leading-tight">{{ milestone.label }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         CAREER GUIDANCE — LIGHT INFOGRAPHIC SECTION
+    ══════════════════════════════════════════════════ -->
+    <section class="py-24 bg-gray-50 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- Section header -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-0.5 bg-[#B91C1C]" />
+              <span class="text-[#B91C1C] uppercase tracking-widest text-sm font-semibold">Focus Area 01</span>
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-black text-gray-900 leading-tight">Career<br/><span class="text-[#B91C1C]">Guidance</span></h2>
+          </div>
+          <p class="text-gray-500 max-w-sm leading-relaxed">School sessions, career fairs, teacher training and local government capacity building across 7 provinces.</p>
+        </div>
+
+        <!-- Big number centrepiece -->
+        <div class="relative mb-12">
+          <div class="text-center py-16 rounded-3xl border border-gray-200 bg-white shadow-sm overflow-hidden relative">
+            <div class="relative z-10">
+              <div class="text-4xl lg:text-7xl font-black leading-none text-gray-900 tabular-nums"
+                   data-stat-key="totalYouth">
+                {{ animatedValues.totalYouth?.toLocaleString() || '0' }}
+              </div>
+              <div class="text-[#B91C1C] uppercase tracking-[0.4em] text-sm font-semibold mt-2">Total Youth Reached</div>
+              <div class="flex items-center justify-center gap-8 mt-8">
+                <div class="text-center">
+                  <div class="text-2xl font-black text-gray-900">{{ careerGuidance.schoolSessions.toLocaleString() }}</div>
+                  <div class="text-gray-500 text-xs uppercase tracking-wider mt-1">School Sessions</div>
+                </div>
+                <div class="w-px h-12 bg-gray-200" />
+                <div class="text-center">
+                  <div class="text-2xl font-black text-gray-900">{{ careerGuidance.careerFairSessions.toLocaleString() }}</div>
+                  <div class="text-gray-500 text-xs uppercase tracking-wider mt-1">Career Fair Sessions</div>
+                </div>
+                <div class="w-px h-12 bg-gray-200" />
+                <div class="text-center">
+                  <div class="text-2xl font-black text-gray-900"
+                       data-stat-key="tripartiteMous">
+                    {{ animatedValues.tripartiteMous?.toLocaleString() || '0' }}
+                  </div>
+                  <div class="text-gray-500 text-xs uppercase tracking-wider mt-1">Tripartite MOUs</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-col cards row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Inclusion bars -->
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 col-span-1 sm:col-span-2 shadow-sm">
+            <div class="text-gray-500 text-xs uppercase tracking-widest mb-5">Inclusion & Equity</div>
+            <div class="space-y-5">
+              <div>
+                <div class="flex justify-between mb-2">
+                  <span class="text-gray-600 text-sm">Girls Participation</span>
+                  <span class="text-gray-900 font-black">{{ careerGuidance.girlsPercent }}%</span>
+                </div>
+                <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-[#B91C1C] to-[#ef4444] rounded-full"
+                       :style="{ width: careerGuidance.girlsPercent + '%' }" />
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-2">
+                  <span class="text-gray-600 text-sm">Disadvantaged Groups</span>
+                  <span class="text-gray-900 font-black">{{ careerGuidance.disadvantagedPercent }}%</span>
+                </div>
+                <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-[#233D7E] to-[#3b5bdb] rounded-full"
+                       :style="{ width: careerGuidance.disadvantagedPercent + '%' }" />
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-2">
+                  <span class="text-gray-600 text-sm">Women Educators</span>
+                  <span class="text-gray-900 font-black">{{ careerGuidance.womenEducatorsPercent }}%</span>
+                </div>
+                <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-[#B91C1C]/60 to-[#B91C1C] rounded-full"
+                       :style="{ width: careerGuidance.womenEducatorsPercent + '%' }" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Teachers -->
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 flex flex-col justify-between shadow-sm">
+            <div class="text-gray-500 text-xs uppercase tracking-widest mb-4">Teachers Trained</div>
+            <div class="text-6xl font-black text-gray-900 leading-none tabular-nums"
+                 data-stat-key="teachersTrained">
+              {{ animatedValues.teachersTrained?.toLocaleString() || '0' }}
+            </div>
+            <div class="mt-4 flex items-center gap-2">
+              <BookOpen class="w-4 h-4 text-[#B91C1C]" />
+              <span class="text-gray-500 text-xs">Career guidance educators</span>
+            </div>
+          </div>
+
+          <!-- Schools -->
+          <div class="rounded-2xl border border-[#B91C1C]/30 bg-[#B91C1C]/5 p-6 flex flex-col justify-between shadow-sm">
+            <div class="text-[#B91C1C] text-xs uppercase tracking-widest mb-4">School Coverage</div>
+            <div class="flex gap-4 items-end">
+              <div>
+                <div class="text-5xl font-black text-gray-900 leading-none tabular-nums"
+                     data-stat-key="schools">
+                  {{ animatedValues.schools?.toLocaleString() || '0' }}
+                </div>
+                <div class="text-gray-500 text-xs mt-1">Total Schools</div>
+              </div>
+              <div class="pb-2">
+                <div class="text-3xl font-black text-[#B91C1C] tabular-nums"
+                     data-stat-key="modelSchools">
+                  {{ animatedValues.modelSchools?.toLocaleString() || '0' }}
+                </div>
+                <div class="text-gray-500 text-xs mt-1">Model Schools</div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <School class="w-5 h-5 text-[#B91C1C]" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         APPRENTICESHIP — LIGHT SPLIT INFOGRAPHIC
+    ══════════════════════════════════════════════════ -->
+    <section class="py-24 bg-white relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-0.5 bg-[#233D7E]" />
+              <span class="text-[#233D7E] uppercase tracking-widest text-sm font-semibold">Focus Area 02</span>
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-black text-gray-900 leading-tight">Apprenticeship<br/><span class="text-[#233D7E]">& Skills Training</span></h2>
+          </div>
+          <p class="text-gray-500 max-w-sm leading-relaxed">Pioneering Nepal's first dual-VET and OJT programmes — school + workplace integrated learning.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Dual VET — large card (light) -->
+          <div class="lg:col-span-1 rounded-3xl bg-[#233D7E] p-8 text-white relative overflow-hidden shadow-lg">
+            <div class="relative z-10">
+              <BadgeCheck class="w-8 h-8 mb-6 text-white/70" />
+              <div class="text-white/60 text-xs uppercase tracking-widest mb-2">Dual-VET Apprenticeship</div>
+              <div class="text-6xl font-black leading-none mb-1 tabular-nums"
+                   data-stat-key="dualVetEnrolled">
+                {{ animatedValues.dualVetEnrolled?.toLocaleString() || '0' }}
+              </div>
+              <div class="text-white/60 text-sm mb-8">Total Enrolled</div>
+
+              <div class="flex gap-6 mb-8 pb-8 border-b border-white/20">
+                <div>
+                  <div class="text-3xl font-black tabular-nums"
+                       data-stat-key="dualVetGraduated">
+                    {{ animatedValues.dualVetGraduated?.toLocaleString() || '0' }}
+                  </div>
+                  <div class="text-white/50 text-xs mt-1">Graduated</div>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-sm mb-2">
+                    <span class="text-white/60">Girls</span>
+                    <span class="font-bold">{{ apprenticeship.dualVet.girlsPercent }}%</span>
+                  </div>
+                  <div class="h-2 bg-white/20 rounded-full overflow-hidden">
+                    <div class="h-full bg-white rounded-full" :style="{ width: apprenticeship.dualVet.girlsPercent + '%' }" />
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-2">
+                    <span class="text-white/60">Disadvantaged</span>
+                    <span class="font-bold">{{ apprenticeship.dualVet.disadvantagedPercent }}%</span>
+                  </div>
+                  <div class="h-2 bg-white/20 rounded-full overflow-hidden">
+                    <div class="h-full bg-[#B91C1C] rounded-full" :style="{ width: apprenticeship.dualVet.disadvantagedPercent + '%' }" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column: OJT + Skill Test (light) -->
+          <div class="lg:col-span-2 grid grid-rows-2 gap-6">
+            <!-- OJT Card -->
+            <div class="rounded-3xl border border-gray-200 bg-white p-8 relative overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+              <div class="relative z-10 flex flex-col sm:flex-row gap-8 items-start">
+                <div class="flex-shrink-0">
+                  <Wrench class="w-8 h-8 text-[#233D7E] mb-4" />
+                  <div class="text-gray-500 text-xs uppercase tracking-widest mb-1">Short Course OJT</div>
+                  <div class="text-5xl font-black text-gray-900 leading-none tabular-nums"
+                       data-stat-key="ojtEnrolled">
+                    {{ animatedValues.ojtEnrolled?.toLocaleString() || '0' }}
+                  </div>
+                  <div class="text-gray-500 text-sm mt-1">Enrolled</div>
+                </div>
+                <div class="flex-1 space-y-4 pt-1">
+                  <div class="flex items-center justify-between p-3 rounded-xl bg-gray-50">
+                    <span class="text-gray-600 text-sm">Graduated</span>
+                    <span class="text-2xl font-black text-gray-900 tabular-nums"
+                          data-stat-key="ojtGraduated">
+                      {{ animatedValues.ojtGraduated?.toLocaleString() || '0' }}
+                    </span>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm mb-2">
+                      <span class="text-gray-600">Girls Participation</span>
+                      <span class="font-bold text-gray-900">{{ apprenticeship.ojt.girlsPercent }}%</span>
+                    </div>
+                    <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-[#B91C1C] rounded-full" :style="{ width: apprenticeship.ojt.girlsPercent + '%' }" />
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm mb-2">
+                      <span class="text-gray-600">Disadvantaged Groups</span>
+                      <span class="font-bold text-gray-900">{{ apprenticeship.ojt.disadvantagedPercent }}%</span>
+                    </div>
+                    <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-[#233D7E] rounded-full" :style="{ width: apprenticeship.ojt.disadvantagedPercent + '%' }" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Skill Test Card (light) -->
+            <div class="rounded-3xl bg-gray-900 p-8 relative overflow-hidden shadow-lg">
+              <div class="relative z-10 flex flex-col sm:flex-row gap-8 items-center">
+                <!-- Radial gauge -->
+                <div class="relative flex-shrink-0 w-32 h-32">
+                  <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="10" />
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="#B91C1C" stroke-width="10"
+                            stroke-dasharray="263.9"
+                            :stroke-dashoffset="263.9 * (1 - apprenticeship.skillTest.passRate/100)"
+                            stroke-linecap="round" />
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <div class="text-xl font-black text-white">{{ apprenticeship.skillTest.passRate }}%</div>
+                    <div class="text-white/40 text-xs">Pass Rate</div>
+                  </div>
+                </div>
+                <div>
+                  <FileCheck class="w-6 h-6 text-[#B91C1C] mb-3" />
+                  <div class="text-white/50 text-xs uppercase tracking-widest mb-1">Skill Test Results</div>
+                  <div class="flex gap-8 mt-2">
+                    <div>
+                      <div class="text-3xl font-black text-white tabular-nums"
+                           data-stat-key="skillPassed">
+                        {{ animatedValues.skillPassed?.toLocaleString() || '0' }}
+                      </div>
+                      <div class="text-white/40 text-xs mt-1">Passed</div>
                     </div>
                     <div>
-                        <h2 class="text-[2.5rem] leading-tight tracking-tight text-[#101010] mb-8">
-                            {{ overviewTitle }}
-                        </h2>
-                        <p
-                            v-if="overviewBody"
-                            class="text-xl leading-relaxed text-gray-900 mb-8"
-                            v-html="overviewBody"
-                        />
-                        <p v-else class="text-xl leading-relaxed text-gray-900 mb-8">
-                            <span>The first phase of ENSSURE (2016–2022) was a </span>
-                            <span class="font-bold">bilateral project of the Government of Nepal</span>
-                            <span>
-                                and the Government of Switzerland. It established the foundation for Nepal's TVET transformation, piloting dual‑VET programmes, developing skill standards, and building capacity at federal, provincial, and local levels.
-                            </span>
-                        </p>
-                        <Link
-                            :href="overviewCtaUrl"
-                            class="inline-flex items-center gap-2 text-gray-900 uppercase font-medium hover:gap-3 transition-all group"
-                        >
-                            {{ overviewCtaText }}
-                            <ArrowRight class="w-5 h-4 group-hover:translate-x-1 transition-transform text-[#B91C1C]" />
-                        </Link>
+                      <div class="text-3xl font-black text-white/60 tabular-nums"
+                           data-stat-key="skillAppeared">
+                        {{ animatedValues.skillAppeared?.toLocaleString() || '0' }}
+                      </div>
+                      <div class="text-white/40 text-xs mt-1">Appeared</div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
-
-        <!-- Two‑column content section -->
-        <section id="overview-details" class="mt-10 pb-10 border-b border-[#D9D9D9]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-10 leading-relaxed text-gray-700">
-                <p class="whitespace-pre-line">{{ paragraph1 }}</p>
-                <p>{{ paragraph2 }}</p>
-            </div>
-        </section>
-
-        <!-- Reusable stats component (if reachSection data is passed) -->
-        <HomeStats :reach-section="homeReachSection" />
-
-        <!-- Top Stats Bar (6 columns) -->
-        <section class="py-10 bg-white border-y border-[#D9D9D9]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
-                    <div v-for="stat in stats" :key="stat.label" class="stat-card flex flex-col items-center gap-2 py-4">
-                        <div class="w-14 h-14 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center">
-                            <i :class="['fa-solid', stat.icon, 'text-[#B91C1C] text-xl']"></i>
-                        </div>
-                        <span class="text-2xl font-semibold text-[#101010]">{{ stat.value }}</span>
-                        <span class="text-xs text-[#515151] leading-tight">{{ stat.label }}</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Career Guidance Focus -->
-        <section id="career-guidance" class="py-20 lg:py-24 bg-white border-b border-[#D9D9D9]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-2xl font-semibold text-[#101010] mb-1">Career Guidance Focus</h2>
-                <p class="text-sm text-[#515151] mb-10">School sessions, career fairs, teacher training, and capacity building</p>
-
-                <!-- Row 1 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                    <!-- Total Youth Reached -->
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-8 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-5">
-                            <i class="fa-solid fa-users text-[#B91C1C]"></i>
-                        </div>
-                        <div class="text-4xl font-semibold text-[#101010] mb-1">{{ career.totalYouthReached.toLocaleString() }}</div>
-                        <div class="font-medium text-[#101010] text-sm mb-1">Total Youth Reached</div>
-                        <div class="text-xs text-[#515151] mb-6">Schools and career fairs combined</div>
-                        <div class="grid grid-cols-2 gap-4 pt-5 border-t border-[#F0F0F0]">
-                            <div>
-                                <div class="text-xl font-semibold text-[#101010]">{{ career.schoolSessions.toLocaleString() }}</div>
-                                <div class="text-xs text-[#515151]">School Sessions</div>
-                            </div>
-                            <div>
-                                <div class="text-xl font-semibold text-[#101010]">{{ career.careerFairSessions.toLocaleString() }}</div>
-                                <div class="text-xs text-[#515151]">Career Fair Sessions</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Inclusion & Equity -->
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-8 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-5">
-                            <i class="fa-solid fa-scale-balanced text-[#B91C1C]"></i>
-                        </div>
-                        <div class="font-medium text-[#101010] mb-1">Inclusion &amp; Equity</div>
-                        <div class="text-xs text-[#515151] mb-5">Demographic breakdown</div>
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm mb-1.5">
-                                <span class="text-[#515151]">Girls</span>
-                                <span class="font-semibold text-[#101010]">{{ career.inclusionGirlsPercent }}%</span>
-                            </div>
-                            <div class="h-2 bg-[#F0F0F0] rounded-full overflow-hidden">
-                                <div class="h-full bg-[#B91C1C] rounded-full" :style="{ width: career.inclusionGirlsPercent + '%' }"></div>
-                            </div>
-                        </div>
-                        <div class="mb-6">
-                            <div class="flex justify-between text-sm mb-1.5">
-                                <span class="text-[#515151]">Disadvantaged Groups</span>
-                                <span class="font-semibold text-[#101010]">{{ career.inclusionDisadvantagedPercent }}%</span>
-                            </div>
-                            <div class="h-2 bg-[#F0F0F0] rounded-full overflow-hidden">
-                                <div class="h-full bg-[#233D7E] rounded-full" :style="{ width: career.inclusionDisadvantagedPercent + '%' }"></div>
-                            </div>
-                        </div>
-                        <div class="pt-5 border-t border-[#F0F0F0]">
-                            <div class="text-xl font-semibold text-[#101010]">{{ career.apprenticeGuidance.toLocaleString() }}</div>
-                            <div class="text-xs text-[#515151]">Apprentice Guidance</div>
-                        </div>
-                    </div>
-
-                    <!-- Municipal Investment -->
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-8 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-5">
-                            <i class="fa-solid fa-landmark text-[#B91C1C]"></i>
-                        </div>
-                        <div class="font-medium text-[#101010] mb-6">Municipal Investment</div>
-                        <div class="space-y-3">
-                            <div class="bg-[#F8FBFC] rounded-xl p-4 border border-[#E5EEF8]">
-                                <div class="text-2xl font-semibold text-[#B91C1C]">{{ career.municipalInvestmentCurrent }}</div>
-                                <div class="text-xs text-[#515151] mt-1">23 municipalities · FY 2020/21</div>
-                            </div>
-                            <div class="bg-[#F8FBFC] rounded-xl p-4 border border-[#E5EEF8]">
-                                <div class="text-2xl font-semibold text-[#101010]">{{ career.municipalInvestmentPrev }}</div>
-                                <div class="text-xs text-[#515151] mt-1">FY 2019/20</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Row 2 -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Teachers Trained -->
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-6 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-chalkboard-user text-[#B91C1C]"></i>
-                        </div>
-                        <div class="text-3xl font-semibold text-[#101010] mb-1">{{ career.teachersTrained.toLocaleString() }}</div>
-                        <div class="font-medium text-[#101010] text-sm mb-1">Teachers Trained</div>
-                        <div class="text-xs text-[#515151] mb-4">Career guidance educators</div>
-                        <div class="pt-4 border-t border-[#F0F0F0]">
-                            <div class="flex justify-between text-xs mb-1.5">
-                                <span class="text-[#515151]">Women Educators</span>
-                                <span class="font-semibold text-[#101010]">{{ career.womenEducatorsPercent }}%</span>
-                            </div>
-                            <div class="h-1.5 bg-[#F0F0F0] rounded-full overflow-hidden">
-                                <div class="h-full bg-[#B91C1C] rounded-full" :style="{ width: career.womenEducatorsPercent + '%' }"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Capacity Build -->
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-6 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-people-group text-[#B91C1C]"></i>
-                        </div>
-                        <div class="font-medium text-[#101010] text-sm mb-1">Capacity Build</div>
-                        <div class="text-xs text-[#515151] mb-4">Facilitators and Government Staff</div>
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center text-sm py-2 border-b border-[#F0F0F0]">
-                                <span class="text-[#515151]">Career Facilitators</span>
-                                <span class="font-semibold text-[#101010]">{{ career.careerFacilitators }}</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm py-2 border-b border-[#F0F0F0]">
-                                <span class="text-[#515151]">Local Govt. Personnel</span>
-                                <span class="font-semibold text-[#101010]">{{ career.localGovtPersonnel }}</span>
-                            </div>
-                            <div class="flex items-center justify-between text-sm pt-2">
-                                <span class="text-[#515151]">96‑hr Worker Training</span>
-                                <span class="px-2 py-0.5 bg-[rgba(235,31,39,0.1)] text-[#B91C1C] text-xs font-semibold rounded-full">Model</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- School Coverage -->
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-6 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-school text-[#B91C1C]"></i>
-                        </div>
-                        <div class="font-medium text-[#101010] text-sm mb-4">School Coverage</div>
-                        <div class="grid grid-cols-2 gap-3 mb-4">
-                            <div class="bg-[#F8FBFC] rounded-xl p-3 text-center">
-                                <div class="text-2xl font-semibold text-[#101010]">{{ career.schools }}</div>
-                                <div class="text-xs text-[#515151]">Schools</div>
-                            </div>
-                            <div class="bg-[#F8FBFC] rounded-xl p-3 text-center">
-                                <div class="text-2xl font-semibold text-[#101010]">{{ career.modelSchools }}</div>
-                                <div class="text-xs text-[#515151]">Model Schools</div>
-                            </div>
-                        </div>
-                        <p class="text-xs text-[#515151] leading-relaxed">Pioneering career guidance in schools across 7 provinces.</p>
-                    </div>
-
-                    <!-- Tripartite MOUs -->
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-6 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-handshake text-[#B91C1C]"></i>
-                        </div>
-                        <div class="space-y-5">
-                            <div>
-                                <div class="text-3xl font-semibold text-[#B91C1C]">{{ career.tripartiteMous }}</div>
-                                <div class="font-medium text-[#101010] text-sm mt-1">Tripartite MOUs</div>
-                            </div>
-                            <div class="pt-4 border-t border-[#F0F0F0]">
-                                <div class="text-3xl font-semibold text-[#101010]">{{ career.directPartners }}</div>
-                                <div class="font-medium text-[#101010] text-sm mt-1">Direct Partners</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Apprenticeship & Skills Training -->
-        <section class="py-20 lg:py-24 bg-[#F8FBFC] border-b border-[#D9D9D9]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-2xl font-semibold text-[#101010] mb-1">Apprenticeship &amp; Skills Training</h2>
-                <p class="text-sm text-[#515151] mb-10">Pioneering dual‑VET and OJT programmes in Nepal</p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Dual-VET -->
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-8 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-person-digging text-[#B91C1C]"></i>
-                        </div>
-                        <h3 class="font-semibold text-[#101010] mb-1">Dual-VET Apprenticeship</h3>
-                        <p class="text-xs text-[#515151] mb-6">Workplace‑integrated learning pathway</p>
-                        <div class="space-y-1 mb-6">
-                            <div class="flex justify-between items-center py-3 border-b border-[#F0F0F0]">
-                                <span class="text-sm text-[#515151]">Total Enrolled</span>
-                                <span class="text-xl font-semibold text-[#101010]">{{ apprenticeshipData.dualVet.enrolled.toLocaleString() }}</span>
-                            </div>
-                            <div class="flex justify-between items-center py-3 border-b border-[#F0F0F0]">
-                                <span class="text-sm text-[#515151]">Graduated</span>
-                                <span class="text-xl font-semibold text-[#101010]">{{ apprenticeshipData.dualVet.graduated.toLocaleString() }}</span>
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div>
-                                <div class="flex justify-between text-xs mb-1">
-                                    <span class="text-[#515151]">Girls</span>
-                                    <span class="font-semibold text-[#101010]">{{ apprenticeshipData.dualVet.girlsPercent }}%</span>
-                                </div>
-                                <div class="h-1.5 bg-[#F0F0F0] rounded-full overflow-hidden">
-                                    <div class="h-full bg-[#B91C1C] rounded-full" :style="{ width: apprenticeshipData.dualVet.girlsPercent + '%' }"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs mb-1">
-                                    <span class="text-[#515151]">Disadvantaged Groups</span>
-                                    <span class="font-semibold text-[#101010]">{{ apprenticeshipData.dualVet.disadvantagedPercent }}%</span>
-                                </div>
-                                <div class="h-1.5 bg-[#F0F0F0] rounded-full overflow-hidden">
-                                    <div class="h-full bg-[#233D7E] rounded-full" :style="{ width: apprenticeshipData.dualVet.disadvantagedPercent + '%' }"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- OJT Short Course -->
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-8 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-screwdriver-wrench text-[#B91C1C]"></i>
-                        </div>
-                        <h3 class="font-semibold text-[#101010] mb-1">Short Course Training (OJT)</h3>
-                        <p class="text-xs text-[#515151] mb-6">On‑the‑job training pathway</p>
-                        <div class="space-y-1 mb-6">
-                            <div class="flex justify-between items-center py-3 border-b border-[#F0F0F0]">
-                                <span class="text-sm text-[#515151]">Total Enrolled</span>
-                                <span class="text-xl font-semibold text-[#101010]">{{ apprenticeshipData.ojt.enrolled.toLocaleString() }}</span>
-                            </div>
-                            <div class="flex justify-between items-center py-3 border-b border-[#F0F0F0]">
-                                <span class="text-sm text-[#515151]">Graduated</span>
-                                <span class="text-xl font-semibold text-[#101010]">{{ apprenticeshipData.ojt.graduated.toLocaleString() }}</span>
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div>
-                                <div class="flex justify-between text-xs mb-1">
-                                    <span class="text-[#515151]">Girls</span>
-                                    <span class="font-semibold text-[#101010]">{{ apprenticeshipData.ojt.girlsPercent }}%</span>
-                                </div>
-                                <div class="h-1.5 bg-[#F0F0F0] rounded-full overflow-hidden">
-                                    <div class="h-full bg-[#B91C1C] rounded-full" :style="{ width: apprenticeshipData.ojt.girlsPercent + '%' }"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs mb-1">
-                                    <span class="text-[#515151]">Disadvantaged Groups</span>
-                                    <span class="font-semibold text-[#101010]">{{ apprenticeshipData.ojt.disadvantagedPercent }}%</span>
-                                </div>
-                                <div class="h-1.5 bg-[#F0F0F0] rounded-full overflow-hidden">
-                                    <div class="h-full bg-[#233D7E] rounded-full" :style="{ width: apprenticeshipData.ojt.disadvantagedPercent + '%' }"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Skill Test Results - now matches the other cards -->
-<div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-8 hover:border-[#B91C1C] transition-colors">
-    <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-4">
-        <i class="fa-solid fa-clipboard-check text-[#B91C1C]"></i>
-    </div>
-    <h3 class="font-semibold text-[#101010] mb-1">Skill Test Results</h3>
-    <p class="text-xs text-[#515151] mb-6">National competency assessments (Phase I)</p>
-
-    <div class="mb-6">
-        <div class="flex justify-between text-sm mb-1.5">
-            <span class="text-[#515151]">Pass Rate</span>
-            <span class="font-semibold text-[#101010]">{{ apprenticeshipData.skillTest.passRate }}%</span>
+          </div>
         </div>
-        <div class="h-2 bg-[#F0F0F0] rounded-full overflow-hidden">
-            <div class="h-full bg-[#B91C1C] rounded-full" :style="{ width: apprenticeshipData.skillTest.passRate + '%' }"></div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         WORKFORCE UPSKILLING — LIGHT SECTION
+    ══════════════════════════════════════════════════ -->
+    <section class="py-24 bg-gray-50 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          <!-- Left numbers -->
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-0.5 bg-[#B91C1C]" />
+              <span class="text-[#B91C1C] uppercase tracking-widest text-sm font-semibold">Focus Area 03</span>
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-black text-gray-900 leading-tight mb-8">
+              Workforce<br/><span class="text-[#B91C1C]">Skill Upgrading</span>
+            </h2>
+
+            <!-- Giant stat -->
+            <div class="relative rounded-3xl border border-gray-200 bg-white p-8 mb-6 overflow-hidden shadow-sm">
+              <div class="absolute top-0 left-0 w-1.5 h-full bg-[#B91C1C] rounded-r-full" />
+              <div class="text-5xl lg:text-7xl font-black text-gray-900 leading-none tabular-nums"
+                   data-stat-key="workersTotal">
+                {{ animatedValues.workersTotal?.toLocaleString() || '0' }}
+              </div>
+              <div class="text-[#B91C1C] uppercase tracking-widest text-sm font-semibold">Workers Trained</div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div class="text-3xl font-black text-gray-900 tabular-nums"
+                     data-stat-key="workersCompleted">
+                  {{ animatedValues.workersCompleted?.toLocaleString() || '0' }}
+                </div>
+                <div class="text-gray-500 text-xs mt-1 uppercase tracking-wider">Completed</div>
+              </div>
+              <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div class="text-3xl font-black text-gray-900 tabular-nums"
+                     data-stat-key="workersInTraining">
+                  {{ animatedValues.workersInTraining?.toLocaleString() || '0' }}
+                </div>
+                <div class="text-gray-500 text-xs mt-1 uppercase tracking-wider">In Training</div>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div class="flex justify-between mb-3">
+                <span class="text-gray-600 text-sm">Disadvantaged Groups</span>
+                <span class="text-gray-900 font-black">{{ workforce.disadvantagedPercent }}%</span>
+              </div>
+              <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-[#B91C1C] to-[#ef4444] rounded-full"
+                     :style="{ width: workforce.disadvantagedPercent + '%' }" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Skills cloud / tags -->
+          <div class="flex flex-col justify-center">
+            <div class="text-gray-500 text-xs uppercase tracking-widest mb-6">
+              {{ workforce.skillAreas.length + workforce.moreCount }} Technical Skill Areas
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <span v-for="skill in workforce.skillAreas" :key="skill"
+                    class="px-4 py-2 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-[#B91C1C] hover:text-[#B91C1C] transition-all cursor-default shadow-sm">
+                {{ skill }}
+              </span>
+              <span class="px-4 py-2 rounded-full text-sm font-semibold bg-[#B91C1C] text-white shadow-sm">
+                +{{ workforce.moreCount }} more
+              </span>
+            </div>
+
+            <!-- Decorative grid lines (light) -->
+            <div class="mt-12 grid grid-cols-3 gap-px rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+              <div v-for="(item, i) in [
+                { val: '33', lbl: 'Skill Standards' },
+                { val: '7', lbl: 'Provinces' },
+                { val: '96h', lbl: 'Worker Training' }
+              ]" :key="i" class="bg-white p-6 text-center hover:bg-gray-50 transition-colors">
+                <div class="text-2xl font-black text-gray-900">{{ item.val }}</div>
+                <div class="text-gray-500 text-xs mt-1">{{ item.lbl }}</div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+
+<!-- ══════════════════════════════════════════════════
+     INDUSTRY COLLABORATION — RED ACCENTS TO MATCH OTHER FOCUS AREAS
+══════════════════════════════════════════════════ -->
+<section class="py-24 bg-white relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- Two‑column header (red line) -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-0.5 bg-[#B91C1C]" />
+          <span class="text-[#B91C1C] uppercase tracking-widest text-sm font-semibold">Focus Area 04</span>
+        </div>
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900 leading-tight">
+          Industry Collaboration<br/><span class="text-[#B91C1C]">&amp; Partnerships</span>
+        </h2>
+      </div>
+      <p class="text-gray-500 max-w-sm leading-relaxed">
+        Building public-private networks, fostering employer ownership, and embedding TVET into local economic development.
+      </p>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 pt-5 border-t border-[#F0F0F0]">
+    <!-- Main cards row (red accents) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <!-- Companies engaged (red border and background) -->
+      <div class="rounded-2xl border border-[#B91C1C]/30 bg-[#B91C1C]/5 p-6 flex flex-col justify-between shadow-sm">
         <div>
-            <div class="text-xl font-semibold text-[#101010]">{{ apprenticeshipData.skillTest.passed.toLocaleString() }}</div>
-            <div class="text-xs text-[#515151]">Passed</div>
+          <div class="text-[#B91C1C] text-xs uppercase tracking-widest mb-4">Private Sector Reach</div>
+          <div class="text-5xl font-black text-gray-900 leading-none tabular-nums"
+               data-stat-key="companiesEngaged">
+            {{ animatedValues.companiesEngaged?.toLocaleString() || '0' }}
+          </div>
+          <div class="text-gray-500 text-sm mt-2">Companies engaged</div>
+        </div>
+        <div class="mt-6">
+          <Building class="w-6 h-6 text-[#B91C1C]" />
+        </div>
+      </div>
+
+      <!-- Apprentices hosted (red icons) -->
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div class="text-gray-500 text-xs uppercase tracking-widest mb-4">Hosted Learners</div>
+        <div class="flex items-baseline gap-4">
+          <div>
+            <div class="text-4xl font-black text-gray-900 tabular-nums"
+                 data-stat-key="apprenticesHosted">
+              {{ animatedValues.apprenticesHosted?.toLocaleString() || '0' }}
+            </div>
+            <div class="text-gray-500 text-sm mt-1">Apprentices</div>
+          </div>
+          <div class="w-px h-12 bg-gray-200" />
+          <div>
+            <div class="text-4xl font-black text-gray-900 tabular-nums"
+                 data-stat-key="traineesHosted">
+              {{ animatedValues.traineesHosted?.toLocaleString() || '0' }}
+            </div>
+            <div class="text-gray-500 text-sm mt-1">OJT trainees</div>
+          </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <GraduationCap class="w-5 h-5 text-[#B91C1C]" />
+          <UsersRound class="w-5 h-5 text-[#B91C1C]" />
+        </div>
+      </div>
+
+      <!-- TVET providers oriented (red icon) -->
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div class="text-gray-500 text-xs uppercase tracking-widest mb-4">Capacity Building</div>
+        <div class="text-5xl font-black text-gray-900 leading-none">
+          {{ industry.tvetProvidersOriented }}
+        </div>
+        <div class="text-gray-500 text-sm mt-2">TVET providers oriented</div>
+        <div class="mt-6">
+          <School class="w-6 h-6 text-[#B91C1C]" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Second row: Municipal investment + Local governance (red accents) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+      <!-- Municipal investment growth (red icon background) -->
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm flex flex-col sm:flex-row items-start gap-4">
+        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#B91C1C]/10 flex items-center justify-center">
+          <Landmark class="w-6 h-6 text-[#B91C1C]" />
+        </div>
+        <div class="flex-1">
+          <div class="text-gray-500 text-xs uppercase tracking-widest mb-2">Municipal Investment Growth</div>
+          <div class="text-gray-900 text-lg font-semibold">23 Municipalities · FY 2020/21</div>
+          <div class="flex items-center gap-4 mt-3">
+            <div class="text-center">
+              <div class="text-gray-400 text-xs">FY 2019/20</div>
+              <div class="text-xl font-black text-gray-600">{{ careerGuidance.municipalPrev }}</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="h-px w-8 bg-gray-300" />
+              <TrendingUp class="w-4 h-4 text-[#B91C1C]" />
+              <div class="h-px w-8 bg-gray-300" />
+            </div>
+            <div class="text-center">
+              <div class="text-[#B91C1C] text-xs">FY 2020/21</div>
+              <div class="text-2xl font-black text-gray-900">{{ careerGuidance.municipalCurrent }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Local governance strengthened (red icon background) -->
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm flex items-start gap-4">
+        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#B91C1C]/10 flex items-center justify-center">
+          <UserCog class="w-6 h-6 text-[#B91C1C]" />
         </div>
         <div>
-            <div class="text-xl font-semibold text-[#101010]">{{ apprenticeshipData.skillTest.appeared.toLocaleString() }}</div>
-            <div class="text-xs text-[#515151]">Appeared</div>
+          <div class="text-gray-500 text-xs uppercase tracking-widest mb-2">Local Governance Strengthened</div>
+          <div class="flex gap-6">
+            <div>
+              <span class="text-3xl font-black text-gray-900">{{ careerGuidance.careerFacilitators }}</span>
+              <span class="text-gray-500 text-sm ml-1">career facilitators</span>
+            </div>
+            <div class="w-px h-10 bg-gray-200" />
+            <div>
+              <span class="text-3xl font-black text-gray-900">{{ careerGuidance.localGovtPersonnel }}</span>
+              <span class="text-gray-500 text-sm ml-1">local govt personnel</span>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+
+    <!-- Tripartite MOUs (red accent) -->
+    <div class="mt-12 pt-6 border-t border-gray-200 text-center">
+      <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gray-50 border border-gray-200">
+        <Handshake class="w-5 h-5 text-[#B91C1C]" />
+        <span class="text-gray-600 text-sm">{{ careerGuidance.tripartiteMous }} tripartite MOUs signed</span>
+        <span class="text-gray-400 text-xs">(school‑industry‑government)</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 
-                </div>
-            </div>
-        </section>
 
-        <!-- Workforce Skill Upgrading -->
-        <section class="py-20 lg:py-24 bg-white border-b border-[#D9D9D9]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-2xl font-semibold text-[#101010] mb-1">Workforce Skill Upgrading</h2>
-                <p class="text-sm text-[#515151] mb-10">{{ workforceData.totalTrained.toLocaleString() }} workers trained across {{ workforceData.skillAreas.length + workforceData.moreCount }} technical skill areas</p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-8 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-5">
-                            <i class="fa-solid fa-helmet-safety text-[#B91C1C]"></i>
-                        </div>
-                        <div class="text-5xl font-semibold text-[#101010] mb-1">{{ workforceData.totalTrained.toLocaleString() }}</div>
-                        <div class="text-sm text-[#515151] mb-6">Workers Trained · Total workers</div>
-                        <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-[#F8FBFC] rounded-xl p-4">
-                                <div class="text-2xl font-semibold text-[#101010]">{{ workforceData.completed.toLocaleString() }}</div>
-                                <div class="text-xs text-[#515151] mt-1">Completed</div>
-                            </div>
-                            <div class="bg-[#F8FBFC] rounded-xl p-4">
-                                <div class="text-2xl font-semibold text-[#101010]">{{ workforceData.inTraining.toLocaleString() }}</div>
-                                <div class="text-xs text-[#515151] mt-1">Currently in Training</div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1.5">
-                                <span class="text-[#515151]">Disadvantaged Groups</span>
-                                <span class="font-semibold text-[#101010]">{{ workforceData.disadvantagedPercent }}%</span>
-                            </div>
-                            <div class="h-2 bg-[#F0F0F0] rounded-full overflow-hidden">
-                                <div class="h-full bg-[#B91C1C] rounded-full" :style="{ width: workforceData.disadvantagedPercent + '%' }"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group bg-white rounded-[20px] border border-[#D9D9D9] p-8 hover:border-[#B91C1C] transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mb-5">
-                            <i class="fa-solid fa-list-check text-[#B91C1C]"></i>
-                        </div>
-                        <div class="text-3xl font-semibold text-[#101010] mb-1">{{ workforceData.skillAreas.length + workforceData.moreCount }} Technical Skill Areas</div>
-                        <div class="text-xs text-[#515151] mb-6">Covering diverse trade and service sectors</div>
-                        <div class="flex flex-wrap gap-2">
-                            <span v-for="skill in workforceData.skillAreas" :key="skill"
-                                class="px-3 py-1.5 bg-[rgba(235,31,39,0.08)] text-[#B91C1C] text-xs font-medium rounded-full">
-                                {{ skill }}
-                            </span>
-                            <span class="px-3 py-1.5 bg-[#101010] text-white text-xs font-medium rounded-full">
-                                + {{ workforceData.moreCount }} more
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Industry Collaboration & Trainer Capacity -->
-        <section class="py-20 lg:py-24 bg-[#F8FBFC] border-b border-[#D9D9D9]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-2xl font-semibold text-[#101010] mb-1">Industry Collaboration &amp; Trainer Capacity</h2>
-                <p class="text-sm text-[#515151] mb-10">Companies as training hosts; instructors and TVET providers strengthened</p>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="stat-card bg-white rounded-[20px] border border-[#D9D9D9] p-8 text-center hover:border-[#B91C1C] transition-colors">
-                        <div class="w-14 h-14 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mx-auto mb-4">
-                            <i class="fa-solid fa-building text-[#B91C1C] text-xl"></i>
-                        </div>
-                        <div class="text-4xl font-semibold text-[#101010] mb-1">{{ industryData.companiesEngaged.toLocaleString() }}</div>
-                        <div class="text-sm text-[#515151]">Companies Engaged</div>
-                        <div class="mt-4 w-8 h-0.5 bg-[#B91C1C] mx-auto rounded-full"></div>
-                    </div>
-
-                    <div class="stat-card bg-white rounded-[20px] border border-[#D9D9D9] p-8 text-center hover:border-[#B91C1C] transition-colors">
-                        <div class="w-14 h-14 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mx-auto mb-4">
-                            <i class="fa-solid fa-user-tie text-[#B91C1C] text-xl"></i>
-                        </div>
-                        <div class="text-4xl font-semibold text-[#101010] mb-1">{{ industryData.apprenticesHosted.toLocaleString() }}</div>
-                        <div class="text-sm text-[#515151]">Apprentices Hosted</div>
-                        <div class="mt-4 w-8 h-0.5 bg-[#B91C1C] mx-auto rounded-full"></div>
-                    </div>
-
-                    <div class="stat-card bg-white rounded-[20px] border border-[#D9D9D9] p-8 text-center hover:border-[#B91C1C] transition-colors">
-                        <div class="w-14 h-14 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mx-auto mb-4">
-                            <i class="fa-solid fa-people-carry-box text-[#B91C1C] text-xl"></i>
-                        </div>
-                        <div class="text-4xl font-semibold text-[#101010] mb-1">{{ industryData.traineesHosted.toLocaleString() }}</div>
-                        <div class="text-sm text-[#515151]">Trainees Hosted</div>
-                        <div class="mt-4 w-8 h-0.5 bg-[#B91C1C] mx-auto rounded-full"></div>
-                    </div>
-
-                    <div class="stat-card bg-white rounded-[20px] border border-[#D9D9D9] p-8 text-center hover:border-[#B91C1C] transition-colors">
-                        <div class="w-14 h-14 rounded-full bg-[rgba(235,31,39,0.08)] flex items-center justify-center mx-auto mb-4">
-                            <i class="fa-solid fa-school-flag text-[#B91C1C] text-xl"></i>
-                        </div>
-                        <div class="text-4xl font-semibold text-[#101010] mb-1">{{ industryData.tvetProvidersOriented }}</div>
-                        <div class="text-sm text-[#515151]">TVET Providers Oriented</div>
-                        <div class="mt-4 w-8 h-0.5 bg-[#B91C1C] mx-auto rounded-full"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Partners Section -->
-        <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-4xl mx-auto mb-12 lg:mb-16">
-                    <div class="mb-6 flex justify-center">
-                        <div class="inline-flex items-center justify-center px-5 py-2 bg-[rgba(235,31,39,0.1)] rounded-full">
-                            <span class="font-semibold text-[#B91C1C] uppercase tracking-wide">Our Partners</span>
-                        </div>
-                    </div>
-                    <h2 class="text-[2.5rem] leading-tight tracking-tight text-[#101010] mb-6">We work with the best Partners</h2>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
-                    <div v-for="logo in partnerLogosList" :key="logo"
-                        class="bg-white border border-[#cad0d8] rounded-[20px] p-8 flex items-center justify-center min-h-[186px] hover:border-[#B91C1C] transition-colors">
-                        <img :src="logo" alt="Partner logo" class="max-w-[190px] max-h-[80px] object-contain" />
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Technical Assistance By -->
-        <section class="py-20 text-center">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="inline-flex items-center justify-center px-5 py-2 bg-[rgba(235,31,39,0.1)] rounded-full">
-                    <span class="font-semibold text-[#B91C1C] uppercase tracking-wide">Support</span>
-                </div>
-                <h2 class="text-[2.5rem] leading-tight tracking-tight text-[#101010] my-4">Technical Assistance By</h2>
-                <div class="flex justify-center">
-                    <img :src="assistanceLogo" alt="Technical Assistance By" class="h-16" />
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact CTA -->
-        <section id="contact" class="relative py-20 h-96 overflow-hidden">
-            <img
-                src="/enssure/assets/abe0c310bdf95a63fc03463bc4d17ffa6bede19a.png"
-                alt=""
-                class="absolute inset-0 w-full h-full object-cover"
-            />
-            <div class="absolute inset-0 bg-black/40" />
-            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center h-full flex items-center justify-center">
-                <div class="max-w-2xl mx-auto text-white">
-                    <span class="uppercase text-[#B91C1C]">JOIN US</span>
-                    <h2 class="text-[2.5rem] leading-tight tracking-tight mb-8">
-                        Build Skills, Build Futures.
-                        <span class="text-[#B91C1C]">Support sustainable</span> employment today.
-                    </h2>
-                    <Link
-                        href="/contact"
-                        class="inline-block uppercase bg-white text-black py-2 px-6 rounded-full hover:bg-gray-100 transition-colors"
-                    >
-                        Contact us
-                    </Link>
-                </div>
-            </div>
-        </section>
-    </GuestLayout>
+  </GuestLayout>
 </template>
+
+<style scoped>
+/* Smooth progress bars on mount */
+.h-full { transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+</style>

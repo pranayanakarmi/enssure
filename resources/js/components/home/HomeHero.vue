@@ -265,7 +265,7 @@ function goTo(index) {
             </div>
 
             <div
-                class="flex flex-col space-y-3 sm:space-y-4 items-start justify-center order-2 flex-1 text-left pl-6 sm:pl-10 lg:pl-16"
+                class="flex flex-col space-y-3 sm:space-y-4 items-start justify-center order-2 flex-1 text-left pl-6 sm:pl-10 lg:pl-16 mt-25"
             >
                 <h1
                     v-if="currentSlide?.title"

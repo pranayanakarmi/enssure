@@ -142,7 +142,7 @@ onMounted(() => {
             </div>
         </section>
 
-        <HomeStats :reach-section="props.homeReachSection ?? null" />
+        <!-- <HomeStats :reach-section="props.homeReachSection ?? null" /> -->
 
         <section class="py-20 text-center">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -158,7 +158,7 @@ onMounted(() => {
             </div>
         </section>
 
-        <section id="contact" class="relative py-20 h-96 overflow-hidden">
+        <!-- <section id="contact" class="relative py-20 h-96 overflow-hidden">
             <img
                 src="/enssure/assets/abe0c310bdf95a63fc03463bc4d17ffa6bede19a.png"
                 alt=""
@@ -180,6 +180,6 @@ onMounted(() => {
                     </Link>
                 </div>
             </div>
-        </section>
+        </section> -->
     </GuestLayout>
 </template>

@@ -115,7 +115,7 @@ function closeAlbumCarousel() {
             </div>
         </section>
 
-        <section class="relative py-20 h-96 overflow-hidden">
+        <!-- <section class="relative py-20 h-96 overflow-hidden">
             <img src="/enssure/assets/abe0c310bdf95a63fc03463bc4d17ffa6bede19a.png" alt="" class="absolute inset-0 w-full h-full object-cover" />
             <div class="absolute inset-0 bg-black/40" />
             <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center h-full flex items-center justify-center">
@@ -130,6 +130,6 @@ function closeAlbumCarousel() {
                     </Link>
                 </div>
             </div>
-        </section>
+        </section> -->
     </GuestLayout>
 </template>
