@@ -640,4 +640,8 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('enssure-i', function () {
+    return Inertia::render('Enssure1');
+})->name('enssure1');
+
 require __DIR__.'/settings.php';

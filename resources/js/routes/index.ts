@@ -863,3 +863,74 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
     
     dashboard.form = dashboardForm
+/**
+ * @see routes/web.php:643
+ * @route '/enssure-i'
+ */
+export const enssure1 = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: enssure1.url(options),
+    method: 'get',
+})
+
+enssure1.definition = {
+    methods: ["get","head"],
+    url: '/enssure-i',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:643
+ * @route '/enssure-i'
+ */
+enssure1.url = (options?: RouteQueryOptions) => {
+    return enssure1.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:643
+ * @route '/enssure-i'
+ */
+enssure1.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: enssure1.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:643
+ * @route '/enssure-i'
+ */
+enssure1.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: enssure1.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:643
+ * @route '/enssure-i'
+ */
+    const enssure1Form = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: enssure1.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:643
+ * @route '/enssure-i'
+ */
+        enssure1Form.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: enssure1.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:643
+ * @route '/enssure-i'
+ */
+        enssure1Form.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: enssure1.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    enssure1.form = enssure1Form
