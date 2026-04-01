@@ -32,9 +32,14 @@ const breadcrumbItems = [
                         title="Posts"
                         description="Drafts (no published date) are hidden from the public blog at /posts."
                     />
-                    <Button as-child>
-                        <Link href="/admin/posts/create">Add post</Link>
-                    </Button>
+                    <div class="flex items-center gap-2">
+                        <Button variant="outline" as-child>
+                            <Link href="/admin/posts/hero/edit">Hero background</Link>
+                        </Button>
+                        <Button as-child>
+                            <Link href="/admin/posts/create">Add post</Link>
+                        </Button>
+                    </div>
                 </div>
 
                 <Transition

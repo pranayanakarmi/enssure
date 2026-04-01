@@ -32,9 +32,14 @@ const breadcrumbItems = [
                         title="Pages"
                         description="Drafts (no published date) are hidden from the public site at /pages/your-slug."
                     />
-                    <Button as-child>
-                        <Link href="/admin/pages/create">Add page</Link>
-                    </Button>
+                    <div class="flex items-center gap-2">
+                        <Button variant="outline" as-child>
+                            <Link href="/admin/pages/hero/edit">Hero background</Link>
+                        </Button>
+                        <Button as-child>
+                            <Link href="/admin/pages/create">Add page</Link>
+                        </Button>
+                    </div>
                 </div>
 
                 <Transition

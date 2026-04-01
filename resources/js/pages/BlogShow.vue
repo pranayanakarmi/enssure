@@ -2,6 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import { ArrowRight, Calendar, Share2 } from 'lucide-vue-next';
 import { computed } from 'vue';
+import PageHero from '@/components/guest/PageHero.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 
 const props = defineProps({
@@ -12,6 +13,10 @@ const props = defineProps({
     relatedPosts: {
         type: Array,
         default: () => [],
+    },
+    postHero: {
+        type: Object,
+        default: null,
     },
 });
 
@@ -77,16 +82,18 @@ const metaLine = computed(() => {
     <GuestLayout>
         <Head :title="`${post.title} - Blog - ENSSURE`" />
 
+        <PageHero
+            :title="post.title"
+            :hero-image-url="postHero?.hero_image_url ?? null"
+        />
+
         <section class="border-b border-[#cad0d8] bg-white py-20 lg:py-24">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <article>
                     <header class="mb-8 text-center">
-                        <h1 class="text-[2.5rem] leading-tight tracking-tight text-[#101010]">
-                            {{ post.title }}
-                        </h1>
                         <p
                             v-if="metaLine"
-                            class="mt-3 text-sm text-gray-600"
+                            class="text-sm text-gray-600"
                         >
                             {{ metaLine }}
                         </p>
