@@ -1,9 +1,9 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\EventRegistrationController::store
-* @see app/Http/Controllers/Admin/EventRegistrationController.php:16
-* @route '/admin/events/{event}/registrations'
-*/
+ * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
+ * @route '/admin/events/{event}/registrations'
+ */
 export const store = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
@@ -16,31 +16,31 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\EventRegistrationController::store
-* @see app/Http/Controllers/Admin/EventRegistrationController.php:16
-* @route '/admin/events/{event}/registrations'
-*/
+ * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
+ * @route '/admin/events/{event}/registrations'
+ */
 store.url = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { event: args }
     }
 
-    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
-        args = { event: args.id }
-    }
-
+            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+            args = { event: args.id }
+        }
+    
     if (Array.isArray(args)) {
         args = {
-            event: args[0],
-        }
+                    event: args[0],
+                }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-        event: typeof args.event === 'object'
-        ? args.event.id
-        : args.event,
-    }
+                        event: typeof args.event === 'object'
+                ? args.event.id
+                : args.event,
+                }
 
     return store.definition.url
             .replace('{event}', parsedArgs.event.toString())
@@ -49,36 +49,35 @@ store.url = (args: { event: number | { id: number } } | [event: number | { id: n
 
 /**
 * @see \App\Http\Controllers\Admin\EventRegistrationController::store
-* @see app/Http/Controllers/Admin/EventRegistrationController.php:16
-* @route '/admin/events/{event}/registrations'
-*/
+ * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
+ * @route '/admin/events/{event}/registrations'
+ */
 store.post = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
 
-/**
+    /**
 * @see \App\Http\Controllers\Admin\EventRegistrationController::store
-* @see app/Http/Controllers/Admin/EventRegistrationController.php:16
-* @route '/admin/events/{event}/registrations'
-*/
-const storeForm = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(args, options),
-    method: 'post',
-})
+ * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
+ * @route '/admin/events/{event}/registrations'
+ */
+    const storeForm = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: store.url(args, options),
+        method: 'post',
+    })
 
-/**
+            /**
 * @see \App\Http\Controllers\Admin\EventRegistrationController::store
-* @see app/Http/Controllers/Admin/EventRegistrationController.php:16
-* @route '/admin/events/{event}/registrations'
-*/
-storeForm.post = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(args, options),
-    method: 'post',
-})
-
-store.form = storeForm
-
+ * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
+ * @route '/admin/events/{event}/registrations'
+ */
+        storeForm.post = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: store.url(args, options),
+            method: 'post',
+        })
+    
+    store.form = storeForm
 const registrations = {
     store: Object.assign(store, store),
 }
