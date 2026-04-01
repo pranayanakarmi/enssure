@@ -60,7 +60,7 @@ onMounted(() => {
             class="absolute inset-0 w-full h-full object-cover object-top"
             loading="lazy"
         />
-        <div class="absolute inset-0 bg-black/40" />
+        <div class="absolute inset-0 bg-black/60" />
         <div
             class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-8"
         >
@@ -128,7 +128,7 @@ onMounted(() => {
                         class="bg-white shadow-lg rounded-xl space-y-4 sm:space-y-5 px-5 sm:px-6 pb-5 pt-14 relative flex-1 flex flex-col min-h-[280px]"
                     >
                         <p
-                            class="italic text-[#515151] font-thin text-center text-sm sm:text-base flex-1"
+                            class="italic text-[#000000] font-semibold text-center text-sm sm:text-base flex-1"
                         >
                             {{ t.quote }}
                         </p>
@@ -137,7 +137,7 @@ onMounted(() => {
                         </p>
                         <p
                             v-if="t.role"
-                            class="text-xs italic text-center text-[#515151]"
+                            class="text-xs italic text-center text-[#333333]"
                         >
                             {{ t.role }}
                         </p>
