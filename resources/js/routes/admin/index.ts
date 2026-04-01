@@ -72,7 +72,7 @@ import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
 /**
-* @see routes/admin.php:83
+* @see routes/admin.php:85
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -86,7 +86,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/admin.php:83
+* @see routes/admin.php:85
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -94,7 +94,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/admin.php:83
+* @see routes/admin.php:85
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -103,7 +103,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:83
+* @see routes/admin.php:85
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -112,7 +112,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/admin.php:83
+* @see routes/admin.php:85
 * @route '/admin'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -121,7 +121,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/admin.php:83
+* @see routes/admin.php:85
 * @route '/admin'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -130,7 +130,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/admin.php:83
+* @see routes/admin.php:85
 * @route '/admin'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

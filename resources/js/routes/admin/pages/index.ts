@@ -1,4 +1,5 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
+import hero from './hero'
 /**
 * @see \App\Http\Controllers\Admin\PageController::index
 * @see app/Http/Controllers/Admin/PageController.php:16
@@ -528,6 +529,7 @@ destroyForm.delete = (args: { page: number | { id: number } } | [page: number | 
 destroy.form = destroyForm
 
 const pages = {
+    hero: Object.assign(hero, hero),
     index: Object.assign(index, index),
     create: Object.assign(create, create),
     store: Object.assign(store, store),

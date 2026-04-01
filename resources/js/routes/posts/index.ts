@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
-* @see routes/web.php:324
+* @see routes/web.php:326
 * @route '/posts'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:324
+* @see routes/web.php:326
 * @route '/posts'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -22,7 +22,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/web.php:324
+* @see routes/web.php:326
 * @route '/posts'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -31,7 +31,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:324
+* @see routes/web.php:326
 * @route '/posts'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -40,7 +40,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/web.php:324
+* @see routes/web.php:326
 * @route '/posts'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -49,7 +49,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 })
 
 /**
-* @see routes/web.php:324
+* @see routes/web.php:326
 * @route '/posts'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -58,7 +58,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:324
+* @see routes/web.php:326
 * @route '/posts'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -74,7 +74,7 @@ indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 index.form = indexForm
 
 /**
-* @see routes/web.php:347
+* @see routes/web.php:349
 * @route '/posts/{published_post}'
 */
 export const show = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -88,7 +88,7 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:347
+* @see routes/web.php:349
 * @route '/posts/{published_post}'
 */
 show.url = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
@@ -120,7 +120,7 @@ show.url = (args: { published_post: string | { slug: string } } | [published_pos
 }
 
 /**
-* @see routes/web.php:347
+* @see routes/web.php:349
 * @route '/posts/{published_post}'
 */
 show.get = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -129,7 +129,7 @@ show.get = (args: { published_post: string | { slug: string } } | [published_pos
 })
 
 /**
-* @see routes/web.php:347
+* @see routes/web.php:349
 * @route '/posts/{published_post}'
 */
 show.head = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -138,7 +138,7 @@ show.head = (args: { published_post: string | { slug: string } } | [published_po
 })
 
 /**
-* @see routes/web.php:347
+* @see routes/web.php:349
 * @route '/posts/{published_post}'
 */
 const showForm = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -147,7 +147,7 @@ const showForm = (args: { published_post: string | { slug: string } } | [publish
 })
 
 /**
-* @see routes/web.php:347
+* @see routes/web.php:349
 * @route '/posts/{published_post}'
 */
 showForm.get = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -156,7 +156,7 @@ showForm.get = (args: { published_post: string | { slug: string } } | [published
 })
 
 /**
-* @see routes/web.php:347
+* @see routes/web.php:349
 * @route '/posts/{published_post}'
 */
 showForm.head = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

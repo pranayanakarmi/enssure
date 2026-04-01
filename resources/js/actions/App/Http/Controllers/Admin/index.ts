@@ -10,9 +10,11 @@ import GalleryController from './GalleryController'
 import GalleryImageController from './GalleryImageController'
 import EditorImageUploadController from './EditorImageUploadController'
 import ImpactStoryController from './ImpactStoryController'
+import PostHeroController from './PostHeroController'
 import PostController from './PostController'
 import CategoryController from './CategoryController'
 import TagController from './TagController'
+import PageHeroController from './PageHeroController'
 import PageController from './PageController'
 import NoticeController from './NoticeController'
 import VacancyController from './VacancyController'
@@ -83,9 +85,11 @@ const Admin = {
     GalleryImageController: Object.assign(GalleryImageController, GalleryImageController),
     EditorImageUploadController: Object.assign(EditorImageUploadController, EditorImageUploadController),
     ImpactStoryController: Object.assign(ImpactStoryController, ImpactStoryController),
+    PostHeroController: Object.assign(PostHeroController, PostHeroController),
     PostController: Object.assign(PostController, PostController),
     CategoryController: Object.assign(CategoryController, CategoryController),
     TagController: Object.assign(TagController, TagController),
+    PageHeroController: Object.assign(PageHeroController, PageHeroController),
     PageController: Object.assign(PageController, PageController),
     NoticeController: Object.assign(NoticeController, NoticeController),
     VacancyController: Object.assign(VacancyController, VacancyController),
