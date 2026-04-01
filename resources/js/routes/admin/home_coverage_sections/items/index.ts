@@ -1,9 +1,9 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\HomeCoverageSectionItemController::store
-* @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
-* @route '/admin/home-coverage-section/items'
-*/
+ * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
+ * @route '/admin/home-coverage-section/items'
+ */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
     method: 'post',
@@ -16,45 +16,44 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeCoverageSectionItemController::store
-* @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
-* @route '/admin/home-coverage-section/items'
-*/
+ * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
+ * @route '/admin/home-coverage-section/items'
+ */
 store.url = (options?: RouteQueryOptions) => {
     return store.definition.url + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Admin\HomeCoverageSectionItemController::store
-* @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
-* @route '/admin/home-coverage-section/items'
-*/
+ * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
+ * @route '/admin/home-coverage-section/items'
+ */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
     method: 'post',
 })
 
-/**
+    /**
 * @see \App\Http\Controllers\Admin\HomeCoverageSectionItemController::store
-* @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
-* @route '/admin/home-coverage-section/items'
-*/
-const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
-    method: 'post',
-})
+ * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
+ * @route '/admin/home-coverage-section/items'
+ */
+    const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: store.url(options),
+        method: 'post',
+    })
 
-/**
+            /**
 * @see \App\Http\Controllers\Admin\HomeCoverageSectionItemController::store
-* @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
-* @route '/admin/home-coverage-section/items'
-*/
-storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
-    method: 'post',
-})
-
-store.form = storeForm
-
+ * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:17
+ * @route '/admin/home-coverage-section/items'
+ */
+        storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: store.url(options),
+            method: 'post',
+        })
+    
+    store.form = storeForm
 const items = {
     store: Object.assign(store, store),
 }

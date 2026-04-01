@@ -121,13 +121,13 @@ onMounted(() => {
                                 (GoN) and the Government of Switzerland. The first phase of the project, which started on 20 January 2016 is concluding on 15 July 2022. The second phase of the project is concurrently being implemented from 10 September 2021 and it will be implemented till 15 July 2025.
                             </span>
                         </p>
-                        <Link
+                        <!-- <Link
                             :href="mainCtaUrl"
                             class="inline-flex items-center gap-2 text-gray-900 uppercase font-medium hover:gap-3 transition-all group"
                         >
                             {{ mainCtaText }}
                             <ArrowRight class="w-5 h-4 group-hover:translate-x-1 transition-transform text-[#B91C1C]" />
-                        </Link>
+                        </Link> -->
                     </div>
                 </div>
             </div>

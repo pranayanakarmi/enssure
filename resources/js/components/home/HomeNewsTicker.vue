@@ -24,12 +24,12 @@ function isInternal(url) {
             class="whitespace-nowrap bg-[#B91C1C] px-4 py-2 text-white uppercase relative flex-shrink-0"
         >
             Latest News
-            <ChevronRight
+            <!-- <ChevronRight
                 class="absolute -right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-[#B91C1C] bg-white rounded-sm"
-            />
+            /> -->
         </div>
         <div class="flex-1 min-w-0 overflow-hidden">
-            <div class="ticker-wrap flex italic text-sm text-[#515151] w-max">
+            <div class="ticker-wrap flex text-sm text-[#515151] w-max">
                 <template v-for="(item, i) in items" :key="`${item.id ?? i}-a`">
                     <span v-if="!item.url" class="underline mx-5 whitespace-nowrap">{{ item.title }}</span>
                     <Link
