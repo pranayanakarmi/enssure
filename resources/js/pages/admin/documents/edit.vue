@@ -13,17 +13,13 @@ const props = defineProps({
     document: { type: Object, required: true },
 });
 
-const allowedTypes = ['report', 'documents'];
-
-const initialType = allowedTypes.includes(props.document.document_type)
-    ? props.document.document_type
-    : 'report';
+// Removed allowedTypes and the fallback logic
 const initialOrder = Number(props.document.order ?? 0);
 
 const form = useForm({
     title: props.document.title ?? '',
     description: props.document.description ?? '',
-    document_type: initialType,
+    document_type: props.document.document_type ?? 'report', // Direct assignment
     order: Number.isFinite(initialOrder) ? initialOrder : 0,
     file: null,
 });
@@ -31,6 +27,15 @@ const form = useForm({
 function onFileChange(event) {
     const file = event.target.files?.[0] || null;
     form.file = file;
+}
+
+function updateDocument() {
+    form.transform((data) => {
+        if (!data.file) {
+            delete data.file;
+        }
+        return data;
+    }).put(`/admin/documents/${props.document.id}`, { forceFormData: true });
 }
 
 const breadcrumbItems = [
@@ -45,10 +50,8 @@ const breadcrumbItems = [
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="space-y-6">
                 <Heading variant="small" title="Edit document" :description="document.title" />
-                <form
-                    class="space-y-6"
-                    @submit.prevent="form.put(`/admin/documents/${document.id}`, { forceFormData: true })"
-                >
+                <form class="space-y-6" @submit.prevent="updateDocument">
+                    <!-- Title, Description, Type, Order fields unchanged -->
                     <div class="grid gap-2">
                         <Label for="title">Title</Label>
                         <Input id="title" v-model="form.title" type="text" required />
@@ -67,8 +70,11 @@ const breadcrumbItems = [
                             required
                             class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                         >
-                            <option value="report">Report</option>
+                            <option value="courses">Courses</option>
                             <option value="documents">Documents</option>
+                            <option value="form">Form</option>
+                            <option value="guidelines">Guidelines</option>
+                            <option value="report">Report</option>
                         </select>
                         <InputError :message="form.errors.document_type" />
                     </div>
@@ -77,6 +83,8 @@ const breadcrumbItems = [
                         <Input id="order" v-model.number="form.order" type="number" min="0" />
                         <InputError :message="form.errors.order" />
                     </div>
+
+                    <!-- Existing PDF preview (unchanged) -->
                     <div class="grid gap-2">
                         <Card>
                             <CardHeader class="pb-3">
@@ -112,6 +120,8 @@ const breadcrumbItems = [
                             </CardContent>
                         </Card>
                     </div>
+
+                    <!-- File replacement input -->
                     <div class="grid gap-2">
                         <Label for="file">Replace PDF (optional)</Label>
                         <Input
@@ -123,6 +133,8 @@ const breadcrumbItems = [
                         />
                         <InputError :message="form.errors.file" />
                     </div>
+
+                    <!-- Buttons -->
                     <div class="flex items-center gap-4">
                         <Button type="submit" :disabled="form.processing">Save</Button>
                         <Button variant="outline" as-child>

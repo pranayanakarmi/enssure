@@ -19,7 +19,7 @@ class UpdateDocumentRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'document_type' => ['required', 'string', 'in:report,documents'],
+            'document_type' => ['required', 'string', 'in:report,documents,form,courses,guidelines'],
             'order' => ['required', 'integer', 'min:0'],
             'file' => ['sometimes', 'file', 'mimes:pdf', 'max:20480'],
         ];

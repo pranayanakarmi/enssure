@@ -62,8 +62,14 @@ const breadcrumbItems = [
                             required
                             class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                         >
-                            <option value="report">Report</option>
-                            <option value="documents">Documents</option>
+                        <option value="courses">Courses</option>
+                        <option value="documents">Documents</option>
+                        <option value="form">Form</option>
+                        <option value="guidelines">Guidelines</option>
+                        <option value="report">Report</option>
+
+
+
                         </select>
                         <InputError :message="form.errors.document_type" />
                     </div>

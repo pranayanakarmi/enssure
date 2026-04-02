@@ -1,130 +1,7 @@
-<!-- <script setup>
-import { computed } from 'vue';
-import { Head, router } from '@inertiajs/vue3';
-import { ExternalLink, FileText } from 'lucide-vue-next';
-import GuestLayout from '@/layouts/GuestLayout.vue';
-import PageHero from '@/components/guest/PageHero.vue';
-import { index as reportsIndex } from '@/routes/reports';
-
-const props = defineProps({
-    reports: {
-        type: Array,
-        default: () => [],
-    },
-    selectedId: {
-        type: Number,
-        default: null,
-    },
-});
-
-const selectedReport = computed(() => {
-    if (props.selectedId == null || !props.reports?.length) {
-        return null;
-    }
-    return props.reports.find((r) => r.id === props.selectedId) ?? null;
-});
-
-function selectReport(id) {
-    router.get(reportsIndex.url({ query: { id } }), {}, { preserveScroll: true, replace: true });
-}
-</script>
-
-<template>
-    <GuestLayout>
-        <div>
-            <Head title="Reports - ENSSURE" />
-
-            <PageHero title="Reports" />
-
-            <section class="py-10 lg:py-16 bg-white border-b border-[#cad0d8]">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div
-                        class="flex flex-col lg:flex-row gap-6 lg:gap-0 lg:items-stretch lg:min-h-[calc(100vh-14rem)]"
-                    >
-                        <aside
-                            class="w-full lg:w-80 shrink-0 lg:max-w-[20rem]"
-                            aria-label="Reports navigation"
-                        >
-                            <nav aria-label="Document list">
-                                <ul
-                                    class="divide-y divide-[#cad0d8] border border-[#cad0d8] rounded-[20px] overflow-hidden bg-white lg:rounded-r-none lg:border-r-0"
-                                >
-                                    <li v-for="report in reports" :key="report.id">
-                                        <button
-                                            type="button"
-                                            class="w-full text-left flex items-start gap-3 px-4 py-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B91C1C] focus-visible:ring-offset-2"
-                                            :class="
-                                                selectedId === report.id
-                                                    ? 'bg-[rgba(235,31,39,0.08)] text-[#B91C1C]'
-                                                    : 'hover:bg-gray-50 text-gray-900'
-                                            "
-                                            @click="selectReport(report.id)"
-                                        >
-                                            <FileText
-                                                class="w-5 h-5 shrink-0 mt-0.5 text-[#B91C1C]"
-                                                aria-hidden="true"
-                                            />
-                                            <span class="text-sm sm:text-base font-medium leading-snug">
-                                                {{ report.title }}
-                                            </span>
-                                        </button>
-                                    </li>
-                                    <li
-                                        v-if="!reports || reports.length === 0"
-                                        class="px-4 py-12 text-center text-sm text-gray-500"
-                                    >
-                                        No reports available yet.
-                                    </li>
-                                </ul>
-                            </nav>
-                        </aside>
-
-                        <div
-                            class="flex-1 flex flex-col min-h-0 border border-[#cad0d8] rounded-[20px] overflow-hidden bg-[#f4f5f7] lg:rounded-l-none lg:border-l-0"
-                        >
-                            <template v-if="selectedReport">
-                                <div
-                                    class="flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-white border-b border-[#cad0d8] shrink-0"
-                                >
-                                    <h2 class="text-base sm:text-lg font-medium text-gray-900 truncate min-w-0 pr-2">
-                                        {{ selectedReport.title }}
-                                    </h2>
-                                    <a
-                                        :href="selectedReport.pdf_url"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="inline-flex items-center gap-2 text-xs sm:text-sm font-medium uppercase tracking-wide text-[#B91C1C] hover:underline shrink-0"
-                                    >
-                                        <ExternalLink class="w-4 h-4" aria-hidden="true" />
-                                        Open in new tab
-                                    </a>
-                                </div>
-                                <div class="flex-1 min-h-[50vh] lg:min-h-0 p-3 sm:p-4 flex flex-col">
-                                    <iframe
-                                        :title="selectedReport.title"
-                                        :src="selectedReport.pdf_url"
-                                        class="w-full flex-1 min-h-[420px] rounded-lg border border-[#cad0d8] bg-white shadow-sm"
-                                    />
-                                </div>
-                            </template>
-                            <div
-                                v-else
-                                class="flex flex-1 items-center justify-center px-6 py-20 text-center text-gray-500 text-sm"
-                            >
-                                Select a document from the list to view it here.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </GuestLayout>
-</template> -->
-
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
-import { Eye, Printer, Download, Search, X, Filter, ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { Eye, Printer, Download, Search, X, Filter, ChevronLeft, ChevronRight, FileText, Grid3X3, List } from 'lucide-vue-next';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 import PageHero from '@/components/guest/PageHero.vue';
 import { index as reportsIndex } from '@/routes/reports';
@@ -146,20 +23,26 @@ const selectedType = ref('');
 
 // Pagination state
 const currentPage = ref(1);
-const itemsPerPage = ref(10);
-const pageSizeOptions = [10, 25, 50, 100];
+const itemsPerPage = ref(12);
+const pageSizeOptions = [12, 24, 36, 48];
 
-// Compute unique document types from the actual data
-const documentTypes = computed(() => {
-    const types = props.reports
-        .map(r => r.document_type)
-        .filter(type => type != null && type !== '');
-    const unique = [...new Set(types)];
-    // Fallback if no types exist in data
-    if (unique.length === 0) {
-        return ['report', 'documents'];
-    }
-    return unique.sort();
+// Modal state
+const modalOpen = ref(false);
+const selectedReport = ref(null);
+
+// Compute unique document types with counts
+const documentTypesWithCount = computed(() => {
+    const typeMap = new Map();
+    props.reports.forEach(report => {
+        const type = report.document_type || 'general';
+        typeMap.set(type, (typeMap.get(type) || 0) + 1);
+    });
+    const types = Array.from(typeMap.entries()).map(([type, count]) => ({
+        type,
+        count,
+        label: formatDocumentType(type)
+    }));
+    return types.sort((a, b) => a.label.localeCompare(b.label));
 });
 
 // Filtered reports based on search and document type
@@ -167,7 +50,7 @@ const filteredReports = computed(() => {
     let filtered = props.reports;
 
     if (selectedType.value) {
-        filtered = filtered.filter(r => r.document_type === selectedType.value);
+        filtered = filtered.filter(r => (r.document_type || 'general') === selectedType.value);
     }
 
     if (searchQuery.value.trim()) {
@@ -191,6 +74,34 @@ const paginatedReports = computed(() => {
 // Total pages
 const totalPages = computed(() => Math.ceil(filteredReports.value.length / itemsPerPage.value));
 
+// Page numbers for pagination
+const pageNumbers = computed(() => {
+    const delta = 2;
+    const range = [];
+    const rangeWithDots = [];
+    let l;
+
+    for (let i = 1; i <= totalPages.value; i++) {
+        if (i === 1 || i === totalPages.value || (i >= currentPage.value - delta && i <= currentPage.value + delta)) {
+            range.push(i);
+        }
+    }
+
+    range.forEach((i) => {
+        if (l) {
+            if (i - l === 2) {
+                rangeWithDots.push(l + 1);
+            } else if (i - l !== 1) {
+                rangeWithDots.push('...');
+            }
+        }
+        rangeWithDots.push(i);
+        l = i;
+    });
+
+    return rangeWithDots;
+});
+
 // Reset to first page when filters change
 function resetPagination() {
     currentPage.value = 1;
@@ -201,14 +112,20 @@ watch([searchQuery, selectedType], () => {
     resetPagination();
 });
 
-// Import watch
-import { watch } from 'vue';
-
-function selectReport(id) {
-    router.get(reportsIndex.url({ query: { id } }), {}, { preserveScroll: true, replace: true });
+function openModal(report) {
+    selectedReport.value = report;
+    modalOpen.value = true;
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
 }
 
-function viewReport(pdfUrl) {
+function closeModal() {
+    modalOpen.value = false;
+    selectedReport.value = null;
+    document.body.style.overflow = '';
+}
+
+function viewReportInNewTab(pdfUrl) {
     window.open(pdfUrl, '_blank');
 }
 
@@ -237,15 +154,42 @@ function clearFilters() {
     selectedType.value = '';
 }
 
+function setTypeFilter(type) {
+    selectedType.value = type === 'all' ? '' : type;
+}
+
 function formatDocumentType(type) {
-    if (!type) return 'General';
+    if (!type || type === 'general') return 'General';
     return type.charAt(0).toUpperCase() + type.slice(1);
 }
 
 function getBadgeClass(type) {
-    if (type === 'report') return 'bg-blue-100 text-blue-800';
-    if (type === 'documents') return 'bg-green-100 text-green-800';
-    return 'bg-gray-100 text-gray-800';
+    const base = 'px-2.5 py-0.5 rounded-full text-xs font-medium';
+    const typeLower = (type || 'general').toLowerCase();
+
+    const styles = {
+        report: 'bg-blue-50 text-blue-700 ring-1 ring-blue-600/20',
+        documents: 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20',
+        general: 'bg-gray-50 text-gray-600 ring-1 ring-gray-500/20',
+        annual: 'bg-purple-50 text-purple-700 ring-1 ring-purple-600/20',
+        financial: 'bg-amber-50 text-amber-700 ring-1 ring-amber-600/20',
+        technical: 'bg-indigo-50 text-indigo-700 ring-1 ring-indigo-600/20',
+    };
+
+    return `${base} ${styles[typeLower] || styles.general}`;
+}
+
+function getTypeIcon(type) {
+    const typeLower = (type || 'general').toLowerCase();
+    const icons = {
+        report: '📊',
+        documents: '📄',
+        annual: '📅',
+        financial: '💰',
+        technical: '⚙️',
+        general: '📁'
+    };
+    return icons[typeLower] || icons.general;
 }
 
 // Pagination methods
@@ -262,181 +206,360 @@ function nextPage() {
 function prevPage() {
     goToPage(currentPage.value - 1);
 }
+
+// Handle ESC key to close modal
+watch(modalOpen, (isOpen) => {
+    if (isOpen) {
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') closeModal();
+        };
+        window.addEventListener('keydown', handleEsc);
+        return () => window.removeEventListener('keydown', handleEsc);
+    }
+});
+
+// Cleanup on unmount
+import { onBeforeUnmount } from 'vue';
+onBeforeUnmount(() => {
+    document.body.style.overflow = '';
+});
 </script>
 
 <template>
     <GuestLayout>
         <div>
-            <Head title="Reports - ENSSURE" />
+            <Head title="Document Repository - ENSSURE" />
 
-            <PageHero title="Reports" />
+            <PageHero title="Document Repository" />
 
-            <section class="py-10 lg:py-16 bg-white border-b border-[#cad0d8]">
+            <section class="py-12 lg:py-20 bg-gradient-to-b from-white to-gray-50">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <!-- Datatable Card -->
-                    <div class="overflow-hidden rounded-xl border border-[#cad0d8] bg-white shadow-sm">
-                        <!-- Header with Title -->
-                        <div class="px-6 py-4 border-b border-[#cad0d8] bg-gray-50">
-                            <h2 class="text-xl font-semibold text-gray-900">Document Library</h2>
-                            <p class="text-sm text-gray-500 mt-1">Browse, search and manage all PDF reports</p>
-                        </div>
+                    <!-- Document Repository Header -->
+                    <div class="mb-8 text-center">
+                        <!-- <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl">
+                            Document Library
+                        </h1> -->
+                        <p class="mt-2 text-lg text-gray-600">
+                            Browse, search and access all your important documents
+                        </p>
+                    </div>
 
-                        <!-- Search and Filter Bar -->
-                        <div class="flex flex-col sm:flex-row justify-between gap-4 p-4 border-b border-[#cad0d8] bg-gray-50/50">
-                            <div class="relative flex-1">
-                                <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <!-- Search and Filter Section - Modern & Attractive -->
+                    <div class="mb-8 space-y-5">
+                        <!-- Search Bar with Enhanced Design -->
+                        <div class="relative max-w-2xl mx-auto">
+                            <div class="relative group">
+                                <Search class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-red-500 transition-colors duration-200" />
                                 <input
                                     type="text"
                                     v-model="searchQuery"
-                                    placeholder="Search by title or description..."
-                                    class="w-full pl-9 pr-3 py-2 border border-[#cad0d8] rounded-lg focus:ring-2 focus:ring-[#B91C1C] focus:border-transparent outline-none transition bg-white"
+                                    placeholder="Search by title, description or keywords..."
+                                    class="w-full pl-12 pr-12 py-3.5 border border-gray-200 rounded-2xl bg-white shadow-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all duration-200 text-gray-900 placeholder:text-gray-400"
                                 />
-                            </div>
-                            <div class="flex gap-2">
-                                <div class="relative">
-                                    <Filter class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-                                    <select
-                                        v-model="selectedType"
-                                        class="pl-9 pr-8 py-2 border border-[#cad0d8] rounded-lg bg-white focus:ring-2 focus:ring-[#B91C1C] focus:border-transparent outline-none appearance-none cursor-pointer"
-                                    >
-                                        <option value="">All Types</option>
-                                        <option v-for="type in documentTypes" :key="type" :value="type">
-                                            {{ formatDocumentType(type) }}
-                                        </option>
-                                    </select>
-                                </div>
                                 <button
-                                    @click="clearFilters"
-                                    class="inline-flex items-center gap-1 px-3 py-2 border border-[#cad0d8] rounded-lg text-gray-600 hover:bg-gray-100 transition"
-                                    :disabled="!searchQuery && !selectedType"
-                                    :class="{ 'opacity-50 cursor-not-allowed': !searchQuery && !selectedType }"
+                                    v-if="searchQuery"
+                                    @click="searchQuery = ''"
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                                 >
                                     <X class="w-4 h-4" />
-                                    <span class="hidden sm:inline">Clear</span>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Results Count & Items Per Page -->
-                        <div class="flex flex-wrap justify-between items-center gap-4 px-4 py-2 text-xs text-gray-500 bg-white border-b border-[#cad0d8]">
-                            <div>
-                                Showing {{ (currentPage - 1) * itemsPerPage + 1 }} - {{ Math.min(currentPage * itemsPerPage, filteredReports.length) }} of {{ filteredReports.length }} reports
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-gray-600">Show</span>
-                                <select
-                                    v-model="itemsPerPage"
-                                    class="border border-[#cad0d8] rounded-md px-2 py-1 text-sm focus:ring-2 focus:ring-[#B91C1C] outline-none"
-                                    @change="resetPagination"
+                        <!-- Filter Chips - Modern Pill Design with Counts -->
+                        <div class="flex flex-wrap items-center justify-center gap-2.5">
+                            <button
+                                @click="setTypeFilter('all')"
+                                :class="[
+                                    'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200',
+                                    selectedType === ''
+                                        ? 'bg-red-600 text-white shadow-md shadow-red-200'
+                                        : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                                ]"
+                            >
+                                All Documents
+                                <span class="ml-1.5 text-xs font-normal opacity-80">
+                                    ({{ filteredReports.length }})
+                                </span>
+                            </button>
+                            <button
+                                v-for="type in documentTypesWithCount"
+                                :key="type.type"
+                                @click="setTypeFilter(type.type)"
+                                :class="[
+                                    'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1.5',
+                                    selectedType === type.type
+                                        ? 'bg-red-600 text-white shadow-md shadow-red-200'
+                                        : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                                ]"
+                            >
+                                <span>{{ type.label }}</span>
+                                <span class="text-xs font-normal opacity-80">({{ type.count }})</span>
+                            </button>
+                            <button
+                                v-if="searchQuery || selectedType"
+                                @click="clearFilters"
+                                class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all duration-200 flex items-center gap-1"
+                            >
+                                <X class="w-3.5 h-3.5" />
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Stats & Items Per Page -->
+                    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                        <div class="text-sm text-gray-500 bg-white px-4 py-2 rounded-full shadow-sm">
+                            <span class="font-medium text-gray-700">{{ filteredReports.length }}</span> documents found
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm text-gray-500">Show</span>
+                            <select
+                                v-model="itemsPerPage"
+                                class="border border-gray-200 rounded-xl px-3 py-1.5 text-sm bg-white focus:ring-2 focus:ring-red-500 outline-none cursor-pointer"
+                                @change="resetPagination"
+                            >
+                                <option v-for="size in pageSizeOptions" :key="size" :value="size">{{ size }}</option>
+                            </select>
+                            <span class="text-sm text-gray-500">per page</span>
+                        </div>
+                    </div>
+
+                    <!-- Card Grid - Modern Block Layout -->
+                    <div v-if="paginatedReports.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <div
+                            v-for="report in paginatedReports"
+                            :key="report.id"
+                            :class="[
+                                'group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 overflow-hidden',
+                                selectedId === report.id ? 'ring-2 ring-red-500 ring-offset-2' : 'hover:border-gray-200'
+                            ]"
+                            @click="openModal(report)"
+                        >
+                            <!-- Card Header with Icon -->
+                            <div class="absolute top-3 right-3 z-10">
+                                <span
+                                    :class="getBadgeClass(report.document_type)"
+                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium backdrop-blur-sm bg-white/90"
                                 >
-                                    <option v-for="size in pageSizeOptions" :key="size" :value="size">{{ size }}</option>
-                                </select>
-                                <span>per page</span>
+                                    <span>{{ getTypeIcon(report.document_type) }}</span>
+                                    {{ formatDocumentType(report.document_type) }}
+                                </span>
+                            </div>
+
+                            <!-- Document Icon Area -->
+                            <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 flex justify-center">
+                                <div class="w-16 h-16 rounded-2xl bg-white shadow-md flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <FileText class="w-8 h-8 text-red-600" />
+                                </div>
+                            </div>
+
+                            <!-- Card Content -->
+                            <div class="p-5">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-red-600 transition-colors">
+                                    {{ report.title }}
+                                </h3>
+                                <p class="text-sm text-gray-500 line-clamp-3 mb-4">
+                                    {{ report.description || 'No description available' }}
+                                </p>
+
+                                <!-- Action Buttons -->
+                                <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                                    <div class="flex items-center gap-1">
+                                        <button
+                                            @click.stop="openModal(report)"
+                                            class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                                            title="View Document"
+                                        >
+                                            <Eye class="w-4.5 h-4.5" />
+                                        </button>
+                                        <button
+                                            @click.stop="printReport(report.pdf_url, report.title)"
+                                            class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                                            title="Print"
+                                        >
+                                            <Printer class="w-4.5 h-4.5" />
+                                        </button>
+                                        <button
+                                            @click.stop="downloadReport(report.pdf_url, report.title)"
+                                            class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                                            title="Download"
+                                        >
+                                            <Download class="w-4.5 h-4.5" />
+                                        </button>
+                                    </div>
+                                    <span class="text-xs text-gray-400">
+                                        PDF
+                                    </span>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Table -->
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-[#cad0d8]">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-[#cad0d8]">
-                                    <tr
-                                        v-for="(report, index) in paginatedReports"
-                                        :key="report.id"
-                                        :class="{ 'bg-[rgba(235,31,39,0.04)]': selectedId === report.id }"
-                                        class="hover:bg-gray-50 transition-colors"
-                                    >
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                                            {{ (currentPage - 1) * itemsPerPage + index + 1 }}
-                                        </td>
-                                        <td class="px-4 py-3 text-sm font-medium text-gray-900">{{ report.title }}</td>
-                                        <td class="px-4 py-3 text-sm text-gray-600 max-w-xs truncate">{{ report.description || '—' }}</td>
-                                        <td class="px-4 py-3 text-sm">
-                                            <span
-                                                class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
-                                                :class="getBadgeClass(report.document_type)"
-                                            >
-                                                {{ formatDocumentType(report.document_type) }}
-                                            </span>
-                                        </td>
-
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm">
-                                            <div class="flex items-center gap-3">
-                                                <button
-                                                    type="button"
-                                                    @click="viewReport(report.pdf_url)"
-                                                    class="inline-flex items-center gap-1 text-gray-600 hover:text-[#B91C1C] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B91C1C] focus-visible:ring-offset-2 rounded"
-                                                    aria-label="View report"
-                                                >
-                                                    <Eye class="w-4 h-4" />
-                                                    <span class="sr-only md:not-sr-only md:inline-block text-xs">View</span>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    @click="printReport(report.pdf_url, report.title)"
-                                                    class="inline-flex items-center gap-1 text-gray-600 hover:text-[#B91C1C] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B91C1C] focus-visible:ring-offset-2 rounded"
-                                                    aria-label="Print report"
-                                                >
-                                                    <Printer class="w-4 h-4" />
-                                                    <span class="sr-only md:not-sr-only md:inline-block text-xs">Print</span>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    @click="downloadReport(report.pdf_url, report.title)"
-                                                    class="inline-flex items-center gap-1 text-gray-600 hover:text-[#B91C1C] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B91C1C] focus-visible:ring-offset-2 rounded"
-                                                    aria-label="Download report"
-                                                >
-                                                    <Download class="w-4 h-4" />
-                                                    <span class="sr-only md:not-sr-only md:inline-block text-xs">Download</span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr v-if="paginatedReports.length === 0">
-                                        <td colspan="6" class="px-4 py-12 text-center text-sm text-gray-500">
-                                            No reports match your filters.
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <!-- Empty State -->
+                    <div v-else class="text-center py-16 bg-white rounded-2xl border border-gray-100">
+                        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <FileText class="w-10 h-10 text-gray-400" />
                         </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">No documents found</h3>
+                        <p class="text-gray-500">Try adjusting your search or filter criteria</p>
+                        <button
+                            @click="clearFilters"
+                            class="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors"
+                        >
+                            <X class="w-4 h-4" />
+                            Clear all filters
+                        </button>
+                    </div>
 
-                        <!-- Pagination Controls -->
-                        <div v-if="totalPages > 1" class="flex justify-between items-center gap-4 px-4 py-3 border-t border-[#cad0d8] bg-gray-50">
-                            <div class="flex-1 text-sm text-gray-600">
-                                Page {{ currentPage }} of {{ totalPages }}
-                            </div>
-                            <div class="flex gap-2">
+                    <!-- Enhanced Pagination -->
+                    <div v-if="totalPages > 1" class="mt-10 flex justify-center">
+                        <nav class="flex items-center gap-1 bg-white rounded-xl shadow-sm border border-gray-100 p-1">
+                            <button
+                                @click="prevPage"
+                                :disabled="currentPage === 1"
+                                class="px-3 py-2 rounded-lg text-gray-500 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                            >
+                                <ChevronLeft class="w-5 h-5" />
+                            </button>
+
+                            <div class="flex items-center gap-1">
                                 <button
-                                    @click="prevPage"
-                                    :disabled="currentPage === 1"
-                                    class="inline-flex items-center gap-1 px-3 py-1 border border-[#cad0d8] rounded-md text-sm hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                                    v-for="page in pageNumbers"
+                                    :key="page"
+                                    @click="typeof page === 'number' ? goToPage(page) : null"
+                                    :class="[
+                                        'min-w-[36px] h-9 rounded-lg text-sm font-medium transition-all',
+                                        currentPage === page
+                                            ? 'bg-red-600 text-white shadow-sm'
+                                            : page === '...'
+                                                ? 'text-gray-400 cursor-default'
+                                                : 'text-gray-600 hover:bg-gray-100'
+                                    ]"
+                                    :disabled="page === '...'"
                                 >
-                                    <ChevronLeft class="w-4 h-4" />
-                                    Previous
-                                </button>
-                                <button
-                                    @click="nextPage"
-                                    :disabled="currentPage === totalPages"
-                                    class="inline-flex items-center gap-1 px-3 py-1 border border-[#cad0d8] rounded-md text-sm hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
-                                >
-                                    Next
-                                    <ChevronRight class="w-4 h-4" />
+                                    {{ page }}
                                 </button>
                             </div>
-                        </div>
+
+                            <button
+                                @click="nextPage"
+                                :disabled="currentPage === totalPages"
+                                class="px-3 py-2 rounded-lg text-gray-500 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                            >
+                                <ChevronRight class="w-5 h-5" />
+                            </button>
+                        </nav>
                     </div>
                 </div>
             </section>
         </div>
+
+        <!-- Modern Modal Popup with PDF Preview -->
+        <Teleport to="body">
+            <div
+                v-if="modalOpen"
+                class="fixed inset-0 z-50 flex items-center justify-center p-4"
+                @click.self="closeModal"
+            >
+                <!-- Backdrop with blur effect -->
+                <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"></div>
+
+                <!-- Modal Content -->
+                <div class="relative w-full max-w-5xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up">
+                    <!-- Modal Header -->
+                    <div class="flex items-center justify-between p-5 border-b border-gray-100 bg-gradient-to-r from-white to-gray-50">
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg font-semibold text-gray-900 truncate">
+                                {{ selectedReport?.title }}
+                            </h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span :class="getBadgeClass(selectedReport?.document_type)" class="inline-flex items-center gap-1 text-xs">
+                                    {{ getTypeIcon(selectedReport?.document_type) }}
+                                    {{ formatDocumentType(selectedReport?.document_type) }}
+                                </span>
+                                <span class="text-xs text-gray-400">PDF Document</span>
+                            </div>
+                        </div>
+                        <button
+                            @click="closeModal"
+                            class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                        >
+                            <X class="w-5 h-5" />
+                        </button>
+                    </div>
+
+                    <!-- PDF Preview Area -->
+                    <div class="p-4 bg-gray-50">
+                        <div class="bg-white rounded-xl overflow-hidden shadow-inner">
+                            <iframe
+                                :src="selectedReport?.pdf_url"
+                                class="w-full h-[60vh] min-h-[400px]"
+                                frameborder="0"
+                                title="PDF Preview"
+                            ></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Modal Footer with Actions -->
+                    <div class="flex items-center justify-between gap-3 p-5 border-t border-gray-100 bg-white">
+                        <div class="flex items-center gap-2">
+                            <button
+                                @click="printReport(selectedReport?.pdf_url, selectedReport?.title)"
+                                class="inline-flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors"
+                            >
+                                <Printer class="w-4 h-4" />
+                                <span class="text-sm font-medium">Print</span>
+                            </button>
+                            <button
+                                @click="downloadReport(selectedReport?.pdf_url, selectedReport?.title)"
+                                class="inline-flex items-center gap-2 px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-xl transition-colors shadow-sm"
+                            >
+                                <Download class="w-4 h-4" />
+                                <span class="text-sm font-medium">Download</span>
+                            </button>
+                        </div>
+                        <button
+                            @click="viewReportInNewTab(selectedReport?.pdf_url)"
+                            class="inline-flex items-center gap-2 px-4 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-50 rounded-xl transition-colors"
+                        >
+                            <Eye class="w-4 h-4" />
+                            <span class="text-sm">Open in new tab</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </Teleport>
     </GuestLayout>
 </template>
+
+<style scoped>
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.2s ease-out;
+}
+</style>
