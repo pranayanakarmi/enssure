@@ -1,12 +1,12 @@
 <script setup>
 import { Form, Head, Link } from '@inertiajs/vue3';
+import UserController from '@/actions/App/Http/Controllers/Admin/UserController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import UserController from '@/actions/App/Http/Controllers/Admin/UserController';
 
 defineProps({
     roles: {

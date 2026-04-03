@@ -4,10 +4,10 @@ import { useForm } from '@inertiajs/vue3';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import Checkbox from '@/components/ui/checkbox/Checkbox.vue';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import Checkbox from '@/components/ui/checkbox/Checkbox.vue';
 
 const form = useForm({
     title: '',

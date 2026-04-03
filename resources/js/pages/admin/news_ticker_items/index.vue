@@ -1,7 +1,7 @@
 <script setup>
-import HomeNewsSectionController from '@/actions/App/Http/Controllers/Admin/HomeNewsSectionController';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import HomeNewsSectionController from '@/actions/App/Http/Controllers/Admin/HomeNewsSectionController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';

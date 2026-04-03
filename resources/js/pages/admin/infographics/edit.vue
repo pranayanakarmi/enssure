@@ -1,13 +1,13 @@
 <script setup>
-import { reorder } from '@/actions/App/Http/Controllers/Admin/InfographicItemController';
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import { Check, Copy, GripVertical } from 'lucide-vue-next';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { reorder } from '@/actions/App/Http/Controllers/Admin/InfographicItemController';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({

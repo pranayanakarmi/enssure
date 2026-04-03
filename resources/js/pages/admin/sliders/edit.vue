@@ -1,13 +1,13 @@
 <script setup>
-import { ref, onBeforeUnmount } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link, router } from '@inertiajs/vue3';
+import { ref, onBeforeUnmount } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({

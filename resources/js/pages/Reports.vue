@@ -1,9 +1,9 @@
 <script setup>
-import { computed } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ExternalLink, FileText } from 'lucide-vue-next';
-import GuestLayout from '@/layouts/GuestLayout.vue';
+import { computed } from 'vue';
 import PageHero from '@/components/guest/PageHero.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
 import { index as reportsIndex } from '@/routes/reports';
 
 const props = defineProps({

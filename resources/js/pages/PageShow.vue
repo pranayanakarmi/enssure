@@ -57,8 +57,8 @@ const headTitle = computed(() => {
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import GuestLayout from '@/layouts/GuestLayout.vue';
 import PageHero from '@/components/guest/PageHero.vue'; // Import the hero component
+import GuestLayout from '@/layouts/GuestLayout.vue';
 
 const props = defineProps({
     page: {
