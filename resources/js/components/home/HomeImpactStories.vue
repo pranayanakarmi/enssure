@@ -28,14 +28,27 @@ const ctaUrl = computed(() => props.storiesSection?.cta_url ?? fallbackCtaUrl);
 const stories = computed(() => {
     const sectionStories = props.storiesSection?.stories;
     if (sectionStories && sectionStories.length > 0) {
-        return sectionStories.map((s) => ({
-            image: s.image_url ?? '',
-            title: s.title,
-            slug: s.slug,
-        }));
+        return sectionStories
+            .slice(0, 3) // ← Limits to only 3 items
+            .map((s) => ({
+                image: s.image_url ?? '',
+                title: s.title,
+                slug: s.slug,
+            }));
     }
     return fallbackStories.map((s) => ({ ...s, slug: null }));
 });
+// const stories = computed(() => {
+//     const sectionStories = props.storiesSection?.stories;
+//     if (sectionStories && sectionStories.length > 0) {
+//         return sectionStories.map((s) => ({
+//             image: s.image_url ?? '',
+//             title: s.title,
+//             slug: s.slug,
+//         }));
+//     }
+//     return fallbackStories.map((s) => ({ ...s, slug: null }));
+// });
 </script>
 
 <template>

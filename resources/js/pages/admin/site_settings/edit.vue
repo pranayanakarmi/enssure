@@ -254,12 +254,12 @@ const breadcrumbItems = [
                                 <InputError :message="form.errors.facebook_url" />
                             </div>
                             <div class="grid gap-2">
-                                <Label for="x_url">X URL</Label>
+                                <Label for="x_url">Linked In URL</Label>
                                 <Input
                                     id="x_url"
                                     v-model="form.x_url"
                                     type="url"
-                                    placeholder="https://x.com/..."
+                                    placeholder="https://linkedin.com/..."
                                 />
                                 <InputError :message="form.errors.x_url" />
                             </div>

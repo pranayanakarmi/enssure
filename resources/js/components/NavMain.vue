@@ -36,7 +36,7 @@ function hasActiveChild(item, isCurrentUrlFn) {
 
 <template>
     <SidebarGroup class="px-2 py-0">
-        <SidebarGroupLabel>Platform</SidebarGroupLabel>
+        <!-- <SidebarGroupLabel>Platform</SidebarGroupLabel> -->
         <SidebarMenu>
             <template v-for="item in items" :key="item.title">
                 <SidebarMenuItem v-if="item.children && item.children.length">

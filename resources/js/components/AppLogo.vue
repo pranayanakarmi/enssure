@@ -1,16 +1,36 @@
 <script setup>
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
+import { usePage } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
+
+const page = usePage();
+const isHovered = ref(false);
+
+const siteSetting = computed(() => page.props.siteSetting ?? null);
+
+const logoCenterUrl = computed(() =>
+    siteSetting.value?.logo_center_url ?? '/enssure/assets/enssure-logo.svg',
+);
 </script>
 
 <template>
     <div
-        class="flex aspect-square size-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground"
+        class="flex items-center justify-center w-full p-4 rounded-lg transition-all duration-300 cursor-pointer relative group"
+        :class="[
+            isHovered
+                ? 'bg-sidebar-primary/20 shadow-lg'
+                : 'bg-transparent hover:bg-sidebar-primary/10'
+        ]"
+        @mouseenter="isHovered = true"
+        @mouseleave="isHovered = false"
     >
-        <AppLogoIcon class="size-5 fill-current text-white dark:text-black" />
-    </div>
-    <div class="ml-1 grid flex-1 text-left text-sm">
-        <span class="mb-0.5 truncate leading-tight font-semibold"
-            >Enssure</span
-        >
+        <div class="relative">
+            <img
+                :src="logoCenterUrl"
+                alt="ENSSURE Logo Admin Panel"
+                class="h-auto w-full max-w-[8rem] object-contain transition-transform duration-300"
+                :class="isHovered ? 'scale-110' : 'scale-100'"
+            />
+
+        </div>
     </div>
 </template>

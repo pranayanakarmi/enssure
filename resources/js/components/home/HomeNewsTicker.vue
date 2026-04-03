@@ -28,7 +28,7 @@ function isInternal(url) {
                 class="absolute -right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-[#B91C1C] bg-white rounded-sm"
             /> -->
         </div>
-        <div class="flex-1 min-w-0 overflow-hidden">
+        <div class="flex-1 min-w-0 overflow-hidden ticker-viewport">
             <div class="ticker-wrap flex text-sm text-[#515151] w-max">
                 <template v-for="(item, i) in items" :key="`${item.id ?? i}-a`">
                     <span v-if="!item.url" class="underline mx-5 whitespace-nowrap">{{ item.title }}</span>
@@ -77,6 +77,12 @@ function isInternal(url) {
 .ticker-wrap {
     animation: ticker 30s linear infinite;
 }
+
+/* Pause animation when hovering over the viewport */
+.ticker-viewport:hover .ticker-wrap {
+    animation-play-state: paused;
+}
+
 @keyframes ticker {
     0% {
         transform: translateX(0);

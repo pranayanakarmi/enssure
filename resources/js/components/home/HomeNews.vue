@@ -31,11 +31,13 @@ const ctaUrl = computed(() => props.newsSection?.cta_url ?? defaultCtaUrl);
 const items = computed(() => {
     const sectionItems = props.newsSection?.items;
     if (sectionItems && sectionItems.length > 0) {
-        return sectionItems.map((item) => ({
-            image: item.image_url || placeholderImage,
-            title: item.title,
-            link_url: item.link_url || '#',
-        }));
+        return sectionItems
+        .slice(0, 3) // ← Limits to only 3 items
+            .map((item) => ({
+                image: item.image_url || placeholderImage,
+                title: item.title,
+                link_url: item.link_url || '#',
+            }));
     }
     return defaultItems;
 });
