@@ -35,6 +35,7 @@ use App\Models\Slider;
 use App\Models\TeamMember;
 use App\Models\TeamPageContent;
 use App\Models\Testimonial;
+use App\Support\RichContentHtml;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -303,9 +304,7 @@ Route::get('notices/{notice:slug}', function (Notice $notice) {
             'slug' => $notice->slug,
             'updated_at' => $notice->updated_at?->toISOString(),
             'share_url' => url()->route('notices.show', ['notice' => $notice->slug]),
-            'content' => $notice->content
-                ? strip_tags($notice->content, '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>')
-                : null,
+            'content' => RichContentHtml::sanitize($notice->content),
             'image_url' => $notice->image ? Storage::disk('public')->url($notice->image) : null,
         ],
         'relatedNotices' => Notice::query()
@@ -350,8 +349,6 @@ Route::get('posts/{published_post:slug}', function (Post $published_post) {
     $published_post->load(['category:id,name', 'tags:id,name']);
     $postHero = PostHero::first();
 
-    $htmlAllow = '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>';
-
     return Inertia::render('BlogShow', [
         'post' => [
             'id' => $published_post->id,
@@ -360,9 +357,7 @@ Route::get('posts/{published_post:slug}', function (Post $published_post) {
             'excerpt' => $published_post->excerpt,
             'published_at' => $published_post->published_at?->toISOString(),
             'share_url' => url()->route('posts.show', ['published_post' => $published_post->slug]),
-            'content' => $published_post->content
-                ? strip_tags($published_post->content, $htmlAllow)
-                : null,
+            'content' => RichContentHtml::sanitize($published_post->content),
             'image_url' => $published_post->image ? Storage::disk('public')->url($published_post->image) : null,
             'category' => $published_post->category?->name,
             'tags' => $published_post->tags->pluck('name')->values()->all(),
@@ -390,7 +385,6 @@ Route::get('posts/{published_post:slug}', function (Post $published_post) {
     ]);
 })->name('posts.show');
 Route::get('pages/{published_page:slug}', function (Page $published_page) {
-    $htmlAllow = '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>';
     $pageHero = PageHero::first();
 
     return Inertia::render('PageShow', [
@@ -400,9 +394,7 @@ Route::get('pages/{published_page:slug}', function (Page $published_page) {
             'meta_title' => $published_page->meta_title,
             'meta_description' => $published_page->meta_description,
             'published_at' => $published_page->published_at?->toISOString(),
-            'content' => $published_page->content
-                ? strip_tags($published_page->content, $htmlAllow)
-                : null,
+            'content' => RichContentHtml::sanitize($published_page->content),
             'share_url' => url()->route('pages.show', ['published_page' => $published_page->slug]),
         ],
         'pageHero' => [
@@ -451,9 +443,7 @@ Route::get('impact-stories/{impact_story:slug}', function (ImpactStory $impact_s
             'slug' => $impact_story->slug,
             'updated_at' => $impact_story->updated_at?->toISOString(),
             'share_url' => url()->route('impact-stories.show', ['impact_story' => $impact_story->slug]),
-            'story' => $impact_story->story
-                ? strip_tags($impact_story->story, '<p><br><strong><em><u><s><a><ul><ol><li><h2><h3><blockquote><pre><code><hr><img>')
-                : null,
+            'story' => RichContentHtml::sanitize($impact_story->story),
             'image_url' => $impact_story->image ? Storage::disk('public')->url($impact_story->image) : null,
         ],
         'relatedStories' => ImpactStory::query()

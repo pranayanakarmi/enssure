@@ -170,3 +170,36 @@
 .enssure-public .impact-story-content a:hover {
   text-decoration-thickness: 2px;
 }
+
+/* Rich text column blocks (TipTap) — mirror RichTextEditor.vue so public HTML matches admin */
+.enssure-public .post-content [data-type='column-block'],
+.enssure-public .notice-content [data-type='column-block'],
+.enssure-public .impact-story-content [data-type='column-block'] {
+  column-count: var(--column-count, 2);
+  column-gap: 1.25rem;
+  margin: 0.75rem 0;
+}
+
+.enssure-public .post-content [data-type='column-block'][data-columns='1'],
+.enssure-public .notice-content [data-type='column-block'][data-columns='1'],
+.enssure-public .impact-story-content [data-type='column-block'][data-columns='1'] {
+  --column-count: 1;
+}
+
+.enssure-public .post-content [data-type='column-block'][data-columns='2'],
+.enssure-public .notice-content [data-type='column-block'][data-columns='2'],
+.enssure-public .impact-story-content [data-type='column-block'][data-columns='2'] {
+  --column-count: 2;
+}
+
+.enssure-public .post-content [data-type='column-block'][data-columns='3'],
+.enssure-public .notice-content [data-type='column-block'][data-columns='3'],
+.enssure-public .impact-story-content [data-type='column-block'][data-columns='3'] {
+  --column-count: 3;
+}
+
+.enssure-public .post-content [data-type='column-block'] > *,
+.enssure-public .notice-content [data-type='column-block'] > *,
+.enssure-public .impact-story-content [data-type='column-block'] > * {
+  break-inside: avoid;
+}

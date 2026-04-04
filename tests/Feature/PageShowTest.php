@@ -2,6 +2,7 @@
 
 use App\Models\Page;
 use App\Models\PageHero;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 
 test('pages show returns published page detail', function () {
@@ -45,7 +46,7 @@ test('pages show returns configured shared hero background image', function () {
     $response->assertOk();
     $response->assertInertia(fn (Assert $inertia) => $inertia
         ->component('PageShow')
-        ->where('pageHero.hero_image_url', '/storage/pages/training-hero.jpg')
+        ->where('pageHero.hero_image_url', Storage::disk('public')->url('pages/training-hero.jpg'))
     );
 });
 
@@ -74,4 +75,20 @@ test('pages show returns 404 for future scheduled page', function () {
 test('pages show returns 404 for invalid slug', function () {
     $this->get(route('pages.show', ['published_page' => 'missing']))
         ->assertNotFound();
+});
+
+test('pages show preserves tip tap column block markup in content', function () {
+    $columnHtml = '<div data-type="column-block" data-columns="2"><p>Text column</p><p><img src="/x.jpg" alt=""></p></div>';
+
+    $page = Page::create([
+        'title' => 'Column layout',
+        'slug' => 'column-layout',
+        'content' => $columnHtml,
+        'published_at' => now()->subHour(),
+    ]);
+
+    $this->get(route('pages.show', ['published_page' => $page->slug]))
+        ->assertOk()
+        ->assertInertia(fn (Assert $inertia) => $inertia
+            ->where('page.content', $columnHtml));
 });

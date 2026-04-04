@@ -38,6 +38,7 @@ import {
     Trash2,
     Combine,
     SplitSquareHorizontal,
+    Ungroup,
 } from 'lucide-vue-next';
 import { ref, watch, onBeforeUnmount } from 'vue';
 import { Button } from '@/components/ui/button';
@@ -103,8 +104,22 @@ const ColumnBlock = Node.create({
                     commands.wrapIn(this.name, { columns }),
             clearColumnBlock:
                 () =>
-                ({ commands }) =>
-                    commands.lift(this.name),
+                ({ state, dispatch }) => {
+                    const { $from } = state.selection;
+                    for (let depth = $from.depth; depth > 0; depth -= 1) {
+                        const node = $from.node(depth);
+                        if (node.type.name !== 'columnBlock') {
+                            continue;
+                        }
+                        const start = $from.before(depth);
+                        const end = $from.after(depth);
+                        if (dispatch) {
+                            dispatch(state.tr.replaceWith(start, end, node.content).scrollIntoView());
+                        }
+                        return true;
+                    }
+                    return false;
+                },
         };
     },
 });
@@ -601,7 +616,7 @@ onBeforeUnmount(() => {
                         'rounded p-1.5 transition-colors hover:bg-muted',
                         editor.isActive('columnBlock', { columns: 1 }) ? 'bg-muted text-foreground' : 'text-muted-foreground',
                     ]"
-                    title="Single column"
+                    title="One column (still a column section)"
                     @click="setColumns(1)"
                 >
                     <Pilcrow class="h-4 w-4" />
@@ -630,11 +645,17 @@ onBeforeUnmount(() => {
                 </button>
                 <button
                     type="button"
-                    class="rounded p-1.5 text-muted-foreground transition-colors hover:bg-muted"
-                    title="Clear columns"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().clearColumnBlock()
+                            ? 'cursor-not-allowed opacity-40'
+                            : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Remove column layout (unwrap)"
+                    :disabled="!editor.can().clearColumnBlock()"
                     @click="clearColumns"
                 >
-                    <Pilcrow class="h-4 w-4" />
+                    <Ungroup class="h-4 w-4" />
                 </button>
                 <span
                     class="mx-0.5 h-4 w-px bg-border"
