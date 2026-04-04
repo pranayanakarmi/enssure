@@ -1,11 +1,18 @@
 <script setup>
+import { Node, mergeAttributes } from '@tiptap/core';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import { TableKit } from '@tiptap/extension-table';
+import TextAlign from '@tiptap/extension-text-align';
 import StarterKit from '@tiptap/starter-kit';
 import { useEditor, EditorContent } from '@tiptap/vue-3';
+import { onClickOutside } from '@vueuse/core';
 import {
+    AlignCenter,
+    AlignJustify,
+    AlignLeft,
+    AlignRight,
     Bold,
     Code,
     ImageIcon,
@@ -31,8 +38,8 @@ import {
     Trash2,
     Combine,
     SplitSquareHorizontal,
+    Ungroup,
 } from 'lucide-vue-next';
-import { onClickOutside } from '@vueuse/core';
 import { ref, watch, onBeforeUnmount } from 'vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -66,15 +73,70 @@ function getCsrfToken() {
 
 const imageInputRef = ref(null);
 
+const ColumnBlock = Node.create({
+    name: 'columnBlock',
+    group: 'block',
+    content: 'block+',
+    isolating: true,
+    defining: true,
+    addAttributes() {
+        return {
+            columns: {
+                default: 2,
+                parseHTML: (element) => Number(element.getAttribute('data-columns') || 2),
+                renderHTML: (attributes) => ({
+                    'data-columns': attributes.columns,
+                }),
+            },
+        };
+    },
+    parseHTML() {
+        return [{ tag: 'div[data-type="column-block"]' }];
+    },
+    renderHTML({ HTMLAttributes }) {
+        return ['div', mergeAttributes({ 'data-type': 'column-block' }, HTMLAttributes), 0];
+    },
+    addCommands() {
+        return {
+            setColumnBlock:
+                (columns = 2) =>
+                ({ commands }) =>
+                    commands.wrapIn(this.name, { columns }),
+            clearColumnBlock:
+                () =>
+                ({ state, dispatch }) => {
+                    const { $from } = state.selection;
+                    for (let depth = $from.depth; depth > 0; depth -= 1) {
+                        const node = $from.node(depth);
+                        if (node.type.name !== 'columnBlock') {
+                            continue;
+                        }
+                        const start = $from.before(depth);
+                        const end = $from.after(depth);
+                        if (dispatch) {
+                            dispatch(state.tr.replaceWith(start, end, node.content).scrollIntoView());
+                        }
+                        return true;
+                    }
+                    return false;
+                },
+        };
+    },
+});
+
 const editor = useEditor({
     content: props.modelValue || '',
     extensions: [
         StarterKit,
+        TextAlign.configure({
+            types: ['heading', 'paragraph'],
+        }),
         TableKit.configure({
             table: {
                 resizable: true,
             },
         }),
+        ColumnBlock,
         Image.configure({
             HTMLAttributes: { class: 'rounded-lg max-w-full h-auto' },
         }),
@@ -281,6 +343,18 @@ function clearFormatting() {
     editor.value?.chain().focus().clearNodes().unsetAllMarks().run();
 }
 
+function setTextAlign(alignment) {
+    editor.value?.chain().focus().setTextAlign(alignment).run();
+}
+
+function setColumns(columns) {
+    editor.value?.chain().focus().setColumnBlock(columns).run();
+}
+
+function clearColumns() {
+    editor.value?.chain().focus().clearColumnBlock().run();
+}
+
 function addColumnBefore() {
     editor.value?.chain().focus().addColumnBefore().run();
 }
@@ -483,6 +557,105 @@ onBeforeUnmount(() => {
                     @click="clearFormatting"
                 >
                     <RemoveFormatting class="h-4 w-4" />
+                </button>
+                <span
+                    class="mx-0.5 h-4 w-px bg-border"
+                    aria-hidden="true"
+                />
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        editor.isActive({ textAlign: 'left' }) ? 'bg-muted text-foreground' : 'text-muted-foreground',
+                    ]"
+                    title="Align left"
+                    @click="setTextAlign('left')"
+                >
+                    <AlignLeft class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        editor.isActive({ textAlign: 'center' }) ? 'bg-muted text-foreground' : 'text-muted-foreground',
+                    ]"
+                    title="Align center"
+                    @click="setTextAlign('center')"
+                >
+                    <AlignCenter class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        editor.isActive({ textAlign: 'right' }) ? 'bg-muted text-foreground' : 'text-muted-foreground',
+                    ]"
+                    title="Align right"
+                    @click="setTextAlign('right')"
+                >
+                    <AlignRight class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        editor.isActive({ textAlign: 'justify' }) ? 'bg-muted text-foreground' : 'text-muted-foreground',
+                    ]"
+                    title="Justify"
+                    @click="setTextAlign('justify')"
+                >
+                    <AlignJustify class="h-4 w-4" />
+                </button>
+                <span
+                    class="mx-0.5 h-4 w-px bg-border"
+                    aria-hidden="true"
+                />
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        editor.isActive('columnBlock', { columns: 1 }) ? 'bg-muted text-foreground' : 'text-muted-foreground',
+                    ]"
+                    title="One column (still a column section)"
+                    @click="setColumns(1)"
+                >
+                    <Pilcrow class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        editor.isActive('columnBlock', { columns: 2 }) ? 'bg-muted text-foreground' : 'text-muted-foreground',
+                    ]"
+                    title="Two columns"
+                    @click="setColumns(2)"
+                >
+                    <Columns2 class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        editor.isActive('columnBlock', { columns: 3 }) ? 'bg-muted text-foreground' : 'text-muted-foreground',
+                    ]"
+                    title="Three columns"
+                    @click="setColumns(3)"
+                >
+                    <TableColumnsSplit class="h-4 w-4" />
+                </button>
+                <button
+                    type="button"
+                    :class="[
+                        'rounded p-1.5 transition-colors hover:bg-muted',
+                        !editor.can().clearColumnBlock()
+                            ? 'cursor-not-allowed opacity-40'
+                            : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                    title="Remove column layout (unwrap)"
+                    :disabled="!editor.can().clearColumnBlock()"
+                    @click="clearColumns"
+                >
+                    <Ungroup class="h-4 w-4" />
                 </button>
                 <span
                     class="mx-0.5 h-4 w-px bg-border"
@@ -836,5 +1009,27 @@ onBeforeUnmount(() => {
 .rich-text-editor-content :deep(.tableWrapper) {
     margin: 0.5rem 0;
     overflow-x: auto;
+}
+
+.rich-text-editor-content :deep(.tiptap [data-type='column-block']) {
+    column-count: var(--column-count, 2);
+    column-gap: 1.25rem;
+    margin: 0.75rem 0;
+}
+
+.rich-text-editor-content :deep(.tiptap [data-type='column-block'][data-columns='1']) {
+    --column-count: 1;
+}
+
+.rich-text-editor-content :deep(.tiptap [data-type='column-block'][data-columns='2']) {
+    --column-count: 2;
+}
+
+.rich-text-editor-content :deep(.tiptap [data-type='column-block'][data-columns='3']) {
+    --column-count: 3;
+}
+
+.rich-text-editor-content :deep(.tiptap [data-type='column-block'] > *) {
+    break-inside: avoid;
 }
 </style>

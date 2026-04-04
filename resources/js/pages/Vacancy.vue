@@ -1,9 +1,9 @@
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
-import GuestLayout from '@/layouts/GuestLayout.vue';
 import PageHero from '@/components/guest/PageHero.vue';
 import VacancyApplyModal from '@/components/guest/VacancyApplyModal.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
 
 defineProps({
     vacancies: {

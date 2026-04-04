@@ -1,8 +1,8 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import GuestLayout from '@/layouts/GuestLayout.vue';
 import PageHero from '@/components/guest/PageHero.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
 
 const props = defineProps({
     impactPageHero: { type: Object, default: null },

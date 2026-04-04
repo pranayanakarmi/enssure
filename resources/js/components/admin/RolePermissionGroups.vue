@@ -1,6 +1,6 @@
 <script setup>
-import { computed, nextTick, onMounted, watch } from 'vue';
 import { Layers, Shield } from 'lucide-vue-next';
+import { computed, nextTick, onMounted, watch } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 

@@ -172,6 +172,7 @@ function goTo(index) {
 import { ref, computed } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
 import { home } from '@/routes';
 
 const fallbackSlides = [

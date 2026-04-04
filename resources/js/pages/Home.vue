@@ -1,15 +1,15 @@
 <script setup>
-import HomeHero from '@/components/home/HomeHero.vue';
-import HomeStats from '@/components/home/HomeStats.vue';
 import HomeAbout from '@/components/home/HomeAbout.vue';
-import HomeGallery from '@/components/home/HomeGallery.vue';
-import HomeImpactStories from '@/components/home/HomeImpactStories.vue';
-import HomeCoverage from '@/components/home/HomeCoverage.vue';
-import HomeNews from '@/components/home/HomeNews.vue';
-import HomeTestimonials from '@/components/home/HomeTestimonials.vue';
-import HomePartners from '@/components/home/HomePartners.vue';
-import HomeSupport from '@/components/home/HomeSupport.vue';
 import HomeContactCta from '@/components/home/HomeContactCta.vue';
+import HomeCoverage from '@/components/home/HomeCoverage.vue';
+import HomeGallery from '@/components/home/HomeGallery.vue';
+import HomeHero from '@/components/home/HomeHero.vue';
+import HomeImpactStories from '@/components/home/HomeImpactStories.vue';
+import HomeNews from '@/components/home/HomeNews.vue';
+import HomePartners from '@/components/home/HomePartners.vue';
+import HomeStats from '@/components/home/HomeStats.vue';
+import HomeSupport from '@/components/home/HomeSupport.vue';
+import HomeTestimonials from '@/components/home/HomeTestimonials.vue';
 
 defineProps({
     heroSlides: {

@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue';
-import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { onMounted, ref, computed } from 'vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
 

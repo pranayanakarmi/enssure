@@ -1,9 +1,9 @@
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
 import { ArrowLeft, Calendar, FileDown } from 'lucide-vue-next';
-import GuestLayout from '@/layouts/GuestLayout.vue';
+import { computed, ref } from 'vue';
 import VacancyApplyModal from '@/components/guest/VacancyApplyModal.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
 
 const props = defineProps({
     vacancy: {

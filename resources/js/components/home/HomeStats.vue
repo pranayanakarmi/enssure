@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import { ArrowRight } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 const fallbackBadge = 'Our Reach';
 const fallbackTitle = 'Our Impact & Milestones';

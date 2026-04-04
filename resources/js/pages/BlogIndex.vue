@@ -1,8 +1,8 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import { ArrowRight } from 'lucide-vue-next';
-import GuestLayout from '@/layouts/GuestLayout.vue';
 import PageHero from '@/components/guest/PageHero.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
 
 defineProps({
     posts: {

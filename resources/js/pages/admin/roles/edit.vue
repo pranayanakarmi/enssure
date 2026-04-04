@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import RolePermissionGroups from '@/components/admin/RolePermissionGroups.vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
