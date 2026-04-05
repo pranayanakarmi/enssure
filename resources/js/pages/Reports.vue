@@ -4,7 +4,6 @@ import { Head, router } from '@inertiajs/vue3';
 import { Eye, Printer, Download, Search, X, Filter, ChevronLeft, ChevronRight, FileText, Grid3X3, List } from 'lucide-vue-next';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 import PageHero from '@/components/guest/PageHero.vue';
-import GuestLayout from '@/layouts/GuestLayout.vue';
 import { index as reportsIndex } from '@/routes/reports';
 
 const props = defineProps({
