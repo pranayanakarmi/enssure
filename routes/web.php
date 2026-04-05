@@ -61,6 +61,7 @@ Route::get('/', function () {
                 ? (str_starts_with($p->logo, 'http') ? $p->logo : Storage::disk('public')->url($p->logo))
                 : null,
             'name' => $p->name,
+            'website_url' => $p->website_url,
         ])
         ->values()
         ->all();
