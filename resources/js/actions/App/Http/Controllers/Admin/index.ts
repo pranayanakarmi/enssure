@@ -1,3 +1,4 @@
+import VideoController from './VideoController'
 import UserController from './UserController'
 import RoleController from './RoleController'
 import SliderController from './SliderController'
@@ -72,7 +73,8 @@ import RedirectController from './RedirectController'
 import MediaController from './MediaController'
 import FeedbackController from './FeedbackController'
 const Admin = {
-    UserController: Object.assign(UserController, UserController),
+    VideoController: Object.assign(VideoController, VideoController),
+UserController: Object.assign(UserController, UserController),
 RoleController: Object.assign(RoleController, RoleController),
 SliderController: Object.assign(SliderController, SliderController),
 SliderItemController: Object.assign(SliderItemController, SliderItemController),

@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
- * @see routes/web.php:605
+ * @see routes/web.php:627
  * @route '/infographics/{infographic}'
  */
 export const show = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:605
+ * @see routes/web.php:627
  * @route '/infographics/{infographic}'
  */
 show.url = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
@@ -46,7 +46,7 @@ show.url = (args: { infographic: string | { slug: string } } | [infographic: str
 }
 
 /**
- * @see routes/web.php:605
+ * @see routes/web.php:627
  * @route '/infographics/{infographic}'
  */
 show.get = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -54,7 +54,7 @@ show.get = (args: { infographic: string | { slug: string } } | [infographic: str
     method: 'get',
 })
 /**
- * @see routes/web.php:605
+ * @see routes/web.php:627
  * @route '/infographics/{infographic}'
  */
 show.head = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -63,7 +63,7 @@ show.head = (args: { infographic: string | { slug: string } } | [infographic: st
 })
 
     /**
- * @see routes/web.php:605
+ * @see routes/web.php:627
  * @route '/infographics/{infographic}'
  */
     const showForm = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -72,7 +72,7 @@ show.head = (args: { infographic: string | { slug: string } } | [infographic: st
     })
 
             /**
- * @see routes/web.php:605
+ * @see routes/web.php:627
  * @route '/infographics/{infographic}'
  */
         showForm.get = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -80,7 +80,7 @@ show.head = (args: { infographic: string | { slug: string } } | [infographic: st
             method: 'get',
         })
             /**
- * @see routes/web.php:605
+ * @see routes/web.php:627
  * @route '/infographics/{infographic}'
  */
         showForm.head = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

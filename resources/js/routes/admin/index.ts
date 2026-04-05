@@ -1,4 +1,5 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
+import videos from './videos'
 import users from './users'
 import roles from './roles'
 import sliders from './sliders'
@@ -143,7 +144,8 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     index.form = indexForm
 const admin = {
-    index: Object.assign(index, index),
+    videos: Object.assign(videos, videos),
+index: Object.assign(index, index),
 users: Object.assign(users, users),
 roles: Object.assign(roles, roles),
 sliders: Object.assign(sliders, sliders),

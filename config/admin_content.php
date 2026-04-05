@@ -138,6 +138,7 @@ return [
                 ['title' => 'Impact Stories section', 'href' => 'admin.home_impact_stories_sections.edit', 'permission_resource' => 'home_impact_stories_sections'],
                 ['title' => 'Coverage section', 'href' => 'admin.home_coverage_sections.edit', 'permission_resource' => 'home_coverage_sections'],
                 ['title' => 'News section', 'href' => 'admin.home_news_sections.edit', 'permission_resource' => 'home_news_sections'],
+                ['title' => 'Videos', 'href' => 'admin.videos.index', 'permission_resource' => 'videos'],
 
                 ['title' => 'Testimonials', 'href' => 'admin.testimonials.index', 'permission_resource' => 'testimonials'],
                 ['title' => 'Testimonials section', 'href' => 'admin.home_testimonials_sections.edit', 'permission_resource' => 'home_testimonials_sections'],
@@ -145,6 +146,7 @@ return [
                 ['title' => 'Partners section', 'href' => 'admin.home_partners_sections.edit', 'permission_resource' => 'home_partners_sections'],
                 ['title' => 'Support section', 'href' => 'admin.home_support_sections.edit', 'permission_resource' => 'home_support_sections'],
                 ['title' => 'Contact CTA section', 'href' => 'admin.home_contact_cta_sections.edit', 'permission_resource' => 'home_contact_cta_sections'],
+
                 // ['title' => 'Galleries', 'href' => 'admin.galleries.index', 'permission_resource' => 'galleries'],
 
 

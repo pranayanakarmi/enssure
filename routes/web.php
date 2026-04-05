@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeCoverageProvinceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VacancyApplicationController;
 use App\Http\Controllers\VacancyPageController;
+use App\Http\Controllers\Admin\VideoController;
 use App\Models\AboutContentSection;
 use App\Models\AboutMainSection;
 use App\Models\AboutPageHero;
@@ -35,6 +36,7 @@ use App\Models\Slider;
 use App\Models\TeamMember;
 use App\Models\TeamPageContent;
 use App\Models\Testimonial;
+use App\Models\Video;
 use App\Support\RichContentHtml;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -93,6 +95,25 @@ Route::get('/', function () {
             'order' => $i->order,
         ])->values()->all()
         : [];
+
+                // --- NEW: Fetch videos for the video section ---
+            $videosFromDb = Video::active()->take(3)->get();
+            $videos = $videosFromDb->map(function ($video) {
+                return [
+                    'video_url' => $video->video_url,
+                    'title' => $video->title,
+                    'date' => $video->date?->toDateString(),
+                    'thumbnail' => $video->thumbnail,
+                ];
+            })->toArray();
+
+            $homeVideoSection = [
+                'badge_text' => 'Featured Videos',
+                'title' => "Watch Our\nImpact in Action",
+                'description' => 'See how our programs are transforming lives and communities across Nepal.',
+                'videos' => $videos,
+            ];
+
 
     return Inertia::render('Welcome', [
         'canRegister' => Features::enabled(Features::registration()),
@@ -222,6 +243,7 @@ Route::get('/', function () {
         ] : null,
         'partners' => $partners,
         'testimonials' => $testimonials,
+        'homeVideoSection' => $homeVideoSection,
     ]);
 })->name('home');
 
@@ -648,5 +670,11 @@ Route::get('dashboard', function () {
 Route::get('enssure-i', function () {
     return Inertia::render('Enssure1');
 })->name('enssure1');
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('videos', VideoController::class);
+});
+
+
 
 require __DIR__.'/settings.php';

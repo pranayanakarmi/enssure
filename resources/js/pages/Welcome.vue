@@ -52,6 +52,10 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    homeVideoSection: {           // <-- ADD THIS
+        type: Object,
+        default: null,
+    },
     partners: {
         type: Array,
         default: () => [],
@@ -90,6 +94,7 @@ const props = defineProps({
             :home-partners-section="props.homePartnersSection ?? null"
             :home-support-section="props.homeSupportSection ?? null"
             :home-contact-cta-section="props.homeContactCtaSection ?? null"
+            :home-video-section="props.homeVideoSection ?? null"
             :partners="props.partners ?? []"
             :testimonials="props.testimonials ?? []"
         />

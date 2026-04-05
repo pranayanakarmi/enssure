@@ -10,6 +10,7 @@ import HomePartners from '@/components/home/HomePartners.vue';
 import HomeStats from '@/components/home/HomeStats.vue';
 import HomeSupport from '@/components/home/HomeSupport.vue';
 import HomeTestimonials from '@/components/home/HomeTestimonials.vue';
+import HomeVideo from '@/components/home/HomeVideo.vue'
 
 defineProps({
     heroSlides: {
@@ -64,6 +65,10 @@ defineProps({
         type: Array,
         default: () => [],
     },
+     homeVideoSection: {
+        type: Object,
+        default: null,
+    },
 });
 </script>
 
@@ -76,6 +81,7 @@ defineProps({
         <HomeImpactStories :stories-section="homeImpactStoriesSection ?? null" />
         <HomeCoverage :coverage-section="homeCoverageSection ?? null" />
         <HomeNews :news-section="homeNewsSection ?? null" />
+        <HomeVideo :video-section="homeVideoSection ?? null" />
         <HomeTestimonials
             :section="homeTestimonialsSection ?? null"
             :testimonials="testimonials ?? []"

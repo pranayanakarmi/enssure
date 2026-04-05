@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
- * @see routes/web.php:281
+ * @see routes/web.php:303
  * @route '/notices'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:281
+ * @see routes/web.php:303
  * @route '/notices'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -22,7 +22,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:281
+ * @see routes/web.php:303
  * @route '/notices'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -30,7 +30,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:281
+ * @see routes/web.php:303
  * @route '/notices'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -39,7 +39,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:281
+ * @see routes/web.php:303
  * @route '/notices'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -48,7 +48,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:281
+ * @see routes/web.php:303
  * @route '/notices'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -56,7 +56,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:281
+ * @see routes/web.php:303
  * @route '/notices'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -71,7 +71,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     index.form = indexForm
 /**
- * @see routes/web.php:298
+ * @see routes/web.php:320
  * @route '/notices/{notice}'
  */
 export const show = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -85,7 +85,7 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:298
+ * @see routes/web.php:320
  * @route '/notices/{notice}'
  */
 show.url = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
@@ -117,7 +117,7 @@ show.url = (args: { notice: string | { slug: string } } | [notice: string | { sl
 }
 
 /**
- * @see routes/web.php:298
+ * @see routes/web.php:320
  * @route '/notices/{notice}'
  */
 show.get = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -125,7 +125,7 @@ show.get = (args: { notice: string | { slug: string } } | [notice: string | { sl
     method: 'get',
 })
 /**
- * @see routes/web.php:298
+ * @see routes/web.php:320
  * @route '/notices/{notice}'
  */
 show.head = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -134,7 +134,7 @@ show.head = (args: { notice: string | { slug: string } } | [notice: string | { s
 })
 
     /**
- * @see routes/web.php:298
+ * @see routes/web.php:320
  * @route '/notices/{notice}'
  */
     const showForm = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -143,7 +143,7 @@ show.head = (args: { notice: string | { slug: string } } | [notice: string | { s
     })
 
             /**
- * @see routes/web.php:298
+ * @see routes/web.php:320
  * @route '/notices/{notice}'
  */
         showForm.get = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -151,7 +151,7 @@ show.head = (args: { notice: string | { slug: string } } | [notice: string | { s
             method: 'get',
         })
             /**
- * @see routes/web.php:298
+ * @see routes/web.php:320
  * @route '/notices/{notice}'
  */
         showForm.head = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
