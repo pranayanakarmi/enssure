@@ -26,14 +26,20 @@ class UpdateInfographicRequest extends FormRequest
      */
     public function rules(): array
     {
+        $infographic = $this->route('infographic');
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'slug' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('infographics', 'slug')->ignore($this->route('infographic')),
-            ],
+            'title' => 'required|string|max:255',
+            'hero_title' => 'nullable|string|max:255',
+            'slug' => ['required', 'string', 'max:255', Rule::unique('infographics')->ignore($infographic)],
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
+            'url' => 'nullable|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'is_published' => 'boolean',
+            'sort_order' => 'nullable|integer|min:0',
+            'banner_image' => 'nullable|image|max:2048',
+            'remove_banner' => 'boolean',
         ];
     }
 }

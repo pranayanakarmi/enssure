@@ -4,22 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class InfographicItem extends Model
 {
-    /** @use HasFactory<\Database\Factories\InfographicItemFactory> */
     use HasFactory;
 
-    protected $fillable = [
-        'infographic_id',
-        'title',
-        'image',
-        'sort_order',
-    ];
+    protected $fillable = ['title', 'image', 'alt_text', 'sort_order', 'infographic_id'];
 
-    public function infographic(): BelongsTo
+    public function infographic()
     {
         return $this->belongsTo(Infographic::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? Storage::disk('public')->url($this->image) : null;
     }
 }

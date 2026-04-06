@@ -187,14 +187,11 @@ return [
             ],
         ],
         [
-            'title' => 'Infographics Page',
-            'icon' => 'FileText',
-            'permission_resource' => null,
-            'children' => [
-                ['title' => 'Page / Hero', 'href' => 'admin.infographics_page_content.edit', 'permission_resource' => 'infographics_page_content'],
-                ['title' => 'Infographics', 'href' => 'admin.infographics.index', 'permission_resource' => 'infographics'],
-            ],
-        ],
+        'title' => 'Infographics',
+        'href' => 'admin.infographics.dashboard',   // absolute URL
+        'icon' => 'FileText',
+    'permission_resource' => 'infographics',
+],
         [
             'title' => 'Impact Stories Page',
             'icon' => 'BookOpen',

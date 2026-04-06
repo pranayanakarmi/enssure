@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\PublicInfographicController::index
  * @see app/Http/Controllers/PublicInfographicController.php:10
@@ -179,9 +179,6 @@ show.head = (args: { infographic: string | { slug: string } } | [infographic: st
         })
     
     show.form = showForm
-const infographics = {
-    index: Object.assign(index, index),
-show: Object.assign(show, show),
-}
+const PublicInfographicController = { index, show }
 
-export default infographics
+export default PublicInfographicController

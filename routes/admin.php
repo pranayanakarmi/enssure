@@ -143,14 +143,21 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('team_members', TeamMemberController::class)->except(['show']);
     Route::get('team-page/content/edit', [TeamPageContentController::class, 'edit'])->name('team_page_content.edit');
     Route::put('team-page/content', [TeamPageContentController::class, 'update'])->name('team_page_content.update');
-    Route::get('infographics-page/content/edit', [InfographicsPageContentController::class, 'edit'])->name('infographics_page_content.edit');
-    Route::put('infographics-page/content', [InfographicsPageContentController::class, 'update'])->name('infographics_page_content.update');
-    Route::resource('infographics', InfographicController::class)->except(['show']);
-    Route::post('infographics/{infographic}/items/reorder', [InfographicItemController::class, 'reorder'])->name('infographics.items.reorder');
-    Route::post('infographics/{infographic}/items', [InfographicItemController::class, 'store'])->name('infographics.items.store');
-    Route::get('infographic-items/{infographic_item}/edit', [InfographicItemController::class, 'edit'])->name('infographic_items.edit');
-    Route::put('infographic-items/{infographic_item}', [InfographicItemController::class, 'update'])->name('infographic_items.update');
-    Route::delete('infographic-items/{infographic_item}', [InfographicItemController::class, 'destroy'])->name('infographic_items.destroy');
+
+    Route::get('/infographics/dashboard', [InfographicController::class, 'dashboard'])->name('infographics.dashboard');
+    // Infographic CRUD
+    Route::post('/infographics', [InfographicController::class, 'store'])->name('admin.infographics.store');
+    Route::put('/infographics/{infographic}', [InfographicController::class, 'update'])->name('admin.infographics.update');
+    Route::delete('/infographics/{infographic}', [InfographicController::class, 'destroy'])->name('admin.infographics.destroy');
+    Route::post('/infographics/reorder', [InfographicController::class, 'reorder'])->name('admin.infographics.reorder');
+    // Item CRUD + reorder
+    Route::post('/infographics/{infographic}/items', [InfographicItemController::class, 'store'])->name('admin.infographic-items.store');
+    Route::put('/infographic-items/{id}', [InfographicItemController::class, 'update'])->name('admin.infographic-items.update');
+    Route::delete('/infographic-items/{id}', [InfographicItemController::class, 'destroy'])->name('admin.infographic-items.destroy');
+    Route::post('/infographics/{infographic}/items/reorder', [InfographicItemController::class, 'reorder'])->name('admin.infographic-items.reorder');
+    // Page content (listing page hero)
+    Route::put('/infographics-page/content', [InfographicsPageContentController::class, 'update'])->name('admin.infographics-page.update');
+
     Route::get('contact-feedback-content/edit', [ContactFeedbackContentController::class, 'edit'])->name('contact_feedback_content.edit');
     Route::put('contact-feedback-content', [ContactFeedbackContentController::class, 'update'])->name('contact_feedback_content.update');
     Route::resource('events', EventController::class)->except(['show']);

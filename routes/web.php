@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\ContactController as PublicContactController;
 use App\Http\Controllers\HomeCoverageProvinceController;
+use App\Http\Controllers\PublicInfographicController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VacancyApplicationController;
 use App\Http\Controllers\VacancyPageController;
 use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\Admin\InfographicController;
+
 use App\Models\AboutContentSection;
 use App\Models\AboutMainSection;
 use App\Models\AboutPageHero;
@@ -595,64 +598,13 @@ Route::get('team', function () {
         'staffMembers' => $staffMembers,
     ]);
 })->name('team');
-Route::get('infographics', function () {
-    $content = InfographicsPageContent::first();
-    $pageContent = $content ? [
-        'title' => $content->title ?? 'Infographics',
-        'banner_image_url' => $content->banner_image
-            ? Storage::disk('public')->url($content->banner_image)
-            : null,
-    ] : [
-        'title' => 'Infographics',
-        'banner_image_url' => null,
-    ];
 
-    $infographics = Infographic::query()
-        ->orderBy('slug')
-        ->orderBy('id')
-        ->get()
-        ->map(fn (Infographic $row) => [
-            'id' => $row->id,
-            'slug' => $row->slug,
-            'label' => $row->displayLabel(),
-        ])
-        ->values()
-        ->all();
+// Public routes
+Route::get('/infographics', [PublicInfographicController::class, 'index'])->name('infographics.index');
+Route::get('infographics/{infographic:slug}', [PublicInfographicController::class, 'show'])->name('infographics.show');
 
-    return Inertia::render('Infographics', [
-        'pageContent' => $pageContent,
-        'infographics' => $infographics,
-    ]);
-})->name('infographics');
-Route::get('infographics/{infographic:slug}', function (Infographic $infographic) {
-    $content = InfographicsPageContent::first();
-    $pageContent = $content ? [
-        'title' => $content->title ?? 'Infographics',
-        'banner_image_url' => $content->banner_image
-            ? Storage::disk('public')->url($content->banner_image)
-            : null,
-    ] : [
-        'title' => 'Infographics',
-        'banner_image_url' => null,
-    ];
 
-    $infographic->load(['items' => fn ($query) => $query->orderBy('sort_order')->orderBy('id')]);
 
-    return Inertia::render('InfographicShow', [
-        'pageContent' => $pageContent,
-        'infographic' => [
-            'id' => $infographic->id,
-            'slug' => $infographic->slug,
-            'label' => $infographic->displayLabel(),
-            'items' => $infographic->items->map(fn ($item) => [
-                'id' => $item->id,
-                'title' => $item->title,
-                'sort_order' => $item->sort_order,
-                'image_url' => Storage::disk('public')->url($item->image),
-            ])->values()->all(),
-        ],
-    ]);
-})->name('infographics.show');
 Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
 Route::get('reports/{document}', [ReportController::class, 'show'])
     ->whereNumber('document')

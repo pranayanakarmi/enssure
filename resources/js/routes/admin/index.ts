@@ -33,9 +33,8 @@ import districts from './districts'
 import documents from './documents'
 import team_members from './team_members'
 import team_page_content from './team_page_content'
-import infographics_page_content from './infographics_page_content'
 import infographics from './infographics'
-import infographic_items from './infographic_items'
+import admin from './admin'
 import contact_feedback_content from './contact_feedback_content'
 import events from './events'
 import eventRegistrations from './event-registrations'
@@ -143,7 +142,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
     
     index.form = indexForm
-const admin = {
+const adminNamespace = {
     videos: Object.assign(videos, videos),
 index: Object.assign(index, index),
 users: Object.assign(users, users),
@@ -179,9 +178,8 @@ districts: Object.assign(districts, districts),
 documents: Object.assign(documents, documents),
 team_members: Object.assign(team_members, team_members),
 team_page_content: Object.assign(team_page_content, team_page_content),
-infographics_page_content: Object.assign(infographics_page_content, infographics_page_content),
 infographics: Object.assign(infographics, infographics),
-infographic_items: Object.assign(infographic_items, infographic_items),
+admin: Object.assign(admin, admin),
 contact_feedback_content: Object.assign(contact_feedback_content, contact_feedback_content),
 events: Object.assign(events, events),
 eventRegistrations: Object.assign(eventRegistrations, eventRegistrations),
@@ -220,4 +218,4 @@ media: Object.assign(media, media),
 feedback: Object.assign(feedback, feedback),
 }
 
-export default admin
+export default adminNamespace

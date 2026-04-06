@@ -1,5 +1,6 @@
 import HomeCoverageProvinceController from './HomeCoverageProvinceController'
 import ContactController from './ContactController'
+import PublicInfographicController from './PublicInfographicController'
 import ReportController from './ReportController'
 import VacancyPageController from './VacancyPageController'
 import VacancyApplicationController from './VacancyApplicationController'
@@ -8,6 +9,7 @@ import Settings from './Settings'
 const Controllers = {
     HomeCoverageProvinceController: Object.assign(HomeCoverageProvinceController, HomeCoverageProvinceController),
 ContactController: Object.assign(ContactController, ContactController),
+PublicInfographicController: Object.assign(PublicInfographicController, PublicInfographicController),
 ReportController: Object.assign(ReportController, ReportController),
 VacancyPageController: Object.assign(VacancyPageController, VacancyPageController),
 VacancyApplicationController: Object.assign(VacancyApplicationController, VacancyApplicationController),

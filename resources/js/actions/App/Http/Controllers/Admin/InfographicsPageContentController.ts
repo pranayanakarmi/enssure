@@ -1,83 +1,5 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
 /**
-* @see \App\Http\Controllers\Admin\InfographicsPageContentController::edit
- * @see app/Http/Controllers/Admin/InfographicsPageContentController.php:15
- * @route '/admin/infographics-page/content/edit'
- */
-export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: edit.url(options),
-    method: 'get',
-})
-
-edit.definition = {
-    methods: ["get","head"],
-    url: '/admin/infographics-page/content/edit',
-} satisfies RouteDefinition<["get","head"]>
-
-/**
-* @see \App\Http\Controllers\Admin\InfographicsPageContentController::edit
- * @see app/Http/Controllers/Admin/InfographicsPageContentController.php:15
- * @route '/admin/infographics-page/content/edit'
- */
-edit.url = (options?: RouteQueryOptions) => {
-    return edit.definition.url + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\Admin\InfographicsPageContentController::edit
- * @see app/Http/Controllers/Admin/InfographicsPageContentController.php:15
- * @route '/admin/infographics-page/content/edit'
- */
-edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: edit.url(options),
-    method: 'get',
-})
-/**
-* @see \App\Http\Controllers\Admin\InfographicsPageContentController::edit
- * @see app/Http/Controllers/Admin/InfographicsPageContentController.php:15
- * @route '/admin/infographics-page/content/edit'
- */
-edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: edit.url(options),
-    method: 'head',
-})
-
-    /**
-* @see \App\Http\Controllers\Admin\InfographicsPageContentController::edit
- * @see app/Http/Controllers/Admin/InfographicsPageContentController.php:15
- * @route '/admin/infographics-page/content/edit'
- */
-    const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: edit.url(options),
-        method: 'get',
-    })
-
-            /**
-* @see \App\Http\Controllers\Admin\InfographicsPageContentController::edit
- * @see app/Http/Controllers/Admin/InfographicsPageContentController.php:15
- * @route '/admin/infographics-page/content/edit'
- */
-        editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: edit.url(options),
-            method: 'get',
-        })
-            /**
-* @see \App\Http\Controllers\Admin\InfographicsPageContentController::edit
- * @see app/Http/Controllers/Admin/InfographicsPageContentController.php:15
- * @route '/admin/infographics-page/content/edit'
- */
-        editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: edit.url({
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    edit.form = editForm
-/**
 * @see \App\Http\Controllers\Admin\InfographicsPageContentController::update
  * @see app/Http/Controllers/Admin/InfographicsPageContentController.php:36
  * @route '/admin/infographics-page/content'
@@ -142,6 +64,6 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
         })
     
     update.form = updateForm
-const InfographicsPageContentController = { edit, update }
+const InfographicsPageContentController = { update }
 
 export default InfographicsPageContentController

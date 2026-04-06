@@ -28,8 +28,17 @@ class StoreInfographicRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', Rule::unique('infographics', 'slug')],
+            'title' => 'required|string|max:255',
+            'hero_title' => 'nullable|string|max:255',
+            'slug' => 'required|string|max:255|unique:infographics,slug',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
+            'url' => 'nullable|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'is_published' => 'boolean',
+            'sort_order' => 'nullable|integer|min:0',
+            'banner_image' => 'nullable|image|max:2048',
         ];
     }
 }
