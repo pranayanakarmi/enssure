@@ -20,7 +20,7 @@ class UpdateSliderItemRequest extends FormRequest
             'title' => ['nullable', 'string', 'max:255'],
             'subtitle' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'max:5120'],
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'link_url' => ['nullable', 'string', 'max:255'],
             'link_text' => ['nullable', 'string', 'max:255'],
             'order' => ['nullable', 'integer', 'min:0'],

@@ -124,38 +124,29 @@ return [
             'permission_resource' => 'menus',
         ],
         [
-            'title' => 'Home Page',
-            'icon' => 'Home',
-            'permission_resource' => null,
-            'children' => [
-                ['title' => 'News Ticker', 'href' => 'admin.news_ticker_items.index', 'permission_resource' => 'news_ticker_items'],
-                ['title' => 'Sliders', 'href' => 'admin.sliders.index', 'permission_resource' => 'sliders'],
-                // ['title' => 'Banners', 'href' => 'admin.banners.index', 'permission_resource' => 'banners'],
-                //['title' => 'Statistics', 'href' => 'admin.statistics.index', 'permission_resource' => 'statistics'],
-                ['title' => 'Our Impact & Milestones','href' => 'admin.home_reach_sections.edit','permission_resource' => 'home_reach_sections',],
-                ['title' => 'About section', 'href' => 'admin.home_about_sections.edit', 'permission_resource' => 'home_about_sections'],
-                ['title' => 'Gallery section', 'href' => 'admin.home_gallery_sections.edit', 'permission_resource' => 'home_gallery_sections'],
-                ['title' => 'Impact Stories section', 'href' => 'admin.home_impact_stories_sections.edit', 'permission_resource' => 'home_impact_stories_sections'],
-                ['title' => 'Coverage section', 'href' => 'admin.home_coverage_sections.edit', 'permission_resource' => 'home_coverage_sections'],
-                ['title' => 'News section', 'href' => 'admin.home_news_sections.edit', 'permission_resource' => 'home_news_sections'],
-                ['title' => 'Videos', 'href' => 'admin.videos.index', 'permission_resource' => 'videos'],
+    'title' => 'Home Page',
+    'href' => 'admin.home',           // new route
+    'icon' => 'Home',
+    'permission_resource' => 'home',    // parent doesn't need its own permission
+    // 'children' => [
+    //     ['title' => 'News Ticker', 'href' => 'admin.news_ticker_items.index', 'permission_resource' => 'news_ticker_items'],
+    //     ['title' => 'Sliders', 'href' => 'admin.sliders.index', 'permission_resource' => 'sliders'],
+    //     ['title' => 'Our Impact & Milestones', 'href' => 'admin.home_reach_sections.edit', 'permission_resource' => 'home_reach_sections'],
+    //     ['title' => 'About section', 'href' => 'admin.home_about_sections.edit', 'permission_resource' => 'home_about_sections'],
+    //     ['title' => 'Gallery section', 'href' => 'admin.home_gallery_sections.edit', 'permission_resource' => 'home_gallery_sections'],
+    //     ['title' => 'Impact Stories section', 'href' => 'admin.home_impact_stories_sections.edit', 'permission_resource' => 'home_impact_stories_sections'],
+    //     ['title' => 'Coverage section', 'href' => 'admin.home_coverage_sections.edit', 'permission_resource' => 'home_coverage_sections'],
+    //     ['title' => 'News section', 'href' => 'admin.home_news_sections.edit', 'permission_resource' => 'home_news_sections'],
+    //     ['title' => 'Videos', 'href' => 'admin.videos.index', 'permission_resource' => 'videos'],
+    //     ['title' => 'Testimonials', 'href' => 'admin.testimonials.index', 'permission_resource' => 'testimonials'],
+    //     ['title' => 'Testimonials section', 'href' => 'admin.home_testimonials_sections.edit', 'permission_resource' => 'home_testimonials_sections'],
+    //     ['title' => 'Partners', 'href' => 'admin.partners.index', 'permission_resource' => 'partners'],
+    //     ['title' => 'Partners section', 'href' => 'admin.home_partners_sections.edit', 'permission_resource' => 'home_partners_sections'],
+    //     ['title' => 'Support section', 'href' => 'admin.home_support_sections.edit', 'permission_resource' => 'home_support_sections'],
+    //     ['title' => 'Contact CTA section', 'href' => 'admin.home_contact_cta_sections.edit', 'permission_resource' => 'home_contact_cta_sections'],
+    // ],
+],
 
-                ['title' => 'Testimonials', 'href' => 'admin.testimonials.index', 'permission_resource' => 'testimonials'],
-                ['title' => 'Testimonials section', 'href' => 'admin.home_testimonials_sections.edit', 'permission_resource' => 'home_testimonials_sections'],
-                ['title' => 'Partners', 'href' => 'admin.partners.index', 'permission_resource' => 'partners'],
-                ['title' => 'Partners section', 'href' => 'admin.home_partners_sections.edit', 'permission_resource' => 'home_partners_sections'],
-                ['title' => 'Support section', 'href' => 'admin.home_support_sections.edit', 'permission_resource' => 'home_support_sections'],
-                ['title' => 'Contact CTA section', 'href' => 'admin.home_contact_cta_sections.edit', 'permission_resource' => 'home_contact_cta_sections'],
-
-                // ['title' => 'Galleries', 'href' => 'admin.galleries.index', 'permission_resource' => 'galleries'],
-
-
-
-
-
-
-            ],
-        ],
 
         [
             'title' => 'Gallery Page',

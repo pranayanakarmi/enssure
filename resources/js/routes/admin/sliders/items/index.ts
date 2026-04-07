@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::store
- * @see app/Http/Controllers/Admin/SliderItemController.php:17
+ * @see app/Http/Controllers/Admin/SliderItemController.php:18
  * @route '/admin/sliders/{slider}/items'
  */
 export const store = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -16,7 +16,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::store
- * @see app/Http/Controllers/Admin/SliderItemController.php:17
+ * @see app/Http/Controllers/Admin/SliderItemController.php:18
  * @route '/admin/sliders/{slider}/items'
  */
 store.url = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ store.url = (args: { slider: number | { id: number } } | [slider: number | { id:
 
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::store
- * @see app/Http/Controllers/Admin/SliderItemController.php:17
+ * @see app/Http/Controllers/Admin/SliderItemController.php:18
  * @route '/admin/sliders/{slider}/items'
  */
 store.post = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -59,7 +59,7 @@ store.post = (args: { slider: number | { id: number } } | [slider: number | { id
 
     /**
 * @see \App\Http\Controllers\Admin\SliderItemController::store
- * @see app/Http/Controllers/Admin/SliderItemController.php:17
+ * @see app/Http/Controllers/Admin/SliderItemController.php:18
  * @route '/admin/sliders/{slider}/items'
  */
     const storeForm = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -69,7 +69,7 @@ store.post = (args: { slider: number | { id: number } } | [slider: number | { id
 
             /**
 * @see \App\Http\Controllers\Admin\SliderItemController::store
- * @see app/Http/Controllers/Admin/SliderItemController.php:17
+ * @see app/Http/Controllers/Admin/SliderItemController.php:18
  * @route '/admin/sliders/{slider}/items'
  */
         storeForm.post = (args: { slider: number | { id: number } } | [slider: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

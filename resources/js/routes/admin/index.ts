@@ -45,6 +45,7 @@ import home_impact_stories_sections from './home_impact_stories_sections'
 import home_gallery_sections from './home_gallery_sections'
 import home_reach_sections from './home_reach_sections'
 import home_reach_items from './home_reach_items'
+import impactAndMilestonesItems from './impact-and-milestones-items'
 import home_coverage_sections from './home_coverage_sections'
 import home_coverage_section_items from './home_coverage_section_items'
 import home_news_sections from './home_news_sections'
@@ -71,6 +72,84 @@ import email_templates from './email_templates'
 import redirects from './redirects'
 import media from './media'
 import feedback from './feedback'
+/**
+* @see \App\Http\Controllers\Admin\HomeController::home
+ * @see app/Http/Controllers/Admin/HomeController.php:10
+ * @route '/admin/home'
+ */
+export const home = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: home.url(options),
+    method: 'get',
+})
+
+home.definition = {
+    methods: ["get","head"],
+    url: '/admin/home',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Admin\HomeController::home
+ * @see app/Http/Controllers/Admin/HomeController.php:10
+ * @route '/admin/home'
+ */
+home.url = (options?: RouteQueryOptions) => {
+    return home.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Admin\HomeController::home
+ * @see app/Http/Controllers/Admin/HomeController.php:10
+ * @route '/admin/home'
+ */
+home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: home.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\Admin\HomeController::home
+ * @see app/Http/Controllers/Admin/HomeController.php:10
+ * @route '/admin/home'
+ */
+home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: home.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\Admin\HomeController::home
+ * @see app/Http/Controllers/Admin/HomeController.php:10
+ * @route '/admin/home'
+ */
+    const homeForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: home.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\Admin\HomeController::home
+ * @see app/Http/Controllers/Admin/HomeController.php:10
+ * @route '/admin/home'
+ */
+        homeForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: home.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\Admin\HomeController::home
+ * @see app/Http/Controllers/Admin/HomeController.php:10
+ * @route '/admin/home'
+ */
+        homeForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: home.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    home.form = homeForm
 /**
  * @see routes/admin.php:85
  * @route '/admin'
@@ -144,6 +223,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 const adminNamespace = {
     videos: Object.assign(videos, videos),
+home: Object.assign(home, home),
 index: Object.assign(index, index),
 users: Object.assign(users, users),
 roles: Object.assign(roles, roles),
@@ -190,6 +270,7 @@ home_impact_stories_sections: Object.assign(home_impact_stories_sections, home_i
 home_gallery_sections: Object.assign(home_gallery_sections, home_gallery_sections),
 home_reach_sections: Object.assign(home_reach_sections, home_reach_sections),
 home_reach_items: Object.assign(home_reach_items, home_reach_items),
+impactAndMilestonesItems: Object.assign(impactAndMilestonesItems, impactAndMilestonesItems),
 home_coverage_sections: Object.assign(home_coverage_sections, home_coverage_sections),
 home_coverage_section_items: Object.assign(home_coverage_section_items, home_coverage_section_items),
 home_news_sections: Object.assign(home_news_sections, home_news_sections),

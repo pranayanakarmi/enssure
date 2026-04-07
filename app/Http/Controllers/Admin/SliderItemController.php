@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\UpdateSliderItemRequest;
 use App\Models\Slider;
 use App\Models\SliderItem;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -83,4 +84,19 @@ class SliderItemController extends Controller
         return redirect()->route('admin.sliders.edit', $slider_id)
             ->with('success', 'Slider item deleted.');
     }
+
+    public function reorder(Request $request)
+{
+    $request->validate([
+        'items' => 'required|array',
+        'items.*.id' => 'required|exists:slider_items,id',
+        'items.*.order' => 'required|integer|min:0',
+    ]);
+
+    foreach ($request->input('items') as $item) {
+        \App\Models\SliderItem::where('id', $item['id'])->update(['order' => $item['order']]);
+    }
+
+    return back()->with('success', 'Slides reordered successfully.');
+}
 }

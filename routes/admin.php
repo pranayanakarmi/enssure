@@ -92,6 +92,7 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::get('slider-items/{slider_item}/edit', [SliderItemController::class, 'edit'])->name('slider-items.edit');
     Route::put('slider-items/{slider_item}', [SliderItemController::class, 'update'])->name('slider-items.update');
     Route::delete('slider-items/{slider_item}', [SliderItemController::class, 'destroy'])->name('slider-items.destroy');
+    Route::post('slider-items/reorder', [SliderItemController::class, 'reorder'])->name('slider-items.reorder');
 
     Route::resource('banners', BannerController::class);
     Route::resource('statistics', StatisticController::class);
@@ -179,6 +180,7 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::get('impact-and-milestones-items/{home_reach_item}/edit', [HomeReachItemController::class, 'edit'])->name('home_reach_items.edit');
     Route::put('impact-and-milestones-items/{home_reach_item}', [HomeReachItemController::class, 'update'])->name('home_reach_items.update');
     Route::delete('impact-and-milestones-items/{home_reach_item}', [HomeReachItemController::class, 'destroy'])->name('home_reach_items.destroy');
+    Route::post('impact-and-milestones-items/reorder', [HomeReachItemController::class, 'reorder'])->name('impact-and-milestones-items.reorder');
     Route::get('home-coverage-section/edit', [HomeCoverageSectionController::class, 'edit'])->name('home_coverage_sections.edit');
     Route::put('home-coverage-section', [HomeCoverageSectionController::class, 'update'])->name('home_coverage_sections.update');
     Route::post('home-coverage-section/items', [HomeCoverageSectionItemController::class, 'store'])->name('home_coverage_sections.items.store');
@@ -189,8 +191,10 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::put('home-news-section', [HomeNewsSectionController::class, 'update'])->name('home_news_sections.update');
     Route::get('home-testimonials-section/edit', [HomeTestimonialsSectionController::class, 'edit'])->name('home_testimonials_sections.edit');
     Route::put('home-testimonials-section', [HomeTestimonialsSectionController::class, 'update'])->name('home_testimonials_sections.update');
+    Route::post('testimonials/reorder', [TestimonialController::class, 'reorder'])->name('testimonials.reorder');
     Route::get('home-partners-section/edit', [HomePartnersSectionController::class, 'edit'])->name('home_partners_sections.edit');
     Route::put('home-partners-section', [HomePartnersSectionController::class, 'update'])->name('home_partners_sections.update');
+    Route::post('partners/reorder', [PartnerController::class, 'reorder'])->name('partners.reorder');
     Route::get('home-support-section/edit', [HomeSupportSectionController::class, 'edit'])->name('home_support_sections.edit');
     Route::put('home-support-section', [HomeSupportSectionController::class, 'update'])->name('home_support_sections.update');
     Route::get('home-contact-cta-section/edit', [HomeContactCtaSectionController::class, 'edit'])->name('home_contact_cta_sections.edit');

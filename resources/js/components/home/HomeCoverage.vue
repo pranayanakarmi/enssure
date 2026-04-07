@@ -426,12 +426,7 @@ onUnmounted(() => observer?.disconnect());
                     </h2>
                 </div>
                 <div class="md:w-4/6 mt-8 md:mt-0 md:pl-10 flex items-center">
-                    <p
-                        v-if="description"
-                        class="leading-relaxed text-gray-600"
-                    >
-                        {{ description }}
-                    </p>
+                    <div v-if="description" class="leading-relaxed text-gray-600" v-html="description"></div>
                 </div>
             </div>
 

@@ -1,4 +1,5 @@
 import VideoController from './VideoController'
+import HomeController from './HomeController'
 import UserController from './UserController'
 import RoleController from './RoleController'
 import SliderController from './SliderController'
@@ -74,6 +75,7 @@ import MediaController from './MediaController'
 import FeedbackController from './FeedbackController'
 const Admin = {
     VideoController: Object.assign(VideoController, VideoController),
+HomeController: Object.assign(HomeController, HomeController),
 UserController: Object.assign(UserController, UserController),
 RoleController: Object.assign(RoleController, RoleController),
 SliderController: Object.assign(SliderController, SliderController),

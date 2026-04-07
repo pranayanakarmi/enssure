@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePartnerRequest;
 use App\Http\Requests\Admin\UpdatePartnerRequest;
 use App\Models\Partner;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -26,6 +27,7 @@ class PartnerController extends Controller
                 'website_url' => $p->website_url,
                 'partner_type' => $p->partner_type,
                 'order' => $p->order,
+                'logo_url'      => $p->logo ? Storage::disk('public')->url($p->logo) : null,
             ])
             ->values()
             ->all();
@@ -101,4 +103,17 @@ class PartnerController extends Controller
         return to_route('admin.partners.index')
             ->with('success', 'Partner deleted successfully.');
     }
+
+    public function reorder(Request $request)
+{
+    $request->validate([
+        'items' => 'required|array',
+        'items.*.id' => 'required|exists:partners,id',
+        'items.*.order' => 'required|integer|min:0',
+    ]);
+    foreach ($request->input('items') as $item) {
+        Partner::where('id', $item['id'])->update(['order' => $item['order']]);
+    }
+    return back()->with('success', 'Partners reordered successfully.');
+}
 }

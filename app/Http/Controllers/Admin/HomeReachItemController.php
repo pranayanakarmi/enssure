@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StoreHomeReachItemRequest;
 use App\Http\Requests\Admin\UpdateHomeReachItemRequest;
 use App\Models\HomeReachItem;
 use App\Models\HomeReachSection;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -82,4 +83,19 @@ class HomeReachItemController extends Controller
 
         return back()->with('success', 'Stat card removed.');
     }
+
+    public function reorder(Request $request)
+{
+    $request->validate([
+        'items' => 'required|array',
+        'items.*.id' => 'required|exists:home_reach_items,id',
+        'items.*.order' => 'required|integer|min:0',
+    ]);
+
+    foreach ($request->input('items') as $item) {
+        \App\Models\HomeReachItem::where('id', $item['id'])->update(['order' => $item['order']]);
+    }
+
+    return back()->with('success', 'Stat cards reordered successfully.');
+}
 }

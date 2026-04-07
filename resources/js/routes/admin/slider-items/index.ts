@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::edit
- * @see app/Http/Controllers/Admin/SliderItemController.php:30
+ * @see app/Http/Controllers/Admin/SliderItemController.php:31
  * @route '/admin/slider-items/{slider_item}/edit'
  */
 export const edit = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::edit
- * @see app/Http/Controllers/Admin/SliderItemController.php:30
+ * @see app/Http/Controllers/Admin/SliderItemController.php:31
  * @route '/admin/slider-items/{slider_item}/edit'
  */
 edit.url = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ edit.url = (args: { slider_item: number | { id: number } } | [slider_item: numbe
 
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::edit
- * @see app/Http/Controllers/Admin/SliderItemController.php:30
+ * @see app/Http/Controllers/Admin/SliderItemController.php:31
  * @route '/admin/slider-items/{slider_item}/edit'
  */
 edit.get = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -58,7 +58,7 @@ edit.get = (args: { slider_item: number | { id: number } } | [slider_item: numbe
 })
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::edit
- * @see app/Http/Controllers/Admin/SliderItemController.php:30
+ * @see app/Http/Controllers/Admin/SliderItemController.php:31
  * @route '/admin/slider-items/{slider_item}/edit'
  */
 edit.head = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -68,7 +68,7 @@ edit.head = (args: { slider_item: number | { id: number } } | [slider_item: numb
 
     /**
 * @see \App\Http\Controllers\Admin\SliderItemController::edit
- * @see app/Http/Controllers/Admin/SliderItemController.php:30
+ * @see app/Http/Controllers/Admin/SliderItemController.php:31
  * @route '/admin/slider-items/{slider_item}/edit'
  */
     const editForm = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -78,7 +78,7 @@ edit.head = (args: { slider_item: number | { id: number } } | [slider_item: numb
 
             /**
 * @see \App\Http\Controllers\Admin\SliderItemController::edit
- * @see app/Http/Controllers/Admin/SliderItemController.php:30
+ * @see app/Http/Controllers/Admin/SliderItemController.php:31
  * @route '/admin/slider-items/{slider_item}/edit'
  */
         editForm.get = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -87,7 +87,7 @@ edit.head = (args: { slider_item: number | { id: number } } | [slider_item: numb
         })
             /**
 * @see \App\Http\Controllers\Admin\SliderItemController::edit
- * @see app/Http/Controllers/Admin/SliderItemController.php:30
+ * @see app/Http/Controllers/Admin/SliderItemController.php:31
  * @route '/admin/slider-items/{slider_item}/edit'
  */
         editForm.head = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -103,7 +103,7 @@ edit.head = (args: { slider_item: number | { id: number } } | [slider_item: numb
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::update
- * @see app/Http/Controllers/Admin/SliderItemController.php:56
+ * @see app/Http/Controllers/Admin/SliderItemController.php:57
  * @route '/admin/slider-items/{slider_item}'
  */
 export const update = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -118,7 +118,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::update
- * @see app/Http/Controllers/Admin/SliderItemController.php:56
+ * @see app/Http/Controllers/Admin/SliderItemController.php:57
  * @route '/admin/slider-items/{slider_item}'
  */
 update.url = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -151,7 +151,7 @@ update.url = (args: { slider_item: number | { id: number } } | [slider_item: num
 
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::update
- * @see app/Http/Controllers/Admin/SliderItemController.php:56
+ * @see app/Http/Controllers/Admin/SliderItemController.php:57
  * @route '/admin/slider-items/{slider_item}'
  */
 update.put = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -161,7 +161,7 @@ update.put = (args: { slider_item: number | { id: number } } | [slider_item: num
 
     /**
 * @see \App\Http\Controllers\Admin\SliderItemController::update
- * @see app/Http/Controllers/Admin/SliderItemController.php:56
+ * @see app/Http/Controllers/Admin/SliderItemController.php:57
  * @route '/admin/slider-items/{slider_item}'
  */
     const updateForm = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -176,7 +176,7 @@ update.put = (args: { slider_item: number | { id: number } } | [slider_item: num
 
             /**
 * @see \App\Http\Controllers\Admin\SliderItemController::update
- * @see app/Http/Controllers/Admin/SliderItemController.php:56
+ * @see app/Http/Controllers/Admin/SliderItemController.php:57
  * @route '/admin/slider-items/{slider_item}'
  */
         updateForm.put = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -192,7 +192,7 @@ update.put = (args: { slider_item: number | { id: number } } | [slider_item: num
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::destroy
- * @see app/Http/Controllers/Admin/SliderItemController.php:73
+ * @see app/Http/Controllers/Admin/SliderItemController.php:74
  * @route '/admin/slider-items/{slider_item}'
  */
 export const destroy = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -207,7 +207,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::destroy
- * @see app/Http/Controllers/Admin/SliderItemController.php:73
+ * @see app/Http/Controllers/Admin/SliderItemController.php:74
  * @route '/admin/slider-items/{slider_item}'
  */
 destroy.url = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -240,7 +240,7 @@ destroy.url = (args: { slider_item: number | { id: number } } | [slider_item: nu
 
 /**
 * @see \App\Http\Controllers\Admin\SliderItemController::destroy
- * @see app/Http/Controllers/Admin/SliderItemController.php:73
+ * @see app/Http/Controllers/Admin/SliderItemController.php:74
  * @route '/admin/slider-items/{slider_item}'
  */
 destroy.delete = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -250,7 +250,7 @@ destroy.delete = (args: { slider_item: number | { id: number } } | [slider_item:
 
     /**
 * @see \App\Http\Controllers\Admin\SliderItemController::destroy
- * @see app/Http/Controllers/Admin/SliderItemController.php:73
+ * @see app/Http/Controllers/Admin/SliderItemController.php:74
  * @route '/admin/slider-items/{slider_item}'
  */
     const destroyForm = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -265,7 +265,7 @@ destroy.delete = (args: { slider_item: number | { id: number } } | [slider_item:
 
             /**
 * @see \App\Http\Controllers\Admin\SliderItemController::destroy
- * @see app/Http/Controllers/Admin/SliderItemController.php:73
+ * @see app/Http/Controllers/Admin/SliderItemController.php:74
  * @route '/admin/slider-items/{slider_item}'
  */
         destroyForm.delete = (args: { slider_item: number | { id: number } } | [slider_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -279,10 +279,66 @@ destroy.delete = (args: { slider_item: number | { id: number } } | [slider_item:
         })
     
     destroy.form = destroyForm
+/**
+* @see \App\Http\Controllers\Admin\SliderItemController::reorder
+ * @see app/Http/Controllers/Admin/SliderItemController.php:88
+ * @route '/admin/slider-items/reorder'
+ */
+export const reorder = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: reorder.url(options),
+    method: 'post',
+})
+
+reorder.definition = {
+    methods: ["post"],
+    url: '/admin/slider-items/reorder',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\Admin\SliderItemController::reorder
+ * @see app/Http/Controllers/Admin/SliderItemController.php:88
+ * @route '/admin/slider-items/reorder'
+ */
+reorder.url = (options?: RouteQueryOptions) => {
+    return reorder.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Admin\SliderItemController::reorder
+ * @see app/Http/Controllers/Admin/SliderItemController.php:88
+ * @route '/admin/slider-items/reorder'
+ */
+reorder.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: reorder.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\Admin\SliderItemController::reorder
+ * @see app/Http/Controllers/Admin/SliderItemController.php:88
+ * @route '/admin/slider-items/reorder'
+ */
+    const reorderForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: reorder.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Admin\SliderItemController::reorder
+ * @see app/Http/Controllers/Admin/SliderItemController.php:88
+ * @route '/admin/slider-items/reorder'
+ */
+        reorderForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: reorder.url(options),
+            method: 'post',
+        })
+    
+    reorder.form = reorderForm
 const sliderItems = {
     edit: Object.assign(edit, edit),
 update: Object.assign(update, update),
 destroy: Object.assign(destroy, destroy),
+reorder: Object.assign(reorder, reorder),
 }
 
 export default sliderItems

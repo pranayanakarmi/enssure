@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::index
- * @see app/Http/Controllers/Admin/PartnerController.php:16
+ * @see app/Http/Controllers/Admin/PartnerController.php:17
  * @route '/admin/partners'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::index
- * @see app/Http/Controllers/Admin/PartnerController.php:16
+ * @see app/Http/Controllers/Admin/PartnerController.php:17
  * @route '/admin/partners'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::index
- * @see app/Http/Controllers/Admin/PartnerController.php:16
+ * @see app/Http/Controllers/Admin/PartnerController.php:17
  * @route '/admin/partners'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::index
- * @see app/Http/Controllers/Admin/PartnerController.php:16
+ * @see app/Http/Controllers/Admin/PartnerController.php:17
  * @route '/admin/partners'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\PartnerController::index
- * @see app/Http/Controllers/Admin/PartnerController.php:16
+ * @see app/Http/Controllers/Admin/PartnerController.php:17
  * @route '/admin/partners'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::index
- * @see app/Http/Controllers/Admin/PartnerController.php:16
+ * @see app/Http/Controllers/Admin/PartnerController.php:17
  * @route '/admin/partners'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::index
- * @see app/Http/Controllers/Admin/PartnerController.php:16
+ * @see app/Http/Controllers/Admin/PartnerController.php:17
  * @route '/admin/partners'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::create
- * @see app/Http/Controllers/Admin/PartnerController.php:38
+ * @see app/Http/Controllers/Admin/PartnerController.php:40
  * @route '/admin/partners/create'
  */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::create
- * @see app/Http/Controllers/Admin/PartnerController.php:38
+ * @see app/Http/Controllers/Admin/PartnerController.php:40
  * @route '/admin/partners/create'
  */
 create.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::create
- * @see app/Http/Controllers/Admin/PartnerController.php:38
+ * @see app/Http/Controllers/Admin/PartnerController.php:40
  * @route '/admin/partners/create'
  */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::create
- * @see app/Http/Controllers/Admin/PartnerController.php:38
+ * @see app/Http/Controllers/Admin/PartnerController.php:40
  * @route '/admin/partners/create'
  */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\PartnerController::create
- * @see app/Http/Controllers/Admin/PartnerController.php:38
+ * @see app/Http/Controllers/Admin/PartnerController.php:40
  * @route '/admin/partners/create'
  */
     const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::create
- * @see app/Http/Controllers/Admin/PartnerController.php:38
+ * @see app/Http/Controllers/Admin/PartnerController.php:40
  * @route '/admin/partners/create'
  */
         createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::create
- * @see app/Http/Controllers/Admin/PartnerController.php:38
+ * @see app/Http/Controllers/Admin/PartnerController.php:40
  * @route '/admin/partners/create'
  */
         createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     create.form = createForm
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::store
- * @see app/Http/Controllers/Admin/PartnerController.php:45
+ * @see app/Http/Controllers/Admin/PartnerController.php:47
  * @route '/admin/partners'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -172,7 +172,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::store
- * @see app/Http/Controllers/Admin/PartnerController.php:45
+ * @see app/Http/Controllers/Admin/PartnerController.php:47
  * @route '/admin/partners'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::store
- * @see app/Http/Controllers/Admin/PartnerController.php:45
+ * @see app/Http/Controllers/Admin/PartnerController.php:47
  * @route '/admin/partners'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -191,7 +191,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\PartnerController::store
- * @see app/Http/Controllers/Admin/PartnerController.php:45
+ * @see app/Http/Controllers/Admin/PartnerController.php:47
  * @route '/admin/partners'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -201,7 +201,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::store
- * @see app/Http/Controllers/Admin/PartnerController.php:45
+ * @see app/Http/Controllers/Admin/PartnerController.php:47
  * @route '/admin/partners'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -309,7 +309,7 @@ show.head = (args: { partner: string | number } | [partner: string | number ] | 
     show.form = showForm
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::edit
- * @see app/Http/Controllers/Admin/PartnerController.php:57
+ * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
 export const edit = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -324,7 +324,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::edit
- * @see app/Http/Controllers/Admin/PartnerController.php:57
+ * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
 edit.url = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -357,7 +357,7 @@ edit.url = (args: { partner: number | { id: number } } | [partner: number | { id
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::edit
- * @see app/Http/Controllers/Admin/PartnerController.php:57
+ * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
 edit.get = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -366,7 +366,7 @@ edit.get = (args: { partner: number | { id: number } } | [partner: number | { id
 })
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::edit
- * @see app/Http/Controllers/Admin/PartnerController.php:57
+ * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
 edit.head = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -376,7 +376,7 @@ edit.head = (args: { partner: number | { id: number } } | [partner: number | { i
 
     /**
 * @see \App\Http\Controllers\Admin\PartnerController::edit
- * @see app/Http/Controllers/Admin/PartnerController.php:57
+ * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
     const editForm = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -386,7 +386,7 @@ edit.head = (args: { partner: number | { id: number } } | [partner: number | { i
 
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::edit
- * @see app/Http/Controllers/Admin/PartnerController.php:57
+ * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
         editForm.get = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -395,7 +395,7 @@ edit.head = (args: { partner: number | { id: number } } | [partner: number | { i
         })
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::edit
- * @see app/Http/Controllers/Admin/PartnerController.php:57
+ * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
         editForm.head = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -411,7 +411,7 @@ edit.head = (args: { partner: number | { id: number } } | [partner: number | { i
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::update
- * @see app/Http/Controllers/Admin/PartnerController.php:77
+ * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
 export const update = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -426,7 +426,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::update
- * @see app/Http/Controllers/Admin/PartnerController.php:77
+ * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
 update.url = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -459,7 +459,7 @@ update.url = (args: { partner: number | { id: number } } | [partner: number | { 
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::update
- * @see app/Http/Controllers/Admin/PartnerController.php:77
+ * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
 update.put = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -468,7 +468,7 @@ update.put = (args: { partner: number | { id: number } } | [partner: number | { 
 })
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::update
- * @see app/Http/Controllers/Admin/PartnerController.php:77
+ * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
 update.patch = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -478,7 +478,7 @@ update.patch = (args: { partner: number | { id: number } } | [partner: number | 
 
     /**
 * @see \App\Http\Controllers\Admin\PartnerController::update
- * @see app/Http/Controllers/Admin/PartnerController.php:77
+ * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
     const updateForm = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -493,7 +493,7 @@ update.patch = (args: { partner: number | { id: number } } | [partner: number | 
 
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::update
- * @see app/Http/Controllers/Admin/PartnerController.php:77
+ * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
         updateForm.put = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -507,7 +507,7 @@ update.patch = (args: { partner: number | { id: number } } | [partner: number | 
         })
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::update
- * @see app/Http/Controllers/Admin/PartnerController.php:77
+ * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
         updateForm.patch = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -523,7 +523,7 @@ update.patch = (args: { partner: number | { id: number } } | [partner: number | 
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::destroy
- * @see app/Http/Controllers/Admin/PartnerController.php:92
+ * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
 export const destroy = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -538,7 +538,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::destroy
- * @see app/Http/Controllers/Admin/PartnerController.php:92
+ * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
 destroy.url = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -571,7 +571,7 @@ destroy.url = (args: { partner: number | { id: number } } | [partner: number | {
 
 /**
 * @see \App\Http\Controllers\Admin\PartnerController::destroy
- * @see app/Http/Controllers/Admin/PartnerController.php:92
+ * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
 destroy.delete = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -581,7 +581,7 @@ destroy.delete = (args: { partner: number | { id: number } } | [partner: number 
 
     /**
 * @see \App\Http\Controllers\Admin\PartnerController::destroy
- * @see app/Http/Controllers/Admin/PartnerController.php:92
+ * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
     const destroyForm = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -596,7 +596,7 @@ destroy.delete = (args: { partner: number | { id: number } } | [partner: number 
 
             /**
 * @see \App\Http\Controllers\Admin\PartnerController::destroy
- * @see app/Http/Controllers/Admin/PartnerController.php:92
+ * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
         destroyForm.delete = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -610,6 +610,61 @@ destroy.delete = (args: { partner: number | { id: number } } | [partner: number 
         })
     
     destroy.form = destroyForm
+/**
+* @see \App\Http\Controllers\Admin\PartnerController::reorder
+ * @see app/Http/Controllers/Admin/PartnerController.php:107
+ * @route '/admin/partners/reorder'
+ */
+export const reorder = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: reorder.url(options),
+    method: 'post',
+})
+
+reorder.definition = {
+    methods: ["post"],
+    url: '/admin/partners/reorder',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\Admin\PartnerController::reorder
+ * @see app/Http/Controllers/Admin/PartnerController.php:107
+ * @route '/admin/partners/reorder'
+ */
+reorder.url = (options?: RouteQueryOptions) => {
+    return reorder.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Admin\PartnerController::reorder
+ * @see app/Http/Controllers/Admin/PartnerController.php:107
+ * @route '/admin/partners/reorder'
+ */
+reorder.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: reorder.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\Admin\PartnerController::reorder
+ * @see app/Http/Controllers/Admin/PartnerController.php:107
+ * @route '/admin/partners/reorder'
+ */
+    const reorderForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: reorder.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Admin\PartnerController::reorder
+ * @see app/Http/Controllers/Admin/PartnerController.php:107
+ * @route '/admin/partners/reorder'
+ */
+        reorderForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: reorder.url(options),
+            method: 'post',
+        })
+    
+    reorder.form = reorderForm
 const partners = {
     index: Object.assign(index, index),
 create: Object.assign(create, create),
@@ -618,6 +673,7 @@ show: Object.assign(show, show),
 edit: Object.assign(edit, edit),
 update: Object.assign(update, update),
 destroy: Object.assign(destroy, destroy),
+reorder: Object.assign(reorder, reorder),
 }
 
 export default partners

@@ -1,9 +1,9 @@
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import PageHero from '@/components/guest/PageHero.vue';
-import VacancyApplyModal from '@/components/guest/VacancyApplyModal.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
+import { MapPin, Clock, Calendar, Briefcase, CheckCircle } from 'lucide-vue-next';
 
 defineProps({
     vacancies: {
@@ -12,37 +12,37 @@ defineProps({
     },
 });
 
-const page = usePage();
+const page         = usePage();
 const flashSuccess = computed(() => page.props.flash?.success);
 
-const showApplyModal = ref(false);
-const modalVacancyTitle = ref('');
-const modalVacancySlug = ref('');
-
-const partnerLogos = [
-    '/enssure/assets/ac6be776c5bec31df9cf5f1bed529200ddb74c1a.png',
-    '/enssure/assets/1bfd5b6a208521619b06244790669dd636449742.png',
-    '/enssure/assets/ebbe48ec5c80c20d972673da35584cdc422ccc68.png',
-    '/enssure/assets/d7c2ac1e901bc7bac7279f1006a3053183752132.png',
-];
-
-function openApplyModal(vacancy) {
-    modalVacancyTitle.value = vacancy.title;
-    modalVacancySlug.value = vacancy.slug;
-    showApplyModal.value = true;
-}
-
 const jobTypeLabels = {
-    full_time: 'Full time',
-    part_time: 'Part time',
-    contract: 'Contract',
+    full_time: 'Full Time',
+    part_time: 'Part Time',
+    contract:  'Contract',
 };
 
 function formatJobType(value) {
-    if (!value) {
-        return '';
-    }
+    if (!value) return null;
     return jobTypeLabels[value] ?? value;
+}
+
+// Deadline urgency color
+function deadlineClass(deadline) {
+    if (!deadline) return 'text-gray-500';
+    const days = Math.ceil((new Date(deadline) - new Date()) / (1000 * 60 * 60 * 24));
+    if (days <= 7)  return 'text-red-600 font-semibold';
+    if (days <= 14) return 'text-orange-500 font-semibold';
+    return 'text-gray-500';
+}
+
+function deadlineLabel(deadline) {
+    if (!deadline) return null;
+    const days = Math.ceil((new Date(deadline) - new Date()) / (1000 * 60 * 60 * 24));
+    if (days < 0)  return 'Expired';
+    if (days === 0) return 'Closes today';
+    if (days === 1) return 'Closes tomorrow';
+    if (days <= 7)  return `${days} days left`;
+    return `Deadline: ${deadline}`;
 }
 </script>
 
@@ -52,25 +52,59 @@ function formatJobType(value) {
 
         <PageHero title="Vacancies" />
 
-        <section
-            v-if="flashSuccess"
-            class="bg-green-50 border-b border-green-100"
-        >
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                <p class="text-sm text-green-800 text-center">
-                    {{ flashSuccess }}
-                </p>
-            </div>
-        </section>
+        <!-- ── Flash success ── -->
+        <Transition name="flash-fade">
+            <section
+                v-if="flashSuccess"
+                class="bg-green-50 border-b border-green-200"
+            >
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-center gap-2">
+                    <CheckCircle class="w-4 h-4 text-green-600 flex-shrink-0" />
+                    <p class="text-sm text-green-800">{{ flashSuccess }}</p>
+                </div>
+            </section>
+        </Transition>
 
+        <!-- ── Vacancies list ── -->
         <section class="py-20 lg:py-24 bg-white border-b border-[#D9D9D9]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <!-- Section label -->
+                <div class="flex items-center justify-between mb-10">
+                    <div>
+                        <div class="inline-flex items-center px-4 py-1.5 bg-[rgba(235,31,39,0.1)] rounded-full mb-3">
+                            <span class="text-xs font-semibold text-[#B91C1C] uppercase tracking-wide">
+                                Open Positions
+                            </span>
+                        </div>
+                        <h2 class="text-3xl font-semibold text-[#101010] leading-tight">
+                            Join Our Team
+                        </h2>
+                    </div>
+                    <div
+                        v-if="vacancies?.length"
+                        class="hidden sm:flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-4 py-2"
+                    >
+                        <Briefcase class="w-4 h-4 text-[#B91C1C]" />
+                        <span class="text-sm font-medium text-gray-700">
+                            {{ vacancies.length }} open {{ vacancies.length === 1 ? 'position' : 'positions' }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- ── Empty state ── -->
                 <div
                     v-if="!(vacancies || []).length"
-                    class="text-center py-16 text-gray-600 text-sm"
+                    class="flex flex-col items-center justify-center py-24 gap-4 rounded-2xl bg-gray-50 border-2 border-dashed border-gray-200"
                 >
-                    There are no open vacancies at the moment. Please check back later.
+                    <Briefcase class="w-12 h-12 text-gray-300" />
+                    <h3 class="text-lg font-semibold text-gray-500">No open vacancies</h3>
+                    <p class="text-sm text-gray-400 text-center max-w-sm">
+                        There are no open positions at the moment. Please check back later.
+                    </p>
                 </div>
+
+                <!-- ── Vacancy cards ── -->
                 <div
                     v-else
                     class="grid grid-cols-1 md:grid-cols-2 gap-6"
@@ -78,128 +112,91 @@ function formatJobType(value) {
                     <div
                         v-for="vacancy in vacancies"
                         :key="vacancy.id"
-                        class="bg-white border border-gray-200 rounded-sm shadow-sm flex flex-col"
+                        class="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md hover:border-[#B91C1C]/30 transition-all duration-300 flex flex-col overflow-hidden"
                     >
-                        <div class="p-6 pb-4">
-                            <h2 class="text-xl font-bold text-gray-900 mb-3">
-                                <Link
-                                    :href="`/vacancy/${vacancy.slug}`"
-                                    class="hover:text-[#B91C1C] transition-colors"
+                        <!-- Card body -->
+                        <div class="p-6 flex flex-col flex-1">
+
+                            <!-- Job type badge -->
+                            <div class="flex items-center gap-2 mb-3">
+                                <span
+                                    v-if="formatJobType(vacancy.job_type)"
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[rgba(235,31,39,0.08)] text-[#B91C1C]"
                                 >
+                                    {{ formatJobType(vacancy.job_type) }}
+                                </span>
+                            </div>
+
+                            <!-- Title -->
+                            <h2 class="text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-[#B91C1C] transition-colors duration-300">
+                                <Link :href="`/vacancy/${vacancy.slug}`">
                                     {{ vacancy.title }}
                                 </Link>
                             </h2>
-                            <p
-                                v-if="vacancy.location || vacancy.job_type"
-                                class="text-xs text-gray-500 mb-2"
+
+                            <!-- Meta: location -->
+                            <div
+                                v-if="vacancy.location"
+                                class="flex items-center gap-1.5 text-xs text-gray-500 mb-4"
                             >
-                                <span v-if="vacancy.location">{{ vacancy.location }}</span>
-                                <span v-if="vacancy.location && vacancy.job_type"> · </span>
-                                <span v-if="vacancy.job_type">{{ formatJobType(vacancy.job_type) }}</span>
+                                <MapPin class="w-3.5 h-3.5 flex-shrink-0 text-[#B91C1C]" />
+                                {{ vacancy.location }}
+                            </div>
+
+                            <!-- Excerpt -->
+                            <p class="text-gray-600 text-sm leading-relaxed flex-1 line-clamp-3">
+                                {{ vacancy.excerpt || 'View details using the link below.' }}
                             </p>
-                            <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                                {{ vacancy.excerpt || 'View details and apply using the links below.' }}
-                            </p>
-                            <div class="flex flex-wrap items-center gap-4">
+
+                            <!-- Actions -->
+                            <div class="flex flex-wrap items-center gap-3 mt-6">
+                                <!-- View details only -->
                                 <Link
                                     :href="`/vacancy/${vacancy.slug}`"
-                                    class="text-sm font-semibold text-gray-800 underline underline-offset-2 hover:text-[#B91C1C]"
+                                    class="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#B91C1C] transition-colors duration-200 underline underline-offset-2"
                                 >
                                     View details
                                 </Link>
-                                <button
-                                    type="button"
-                                    class="text-red-600 font-bold text-xs tracking-widest uppercase hover:underline"
-                                    @click="openApplyModal(vacancy)"
-                                >
-                                    Apply
-                                </button>
                             </div>
                         </div>
-                        <div class="mt-auto border-t border-gray-100 px-6 py-3 flex flex-wrap gap-x-2 gap-y-1 text-[10px] font-bold text-gray-900 uppercase">
-                            <span v-if="vacancy.date">{{ vacancy.date }}</span>
-                            <span v-if="vacancy.date && vacancy.application_deadline">·</span>
-                            <span v-if="vacancy.application_deadline">Deadline {{ vacancy.application_deadline }}</span>
+
+                        <!-- Card footer -->
+                        <div class="border-t border-gray-100 px-6 py-3 bg-gray-50 flex flex-wrap items-center gap-x-4 gap-y-1">
+                            <!-- Posted date -->
+                            <div
+                                v-if="vacancy.date"
+                                class="flex items-center gap-1.5 text-xs text-gray-500"
+                            >
+                                <Calendar class="w-3.5 h-3.5 flex-shrink-0" />
+                                Posted: {{ vacancy.date }}
+                            </div>
+
+                            <!-- Deadline -->
+                            <div
+                                v-if="vacancy.application_deadline"
+                                class="flex items-center gap-1.5 text-xs"
+                                :class="deadlineClass(vacancy.application_deadline)"
+                            >
+                                <Clock class="w-3.5 h-3.5 flex-shrink-0" />
+                                {{ deadlineLabel(vacancy.application_deadline) }}
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
-
-        <VacancyApplyModal
-            v-model="showApplyModal"
-            :vacancy-title="modalVacancyTitle"
-            :vacancy-slug="modalVacancySlug"
-        />
-
-        <!-- <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-4xl mx-auto mb-12 lg:mb-16">
-                    <div class="mb-6 flex justify-center">
-                        <div class="inline-flex items-center justify-center px-5 py-2 bg-[rgba(235,31,39,0.1)] rounded-full">
-                            <span class="font-semibold text-[#B91C1C] uppercase tracking-wide">Our Partners</span>
-                        </div>
-                    </div>
-                    <h2 class="text-[2.5rem] leading-tight tracking-tight text-[#101010] mb-6">
-                        We work with the best Partners
-                    </h2>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
-                    <div
-                        v-for="(logo, i) in partnerLogos"
-                        :key="i"
-                        class="bg-white border border-[#cad0d8] rounded-[20px] p-8 flex items-center justify-center min-h-[186px] hover:border-[#B91C1C] transition-colors"
-                    >
-                        <img
-                            :src="logo"
-                            alt="Partner logo"
-                            class="max-w-[190px] max-h-[80px] object-contain"
-                        >
-                    </div>
-                </div>
-            </div>
-        </section> -->
-
-        <section class="py-20 text-center">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="inline-flex items-center justify-center px-5 py-2 bg-[rgba(235,31,39,0.1)] rounded-full">
-                    <span class="font-semibold text-[#B91C1C] uppercase tracking-wide">Support</span>
-                </div>
-                <h2 class="text-[2.5rem] leading-tight tracking-tight text-[#101010] my-4">
-                    Technical Assistance By
-                </h2>
-                <div class="flex justify-center">
-                    <img
-                        src="/enssure/assets/c3f97e1b17044bbdeedac32a3818731e2450a527.png"
-                        alt="Technical Assistance By"
-                        class="h-16"
-                    >
-                </div>
-            </div>
-        </section>
-
-        <!-- <section class="relative py-20 h-96 overflow-hidden">
-            <img
-                src="/enssure/assets/abe0c310bdf95a63fc03463bc4d17ffa6bede19a.png"
-                alt=""
-                class="absolute inset-0 w-full h-full object-cover"
-            >
-            <div class="absolute inset-0 bg-black/40" />
-            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center h-full flex items-center justify-center">
-                <div class="max-w-2xl mx-auto text-white">
-                    <span class="uppercase text-[#B91C1C]">JOIN US</span>
-                    <h2 class="text-[2.5rem] leading-tight tracking-tight mb-8">
-                        Build Skills, Build Futures.
-                        <span class="text-[#B91C1C]">Support sustainable</span> employment today.
-                    </h2>
-                    <Link
-                        href="/contact"
-                        class="inline-block uppercase bg-white text-black py-2 px-6 rounded-full hover:bg-gray-100 transition-colors"
-                    >
-                        Contact us
-                    </Link>
-                </div>
-            </div>
-        </section> -->
     </GuestLayout>
 </template>
+
+<style scoped>
+.flash-fade-enter-active,
+.flash-fade-leave-active {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.flash-fade-enter-from,
+.flash-fade-leave-to {
+    opacity: 0;
+    transform: translateY(-8px);
+}
+</style>

@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StoreTestimonialRequest;
 use App\Http\Requests\Admin\UpdateTestimonialRequest;
 use App\Models\Course;
 use App\Models\Testimonial;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -95,4 +96,17 @@ class TestimonialController extends Controller
         return to_route('admin.testimonials.index')
             ->with('success', 'Testimonial deleted successfully.');
     }
+
+    public function reorder(Request $request)
+{
+    $request->validate([
+        'items' => 'required|array',
+        'items.*.id' => 'required|exists:testimonials,id',
+        'items.*.order' => 'required|integer|min:0',
+    ]);
+    foreach ($request->input('items') as $item) {
+        Testimonial::where('id', $item['id'])->update(['order' => $item['order']]);
+    }
+    return back()->with('success', 'Testimonials reordered successfully.');
+}
 }
