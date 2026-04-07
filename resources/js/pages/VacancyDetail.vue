@@ -1,8 +1,7 @@
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import { ArrowLeft, Calendar, FileDown } from 'lucide-vue-next';
-import { computed, ref } from 'vue';
-import VacancyApplyModal from '@/components/guest/VacancyApplyModal.vue';
+import { ArrowLeft, Calendar, FileDown, ExternalLink } from 'lucide-vue-next';
+import { computed } from 'vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 
 const props = defineProps({
@@ -15,8 +14,6 @@ const props = defineProps({
 const page = usePage();
 const flashSuccess = computed(() => page.props.flash?.success);
 
-const showApplyModal = ref(false);
-
 const jobTypeLabels = {
     full_time: 'Full time',
     part_time: 'Part time',
@@ -24,24 +21,38 @@ const jobTypeLabels = {
 };
 
 function formatJobType(value) {
-    if (!value) {
-        return '';
-    }
+    if (!value) return '';
     return jobTypeLabels[value] ?? value;
 }
 
 const metaLine = computed(() => {
     const parts = [];
-    if (props.vacancy.location) {
-        parts.push(props.vacancy.location);
-    }
-    if (props.vacancy.job_type) {
-        parts.push(formatJobType(props.vacancy.job_type));
-    }
-    if (props.vacancy.number_of_positions > 1) {
-        parts.push(`${props.vacancy.number_of_positions} positions`);
-    }
+    if (props.vacancy.location) parts.push(props.vacancy.location);
+    if (props.vacancy.job_type) parts.push(formatJobType(props.vacancy.job_type));
+    if (props.vacancy.number_of_positions > 1) parts.push(`${props.vacancy.number_of_positions} positions`);
     return parts.join(' · ');
+});
+
+// Normalize and validate external apply URL
+const validApplyUrl = computed(() => {
+    let url = props.vacancy.apply_url;
+    if (!url || typeof url !== 'string') return null;
+
+    url = url.trim();
+    if (url === '') return null;
+
+    // Add https:// if no protocol is present
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+    }
+
+    // Validate URL format
+    try {
+        new URL(url);
+        return url;
+    } catch {
+        return null;
+    }
 });
 </script>
 
@@ -49,14 +60,9 @@ const metaLine = computed(() => {
     <GuestLayout>
         <Head :title="`${vacancy.title} - Vacancies - ENSSURE`" />
 
-        <section
-            v-if="flashSuccess"
-            class="bg-green-50 border-b border-green-100"
-        >
+        <section v-if="flashSuccess" class="bg-green-50 border-b border-green-100">
             <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                <p class="text-sm text-green-800 text-center">
-                    {{ flashSuccess }}
-                </p>
+                <p class="text-sm text-green-800 text-center">{{ flashSuccess }}</p>
             </div>
         </section>
 
@@ -74,32 +80,17 @@ const metaLine = computed(() => {
                     <h1 class="text-3xl lg:text-[2.5rem] font-bold text-[#101010] leading-tight tracking-tight">
                         {{ vacancy.title }}
                     </h1>
-                    <p
-                        v-if="metaLine"
-                        class="mt-3 text-sm text-gray-600"
-                    >
-                        {{ metaLine }}
-                    </p>
-                    <div
-                        class="mt-4 flex flex-wrap gap-4 text-xs font-bold text-gray-900 uppercase tracking-wide"
-                    >
-                        <span
-                            v-if="vacancy.published_at"
-                            class="inline-flex items-center gap-1.5"
-                        >
+                    <p v-if="metaLine" class="mt-3 text-sm text-gray-600">{{ metaLine }}</p>
+                    <div class="mt-4 flex flex-wrap gap-4 text-xs font-bold text-gray-900 uppercase tracking-wide">
+                        <span v-if="vacancy.published_at" class="inline-flex items-center gap-1.5">
                             <Calendar class="w-3.5 h-3.5 text-gray-500" />
                             Posted {{ vacancy.published_at }}
                         </span>
-                        <span v-if="vacancy.application_deadline">
-                            Apply by {{ vacancy.application_deadline }}
-                        </span>
+                        <span v-if="vacancy.application_deadline">Apply by {{ vacancy.application_deadline }}</span>
                     </div>
                 </header>
 
-                <div
-                    v-if="vacancy.tor_file_url"
-                    class="mb-8"
-                >
+                <div v-if="vacancy.tor_file_url" class="mb-8">
                     <a
                         :href="vacancy.tor_file_url"
                         target="_blank"
@@ -117,39 +108,16 @@ const metaLine = computed(() => {
                     v-html="vacancy.job_description_html"
                 />
 
-                <div
-                    v-if="vacancy.requirements_html"
-                    class="mt-10"
-                >
-                    <h2 class="text-lg font-bold text-gray-900 mb-3">
-                        Requirements
-                    </h2>
+                <div v-if="vacancy.requirements_html" class="mt-10">
+                    <h2 class="text-lg font-bold text-gray-900 mb-3">Requirements</h2>
                     <div
                         class="prose prose-gray max-w-none text-gray-700 text-sm leading-relaxed [&_table]:text-sm [&_td]:border [&_td]:border-gray-200 [&_th]:border [&_th]:border-gray-200 [&_table]:border-collapse"
                         v-html="vacancy.requirements_html"
                     />
                 </div>
 
-                <div
-                    v-if="vacancy.application_instructions_html"
-                    class="mt-10"
-                >
-                    <h2 class="text-lg font-bold text-gray-900 mb-3">
-                        How to apply
-                    </h2>
-                    <div
-                        class="prose prose-gray max-w-none text-gray-700 text-sm leading-relaxed [&_table]:text-sm [&_td]:border [&_td]:border-gray-200 [&_th]:border [&_th]:border-gray-200 [&_table]:border-collapse"
-                        v-html="vacancy.application_instructions_html"
-                    />
-                </div>
-
-                <div
-                    v-if="vacancy.related_documents?.length"
-                    class="mt-10"
-                >
-                    <h2 class="text-lg font-bold text-gray-900 mb-3">
-                        Related documents
-                    </h2>
+                <div v-if="vacancy.related_documents?.length" class="mt-10">
+                    <h2 class="text-lg font-bold text-gray-900 mb-3">Related documents</h2>
                     <div class="flex flex-col gap-2">
                         <a
                             v-for="document in vacancy.related_documents"
@@ -164,14 +132,18 @@ const metaLine = computed(() => {
                     </div>
                 </div>
 
+                <!-- Actions: external apply + all vacancies -->
                 <div class="mt-10 flex flex-wrap gap-4">
-                    <button
-                        type="button"
-                        class="inline-flex items-center justify-center rounded-lg bg-[#B91C1C] px-8 py-3 text-sm font-bold uppercase tracking-wider text-white hover:bg-[#991b1b] transition-colors"
-                        @click="showApplyModal = true"
+                    <a
+                        v-if="validApplyUrl"
+                        :href="validApplyUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 justify-center rounded-lg bg-[#B91C1C] px-8 py-3 text-sm font-bold uppercase tracking-wider text-white hover:bg-[#991b1b] transition-colors"
                     >
                         Apply now
-                    </button>
+                        <ExternalLink class="w-4 h-4" />
+                    </a>
                     <Link
                         href="/vacancy"
                         class="inline-flex items-center justify-center rounded-lg border border-gray-200 px-8 py-3 text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
@@ -181,11 +153,5 @@ const metaLine = computed(() => {
                 </div>
             </div>
         </section>
-
-        <VacancyApplyModal
-            v-model="showApplyModal"
-            :vacancy-title="vacancy.title"
-            :vacancy-slug="vacancy.slug"
-        />
     </GuestLayout>
 </template>

@@ -25,6 +25,7 @@ class UpdateVacancyRequest extends FormRequest
             'job_type' => ['nullable', 'string', Rule::in(['full_time', 'part_time', 'contract'])],
             'number_of_positions' => ['nullable', 'integer', 'min:1'],
             'application_deadline' => ['nullable', 'date'],
+            'apply_url' => ['required', 'string', 'max:255'],
             'application_instructions' => ['nullable', 'string'],
             'tor_file' => ['nullable', 'string', 'max:255'],
             'related_documents' => ['nullable', 'array'],

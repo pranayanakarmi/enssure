@@ -221,6 +221,7 @@ return new class extends Migration
             $table->string('job_type', 30)->nullable(); // full_time, part_time, contract, temporary
             $table->unsignedInteger('number_of_positions')->default(1);
             $table->date('application_deadline')->nullable();
+            $table->string('apply_url')->nullable();
             $table->text('application_instructions')->nullable();
             $table->string('tor_file')->nullable();
             $table->string('status', 30)->default('open');

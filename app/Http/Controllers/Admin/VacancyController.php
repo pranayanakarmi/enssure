@@ -28,6 +28,7 @@ class VacancyController extends Controller
                 'job_type' => $v->job_type,
                 'status' => $v->status,
                 'application_deadline' => $v->application_deadline?->toDateString(),
+                'apply_url' => $v->apply_url,
                 'published_at' => $v->published_at?->toISOString(),
             ])
             ->values()
@@ -76,6 +77,7 @@ class VacancyController extends Controller
                 'job_type' => $vacancy->job_type,
                 'number_of_positions' => $vacancy->number_of_positions,
                 'application_deadline' => $vacancy->application_deadline?->toDateString(),
+                'apply_url' => $vacancy->apply_url,
                 'application_instructions' => $vacancy->application_instructions,
                 'tor_file' => $vacancy->tor_file,
                 'status' => $vacancy->status,

@@ -478,12 +478,12 @@ function toggleMobileExpand(path) {
                 <Link
                     v-if="user"
                     :href="dashboard().url"
-                    class="bg-[#B91C1C] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-white text-xs sm:text-base uppercase hover:bg-[#d11b23] transition-colors"
+                    class="bg-[#B91C1C] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-white text-md sm:text-base font-bold uppercase hover:bg-[#d11b23] transition-colors"
                 >Dashboard</Link>
                 <template v-else>
                     <Link
                         :href="enssure1().url"
-                        class="bg-[#B91C1C] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-white text-xs sm:text-base uppercase hover:bg-[#d11b23] transition-colors"
+                        class="bg-[#B91C1C] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-white text-md sm:text-base font-bold uppercase hover:bg-[#d11b23] transition-colors"
                     >Enssure 1</Link>
                 </template>
                 <button

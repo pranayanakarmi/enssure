@@ -28,6 +28,7 @@ const form = useForm({
     job_type: props.vacancy.job_type ?? '',
     number_of_positions: props.vacancy.number_of_positions ?? 1,
     application_deadline: props.vacancy.application_deadline ?? '',
+    apply_url: props.vacancy.apply_url ?? '',
     application_instructions: props.vacancy.application_instructions ?? '',
     tor_file: props.vacancy.tor_file ?? '',
     related_documents: [],
@@ -201,6 +202,17 @@ const breadcrumbItems = [
                         <InputError :message="form.errors.related_documents" />
                         <InputError :message="form.errors['related_documents.0']" />
                     </div>
+
+                    <div class="grid gap-2">
+                        <Label for="apply_url">Apply URL</Label>
+                        <Input
+                            id="apply_url"
+                            v-model="form.apply_url"
+                            type="text"
+                        />
+                        <InputError :message="form.errors.apply_url" />
+                    </div>
+
                     <div class="flex items-center gap-4">
                         <Button variant="outline" as-child>
                             <a :href="`/vacancy/${vacancy.slug}`" target="_blank" rel="noopener noreferrer">

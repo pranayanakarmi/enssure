@@ -18,10 +18,10 @@ function isInternal(url) {
 <template>
     <section
         v-if="(items || []).length > 0"
-        class="flex items-center justify-center text-lg border-t border-black/10"
+        class="flex items-center justify-center text-md border-t border-black/10"
     >
         <div
-            class="whitespace-nowrap bg-[#B91C1C] px-4 py-2 text-white uppercase relative flex-shrink-0"
+            class="whitespace-nowrap bg-[#B91C1C] px-4 py-2 text-white text-sm font-bold uppercase relative flex-shrink-0"
         >
             Latest News
             <!-- <ChevronRight

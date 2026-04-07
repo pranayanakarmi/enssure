@@ -26,6 +26,7 @@ class VacancyPageController extends Controller
                 'date' => $v->published_at?->format('j F Y') ?? '',
                 'location' => $v->location,
                 'job_type' => $v->job_type,
+                'apply_url' => $v->apply_url,
                 'application_deadline' => $v->application_deadline?->format('j F Y'),
             ])
             ->values()
@@ -53,6 +54,7 @@ class VacancyPageController extends Controller
      */
     private function vacancyForDetailPage(Vacancy $v): array
     {
+
         return [
             'id' => $v->id,
             'title' => $v->position_title,
@@ -65,6 +67,7 @@ class VacancyPageController extends Controller
             'number_of_positions' => $v->number_of_positions,
             'published_at' => $v->published_at?->format('j F Y'),
             'application_deadline' => $v->application_deadline?->format('j F Y'),
+            'apply_url' => $v->apply_url,
             'tor_file_url' => $this->publicFileUrl($v->tor_file),
             'related_documents' => $v->relatedDocuments->map(fn ($document) => [
                 'id' => $document->id,

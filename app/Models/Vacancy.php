@@ -22,6 +22,7 @@ class Vacancy extends Model
         'job_type',
         'number_of_positions',
         'application_deadline',
+        'apply_url',
         'application_instructions',
         'tor_file',
         'status',

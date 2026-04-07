@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\VacancyPageController::show
- * @see app/Http/Controllers/VacancyPageController.php:39
+ * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
 export const show = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\VacancyPageController::show
- * @see app/Http/Controllers/VacancyPageController.php:39
+ * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
 show.url = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ show.url = (args: { vacancy: string | { slug: string } } | [vacancy: string | { 
 
 /**
 * @see \App\Http\Controllers\VacancyPageController::show
- * @see app/Http/Controllers/VacancyPageController.php:39
+ * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
 show.get = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -58,7 +58,7 @@ show.get = (args: { vacancy: string | { slug: string } } | [vacancy: string | { 
 })
 /**
 * @see \App\Http\Controllers\VacancyPageController::show
- * @see app/Http/Controllers/VacancyPageController.php:39
+ * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
 show.head = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -68,7 +68,7 @@ show.head = (args: { vacancy: string | { slug: string } } | [vacancy: string | {
 
     /**
 * @see \App\Http\Controllers\VacancyPageController::show
- * @see app/Http/Controllers/VacancyPageController.php:39
+ * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
     const showForm = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -78,7 +78,7 @@ show.head = (args: { vacancy: string | { slug: string } } | [vacancy: string | {
 
             /**
 * @see \App\Http\Controllers\VacancyPageController::show
- * @see app/Http/Controllers/VacancyPageController.php:39
+ * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
         showForm.get = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -87,7 +87,7 @@ show.head = (args: { vacancy: string | { slug: string } } | [vacancy: string | {
         })
             /**
 * @see \App\Http\Controllers\VacancyPageController::show
- * @see app/Http/Controllers/VacancyPageController.php:39
+ * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
         showForm.head = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
