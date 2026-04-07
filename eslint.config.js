@@ -5,7 +5,20 @@ import vue from 'eslint-plugin-vue';
 export default [
     ...vue.configs['flat/essential'],
     {
-        ignores: ['vendor', 'node_modules', 'public', 'bootstrap/ssr', 'tailwind.config.js', 'vite.config.js', 'resources/js/components/ui/*'],
+        ignores: [
+    'vendor',
+    'node_modules',
+    'public',
+    'bootstrap/ssr',
+    'tailwind.config.js',
+    'vite.config.js',
+    'resources/js/components/ui/*',
+
+    // ✅ ADD THESE
+    'resources/js/routes/*',
+    'resources/js/actions/*',
+    ],
+        // ignores: ['vendor', 'node_modules', 'public', 'bootstrap/ssr', 'tailwind.config.js', 'vite.config.js', 'resources/js/components/ui/*'],
     },
     {
         plugins: {
