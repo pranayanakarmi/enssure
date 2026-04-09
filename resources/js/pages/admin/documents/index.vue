@@ -1,388 +1,254 @@
-<!-- <script setup>
-import { Head, Link, router, usePage } from '@inertiajs/vue3';
-import { GripVertical } from 'lucide-vue-next';
-import { ref, watch } from 'vue';
-import Heading from '@/components/Heading.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import AppLayout from '@/layouts/AppLayout.vue';
-
-const props = defineProps({
-    documents: {
-        type: Array,
-        default: () => [],
-    },
-});
-
-const page = usePage();
-const success = page.props.flash?.success;
-
-const breadcrumbItems = [
-    { title: 'Documents', href: '/admin/documents' },
-];
-
-const localDocuments = ref([...(props.documents || [])]);
-const draggingDocumentId = ref(null);
-const isSavingOrder = ref(false);
-
-watch(
-    () => props.documents,
-    (nextDocuments) => {
-        localDocuments.value = [...(nextDocuments || [])];
-    },
-);
-
-function onDragStart(documentId) {
-    draggingDocumentId.value = documentId;
-}
-
-function onDragOver(event) {
-    event.preventDefault();
-}
-
-function moveDocumentBefore(targetId) {
-    if (!draggingDocumentId.value || draggingDocumentId.value === targetId) {
-        return;
-    }
-
-    const items = [...localDocuments.value];
-    const sourceIndex = items.findIndex((item) => item.id === draggingDocumentId.value);
-    const targetIndex = items.findIndex((item) => item.id === targetId);
-
-    if (sourceIndex < 0 || targetIndex < 0) {
-        return;
-    }
-
-    const [moved] = items.splice(sourceIndex, 1);
-    items.splice(targetIndex, 0, moved);
-
-    localDocuments.value = items.map((item, index) => ({
-        ...item,
-        order: index,
-    }));
-}
-
-function saveOrder() {
-    isSavingOrder.value = true;
-
-    router.post(
-        '/admin/documents/reorder',
-        {
-            documents: localDocuments.value.map((item, index) => ({
-                id: item.id,
-                order: index,
-            })),
-        },
-        {
-            preserveScroll: true,
-            onFinish: () => {
-                draggingDocumentId.value = null;
-                isSavingOrder.value = false;
-            },
-        },
-    );
-}
-
-function onDrop(targetId) {
-    moveDocumentBefore(targetId);
-    saveOrder();
-}
-</script>
-
-<template>
-    <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Documents" />
-
-        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="space-y-6">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <Heading
-                        variant="small"
-                        title="Documents"
-                        description="Manage documents"
-                    />
-                    <Button as-child>
-                        <Link href="/admin/documents/create">Add</Link>
-                    </Button>
-                </div>
-
-                <Transition
-                    enter-active-class="transition ease-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in"
-                    leave-to-class="opacity-0"
-                >
-                    <p
-                        v-if="success"
-                        class="rounded-md bg-green-50 p-4 text-sm text-green-800 dark:bg-green-900/20 dark:text-green-400"
-                    >
-                        {{ success }}
-                    </p>
-                </Transition>
-
-                <Card>
-                    <CardHeader class="sr-only">
-                        <span>Document list</span>
-                    </CardHeader>
-                    <CardContent class="p-0">
-                        <div class="divide-y divide-sidebar-border">
-                            <div
-                                v-for="d in localDocuments"
-                                :key="d.id"
-                                draggable="true"
-                                class="flex flex-wrap items-center justify-between gap-4 px-6 py-4"
-                                @dragstart="onDragStart(d.id)"
-                                @dragover="onDragOver"
-                                @drop="onDrop(d.id)"
-                            >
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate font-medium text-foreground flex items-center gap-2">
-                                        <GripVertical class="size-4 text-muted-foreground" />
-                                        {{ d.title }}
-                                    </p>
-                                    <p class="truncate text-sm text-muted-foreground">
-                                        Order: {{ d.order ?? 0 }} · {{ d.document_type || '—' }} · {{ d.file_extension || '—' }}
-                                    </p>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <Button
-                                        v-if="(d.file_extension || '').toLowerCase() === 'pdf'"
-                                        variant="outline"
-                                        size="sm"
-                                        as-child
-                                    >
-                                        <Link :href="`/reports/${d.id}`" target="_blank" rel="noopener noreferrer">
-                                            View
-                                        </Link>
-                                    </Button>
-                                    <Button v-else variant="outline" size="sm" as-child>
-                                        <Link :href="d.file_url" target="_blank" rel="noopener noreferrer">
-                                            Open
-                                        </Link>
-                                    </Button>
-                                    <Button variant="outline" size="sm" as-child>
-                                        <Link :href="`/admin/documents/${d.id}/edit`">
-                                            Edit
-                                        </Link>
-                                    </Button>
-                                </div>
-                            </div>
-                            <div
-                                v-if="!localDocuments.length"
-                                class="px-6 py-12 text-center text-sm text-muted-foreground"
-                            >
-                                No documents yet.
-                            </div>
-                        </div>
-                        <div v-if="isSavingOrder" class="px-6 py-3 text-xs text-muted-foreground">
-                            Saving new order...
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
-        </div>
-    </AppLayout>
-</template> -->
-
 <script setup>
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
-import { GripVertical } from 'lucide-vue-next';
-import { ref, watch } from 'vue';
-import Heading from '@/components/Heading.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { ref, watch, computed } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, Edit, Trash2, Plus, Eye, GripVertical, CheckCircle2, AlertCircle } from 'lucide-vue-next';
 
 const props = defineProps({
-    documents: {
-        type: Array,
-        default: () => [],
-    },
+    documents: { type: Array, default: () => [] },
 });
 
 const page = usePage();
-const success = page.props.flash?.success;
+const success = computed(() => page.props.flash?.success ?? null);
+const error = computed(() => page.props.flash?.error ?? null);
 
-const breadcrumbItems = [
-    { title: 'Documents', href: '/admin/documents' },
-];
+const localDocuments = ref([...props.documents]);
+watch(() => props.documents, (newDocs) => {
+    localDocuments.value = [...newDocs];
+}, { immediate: true, deep: true });
 
-const localDocuments = ref([...(props.documents || [])]);
-const draggingDocumentId = ref(null);
+// Drag & drop state
+const draggingId = ref(null);
 const isSavingOrder = ref(false);
 
-watch(
-    () => props.documents,
-    (nextDocuments) => {
-        localDocuments.value = [...(nextDocuments || [])];
-    },
-);
-
-function onDragStart(documentId) {
-    draggingDocumentId.value = documentId;
+function onDragStart(docId) {
+    draggingId.value = docId;
 }
-
-function onDragOver(event) {
-    event.preventDefault();
+function onDragOver(e) {
+    e.preventDefault();
 }
-
-function moveDocumentBefore(targetId) {
-    if (!draggingDocumentId.value || draggingDocumentId.value === targetId) {
-        return;
-    }
-
+function onDrop(targetId) {
+    if (!draggingId.value || draggingId.value === targetId) return;
     const items = [...localDocuments.value];
-    const sourceIndex = items.findIndex((item) => item.id === draggingDocumentId.value);
-    const targetIndex = items.findIndex((item) => item.id === targetId);
-
-    if (sourceIndex < 0 || targetIndex < 0) {
-        return;
-    }
-
+    const sourceIndex = items.findIndex(i => i.id === draggingId.value);
+    const targetIndex = items.findIndex(i => i.id === targetId);
+    if (sourceIndex === -1 || targetIndex === -1) return;
     const [moved] = items.splice(sourceIndex, 1);
     items.splice(targetIndex, 0, moved);
-
-    localDocuments.value = items.map((item, index) => ({
-        ...item,
-        order: index,
-    }));
+    // Update order based on new index
+    const reordered = items.map((item, idx) => ({ ...item, order: idx }));
+    localDocuments.value = reordered;
+    // Save order to backend
+    saveOrder(reordered);
+    draggingId.value = null;
 }
-
-function saveOrder() {
+function onDragEnd() {
+    draggingId.value = null;
+}
+async function saveOrder(items) {
     isSavingOrder.value = true;
-
-    router.post(
-        '/admin/documents/reorder',
-        {
-            documents: localDocuments.value.map((item, index) => ({
-                id: item.id,
-                order: index,
-            })),
-        },
-        {
-            preserveScroll: true,
-            onFinish: () => {
-                draggingDocumentId.value = null;
-                isSavingOrder.value = false;
-            },
-        },
-    );
-}
-
-function onDrop(targetId) {
-    moveDocumentBefore(targetId);
-    saveOrder();
-}
-
-function deleteDocument(document) {
-    if (!confirm(`Are you sure you want to delete "${document.title}"? This cannot be undone.`)) {
-        return;
-    }
-
-    router.delete(`/admin/documents/${document.id}`, {
+    router.post('/admin/documents/reorder', {
+        documents: items.map((item, idx) => ({ id: item.id, order: idx })),
+    }, {
         preserveScroll: true,
+        onFinish: () => {
+            isSavingOrder.value = false;
+        },
     });
 }
+
+// Delete modal
+const showDeleteModal = ref(false);
+const docToDelete = ref(null);
+const isDeleting = ref(false);
+
+function confirmDelete(doc) {
+    docToDelete.value = doc;
+    showDeleteModal.value = true;
+}
+function deleteDocument() {
+    if (!docToDelete.value) return;
+    isDeleting.value = true;
+    router.delete(`/admin/documents/${docToDelete.value.id}`, {
+        preserveScroll: true,
+        onFinish: () => {
+            isDeleting.value = false;
+            showDeleteModal.value = false;
+            docToDelete.value = null;
+        },
+    });
+}
+
+function getFileExtension(filename) {
+    if (!filename) return '';
+    return filename.split('.').pop().toUpperCase();
+}
+
+const breadcrumbItems = [
+    { title: 'Home Page', href: '/admin/home' },
+    { title: 'Documents', href: '/admin/documents' },
+];
 </script>
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
         <Head title="Documents" />
 
-        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="space-y-6">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <Heading
-                        variant="small"
-                        title="Documents"
-                        description="Manage documents"
-                    />
-                    <Button as-child>
-                        <Link href="/admin/documents/create">Add</Link>
+        <div class="flex h-full flex-1 flex-col gap-5 overflow-x-auto p-5">
+
+            <!-- Header with back button -->
+            <div class="flex flex-wrap items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <!-- <Button variant="outline" size="sm" as-child class="h-8 gap-1.5 text-xs">
+                        <Link href="/admin/home">
+                            <ArrowLeft class="h-3.5 w-3.5" />Back
+                        </Link>
+                    </Button> -->
+                    <div>
+                        <h1 class="text-xl font-semibold tracking-tight text-foreground">Documents</h1>
+                        <p class="text-xs text-muted-foreground mt-0.5">Manage documents and reports.</p>
+                    </div>
+                </div>
+                <Button size="sm" class="h-8 gap-1.5 text-xs" as-child>
+                    <Link href="/admin/documents/create">
+                        <Plus class="h-3.5 w-3.5" /> Add Document
+                    </Link>
+                </Button>
+            </div>
+
+            <!-- Flash messages -->
+            <Transition>
+                <div v-if="success" class="flex items-center gap-2 rounded-xl border border-green-500/20 bg-green-50 px-4 py-2.5 text-sm text-green-800">
+                    <CheckCircle2 class="h-4 w-4" /> {{ success }}
+                </div>
+            </Transition>
+            <Transition>
+                <div v-if="error" class="flex items-center gap-2 rounded-xl border border-red-500/20 bg-red-50 px-4 py-2.5 text-sm text-red-800">
+                    <AlertCircle class="h-4 w-4" /> {{ error }}
+                </div>
+            </Transition>
+
+            <!-- Documents Table with drag-drop -->
+            <Card class="border-gray-200 shadow-sm">
+                <CardHeader class="border-b border-gray-200 px-5 py-4">
+                    <CardTitle class="text-sm font-semibold">Documents List</CardTitle>
+                    <CardDescription class="text-xs">Drag the ⋮⋮ handle to reorder. Click Edit to modify or Delete to remove.</CardDescription>
+                </CardHeader>
+                <CardContent class="p-0">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="border-b border-gray-200 bg-gray-50">
+                                <tr>
+                                    <th class="w-8 px-4 py-3 text-left font-medium"></th>
+                                    <th class="px-4 py-3 text-left font-medium">Title</th>
+                                    <th class="px-4 py-3 text-left font-medium">Type</th>
+                                    <th class="px-4 py-3 text-left font-medium">Extension</th>
+                                    <th class="px-4 py-3 text-left font-medium">Order</th>
+                                    <th class="px-4 py-3 text-right font-medium">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-if="localDocuments.length === 0">
+                                    <td colspan="6" class="px-4 py-12 text-center text-sm text-gray-500">
+                                        No documents yet. Click "Add Document" to create one.
+                                    </td>
+                                </tr>
+                                <tr
+                                    v-for="doc in localDocuments"
+                                    :key="doc.id"
+                                    draggable="true"
+                                    @dragstart="onDragStart(doc.id)"
+                                    @dragover="onDragOver($event)"
+                                    @drop="onDrop(doc.id)"
+                                    @dragend="onDragEnd"
+                                    class="border-b border-gray-200 hover:bg-gray-50 transition-colors"
+                                >
+                                    <td class="px-4 py-3">
+                                        <div class="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600">
+                                            <GripVertical class="h-4 w-4" />
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 font-medium text-gray-900">
+                                        {{ doc.title }}
+                                    </td>
+                                    <td class="px-4 py-3 text-gray-600">
+                                        {{ doc.document_type || '—' }}
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <Badge variant="outline" class="text-[10px]">
+                                            {{ getFileExtension(doc.file_path) }}
+                                        </Badge>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <Badge variant="outline">{{ doc.order ?? 0 }}</Badge>
+                                    </td>
+                                    <td class="px-4 py-3 text-right">
+                                        <div class="flex justify-end gap-2">
+                                            <Button
+                                                size="sm"
+                                                variant="outline"
+                                                class="h-7 gap-1 text-xs"
+                                                as-child
+                                            >
+                                                <a :href="doc.file_url" target="_blank" rel="noopener noreferrer">
+                                                    <Eye class="h-3 w-3" /> View
+                                                </a>
+                                            </Button>
+                                            <Button
+                                                size="sm"
+                                                variant="outline"
+                                                class="h-7 gap-1 text-xs"
+                                                as-child
+                                            >
+                                                <Link :href="`/admin/documents/${doc.id}/edit`">
+                                                    <Edit class="h-3 w-3" /> Edit
+                                                </Link>
+                                            </Button>
+                                            <Button
+                                                size="sm"
+                                                variant="ghost"
+                                                class="h-7 gap-1 text-xs text-destructive hover:bg-destructive/10"
+                                                @click="confirmDelete(doc)"
+                                            >
+                                                <Trash2 class="h-3 w-3" /> Delete
+                                            </Button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div v-if="isSavingOrder" class="px-6 py-3 text-xs text-gray-500 bg-gray-50 border-t">
+                        Saving order...
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+
+        <!-- Delete confirmation modal -->
+        <div v-if="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" @click.self="showDeleteModal = false">
+            <div class="w-full max-w-md rounded-lg bg-background p-6 shadow-lg">
+                <h3 class="text-lg font-semibold">Delete document</h3>
+                <p class="mt-2 text-sm text-muted-foreground">
+                    Are you sure you want to delete “{{ docToDelete?.title }}”?<br>
+                    This action cannot be undone.
+                </p>
+                <div class="mt-6 flex justify-end gap-2">
+                    <Button variant="outline" size="sm" @click="showDeleteModal = false">Cancel</Button>
+                    <Button variant="destructive" size="sm" @click="deleteDocument" :disabled="isDeleting">
+                        {{ isDeleting ? 'Deleting...' : 'Delete permanently' }}
                     </Button>
                 </div>
-
-                <Transition
-                    enter-active-class="transition ease-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in"
-                    leave-to-class="opacity-0"
-                >
-                    <p
-                        v-if="success"
-                        class="rounded-md bg-green-50 p-4 text-sm text-green-800 dark:bg-green-900/20 dark:text-green-400"
-                    >
-                        {{ success }}
-                    </p>
-                </Transition>
-
-                <Card>
-                    <CardHeader class="sr-only">
-                        <span>Document list</span>
-                    </CardHeader>
-                    <CardContent class="p-0">
-                        <div class="divide-y divide-sidebar-border">
-                            <div
-                                v-for="d in localDocuments"
-                                :key="d.id"
-                                draggable="true"
-                                class="flex flex-wrap items-center justify-between gap-4 px-6 py-4"
-                                @dragstart="onDragStart(d.id)"
-                                @dragover="onDragOver"
-                                @drop="onDrop(d.id)"
-                            >
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate font-medium text-foreground flex items-center gap-2">
-                                        <GripVertical class="size-4 text-muted-foreground" />
-                                        {{ d.title }}
-                                    </p>
-                                    <p class="truncate text-sm text-muted-foreground">
-                                        Order: {{ d.order ?? 0 }} · {{ d.document_type || '—' }} · {{ d.file_extension || '—' }}
-                                    </p>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <Button
-                                        v-if="(d.file_extension || '').toLowerCase() === 'pdf'"
-                                        variant="outline"
-                                        size="sm"
-                                        as-child
-                                    >
-                                        <Link :href="`/reports/${d.id}`" target="_blank" rel="noopener noreferrer">
-                                            View
-                                        </Link>
-                                    </Button>
-                                    <Button v-else variant="outline" size="sm" as-child>
-                                        <Link :href="d.file_url" target="_blank" rel="noopener noreferrer">
-                                            Open
-                                        </Link>
-                                    </Button>
-                                    <Button variant="outline" size="sm" as-child>
-                                        <Link :href="`/admin/documents/${d.id}/edit`">
-                                            Edit
-                                        </Link>
-                                    </Button>
-                                    <Button
-                                        variant="destructive"
-                                        size="sm"
-                                        @click="deleteDocument(d)"
-                                    >
-                                        Delete
-                                    </Button>
-                                </div>
-                            </div>
-                            <div
-                                v-if="!localDocuments.length"
-                                class="px-6 py-12 text-center text-sm text-muted-foreground"
-                            >
-                                No documents yet.
-                            </div>
-                        </div>
-                        <div v-if="isSavingOrder" class="px-6 py-3 text-xs text-muted-foreground">
-                            Saving new order...
-                        </div>
-                    </CardContent>
-                </Card>
             </div>
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+[draggable="true"] {
+    user-select: none;
+}
+</style>

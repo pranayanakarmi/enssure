@@ -81,6 +81,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+
+
 Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', fn () => redirect()->route('dashboard'))->name('index');
     Route::resource('users', UserController::class);
@@ -228,4 +230,7 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('redirects', RedirectController::class)->except(['show']);
     Route::resource('media', MediaController::class)->except(['show']);
     Route::resource('feedback', FeedbackController::class)->only(['index', 'show', 'destroy']);
+
+
+
 });

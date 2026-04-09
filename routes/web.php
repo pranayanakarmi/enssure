@@ -7,7 +7,6 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VacancyApplicationController;
 use App\Http\Controllers\VacancyPageController;
 use App\Http\Controllers\Admin\VideoController;
-use App\Http\Controllers\Admin\InfographicController;
 
 use App\Models\AboutContentSection;
 use App\Models\AboutMainSection;
@@ -27,8 +26,6 @@ use App\Models\HomeTestimonialsSection;
 use App\Models\ImpactPageHero;
 use App\Models\ImpactPageSection;
 use App\Models\ImpactStory;
-use App\Models\Infographic;
-use App\Models\InfographicsPageContent;
 use App\Models\Notice;
 use App\Models\Page;
 use App\Models\PageHero;
@@ -304,6 +301,7 @@ Route::get('about', function () {
     ]);
 })->name('about');
 Route::get('notices', function () {
+     $impactPageHero = ImpactPageHero::first();
     $notices = Notice::query()
         ->orderByDesc('created_at')
         ->get()
@@ -318,11 +316,14 @@ Route::get('notices', function () {
 
     return Inertia::render('Archive', [
         'notices' => $notices,
+        'impactPageHero' => $impactPageHero ? [
+            'hero_image_url' => $impactPageHero->hero_image ? Storage::disk('public')->url($impactPageHero->hero_image) : null,
+        ] : null,
     ]);
 })->name('notices.index');
 Route::get('notices/{notice:slug}', function (Notice $notice) {
     $notice->load([]);
-
+    $impactPageHero = ImpactPageHero::first();
     return Inertia::render('SingleArchive', [
         'notice' => [
             'id' => $notice->id,
@@ -346,6 +347,10 @@ Route::get('notices/{notice:slug}', function (Notice $notice) {
             ])
             ->values()
             ->all(),
+            'impactPageHero' => $impactPageHero ? [
+            'hero_image_url' => $impactPageHero->hero_image ? Storage::disk('public')->url($impactPageHero->hero_image) : null,
+        ] : null,
+
     ]);
 })->name('notices.show');
 Route::get('posts', function () {
@@ -461,8 +466,15 @@ Route::get('impact-stories', function () {
 })->name('impact-stories');
 Route::get('impact-stories/{impact_story:slug}', function (ImpactStory $impact_story) {
     $impact_story->load([]);
-
+     $hero = ImpactPageHero::first();
     return Inertia::render('SingleImpactStories', [
+        'impactPageHero' => $hero ? [
+            'title' => $hero->title,
+            'hero_image_url' => $hero->hero_image
+                ? Storage::disk('public')->url($hero->hero_image)
+                : null,
+        ] : null,
+
         'impactStory' => [
             'id' => $impact_story->id,
             'title' => $impact_story->title,
@@ -627,8 +639,36 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('videos', VideoController::class);
 });
 
+// Route::put('team_members/reorder', [TeamMemberController::class, 'reorder'])->name('team-members.reorder');
 
 Route::get('/admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
 
+Route::get('/gallery-page', function () {
+    return Inertia::render('admin/gallery-page/index');
+})->name('admin.gallery-page');
+
+Route::get('/about-page', function () {
+    return Inertia::render('admin/about_page/index');
+})->name('admin.about-page');
+
+Route::get('/team-page', function () {
+    return Inertia::render('admin/team_page/index');
+})->name('admin.team-page');
+
+Route::get('/impact-page', function () {
+    return Inertia::render('admin/impact_page/index');
+})->name('admin.impact-stories-page');
+
+Route::get('/pages-page', function () {
+    return Inertia::render('admin/pages-page/index');
+})->name('admin.pages-page');
+
+Route::get('/contact-page', function () {
+    return Inertia::render('admin/contact-page/index');
+})->name('admin.contact-page');
+
+Route::get('/system-page', function () {
+    return Inertia::render('admin/system-page/index');
+})->name('admin.system-page');
 
 require __DIR__.'/settings.php';

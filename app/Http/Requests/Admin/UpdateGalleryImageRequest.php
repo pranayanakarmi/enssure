@@ -17,7 +17,7 @@ class UpdateGalleryImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image_path' => ['required', 'string', 'max:255'],
+            'image_path' => ['sometimes', 'string', 'max:255'],
             'caption' => ['nullable', 'string', 'max:255'],
             'order' => ['nullable', 'integer', 'min:0'],
         ];

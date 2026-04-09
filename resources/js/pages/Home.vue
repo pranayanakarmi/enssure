@@ -2,6 +2,7 @@
 import HomeAbout from '@/components/home/HomeAbout.vue';
 import HomeContactCta from '@/components/home/HomeContactCta.vue';
 import HomeCoverage from '@/components/home/HomeCoverage.vue';
+import HomeCtaCard from '@/components/home/HomeCtaCard.vue';
 import HomeGallery from '@/components/home/HomeGallery.vue';
 import HomeHero from '@/components/home/HomeHero.vue';
 import HomeImpactStories from '@/components/home/HomeImpactStories.vue';
@@ -76,6 +77,7 @@ defineProps({
     <div class="enssure-home">
         <HomeHero :slides="heroSlides" />
         <HomeStats :reach-section="homeReachSection ?? null" />
+        <HomeCtaCard />
         <HomeAbout :about-section="homeAboutSection ?? null" />
         <HomeGallery :gallery-section="homeGallerySection ?? null" />
         <HomeImpactStories :stories-section="homeImpactStoriesSection ?? null" />
@@ -92,5 +94,6 @@ defineProps({
         />
         <HomeSupport :section="homeSupportSection ?? null" />
         <HomeContactCta :section="homeContactCtaSection ?? null" />
+
     </div>
 </template>

@@ -151,7 +151,504 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     home.form = homeForm
 /**
- * @see routes/admin.php:85
+ * @see routes/web.php:646
+ * @route '/gallery-page'
+ */
+export const galleryPage = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: galleryPage.url(options),
+    method: 'get',
+})
+
+galleryPage.definition = {
+    methods: ["get","head"],
+    url: '/gallery-page',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:646
+ * @route '/gallery-page'
+ */
+galleryPage.url = (options?: RouteQueryOptions) => {
+    return galleryPage.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:646
+ * @route '/gallery-page'
+ */
+galleryPage.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: galleryPage.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:646
+ * @route '/gallery-page'
+ */
+galleryPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: galleryPage.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:646
+ * @route '/gallery-page'
+ */
+    const galleryPageForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: galleryPage.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:646
+ * @route '/gallery-page'
+ */
+        galleryPageForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: galleryPage.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:646
+ * @route '/gallery-page'
+ */
+        galleryPageForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: galleryPage.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    galleryPage.form = galleryPageForm
+/**
+ * @see routes/web.php:650
+ * @route '/about-page'
+ */
+export const aboutPage = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: aboutPage.url(options),
+    method: 'get',
+})
+
+aboutPage.definition = {
+    methods: ["get","head"],
+    url: '/about-page',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:650
+ * @route '/about-page'
+ */
+aboutPage.url = (options?: RouteQueryOptions) => {
+    return aboutPage.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:650
+ * @route '/about-page'
+ */
+aboutPage.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: aboutPage.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:650
+ * @route '/about-page'
+ */
+aboutPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: aboutPage.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:650
+ * @route '/about-page'
+ */
+    const aboutPageForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: aboutPage.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:650
+ * @route '/about-page'
+ */
+        aboutPageForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: aboutPage.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:650
+ * @route '/about-page'
+ */
+        aboutPageForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: aboutPage.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    aboutPage.form = aboutPageForm
+/**
+ * @see routes/web.php:654
+ * @route '/team-page'
+ */
+export const teamPage = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: teamPage.url(options),
+    method: 'get',
+})
+
+teamPage.definition = {
+    methods: ["get","head"],
+    url: '/team-page',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:654
+ * @route '/team-page'
+ */
+teamPage.url = (options?: RouteQueryOptions) => {
+    return teamPage.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:654
+ * @route '/team-page'
+ */
+teamPage.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: teamPage.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:654
+ * @route '/team-page'
+ */
+teamPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: teamPage.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:654
+ * @route '/team-page'
+ */
+    const teamPageForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: teamPage.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:654
+ * @route '/team-page'
+ */
+        teamPageForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: teamPage.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:654
+ * @route '/team-page'
+ */
+        teamPageForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: teamPage.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    teamPage.form = teamPageForm
+/**
+ * @see routes/web.php:658
+ * @route '/impact-page'
+ */
+export const impactStoriesPage = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: impactStoriesPage.url(options),
+    method: 'get',
+})
+
+impactStoriesPage.definition = {
+    methods: ["get","head"],
+    url: '/impact-page',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:658
+ * @route '/impact-page'
+ */
+impactStoriesPage.url = (options?: RouteQueryOptions) => {
+    return impactStoriesPage.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:658
+ * @route '/impact-page'
+ */
+impactStoriesPage.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: impactStoriesPage.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:658
+ * @route '/impact-page'
+ */
+impactStoriesPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: impactStoriesPage.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:658
+ * @route '/impact-page'
+ */
+    const impactStoriesPageForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: impactStoriesPage.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:658
+ * @route '/impact-page'
+ */
+        impactStoriesPageForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: impactStoriesPage.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:658
+ * @route '/impact-page'
+ */
+        impactStoriesPageForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: impactStoriesPage.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    impactStoriesPage.form = impactStoriesPageForm
+/**
+ * @see routes/web.php:662
+ * @route '/pages-page'
+ */
+export const pagesPage = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: pagesPage.url(options),
+    method: 'get',
+})
+
+pagesPage.definition = {
+    methods: ["get","head"],
+    url: '/pages-page',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:662
+ * @route '/pages-page'
+ */
+pagesPage.url = (options?: RouteQueryOptions) => {
+    return pagesPage.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:662
+ * @route '/pages-page'
+ */
+pagesPage.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: pagesPage.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:662
+ * @route '/pages-page'
+ */
+pagesPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: pagesPage.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:662
+ * @route '/pages-page'
+ */
+    const pagesPageForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: pagesPage.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:662
+ * @route '/pages-page'
+ */
+        pagesPageForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: pagesPage.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:662
+ * @route '/pages-page'
+ */
+        pagesPageForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: pagesPage.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    pagesPage.form = pagesPageForm
+/**
+ * @see routes/web.php:666
+ * @route '/contact-page'
+ */
+export const contactPage = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: contactPage.url(options),
+    method: 'get',
+})
+
+contactPage.definition = {
+    methods: ["get","head"],
+    url: '/contact-page',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:666
+ * @route '/contact-page'
+ */
+contactPage.url = (options?: RouteQueryOptions) => {
+    return contactPage.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:666
+ * @route '/contact-page'
+ */
+contactPage.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: contactPage.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:666
+ * @route '/contact-page'
+ */
+contactPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: contactPage.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:666
+ * @route '/contact-page'
+ */
+    const contactPageForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: contactPage.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:666
+ * @route '/contact-page'
+ */
+        contactPageForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: contactPage.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:666
+ * @route '/contact-page'
+ */
+        contactPageForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: contactPage.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    contactPage.form = contactPageForm
+/**
+ * @see routes/web.php:670
+ * @route '/system-page'
+ */
+export const systemPage = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: systemPage.url(options),
+    method: 'get',
+})
+
+systemPage.definition = {
+    methods: ["get","head"],
+    url: '/system-page',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:670
+ * @route '/system-page'
+ */
+systemPage.url = (options?: RouteQueryOptions) => {
+    return systemPage.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:670
+ * @route '/system-page'
+ */
+systemPage.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: systemPage.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:670
+ * @route '/system-page'
+ */
+systemPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: systemPage.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:670
+ * @route '/system-page'
+ */
+    const systemPageForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: systemPage.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:670
+ * @route '/system-page'
+ */
+        systemPageForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: systemPage.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:670
+ * @route '/system-page'
+ */
+        systemPageForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: systemPage.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    systemPage.form = systemPageForm
+/**
+ * @see routes/admin.php:87
  * @route '/admin'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -165,7 +662,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/admin.php:85
+ * @see routes/admin.php:87
  * @route '/admin'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -173,7 +670,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/admin.php:85
+ * @see routes/admin.php:87
  * @route '/admin'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -181,7 +678,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/admin.php:85
+ * @see routes/admin.php:87
  * @route '/admin'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -190,7 +687,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/admin.php:85
+ * @see routes/admin.php:87
  * @route '/admin'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -199,7 +696,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/admin.php:85
+ * @see routes/admin.php:87
  * @route '/admin'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -207,7 +704,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/admin.php:85
+ * @see routes/admin.php:87
  * @route '/admin'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -224,6 +721,13 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 const adminNamespace = {
     videos: Object.assign(videos, videos),
 home: Object.assign(home, home),
+galleryPage: Object.assign(galleryPage, galleryPage),
+aboutPage: Object.assign(aboutPage, aboutPage),
+teamPage: Object.assign(teamPage, teamPage),
+impactStoriesPage: Object.assign(impactStoriesPage, impactStoriesPage),
+pagesPage: Object.assign(pagesPage, pagesPage),
+contactPage: Object.assign(contactPage, contactPage),
+systemPage: Object.assign(systemPage, systemPage),
 index: Object.assign(index, index),
 users: Object.assign(users, users),
 roles: Object.assign(roles, roles),

@@ -103,20 +103,7 @@ return [
             'icon' => 'LayoutGrid',
             'permission_resource' => null,
         ],
-        [
-            'title' => 'Users',
-            'href' => 'admin.users.index',
-            'icon' => 'Users',
-            'permission_resource' => null,
-            'role_only' => ['admin', 'super_admin'],
-        ],
-        [
-            'title' => 'Roles',
-            'href' => 'admin.roles.index',
-            'icon' => 'Shield',
-            'permission_resource' => null,
-            'role_only' => ['admin', 'super_admin'],
-        ],
+
         [
             'title' => 'Menus',
             'href' => 'admin.menus.index',
@@ -150,32 +137,35 @@ return [
 
         [
             'title' => 'Gallery Page',
+            'href' => 'admin.gallery-page',
             'icon' => 'Images',
             'permission_resource' => null,
-            'children' => [
-                ['title' => 'Title & text', 'href' => 'admin.gallery_page_section.edit', 'permission_resource' => 'gallery_page_section'],
-                ['title' => 'Albums', 'href' => 'admin.galleries.index', 'permission_resource' => 'galleries'],
-            ],
+            // 'children' => [
+            //     ['title' => 'Title & text', 'href' => 'admin.gallery_page_section.edit', 'permission_resource' => 'gallery_page_section'],
+            //     ['title' => 'Albums', 'href' => 'admin.galleries.index', 'permission_resource' => 'galleries'],
+            // ],
         ],
         [
             'title' => 'About Page',
+            'href' => 'admin.about-page',
             'icon' => 'FileText',
             'permission_resource' => null,
-            'children' => [
-                ['title' => 'Hero', 'href' => 'admin.about_page_hero.edit', 'permission_resource' => 'about_page_hero'],
-                ['title' => 'Main section', 'href' => 'admin.about_main_sections.edit', 'permission_resource' => 'about_main_sections'],
-                ['title' => 'Content section', 'href' => 'admin.about_content_sections.edit', 'permission_resource' => 'about_content_sections'],
-            ],
+            // 'children' => [
+            //     ['title' => 'Hero', 'href' => 'admin.about_page_hero.edit', 'permission_resource' => 'about_page_hero'],
+            //     ['title' => 'Main section', 'href' => 'admin.about_main_sections.edit', 'permission_resource' => 'about_main_sections'],
+            //     ['title' => 'Content section', 'href' => 'admin.about_content_sections.edit', 'permission_resource' => 'about_content_sections'],
+            // ],
         ],
         [
             'title' => 'Our Team',
+            'href' => 'admin.team-page',
             'icon' => 'UsersRound',
             'permission_resource' => null,
-            'children' => [
-                ['title' => 'Content', 'href' => 'admin.team_page_content.edit', 'permission_resource' => 'team_page_content'],
-                ['title' => 'Executive Committee', 'href' => 'admin.team_members.executive_index', 'permission_resource' => 'team_members'],
-                ['title' => 'Staff', 'href' => 'admin.team_members.staff_index', 'permission_resource' => 'team_members'],
-            ],
+            // 'children' => [
+            //     ['title' => 'Content', 'href' => 'admin.team_page_content.edit', 'permission_resource' => 'team_page_content'],
+            //     ['title' => 'Executive Committee', 'href' => 'admin.team_members.executive_index', 'permission_resource' => 'team_members'],
+            //     ['title' => 'Staff', 'href' => 'admin.team_members.staff_index', 'permission_resource' => 'team_members'],
+            // ],
         ],
         [
         'title' => 'Infographics',
@@ -185,76 +175,112 @@ return [
 ],
         [
             'title' => 'Impact Stories Page',
+            'href' => 'admin.impact-stories-page',
             'icon' => 'BookOpen',
             'permission_resource' => null,
-            'children' => [
-                ['title' => 'Hero', 'href' => 'admin.impact_page_hero.edit', 'permission_resource' => 'impact_page_hero'],
-                ['title' => 'Section', 'href' => 'admin.impact_page_sections.edit', 'permission_resource' => 'impact_page_sections'],
-                ['title' => 'Impact Stories', 'href' => 'admin.impact_stories.index', 'permission_resource' => 'impact_stories'],
-            ],
+            // 'children' => [
+            //     ['title' => 'Hero', 'href' => 'admin.impact_page_hero.edit', 'permission_resource' => 'impact_page_hero'],
+            //     ['title' => 'Section', 'href' => 'admin.impact_page_sections.edit', 'permission_resource' => 'impact_page_sections'],
+            //     ['title' => 'Impact Stories', 'href' => 'admin.impact_stories.index', 'permission_resource' => 'impact_stories'],
+            // ],
         ],
-        [
-            'title' => 'Posts',
-            'icon' => 'FileText',
-            'permission_resource' => null,
-            'children' => [
-                ['title' => 'All posts', 'href' => 'admin.posts.index', 'permission_resource' => 'posts'],
-                ['title' => 'Hero background', 'href' => 'admin.posts.hero.edit', 'permission_resource' => 'post_hero'],
-                ['title' => 'Categories', 'href' => 'admin.categories.index', 'permission_resource' => 'categories'],
-                ['title' => 'Tags', 'href' => 'admin.tags.index', 'permission_resource' => 'tags'],
-            ],
-        ],
-        [
-            'title' => 'Pages',
-            'icon' => 'File',
-            'permission_resource' => null,
-            'children' => [
-                ['title' => 'All pages', 'href' => 'admin.pages.index', 'permission_resource' => 'pages'],
-                ['title' => 'Hero background', 'href' => 'admin.pages.hero.edit', 'permission_resource' => 'page_hero'],
-            ],
-        ],
-        [
+
+         [
             'title' => 'News and Articles',
             'href' => 'admin.notices.index',
             'icon' => 'Newspaper',
             'permission_resource' => 'notices',
         ],
+
         [
-            'title' => 'Reports',
+            'title' => 'Documents',
             'href' => 'admin.documents.index',
             'icon' => 'FileStack',
             'permission_resource' => 'documents',
         ],
-        [
+
+         [
             'title' => 'Vacancies',
+            'href' => 'admin.vacancies.index',
             'icon' => 'Briefcase',
-            'permission_resource' => null,
-            'children' => [
-                ['title' => 'Job listings', 'href' => 'admin.vacancies.index', 'permission_resource' => 'vacancies'],
-                ['title' => 'Applications', 'href' => 'admin.vacancy_applications.index', 'permission_resource' => 'vacancy_applications'],
-            ],
+            'permission_resource' => 'vacancies',
+            // 'children' => [
+            //     ['title' => 'Job listings', 'href' => 'admin.vacancies.index', 'permission_resource' => 'vacancies'],
+            //     ['title' => 'Applications', 'href' => 'admin.vacancy_applications.index', 'permission_resource' => 'vacancy_applications'],
+            // ],
         ],
+
+        // [
+        //     'title' => 'Posts',
+        //     'icon' => 'FileText',
+        //     'permission_resource' => null,
+        //     'children' => [
+        //         ['title' => 'All posts', 'href' => 'admin.posts.index', 'permission_resource' => 'posts'],
+        //         ['title' => 'Hero background', 'href' => 'admin.posts.hero.edit', 'permission_resource' => 'post_hero'],
+        //         ['title' => 'Categories', 'href' => 'admin.categories.index', 'permission_resource' => 'categories'],
+        //         ['title' => 'Tags', 'href' => 'admin.tags.index', 'permission_resource' => 'tags'],
+        //     ],
+        // ],
         [
-            'title' => 'Contact us',
-            'icon' => 'Mail',
-            'permission_resource' => null,
-            'children' => [
-                ['title' => 'Contact Us page', 'href' => 'admin.contact_feedback_content.edit', 'permission_resource' => 'contact_feedback_content'],
-                ['title' => 'Feedback submissions', 'href' => 'admin.feedback.index', 'permission_resource' => 'feedback'],
-            ],
+            'title' => 'Pages',
+            'href' => 'admin.pages-page',
+            'icon' => 'File',
+            'permission_resource' => 'pages',
+            // 'children' => [
+            //     ['title' => 'All pages', 'href' => 'admin.pages.index', 'permission_resource' => 'pages'],
+            //     ['title' => 'Hero background', 'href' => 'admin.pages.hero.edit', 'permission_resource' => 'page_hero'],
+            // ],
         ],
-        [
-            'title' => 'Footer',
-            'icon' => 'PanelBottom',
-            'permission_resource' => null,
-            'children' => [
-                ['title' => 'Footer columns', 'href' => 'admin.footer-columns.index', 'permission_resource' => 'footer_columns'],
+
+
+        // [
+        //     'title' => 'Vacancies',
+        //     'icon' => 'Briefcase',
+        //     'permission_resource' => null,
+        //     'children' => [
+        //         ['title' => 'Job listings', 'href' => 'admin.vacancies.index', 'permission_resource' => 'vacancies'],
+        //         ['title' => 'Applications', 'href' => 'admin.vacancy_applications.index', 'permission_resource' => 'vacancy_applications'],
+        //     ],
+        // ],
+            [
+                'title' => 'Contact us',
+                'href' => 'admin.contact-page',
+                'icon' => 'Mail',
+                'permission_resource' => null,
+                // 'children' => [
+                //     ['title' => 'Contact Us page', 'href' => 'admin.contact_feedback_content.edit', 'permission_resource' => 'contact_feedback_content'],
+                //     ['title' => 'Feedback submissions', 'href' => 'admin.feedback.index', 'permission_resource' => 'feedback'],
+                // ],
             ],
-        ],
+
+            ['title' => 'Footer columns', 'href' => 'admin.footer-columns.index', 'permission_resource' => 'footer_columns'],
+        // [
+        //     'title' => 'Footer',
+        //     'icon' => 'PanelBottom',
+        //     'permission_resource' => null,
+        //     'children' => [
+        //         ['title' => 'Footer columns', 'href' => 'admin.footer-columns.index', 'permission_resource' => 'footer_columns'],
+        //     ],
+        // ],
         [
             'title' => 'Site settings',
             'href' => 'admin.site_settings.edit',
             'permission_resource' => 'site_settings',
+        ],
+
+        [
+            'title' => 'Users',
+            'href' => 'admin.users.index',
+            'icon' => 'Users',
+            'permission_resource' => null,
+            'role_only' => ['admin', 'super_admin'],
+        ],
+        [
+            'title' => 'Roles',
+            'href' => 'admin.roles.index',
+            'icon' => 'Shield',
+            'permission_resource' => null,
+            'role_only' => ['admin', 'super_admin'],
         ],
 
         // [
@@ -343,14 +369,15 @@ return [
         // ],
         [
             'title' => 'System',
+            'href' => 'admin.system-page',
             'icon' => 'Settings',
             'permission_resource' => null,
-            'children' => [
-                ['title' => 'Settings', 'href' => 'admin.settings.index', 'permission_resource' => 'settings'],
-                ['title' => 'Email Templates', 'href' => 'admin.email_templates.index', 'permission_resource' => 'email_templates'],
-                ['title' => 'Redirects', 'href' => 'admin.redirects.index', 'permission_resource' => 'redirects'],
-                ['title' => 'Media', 'href' => 'admin.media.index', 'permission_resource' => 'media'],
-            ],
+            // 'children' => [
+            //     ['title' => 'Settings', 'href' => 'admin.settings.index', 'permission_resource' => 'settings'],
+            //     ['title' => 'Email Templates', 'href' => 'admin.email_templates.index', 'permission_resource' => 'email_templates'],
+            //     ['title' => 'Redirects', 'href' => 'admin.redirects.index', 'permission_resource' => 'redirects'],
+            //     ['title' => 'Media', 'href' => 'admin.media.index', 'permission_resource' => 'media'],
+            // ],
         ],
     ],
 

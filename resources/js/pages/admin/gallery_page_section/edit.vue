@@ -1,87 +1,108 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import Heading from '@/components/Heading.vue';
+import { computed } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { ArrowLeft, Save, Type } from 'lucide-vue-next';
 
 const props = defineProps({
-    galleryPageSection: {
-        type: Object,
-        default: null,
-    },
+    galleryPageSection: { type: Object, default: null },
 });
 
-const section = props.galleryPageSection ?? {
+const section = computed(() => props.galleryPageSection ?? {
     id: null,
     title: '',
     description: '',
-};
-
-const form = useForm({
-    title: section.title ?? '',
-    description: section.description ?? '',
 });
 
+const form = useForm({
+    title: section.value.title ?? '',
+    description: section.value.description ?? '',
+    _method: 'put',
+});
+
+function submitForm() {
+    form.put('/admin/gallery-page/section');
+}
+
 const breadcrumbItems = [
-    { title: 'Gallery Page', href: '#' },
-    { title: 'Title & text', href: '#' },
+    { title: 'Home Page', href: '/admin/home' },
+    { title: 'Gallery Page', href: '/admin/gallery-page' },
+    { title: 'Title & Text', href: '#' },
 ];
 </script>
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Edit Gallery Page Section" />
-        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="space-y-6">
-                <Heading
-                    variant="small"
-                    title="Gallery Page Section"
-                    description="Edit the title and intro text shown at the top of the public Gallery page."
-                />
-                <form
-                    class="space-y-6"
-                    @submit.prevent="form.put('/admin/gallery-page/section')"
-                >
-                    <div class="grid gap-2">
-                        <Label for="title">Title</Label>
-                        <Input
-                            id="title"
-                            v-model="form.title"
-                            type="text"
-                            placeholder="e.g. The ENSSURE Journey in Pictures"
-                        />
-                        <InputError :message="form.errors.title" />
+        <Head title="Edit Gallery Page – Title & Text" />
+
+        <div class="flex h-full flex-1 flex-col gap-5 overflow-x-auto p-5">
+
+            <!-- Header with back button -->
+            <div class="flex flex-wrap items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <Button variant="outline" size="sm" as-child class="h-8 gap-1.5 text-xs">
+                        <Link href="/gallery-page">
+                            <ArrowLeft class="h-3.5 w-3.5" />Back
+                        </Link>
+                    </Button>
+                    <div>
+                        <h1 class="text-xl font-semibold tracking-tight text-foreground">Gallery Page – Title & Text</h1>
+                        <p class="text-xs text-muted-foreground mt-0.5">Edit the heading and intro text shown at the top of the public Gallery page.</p>
                     </div>
-                    <div class="grid gap-2">
-                        <Label for="description">Description</Label>
-                        <textarea
-                            id="description"
-                            v-model="form.description"
-                            rows="5"
-                            class="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                            placeholder="Intro paragraph for the gallery page."
-                        />
-                        <InputError :message="form.errors.description" />
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <Button
-                            type="submit"
-                            :disabled="form.processing"
-                        >
-                            Save
-                        </Button>
-                        <Button
-                            variant="outline"
-                            as-child
-                        >
-                            <Link href="/admin">Back</Link>
-                        </Button>
-                    </div>
-                </form>
+                </div>
+                <div class="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs text-gray-600">
+                    <Type class="h-3.5 w-3.5" />Page Header
+                </div>
             </div>
+
+            <!-- Main form card -->
+            <Card class="border-gray-200 shadow-sm">
+                <CardHeader class="border-b border-gray-200 px-5 py-4">
+                    <CardTitle class="text-sm font-semibold flex items-center gap-2">
+                        <Type class="h-4 w-4" /> Section Content
+                    </CardTitle>
+                    <CardDescription class="text-xs">Update the title and description for the gallery page.</CardDescription>
+                </CardHeader>
+                <CardContent class="px-5 py-5">
+                    <form class="flex flex-col gap-5" @submit.prevent="submitForm">
+
+                        <!-- Title -->
+                        <div class="flex flex-col gap-1.5">
+                            <Label for="title" class="text-xs font-medium">Page Title</Label>
+                            <Input id="title" v-model="form.title" class="h-9 text-sm" placeholder="e.g. The ENSSURE Journey in Pictures" />
+                            <InputError :message="form.errors.title" />
+                        </div>
+
+                        <!-- Description (textarea) -->
+                        <div class="flex flex-col gap-1.5">
+                            <Label for="description" class="text-xs font-medium">Description</Label>
+                            <textarea
+                                id="description"
+                                v-model="form.description"
+                                rows="4"
+                                class="w-full rounded-md border border-gray-300 bg-background px-3 py-2 text-sm"
+                                placeholder="Intro paragraph for the gallery page..."
+                            />
+                            <InputError :message="form.errors.description" />
+                        </div>
+
+                        <!-- Save button -->
+                        <div class="flex justify-end border-t border-gray-200 pt-4">
+                            <Button type="submit" size="sm" :disabled="form.processing" class="h-8 gap-1.5 text-xs">
+                                <Save class="h-3.5 w-3.5" />
+                                {{ form.processing ? 'Saving…' : 'Save Changes' }}
+                            </Button>
+                        </div>
+
+                    </form>
+                </CardContent>
+            </Card>
+
         </div>
     </AppLayout>
 </template>
