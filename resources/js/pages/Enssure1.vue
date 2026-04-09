@@ -172,8 +172,10 @@ onUnmounted(() => {
     <section class="relative min-h-[92vh] flex flex-col justify-end overflow-hidden">
       <!-- Background with subtle overlay -->
       <div class="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-             class="w-full h-full object-cover" alt="" />
+        <img src="/enssure/assets/1b5f4275768ee47a7d16dd8b2fbc92ec696f2939.png"
+     class="w-full h-full object-cover" alt="ENSSURE I" />
+        <!-- <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+             class="w-full h-full object-cover" alt="" /> -->
         <div class="absolute inset-0 bg-gradient-to-t from-gray-50 via-gray-50/80 to-gray-50/20" />
         <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#B91C1C] via-[#ef4444] to-[#B91C1C]" />
       </div>
@@ -248,8 +250,10 @@ onUnmounted(() => {
             <div class="relative">
               <div class="absolute -inset-4 bg-[#233D7E]/5 rounded-3xl -rotate-2" />
               <div class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-xl">
-                <img src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
-                     class="w-full h-full object-cover" alt="ENSSURE I" />
+                <img src="/enssure/assets/f4b6e6dc6a6e52b022f16d68a04747fe0075789e.png"
+     class="w-full h-full object-cover" alt="ENSSURE I" />
+                <!-- <img src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                     class="w-full h-full object-cover" alt="ENSSURE I" /> -->
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent" />
                 <div class="absolute bottom-0 left-0 right-0 p-8">
                   <div class="text-white/70 text-xs uppercase tracking-widest mb-1">Duration</div>
