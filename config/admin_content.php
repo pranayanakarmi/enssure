@@ -69,6 +69,7 @@ return [
         'impact_page_hero',
         'impact_page_sections',
         'page_hero',
+        'eoi_rfp',
         'footer_columns',
         'footer_links',
         'site_settings',
@@ -221,6 +222,25 @@ return [
         //         ['title' => 'Tags', 'href' => 'admin.tags.index', 'permission_resource' => 'tags'],
         //     ],
         // ],
+
+    [
+    'title' => 'EOI-RFP',
+    'href' => 'admin.eoi-rfp.dashboard',
+    'icon' => 'FileText',
+    'permission_resource' => 'eoi_rfp',
+],
+// [
+//     'title' => 'RFP',
+//     'href' => 'admin.eoi-rfp.index',
+//     'icon' => 'FileText',
+//     'permission_resource' => 'eoi_rfp',
+// ],
+// [
+//     'title' => 'RFP Hero',
+//     'href' => 'admin.eoi-rfp.hero',
+//     'icon' => 'Image',
+//     'permission_resource' => 'eoi_rfp',
+// ],
         [
             'title' => 'Pages',
             'href' => 'admin.pages-page',

@@ -73,6 +73,8 @@ use App\Http\Controllers\Admin\TrainingProgramController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VacancyApplicationController;
 use App\Http\Controllers\Admin\VacancyController;
+use App\Http\Controllers\Admin\EoiRfpController;
+use App\Http\Controllers\Admin\EoiRfpPageHeroController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -231,6 +233,13 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('media', MediaController::class)->except(['show']);
     Route::resource('feedback', FeedbackController::class)->only(['index', 'show', 'destroy']);
 
+   // Hero for the combined listing page (one hero for both types)
+Route::get('eoi-rfp/hero', [EoiRfpPageHeroController::class, 'edit'])->name('admin.eoi-rfp.hero.edit');
+Route::put('eoi-rfp/hero', [EoiRfpPageHeroController::class, 'update'])->name('admin.eoi-rfp.hero.update');
+
+// Content management (items)
+Route::resource('eoi-rfp', EoiRfpController::class)->except(['show']);
+Route::post('eoi-rfp/reorder', [EoiRfpController::class, 'reorder'])->name('eoi-rfp.reorder');
 
 
 });

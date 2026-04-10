@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
- * @see routes/web.php:418
+ * @see routes/web.php:422
  * @route '/pages/{published_page}'
  */
 export const show = (args: { published_page: string | { slug: string } } | [published_page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:418
+ * @see routes/web.php:422
  * @route '/pages/{published_page}'
  */
 show.url = (args: { published_page: string | { slug: string } } | [published_page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
@@ -46,7 +46,7 @@ show.url = (args: { published_page: string | { slug: string } } | [published_pag
 }
 
 /**
- * @see routes/web.php:418
+ * @see routes/web.php:422
  * @route '/pages/{published_page}'
  */
 show.get = (args: { published_page: string | { slug: string } } | [published_page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -54,7 +54,7 @@ show.get = (args: { published_page: string | { slug: string } } | [published_pag
     method: 'get',
 })
 /**
- * @see routes/web.php:418
+ * @see routes/web.php:422
  * @route '/pages/{published_page}'
  */
 show.head = (args: { published_page: string | { slug: string } } | [published_page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -63,7 +63,7 @@ show.head = (args: { published_page: string | { slug: string } } | [published_pa
 })
 
     /**
- * @see routes/web.php:418
+ * @see routes/web.php:422
  * @route '/pages/{published_page}'
  */
     const showForm = (args: { published_page: string | { slug: string } } | [published_page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -72,7 +72,7 @@ show.head = (args: { published_page: string | { slug: string } } | [published_pa
     })
 
             /**
- * @see routes/web.php:418
+ * @see routes/web.php:422
  * @route '/pages/{published_page}'
  */
         showForm.get = (args: { published_page: string | { slug: string } } | [published_page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -80,7 +80,7 @@ show.head = (args: { published_page: string | { slug: string } } | [published_pa
             method: 'get',
         })
             /**
- * @see routes/web.php:418
+ * @see routes/web.php:422
  * @route '/pages/{published_page}'
  */
         showForm.head = (args: { published_page: string | { slug: string } } | [published_page: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

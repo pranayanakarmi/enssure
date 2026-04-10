@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
- * @see routes/web.php:360
- * @route '/posts'
+ * @see routes/web.php:684
+ * @route '/eoi-rfp'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
@@ -10,28 +10,28 @@ export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 index.definition = {
     methods: ["get","head"],
-    url: '/posts',
+    url: '/eoi-rfp',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:360
- * @route '/posts'
+ * @see routes/web.php:684
+ * @route '/eoi-rfp'
  */
 index.url = (options?: RouteQueryOptions) => {
     return index.definition.url + queryParams(options)
 }
 
 /**
- * @see routes/web.php:360
- * @route '/posts'
+ * @see routes/web.php:684
+ * @route '/eoi-rfp'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
     method: 'get',
 })
 /**
- * @see routes/web.php:360
- * @route '/posts'
+ * @see routes/web.php:684
+ * @route '/eoi-rfp'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
@@ -39,8 +39,8 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:360
- * @route '/posts'
+ * @see routes/web.php:684
+ * @route '/eoi-rfp'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: index.url(options),
@@ -48,16 +48,16 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:360
- * @route '/posts'
+ * @see routes/web.php:684
+ * @route '/eoi-rfp'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: index.url(options),
             method: 'get',
         })
             /**
- * @see routes/web.php:360
- * @route '/posts'
+ * @see routes/web.php:684
+ * @route '/eoi-rfp'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: index.url({
@@ -71,90 +71,90 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     index.form = indexForm
 /**
- * @see routes/web.php:383
- * @route '/posts/{published_post}'
+ * @see routes/web.php:697
+ * @route '/eoi-rfp/{eoi_rfp}'
  */
-export const show = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 
 show.definition = {
     methods: ["get","head"],
-    url: '/posts/{published_post}',
+    url: '/eoi-rfp/{eoi_rfp}',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:383
- * @route '/posts/{published_post}'
+ * @see routes/web.php:697
+ * @route '/eoi-rfp/{eoi_rfp}'
  */
-show.url = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
+show.url = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
-        args = { published_post: args }
+        args = { eoi_rfp: args }
     }
 
             if (typeof args === 'object' && !Array.isArray(args) && 'slug' in args) {
-            args = { published_post: args.slug }
+            args = { eoi_rfp: args.slug }
         }
     
     if (Array.isArray(args)) {
         args = {
-                    published_post: args[0],
+                    eoi_rfp: args[0],
                 }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-                        published_post: typeof args.published_post === 'object'
-                ? args.published_post.slug
-                : args.published_post,
+                        eoi_rfp: typeof args.eoi_rfp === 'object'
+                ? args.eoi_rfp.slug
+                : args.eoi_rfp,
                 }
 
     return show.definition.url
-            .replace('{published_post}', parsedArgs.published_post.toString())
+            .replace('{eoi_rfp}', parsedArgs.eoi_rfp.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
- * @see routes/web.php:383
- * @route '/posts/{published_post}'
+ * @see routes/web.php:697
+ * @route '/eoi-rfp/{eoi_rfp}'
  */
-show.get = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 /**
- * @see routes/web.php:383
- * @route '/posts/{published_post}'
+ * @see routes/web.php:697
+ * @route '/eoi-rfp/{eoi_rfp}'
  */
-show.head = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
 
     /**
- * @see routes/web.php:383
- * @route '/posts/{published_post}'
+ * @see routes/web.php:697
+ * @route '/eoi-rfp/{eoi_rfp}'
  */
-    const showForm = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
 
             /**
- * @see routes/web.php:383
- * @route '/posts/{published_post}'
+ * @see routes/web.php:697
+ * @route '/eoi-rfp/{eoi_rfp}'
  */
-        showForm.get = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
             /**
- * @see routes/web.php:383
- * @route '/posts/{published_post}'
+ * @see routes/web.php:697
+ * @route '/eoi-rfp/{eoi_rfp}'
  */
-        showForm.head = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -165,9 +165,9 @@ show.head = (args: { published_post: string | { slug: string } } | [published_po
         })
     
     show.form = showForm
-const posts = {
+const eoiRfp = {
     index: Object.assign(index, index),
 show: Object.assign(show, show),
 }
 
-export default posts
+export default eoiRfp

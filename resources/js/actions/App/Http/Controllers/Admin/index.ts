@@ -73,6 +73,8 @@ import EmailTemplateController from './EmailTemplateController'
 import RedirectController from './RedirectController'
 import MediaController from './MediaController'
 import FeedbackController from './FeedbackController'
+import EoiRfpPageHeroController from './EoiRfpPageHeroController'
+import EoiRfpController from './EoiRfpController'
 const Admin = {
     VideoController: Object.assign(VideoController, VideoController),
 HomeController: Object.assign(HomeController, HomeController),
@@ -149,6 +151,8 @@ EmailTemplateController: Object.assign(EmailTemplateController, EmailTemplateCon
 RedirectController: Object.assign(RedirectController, RedirectController),
 MediaController: Object.assign(MediaController, MediaController),
 FeedbackController: Object.assign(FeedbackController, FeedbackController),
+EoiRfpPageHeroController: Object.assign(EoiRfpPageHeroController, EoiRfpPageHeroController),
+EoiRfpController: Object.assign(EoiRfpController, EoiRfpController),
 }
 
 export default Admin

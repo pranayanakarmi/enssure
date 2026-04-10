@@ -8,6 +8,7 @@ use App\Http\Controllers\VacancyApplicationController;
 use App\Http\Controllers\VacancyPageController;
 use App\Http\Controllers\Admin\VideoController;
 
+
 use App\Models\AboutContentSection;
 use App\Models\AboutMainSection;
 use App\Models\AboutPageHero;
@@ -42,6 +43,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+
+use App\Models\EoiRfp;
+use App\Models\EoiRfpPageHero;
 
 Route::get('/', function () {
     $homeReachSection = HomeReachSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
@@ -670,5 +674,40 @@ Route::get('/contact-page', function () {
 Route::get('/system-page', function () {
     return Inertia::render('admin/system-page/index');
 })->name('admin.system-page');
+
+Route::get('/eoi-rfp-dashboard', function () {
+    return Inertia::render('admin/eoi-rfp/dashboard');
+})->name('admin.eoi-rfp.dashboard');
+
+
+
+Route::get('eoi-rfp', function () {
+    $items = EoiRfp::orderBy('order')->get(); // no status/published_at filter
+    $hero = EoiRfpPageHero::first();
+    return Inertia::render('EoiRfpIndex', [
+        'items' => $items,
+        'hero' => $hero ? [
+            'title' => $hero->title,
+            'description' => $hero->description,
+            'hero_image_url' => $hero->hero_image ? Storage::disk('public')->url($hero->hero_image) : null,
+        ] : null,
+    ]);
+})->name('eoi-rfp.index');
+
+Route::get('eoi-rfp/{eoi_rfp:slug}', function (EoiRfp $eoi_rfp) {
+    $eoi_rfp->load('documents');
+    foreach ($eoi_rfp->documents as $doc) {
+        $doc->file_url = Storage::disk('public')->url($doc->file_path);
+    }
+    $hero = EoiRfpPageHero::first(); // same hero as index
+    return Inertia::render('EoiRfpShow', [
+        'item' => $eoi_rfp,
+        'hero' => $hero ? [
+            'title' => $hero->title,
+            'description' => $hero->description,
+            'hero_image_url' => $hero->hero_image ? Storage::disk('public')->url($hero->hero_image) : null,
+        ] : null,
+    ]);
+})->name('eoi-rfp.show');
 
 require __DIR__.'/settings.php';
