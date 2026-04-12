@@ -32,14 +32,14 @@ const ctaUrl = computed(() => props.aboutSection?.cta_url ?? fallbackCtaUrl);
 <template>
     <section
         id="about"
-        class="py-20 lg:py-24 relative overflow-hidden"
+        class="relative py-20 overflow-hidden lg:py-24"
     >
         <div class="absolute inset-0">
             <img
                 v-if="backgroundImageUrl"
                 :src="backgroundImageUrl"
                 alt=""
-                class="w-full h-full object-cover opacity-30"
+                class="object-cover w-full h-full opacity-30"
                 loading="lazy"
             />
             <div
@@ -47,8 +47,8 @@ const ctaUrl = computed(() => props.aboutSection?.cta_url ?? fallbackCtaUrl);
             />
             <div class="absolute inset-0 backdrop-blur-[10px] bg-white/40" />
         </div>
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
                 <div class="relative">
                     <div
                         class="absolute -rotate-[4deg] bg-[#233D7E] rounded-[30px] w-full aspect-[507/690]"
@@ -60,7 +60,7 @@ const ctaUrl = computed(() => props.aboutSection?.cta_url ?? fallbackCtaUrl);
                             v-if="contentImageUrl"
                             :src="contentImageUrl"
                             alt="Skill Upgrading Training"
-                            class="w-full h-full object-cover"
+                            class="object-cover w-full h-full"
                             loading="lazy"
                         />
                     </div>
@@ -69,7 +69,7 @@ const ctaUrl = computed(() => props.aboutSection?.cta_url ?? fallbackCtaUrl);
                         class="absolute w-80 bottom-0 right-0 bg-[#B91C1C] rounded-tl-[40px] rounded-br-[30px] p-8"
                     >
                         <h3
-                            class="text-white text-2xl leading-tight tracking-tight"
+                            class="text-2xl leading-tight tracking-tight text-white"
                         >
                             <span v-html="cardTitle.replace(/\n/g, '<br />')" />
                         </h3>
@@ -93,13 +93,13 @@ const ctaUrl = computed(() => props.aboutSection?.cta_url ?? fallbackCtaUrl);
                         {{ title }}
                     </h2>
                     <div
-                        class="text-xl leading-relaxed text-gray-900 mb-8 prose prose-lg max-w-none"
+                        class="mb-8 text-xl leading-relaxed prose prose-lg text-gray-900 max-w-none"
                         v-html="body"
                     />
                     <Link
                         v-if="ctaText"
                         :href="ctaUrl"
-                        class="inline-flex items-center gap-2 text-gray-900 uppercase font-medium hover:gap-3 transition-all group"
+                        class="inline-flex items-center gap-2 font-medium text-gray-900 uppercase transition-all hover:gap-3 group"
                     >
                         {{ ctaText }}
                         <ArrowRight
