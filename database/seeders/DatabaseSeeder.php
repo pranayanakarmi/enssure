@@ -41,6 +41,8 @@ class DatabaseSeeder extends Seeder
             NewsTickerItemSeeder::class,
             MenuSeeder::class,
             FooterSeeder::class,
+            EventSeeder::class,
+            TrainingProgramSeeder::class,
         ]);
 
         // User::factory(10)->create();

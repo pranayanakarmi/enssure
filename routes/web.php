@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\VideoController;
 use App\Models\AboutContentSection;
 use App\Models\AboutMainSection;
 use App\Models\AboutPageHero;
+use App\Models\Event;
 use App\Models\Gallery;
 use App\Models\GalleryPageSection;
 use App\Models\HomeAboutSection;
@@ -36,6 +37,7 @@ use App\Models\Slider;
 use App\Models\TeamMember;
 use App\Models\TeamPageContent;
 use App\Models\Testimonial;
+use App\Models\TrainingProgram;
 use App\Models\Video;
 use App\Support\RichContentHtml;
 use Illuminate\Support\Facades\Route;
@@ -657,6 +659,144 @@ Route::get('reports', [ReportController::class, 'index'])->name('reports.index')
 Route::get('reports/{document}', [ReportController::class, 'show'])
     ->whereNumber('document')
     ->name('reports.show');
+Route::get('events', function () {
+    $now = now();
+    $upcoming = Event::query()
+        ->where(function ($q) use ($now) {
+            $q->where('start_date', '>=', $now)
+              ->orWhereNull('start_date');
+        })
+        ->orderBy('start_date')
+        ->get()
+        ->map(fn (Event $e) => [
+            'id' => $e->id,
+            'title' => $e->title,
+            'slug' => $e->slug,
+            'event_type' => $e->event_type,
+            'start_date' => $e->start_date?->toISOString(),
+            'end_date' => $e->end_date?->toISOString(),
+            'venue' => $e->venue,
+        ])
+        ->values()
+        ->all();
+
+    $past = Event::query()
+        ->whereNotNull('start_date')
+        ->where('start_date', '<', $now)
+        ->orderByDesc('start_date')
+        ->get()
+        ->map(fn (Event $e) => [
+            'id' => $e->id,
+            'title' => $e->title,
+            'slug' => $e->slug,
+            'event_type' => $e->event_type,
+            'start_date' => $e->start_date?->toISOString(),
+            'end_date' => $e->end_date?->toISOString(),
+            'venue' => $e->venue,
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('Events', [
+        'upcomingEvents' => $upcoming,
+        'pastEvents' => $past,
+    ]);
+})->name('events.index');
+Route::get('events/{event:slug}', function (Event $event) {
+    return Inertia::render('EventShow', [
+        'event' => [
+            'id' => $event->id,
+            'title' => $event->title,
+            'slug' => $event->slug,
+            'description' => $event->description,
+            'event_type' => $event->event_type,
+            'start_date' => $event->start_date?->toISOString(),
+            'end_date' => $event->end_date?->toISOString(),
+            'venue' => $event->venue,
+            'address' => $event->address,
+            'organizer' => $event->organizer,
+            'contact_person' => $event->contact_person,
+            'contact_email' => $event->contact_email,
+            'contact_phone' => $event->contact_phone,
+            'registration_required' => $event->registration_required,
+            'registration_deadline' => $event->registration_deadline?->toDateString(),
+            'max_participants' => $event->max_participants,
+        ],
+        'relatedEvents' => Event::query()
+            ->where('id', '!=', $event->id)
+            ->orderByDesc('start_date')
+            ->limit(3)
+            ->get()
+            ->map(fn (Event $e) => [
+                'id' => $e->id,
+                'title' => $e->title,
+                'slug' => $e->slug,
+                'start_date' => $e->start_date?->toISOString(),
+            ])
+            ->values()
+            ->all(),
+    ]);
+})->name('events.show');
+Route::get('programs', function () {
+    $programs = TrainingProgram::withCount('courses')
+        ->orderBy('name')
+        ->get()
+        ->map(fn (TrainingProgram $p) => [
+            'id' => $p->id,
+            'name' => $p->name,
+            'slug' => $p->slug,
+            'program_type' => $p->program_type,
+            'description' => $p->description,
+            'duration' => $p->duration,
+            'level' => $p->level,
+            'courses_count' => $p->courses_count,
+        ])
+        ->values()
+        ->all();
+
+    return Inertia::render('Programs', [
+        'programs' => $programs,
+    ]);
+})->name('programs.index');
+Route::get('programs/{training_program:slug}', function (TrainingProgram $training_program) {
+    $training_program->load(['courses' => fn ($q) => $q->orderBy('name')]);
+
+    return Inertia::render('ProgramShow', [
+        'program' => [
+            'id' => $training_program->id,
+            'name' => $training_program->name,
+            'slug' => $training_program->slug,
+            'program_type' => $training_program->program_type,
+            'description' => $training_program->description,
+            'duration' => $training_program->duration,
+            'level' => $training_program->level,
+            'courses' => $training_program->courses->map(fn ($c) => [
+                'id' => $c->id,
+                'name' => $c->name,
+                'course_code' => $c->course_code,
+                'description' => $c->description,
+                'duration' => $c->duration,
+                'prerequisites' => $c->prerequisites,
+                'syllabus_url' => $c->syllabus_file
+                    ? Storage::disk('public')->url($c->syllabus_file)
+                    : null,
+            ])->values()->all(),
+        ],
+        'relatedPrograms' => TrainingProgram::query()
+            ->where('id', '!=', $training_program->id)
+            ->orderBy('name')
+            ->limit(3)
+            ->get()
+            ->map(fn (TrainingProgram $p) => [
+                'id' => $p->id,
+                'name' => $p->name,
+                'slug' => $p->slug,
+                'level' => $p->level,
+            ])
+            ->values()
+            ->all(),
+    ]);
+})->name('programs.show');
 Route::get('vacancy', [VacancyPageController::class, 'index'])->name('vacancy');
 Route::get('vacancy/{vacancy:slug}', [VacancyPageController::class, 'show'])->name('vacancy.show');
 Route::post('vacancy/{vacancy:slug}/apply', [VacancyApplicationController::class, 'store'])
