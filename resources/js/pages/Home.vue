@@ -76,12 +76,13 @@ defineProps({
 <template>
     <div class="enssure-home">
         <HomeHero :slides="heroSlides" />
+        <HomeCoverage :coverage-section="homeCoverageSection ?? null" />
         <HomeStats :reach-section="homeReachSection ?? null" />
         <HomeCtaCard />
         <HomeAbout :about-section="homeAboutSection ?? null" />
         <HomeGallery :gallery-section="homeGallerySection ?? null" />
         <HomeImpactStories :stories-section="homeImpactStoriesSection ?? null" />
-        <HomeCoverage :coverage-section="homeCoverageSection ?? null" />
+
         <HomeNews :news-section="homeNewsSection ?? null" />
         <HomeVideo :video-section="homeVideoSection ?? null" />
         <HomeTestimonials
