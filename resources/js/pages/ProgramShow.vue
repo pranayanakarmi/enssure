@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { ArrowLeft, ArrowRight, BookOpen, Clock, GraduationCap, FileText } from 'lucide-vue-next';
 import { computed } from 'vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
+import { index as programsIndex, show as programShow } from '@/routes/programs';
 
 const props = defineProps({
     program: {
@@ -35,7 +36,7 @@ const levelBadgeClass = computed(() => {
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-8">
                     <Link
-                        href="/programs"
+                        :href="programsIndex().url"
                         class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#B91C1C] transition-colors"
                     >
                         <ArrowLeft class="w-4 h-4" />
@@ -174,7 +175,7 @@ const levelBadgeClass = computed(() => {
                     <Link
                         v-for="p in relatedPrograms"
                         :key="p.id"
-                        :href="`/programs/${p.slug}`"
+                        :href="programShow(p).url"
                         class="group block border border-[#cad0d8] rounded-2xl p-6 bg-white hover:border-[#B91C1C] transition-colors"
                     >
                         <div class="flex items-center gap-2 mb-3">

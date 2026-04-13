@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { ArrowRight, BookOpen, Clock, GraduationCap } from 'lucide-vue-next';
 import PageHero from '@/components/guest/PageHero.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
+import { show as programShow } from '@/routes/programs';
 
 defineProps({
     programs: {
@@ -49,7 +50,7 @@ const levelBadgeClass = (level) => {
                     <Link
                         v-for="program in programs"
                         :key="program.id"
-                        :href="`/programs/${program.slug}`"
+                        :href="programShow(program).url"
                         class="group block border border-[#cad0d8] rounded-[20px] p-8 hover:border-[#B91C1C] hover:shadow-md transition-all"
                     >
                         <div class="mb-5 flex items-center justify-center w-12 h-12 bg-[rgba(235,31,39,0.1)] rounded-xl">

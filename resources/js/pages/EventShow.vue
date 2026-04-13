@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { ArrowLeft, ArrowRight, Calendar, MapPin, Clock, Users, Mail, Phone, User } from 'lucide-vue-next';
 import { computed } from 'vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
+import { index as eventsIndex, show as eventShow } from '@/routes/events';
 
 const props = defineProps({
     event: {
@@ -35,7 +36,7 @@ const isUpcoming = computed(() => {
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-8">
                     <Link
-                        href="/events"
+                        :href="eventsIndex().url"
                         class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#B91C1C] transition-colors"
                     >
                         <ArrowLeft class="w-4 h-4" />
@@ -162,7 +163,7 @@ const isUpcoming = computed(() => {
                     <Link
                         v-for="e in relatedEvents"
                         :key="e.id"
-                        :href="`/events/${e.slug}`"
+                        :href="eventShow(e).url"
                         class="group block border border-[#cad0d8] rounded-2xl p-6 bg-white hover:border-[#B91C1C] transition-colors"
                     >
                         <div class="flex items-center gap-2 mb-2">

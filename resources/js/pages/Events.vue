@@ -4,6 +4,7 @@ import { ArrowRight, Calendar, MapPin } from 'lucide-vue-next';
 import { computed } from 'vue';
 import PageHero from '@/components/guest/PageHero.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
+import { show as eventShow } from '@/routes/events';
 
 const props = defineProps({
     events: {
@@ -60,7 +61,7 @@ const hasPast = computed(() => props.pastEvents && props.pastEvents.length > 0);
                             <Link
                                 v-for="event in upcomingEvents"
                                 :key="event.id"
-                                :href="`/events/${event.slug}`"
+                                :href="eventShow(event).url"
                                 class="group block border border-[#cad0d8] rounded-[20px] overflow-hidden hover:border-[#B91C1C] transition-colors"
                             >
                                 <div class="p-6">
@@ -116,7 +117,7 @@ const hasPast = computed(() => props.pastEvents && props.pastEvents.length > 0);
                             <Link
                                 v-for="event in pastEvents"
                                 :key="event.id"
-                                :href="`/events/${event.slug}`"
+                                :href="eventShow(event).url"
                                 class="group block border border-[#cad0d8] rounded-[20px] overflow-hidden hover:border-[#B91C1C] transition-colors opacity-80 hover:opacity-100"
                             >
                                 <div class="p-6">
