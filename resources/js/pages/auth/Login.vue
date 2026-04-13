@@ -1,6 +1,6 @@
 <script setup>
 import { Form, Head, Link, usePage } from '@inertiajs/vue3';
-import { computed, ref, reactive } from 'vue';
+import { computed, onMounted, onUnmounted, ref, reactive } from 'vue';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,13 @@ import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { home } from '@/routes';
 import AnimatedLoginIllustration from '@/components/AnimatedLoginIllustration.vue';
+
+const props = defineProps({
+    recaptchaSiteKey: {
+        type: String,
+        default: null,
+    },
+});
 
 const page = usePage();
 const siteSetting = computed(() => page.props.siteSetting ?? null);
@@ -36,6 +43,10 @@ const passwordFocused = ref(false);
 const rememberMeToggled = ref(false);
 const logoError = ref(false);
 
+// reCAPTCHA state
+const captchaToken = ref('');
+const captchaWidgetId = ref(null);
+
 const formState = reactive({
     email: '',
     password: '',
@@ -51,7 +62,9 @@ const isEmailValid = computed(() => {
 
 const isPasswordValid = computed(() => formState.password.length >= 6);
 
-const isFormValid = computed(() => isEmailValid.value && isPasswordValid.value);
+const isCaptchaValid = computed(() => !props.recaptchaSiteKey || !!captchaToken.value);
+
+const isFormValid = computed(() => isEmailValid.value && isPasswordValid.value && isCaptchaValid.value);
 
 // Handle remember me toggle with animation
 const handleRememberMeChange = () => {
@@ -63,6 +76,45 @@ const handleLogoError = () => {
     logoError.value = true;
     console.warn('Logo image failed to load:', logoCenterUrl.value);
 };
+
+// reCAPTCHA handlers
+const onRecaptchaVerify = (token) => {
+    captchaToken.value = token;
+};
+
+const onRecaptchaExpire = () => {
+    captchaToken.value = '';
+};
+
+const renderRecaptcha = () => {
+    if (window.grecaptcha && props.recaptchaSiteKey && captchaWidgetId.value === null) {
+        captchaWidgetId.value = window.grecaptcha.render('recaptcha-container', {
+            sitekey: props.recaptchaSiteKey,
+            callback: onRecaptchaVerify,
+            'expired-callback': onRecaptchaExpire,
+        });
+    }
+};
+
+onMounted(() => {
+    if (!props.recaptchaSiteKey) return;
+
+    if (window.grecaptcha) {
+        renderRecaptcha();
+    } else {
+        window.__recaptchaOnLoad = () => renderRecaptcha();
+
+        const script = document.createElement('script');
+        script.src = 'https://www.google.com/recaptcha/api.js?onload=__recaptchaOnLoad&render=explicit';
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+    }
+});
+
+onUnmounted(() => {
+    delete window.__recaptchaOnLoad;
+});
 </script>
 
 <template>
@@ -252,6 +304,12 @@ const handleLogoError = () => {
                             <Label for="remember" class="text-sm text-foreground cursor-pointer font-medium">
                                 Keep me signed in
                             </Label>
+                        </div>
+
+                        <!-- reCAPTCHA Widget -->
+                        <div v-if="recaptchaSiteKey" class="flex flex-col items-start space-y-1">
+                            <div id="recaptcha-container"></div>
+                            <input type="hidden" name="g-recaptcha-response" :value="captchaToken" />
                         </div>
 
                         <!-- Submit Button with dynamic states -->

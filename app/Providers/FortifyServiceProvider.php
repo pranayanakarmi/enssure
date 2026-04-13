@@ -4,11 +4,15 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
@@ -40,6 +44,46 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         Fortify::createUsersUsing(CreateNewUser::class);
+
+        Fortify::authenticateUsing(function (Request $request) {
+            $this->validateRecaptcha($request);
+
+            $user = User::where('email', $request->email)->first();
+
+            if ($user && Hash::check($request->password, $user->password)) {
+                return $user;
+            }
+        });
+    }
+
+    /**
+     * Validate the reCAPTCHA response from the request.
+     */
+    private function validateRecaptcha(Request $request): void
+    {
+        if (app()->environment('local')) {
+            return;
+        }
+
+        $captchaResponse = $request->input('g-recaptcha-response');
+
+        if (empty($captchaResponse)) {
+            throw ValidationException::withMessages([
+                'email' => [__('Please complete the CAPTCHA verification.')],
+            ]);
+        }
+
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('services.recaptcha.secret_key'),
+            'response' => $captchaResponse,
+            'remoteip' => $request->ip(),
+        ]);
+
+        if (! $response->json('success')) {
+            throw ValidationException::withMessages([
+                'email' => [__('CAPTCHA verification failed. Please try again.')],
+            ]);
+        }
     }
 
     /**
@@ -51,6 +95,7 @@ class FortifyServiceProvider extends ServiceProvider
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
             'canRegister' => Features::enabled(Features::registration()),
             'status' => $request->session()->get('status'),
+            'recaptchaSiteKey' => app()->environment('local') ? null : config('services.recaptcha.site_key'),
         ]));
 
         Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/ResetPassword', [

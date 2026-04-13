@@ -1,8 +1,16 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Features;
+
+function fakeValidRecaptcha(): void
+{
+    Http::fake([
+        'https://www.google.com/recaptcha/api/siteverify' => Http::response(['success' => true], 200),
+    ]);
+}
 
 test('login screen can be rendered', function () {
     $response = $this->get(route('login'));
@@ -11,11 +19,14 @@ test('login screen can be rendered', function () {
 });
 
 test('users can authenticate using the login screen', function () {
+    fakeValidRecaptcha();
+
     $user = User::factory()->create();
 
     $response = $this->post(route('login.store'), [
         'email' => $user->email,
         'password' => 'password',
+        'g-recaptcha-response' => 'valid-token',
     ]);
 
     $this->assertAuthenticated();
@@ -26,6 +37,8 @@ test('users with two factor enabled are redirected to two factor challenge', fun
     if (! Features::canManageTwoFactorAuthentication()) {
         $this->markTestSkipped('Two-factor authentication is not enabled.');
     }
+
+    fakeValidRecaptcha();
 
     Features::twoFactorAuthentication([
         'confirm' => true,
@@ -43,6 +56,7 @@ test('users with two factor enabled are redirected to two factor challenge', fun
     $response = $this->post(route('login'), [
         'email' => $user->email,
         'password' => 'password',
+        'g-recaptcha-response' => 'valid-token',
     ]);
 
     $response->assertRedirect(route('two-factor.login'));
@@ -51,14 +65,46 @@ test('users with two factor enabled are redirected to two factor challenge', fun
 });
 
 test('users can not authenticate with invalid password', function () {
+    fakeValidRecaptcha();
+
     $user = User::factory()->create();
 
     $this->post(route('login.store'), [
         'email' => $user->email,
         'password' => 'wrong-password',
+        'g-recaptcha-response' => 'valid-token',
     ]);
 
     $this->assertGuest();
+});
+
+test('users cannot authenticate without captcha token', function () {
+    $user = User::factory()->create();
+
+    $response = $this->post(route('login.store'), [
+        'email' => $user->email,
+        'password' => 'password',
+    ]);
+
+    $this->assertGuest();
+    $response->assertSessionHasErrors('email');
+});
+
+test('users cannot authenticate with failed captcha verification', function () {
+    Http::fake([
+        'https://www.google.com/recaptcha/api/siteverify' => Http::response(['success' => false], 200),
+    ]);
+
+    $user = User::factory()->create();
+
+    $response = $this->post(route('login.store'), [
+        'email' => $user->email,
+        'password' => 'password',
+        'g-recaptcha-response' => 'invalid-token',
+    ]);
+
+    $this->assertGuest();
+    $response->assertSessionHasErrors('email');
 });
 
 test('users can logout', function () {
@@ -71,6 +117,8 @@ test('users can logout', function () {
 });
 
 test('users are rate limited', function () {
+    fakeValidRecaptcha();
+
     $user = User::factory()->create();
 
     RateLimiter::increment(md5('login'.implode('|', [$user->email, '127.0.0.1'])), amount: 5);
@@ -78,6 +126,7 @@ test('users are rate limited', function () {
     $response = $this->post(route('login.store'), [
         'email' => $user->email,
         'password' => 'wrong-password',
+        'g-recaptcha-response' => 'valid-token',
     ]);
 
     $response->assertTooManyRequests();
