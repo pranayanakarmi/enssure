@@ -312,7 +312,7 @@ show.head = (args: { testimonial: string | number } | [testimonial: string | num
  * @see app/Http/Controllers/Admin/TestimonialController.php:60
  * @route '/admin/testimonials/{testimonial}/edit'
  */
-export const edit = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -327,7 +327,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/TestimonialController.php:60
  * @route '/admin/testimonials/{testimonial}/edit'
  */
-edit.url = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { testimonial: args }
     }
@@ -360,7 +360,7 @@ edit.url = (args: { testimonial: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/TestimonialController.php:60
  * @route '/admin/testimonials/{testimonial}/edit'
  */
-edit.get = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -369,7 +369,7 @@ edit.get = (args: { testimonial: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/TestimonialController.php:60
  * @route '/admin/testimonials/{testimonial}/edit'
  */
-edit.head = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -379,7 +379,7 @@ edit.head = (args: { testimonial: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/TestimonialController.php:60
  * @route '/admin/testimonials/{testimonial}/edit'
  */
-    const editForm = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -389,7 +389,7 @@ edit.head = (args: { testimonial: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/TestimonialController.php:60
  * @route '/admin/testimonials/{testimonial}/edit'
  */
-        editForm.get = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -398,7 +398,7 @@ edit.head = (args: { testimonial: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/TestimonialController.php:60
  * @route '/admin/testimonials/{testimonial}/edit'
  */
-        editForm.head = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -414,7 +414,7 @@ edit.head = (args: { testimonial: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/TestimonialController.php:82
  * @route '/admin/testimonials/{testimonial}'
  */
-export const update = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -429,7 +429,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/TestimonialController.php:82
  * @route '/admin/testimonials/{testimonial}'
  */
-update.url = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { testimonial: args }
     }
@@ -462,7 +462,7 @@ update.url = (args: { testimonial: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/TestimonialController.php:82
  * @route '/admin/testimonials/{testimonial}'
  */
-update.put = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -471,7 +471,7 @@ update.put = (args: { testimonial: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/TestimonialController.php:82
  * @route '/admin/testimonials/{testimonial}'
  */
-update.patch = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -481,7 +481,7 @@ update.patch = (args: { testimonial: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/TestimonialController.php:82
  * @route '/admin/testimonials/{testimonial}'
  */
-    const updateForm = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -496,7 +496,7 @@ update.patch = (args: { testimonial: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/TestimonialController.php:82
  * @route '/admin/testimonials/{testimonial}'
  */
-        updateForm.put = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -510,7 +510,7 @@ update.patch = (args: { testimonial: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/TestimonialController.php:82
  * @route '/admin/testimonials/{testimonial}'
  */
-        updateForm.patch = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -526,7 +526,7 @@ update.patch = (args: { testimonial: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
-export const destroy = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -541,7 +541,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
-destroy.url = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { testimonial: args }
     }
@@ -574,7 +574,7 @@ destroy.url = (args: { testimonial: string | number | { id: string | number } } 
  * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
-destroy.delete = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -584,7 +584,7 @@ destroy.delete = (args: { testimonial: string | number | { id: string | number }
  * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
-    const destroyForm = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -599,7 +599,7 @@ destroy.delete = (args: { testimonial: string | number | { id: string | number }
  * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
-        destroyForm.delete = (args: { testimonial: string | number | { id: string | number } } | [testimonial: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

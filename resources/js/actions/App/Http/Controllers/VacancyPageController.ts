@@ -82,7 +82,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
  * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
-export const show = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -97,7 +97,7 @@ show.definition = {
  * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
-show.url = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+show.url = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { vacancy: args }
     }
@@ -130,7 +130,7 @@ show.url = (args: { vacancy: string | number | { slug: string | number } } | [va
  * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
-show.get = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -139,7 +139,7 @@ show.get = (args: { vacancy: string | number | { slug: string | number } } | [va
  * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
-show.head = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -149,7 +149,7 @@ show.head = (args: { vacancy: string | number | { slug: string | number } } | [v
  * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
-    const showForm = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -159,7 +159,7 @@ show.head = (args: { vacancy: string | number | { slug: string | number } } | [v
  * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
-        showForm.get = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -168,7 +168,7 @@ show.head = (args: { vacancy: string | number | { slug: string | number } } | [v
  * @see app/Http/Controllers/VacancyPageController.php:40
  * @route '/vacancy/{vacancy}'
  */
-        showForm.head = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

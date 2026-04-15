@@ -82,7 +82,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
  * @see app/Http/Controllers/PublicInfographicController.php:28
  * @route '/infographics/{infographic}'
  */
-export const show = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -97,7 +97,7 @@ show.definition = {
  * @see app/Http/Controllers/PublicInfographicController.php:28
  * @route '/infographics/{infographic}'
  */
-show.url = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+show.url = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { infographic: args }
     }
@@ -130,7 +130,7 @@ show.url = (args: { infographic: string | number | { slug: string | number } } |
  * @see app/Http/Controllers/PublicInfographicController.php:28
  * @route '/infographics/{infographic}'
  */
-show.get = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -139,7 +139,7 @@ show.get = (args: { infographic: string | number | { slug: string | number } } |
  * @see app/Http/Controllers/PublicInfographicController.php:28
  * @route '/infographics/{infographic}'
  */
-show.head = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -149,7 +149,7 @@ show.head = (args: { infographic: string | number | { slug: string | number } } 
  * @see app/Http/Controllers/PublicInfographicController.php:28
  * @route '/infographics/{infographic}'
  */
-    const showForm = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -159,7 +159,7 @@ show.head = (args: { infographic: string | number | { slug: string | number } } 
  * @see app/Http/Controllers/PublicInfographicController.php:28
  * @route '/infographics/{infographic}'
  */
-        showForm.get = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -168,7 +168,7 @@ show.head = (args: { infographic: string | number | { slug: string | number } } 
  * @see app/Http/Controllers/PublicInfographicController.php:28
  * @route '/infographics/{infographic}'
  */
-        showForm.head = (args: { infographic: string | number | { slug: string | number } } | [infographic: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { infographic: string | { slug: string } } | [infographic: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

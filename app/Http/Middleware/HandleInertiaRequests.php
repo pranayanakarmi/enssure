@@ -97,7 +97,9 @@ class HandleInertiaRequests extends Middleware
                 ];
             },
             'newsTickerItems' => fn () => self::newsTickerItemsFromHomeNotices(),
-            'importantNotice' => fn () => self::importantNoticeForModal(),
+            'importantNotice' => fn () => $request->routeIs('home')
+                ? self::importantNoticeForModal()
+                : null,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
                 'success' => $request->session()->get('success'),

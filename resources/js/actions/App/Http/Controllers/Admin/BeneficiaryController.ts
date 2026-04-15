@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:54
  * @route '/admin/beneficiaries/{beneficiary}/edit'
  */
-export const edit = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:54
  * @route '/admin/beneficiaries/{beneficiary}/edit'
  */
-edit.url = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { beneficiary: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { beneficiary: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:54
  * @route '/admin/beneficiaries/{beneficiary}/edit'
  */
-edit.get = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { beneficiary: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:54
  * @route '/admin/beneficiaries/{beneficiary}/edit'
  */
-edit.head = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { beneficiary: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:54
  * @route '/admin/beneficiaries/{beneficiary}/edit'
  */
-    const editForm = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { beneficiary: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:54
  * @route '/admin/beneficiaries/{beneficiary}/edit'
  */
-        editForm.get = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { beneficiary: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:54
  * @route '/admin/beneficiaries/{beneficiary}/edit'
  */
-        editForm.head = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { beneficiary: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:76
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-export const update = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:76
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-update.url = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { beneficiary: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { beneficiary: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:76
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-update.put = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { beneficiary: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:76
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-update.patch = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { beneficiary: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:76
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-    const updateForm = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { beneficiary: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:76
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-        updateForm.put = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { beneficiary: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:76
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-        updateForm.patch = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { beneficiary: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:84
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-export const destroy = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:84
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-destroy.url = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { beneficiary: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { beneficiary: string | number | { id: string | number } } 
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:84
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-destroy.delete = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { beneficiary: string | number | { id: string | number }
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:84
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-    const destroyForm = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { beneficiary: string | number | { id: string | number }
  * @see app/Http/Controllers/Admin/BeneficiaryController.php:84
  * @route '/admin/beneficiaries/{beneficiary}'
  */
-        destroyForm.delete = (args: { beneficiary: string | number | { id: string | number } } | [beneficiary: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { beneficiary: number | { id: number } } | [beneficiary: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

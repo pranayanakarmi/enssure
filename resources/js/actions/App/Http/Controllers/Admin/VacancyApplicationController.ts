@@ -82,7 +82,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:40
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-export const show = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -97,7 +97,7 @@ show.definition = {
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:40
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-show.url = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+show.url = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { vacancy_application: args }
     }
@@ -130,7 +130,7 @@ show.url = (args: { vacancy_application: string | number | { id: string | number
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:40
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-show.get = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -139,7 +139,7 @@ show.get = (args: { vacancy_application: string | number | { id: string | number
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:40
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-show.head = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -149,7 +149,7 @@ show.head = (args: { vacancy_application: string | number | { id: string | numbe
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:40
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-    const showForm = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -159,7 +159,7 @@ show.head = (args: { vacancy_application: string | number | { id: string | numbe
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:40
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-        showForm.get = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -168,7 +168,7 @@ show.head = (args: { vacancy_application: string | number | { id: string | numbe
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:40
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-        showForm.head = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -184,7 +184,7 @@ show.head = (args: { vacancy_application: string | number | { id: string | numbe
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:65
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-export const destroy = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -199,7 +199,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:65
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-destroy.url = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { vacancy_application: args }
     }
@@ -232,7 +232,7 @@ destroy.url = (args: { vacancy_application: string | number | { id: string | num
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:65
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-destroy.delete = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -242,7 +242,7 @@ destroy.delete = (args: { vacancy_application: string | number | { id: string | 
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:65
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-    const destroyForm = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -257,7 +257,7 @@ destroy.delete = (args: { vacancy_application: string | number | { id: string | 
  * @see app/Http/Controllers/Admin/VacancyApplicationController.php:65
  * @route '/admin/vacancy-applications/{vacancy_application}'
  */
-        destroyForm.delete = (args: { vacancy_application: string | number | { id: string | number } } | [vacancy_application: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { vacancy_application: number | { id: number } } | [vacancy_application: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

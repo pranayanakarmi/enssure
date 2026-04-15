@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/CommitteeController.php:50
  * @route '/admin/committees/{committee}/edit'
  */
-export const edit = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/CommitteeController.php:50
  * @route '/admin/committees/{committee}/edit'
  */
-edit.url = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { committee: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { committee: string | number | { id: string | number } } | [co
  * @see app/Http/Controllers/Admin/CommitteeController.php:50
  * @route '/admin/committees/{committee}/edit'
  */
-edit.get = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { committee: string | number | { id: string | number } } | [co
  * @see app/Http/Controllers/Admin/CommitteeController.php:50
  * @route '/admin/committees/{committee}/edit'
  */
-edit.head = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { committee: string | number | { id: string | number } } | [c
  * @see app/Http/Controllers/Admin/CommitteeController.php:50
  * @route '/admin/committees/{committee}/edit'
  */
-    const editForm = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { committee: string | number | { id: string | number } } | [c
  * @see app/Http/Controllers/Admin/CommitteeController.php:50
  * @route '/admin/committees/{committee}/edit'
  */
-        editForm.get = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { committee: string | number | { id: string | number } } | [c
  * @see app/Http/Controllers/Admin/CommitteeController.php:50
  * @route '/admin/committees/{committee}/edit'
  */
-        editForm.head = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { committee: string | number | { id: string | number } } | [c
  * @see app/Http/Controllers/Admin/CommitteeController.php:74
  * @route '/admin/committees/{committee}'
  */
-export const update = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/CommitteeController.php:74
  * @route '/admin/committees/{committee}'
  */
-update.url = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { committee: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { committee: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/CommitteeController.php:74
  * @route '/admin/committees/{committee}'
  */
-update.put = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { committee: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/CommitteeController.php:74
  * @route '/admin/committees/{committee}'
  */
-update.patch = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { committee: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/CommitteeController.php:74
  * @route '/admin/committees/{committee}'
  */
-    const updateForm = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { committee: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/CommitteeController.php:74
  * @route '/admin/committees/{committee}'
  */
-        updateForm.put = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { committee: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/CommitteeController.php:74
  * @route '/admin/committees/{committee}'
  */
-        updateForm.patch = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { committee: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/CommitteeController.php:82
  * @route '/admin/committees/{committee}'
  */
-export const destroy = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/CommitteeController.php:82
  * @route '/admin/committees/{committee}'
  */
-destroy.url = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { committee: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { committee: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/CommitteeController.php:82
  * @route '/admin/committees/{committee}'
  */
-destroy.delete = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { committee: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/CommitteeController.php:82
  * @route '/admin/committees/{committee}'
  */
-    const destroyForm = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { committee: string | number | { id: string | number } }
  * @see app/Http/Controllers/Admin/CommitteeController.php:82
  * @route '/admin/committees/{committee}'
  */
-        destroyForm.delete = (args: { committee: string | number | { id: string | number } } | [committee: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { committee: number | { id: number } } | [committee: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

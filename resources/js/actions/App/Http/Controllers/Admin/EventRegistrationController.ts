@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
  * @route '/admin/events/{event}/registrations'
  */
-export const store = (args: { event: string | number | { id: string | number } } | [event: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
  * @route '/admin/events/{event}/registrations'
  */
-store.url = (args: { event: string | number | { id: string | number } } | [event: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { event: args }
     }
@@ -52,7 +52,7 @@ store.url = (args: { event: string | number | { id: string | number } } | [event
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
  * @route '/admin/events/{event}/registrations'
  */
-store.post = (args: { event: string | number | { id: string | number } } | [event: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -62,7 +62,7 @@ store.post = (args: { event: string | number | { id: string | number } } | [even
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
  * @route '/admin/events/{event}/registrations'
  */
-    const storeForm = (args: { event: string | number | { id: string | number } } | [event: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const storeForm = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: store.url(args, options),
         method: 'post',
     })
@@ -72,7 +72,7 @@ store.post = (args: { event: string | number | { id: string | number } } | [even
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:16
  * @route '/admin/events/{event}/registrations'
  */
-        storeForm.post = (args: { event: string | number | { id: string | number } } | [event: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        storeForm.post = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: store.url(args, options),
             method: 'post',
         })
@@ -83,7 +83,7 @@ store.post = (args: { event: string | number | { id: string | number } } | [even
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:23
  * @route '/admin/event-registrations/{event_registration}/edit'
  */
-export const edit = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -98,7 +98,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:23
  * @route '/admin/event-registrations/{event_registration}/edit'
  */
-edit.url = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { event_registration: args }
     }
@@ -131,7 +131,7 @@ edit.url = (args: { event_registration: string | number | { id: string | number 
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:23
  * @route '/admin/event-registrations/{event_registration}/edit'
  */
-edit.get = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -140,7 +140,7 @@ edit.get = (args: { event_registration: string | number | { id: string | number 
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:23
  * @route '/admin/event-registrations/{event_registration}/edit'
  */
-edit.head = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -150,7 +150,7 @@ edit.head = (args: { event_registration: string | number | { id: string | number
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:23
  * @route '/admin/event-registrations/{event_registration}/edit'
  */
-    const editForm = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -160,7 +160,7 @@ edit.head = (args: { event_registration: string | number | { id: string | number
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:23
  * @route '/admin/event-registrations/{event_registration}/edit'
  */
-        editForm.get = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -169,7 +169,7 @@ edit.head = (args: { event_registration: string | number | { id: string | number
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:23
  * @route '/admin/event-registrations/{event_registration}/edit'
  */
-        editForm.head = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -185,7 +185,7 @@ edit.head = (args: { event_registration: string | number | { id: string | number
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:46
  * @route '/admin/event-registrations/{event_registration}'
  */
-export const update = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -200,7 +200,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:46
  * @route '/admin/event-registrations/{event_registration}'
  */
-update.url = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { event_registration: args }
     }
@@ -233,7 +233,7 @@ update.url = (args: { event_registration: string | number | { id: string | numbe
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:46
  * @route '/admin/event-registrations/{event_registration}'
  */
-update.put = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -243,7 +243,7 @@ update.put = (args: { event_registration: string | number | { id: string | numbe
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:46
  * @route '/admin/event-registrations/{event_registration}'
  */
-    const updateForm = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -258,7 +258,7 @@ update.put = (args: { event_registration: string | number | { id: string | numbe
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:46
  * @route '/admin/event-registrations/{event_registration}'
  */
-        updateForm.put = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -274,7 +274,7 @@ update.put = (args: { event_registration: string | number | { id: string | numbe
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:54
  * @route '/admin/event-registrations/{event_registration}'
  */
-export const destroy = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -289,7 +289,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:54
  * @route '/admin/event-registrations/{event_registration}'
  */
-destroy.url = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { event_registration: args }
     }
@@ -322,7 +322,7 @@ destroy.url = (args: { event_registration: string | number | { id: string | numb
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:54
  * @route '/admin/event-registrations/{event_registration}'
  */
-destroy.delete = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -332,7 +332,7 @@ destroy.delete = (args: { event_registration: string | number | { id: string | n
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:54
  * @route '/admin/event-registrations/{event_registration}'
  */
-    const destroyForm = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -347,7 +347,7 @@ destroy.delete = (args: { event_registration: string | number | { id: string | n
  * @see app/Http/Controllers/Admin/EventRegistrationController.php:54
  * @route '/admin/event-registrations/{event_registration}'
  */
-        destroyForm.delete = (args: { event_registration: string | number | { id: string | number } } | [event_registration: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { event_registration: number | { id: number } } | [event_registration: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

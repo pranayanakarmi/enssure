@@ -3,7 +3,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see routes/web.php:477
  * @route '/impact-stories/{impact_story}'
  */
-export const show = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -17,7 +17,7 @@ show.definition = {
  * @see routes/web.php:477
  * @route '/impact-stories/{impact_story}'
  */
-show.url = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+show.url = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { impact_story: args }
     }
@@ -49,7 +49,7 @@ show.url = (args: { impact_story: string | number | { slug: string | number } } 
  * @see routes/web.php:477
  * @route '/impact-stories/{impact_story}'
  */
-show.get = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -57,7 +57,7 @@ show.get = (args: { impact_story: string | number | { slug: string | number } } 
  * @see routes/web.php:477
  * @route '/impact-stories/{impact_story}'
  */
-show.head = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -66,7 +66,7 @@ show.head = (args: { impact_story: string | number | { slug: string | number } }
  * @see routes/web.php:477
  * @route '/impact-stories/{impact_story}'
  */
-    const showForm = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -75,7 +75,7 @@ show.head = (args: { impact_story: string | number | { slug: string | number } }
  * @see routes/web.php:477
  * @route '/impact-stories/{impact_story}'
  */
-        showForm.get = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -83,7 +83,7 @@ show.head = (args: { impact_story: string | number | { slug: string | number } }
  * @see routes/web.php:477
  * @route '/impact-stories/{impact_story}'
  */
-        showForm.head = (args: { impact_story: string | number | { slug: string | number } } | [impact_story: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { impact_story: string | { slug: string } } | [impact_story: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

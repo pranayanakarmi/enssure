@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/MediaController.php:52
  * @route '/admin/media/{medium}/edit'
  */
-export const edit = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/MediaController.php:52
  * @route '/admin/media/{medium}/edit'
  */
-edit.url = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { medium: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { medium: string | number | { id: string | number } } | [mediu
  * @see app/Http/Controllers/Admin/MediaController.php:52
  * @route '/admin/media/{medium}/edit'
  */
-edit.get = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { medium: string | number | { id: string | number } } | [mediu
  * @see app/Http/Controllers/Admin/MediaController.php:52
  * @route '/admin/media/{medium}/edit'
  */
-edit.head = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { medium: string | number | { id: string | number } } | [medi
  * @see app/Http/Controllers/Admin/MediaController.php:52
  * @route '/admin/media/{medium}/edit'
  */
-    const editForm = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { medium: string | number | { id: string | number } } | [medi
  * @see app/Http/Controllers/Admin/MediaController.php:52
  * @route '/admin/media/{medium}/edit'
  */
-        editForm.get = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { medium: string | number | { id: string | number } } | [medi
  * @see app/Http/Controllers/Admin/MediaController.php:52
  * @route '/admin/media/{medium}/edit'
  */
-        editForm.head = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { medium: string | number | { id: string | number } } | [medi
  * @see app/Http/Controllers/Admin/MediaController.php:76
  * @route '/admin/media/{medium}'
  */
-export const update = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/MediaController.php:76
  * @route '/admin/media/{medium}'
  */
-update.url = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { medium: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { medium: string | number | { id: string | number } } | [med
  * @see app/Http/Controllers/Admin/MediaController.php:76
  * @route '/admin/media/{medium}'
  */
-update.put = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { medium: string | number | { id: string | number } } | [med
  * @see app/Http/Controllers/Admin/MediaController.php:76
  * @route '/admin/media/{medium}'
  */
-update.patch = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { medium: string | number | { id: string | number } } | [m
  * @see app/Http/Controllers/Admin/MediaController.php:76
  * @route '/admin/media/{medium}'
  */
-    const updateForm = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { medium: string | number | { id: string | number } } | [m
  * @see app/Http/Controllers/Admin/MediaController.php:76
  * @route '/admin/media/{medium}'
  */
-        updateForm.put = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { medium: string | number | { id: string | number } } | [m
  * @see app/Http/Controllers/Admin/MediaController.php:76
  * @route '/admin/media/{medium}'
  */
-        updateForm.patch = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { medium: string | number | { id: string | number } } | [m
  * @see app/Http/Controllers/Admin/MediaController.php:84
  * @route '/admin/media/{medium}'
  */
-export const destroy = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/MediaController.php:84
  * @route '/admin/media/{medium}'
  */
-destroy.url = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { medium: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { medium: string | number | { id: string | number } } | [me
  * @see app/Http/Controllers/Admin/MediaController.php:84
  * @route '/admin/media/{medium}'
  */
-destroy.delete = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { medium: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/MediaController.php:84
  * @route '/admin/media/{medium}'
  */
-    const destroyForm = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { medium: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/MediaController.php:84
  * @route '/admin/media/{medium}'
  */
-        destroyForm.delete = (args: { medium: string | number | { id: string | number } } | [medium: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { medium: number | { id: number } } | [medium: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

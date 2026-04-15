@@ -82,3 +82,18 @@ test('home shares the latest updated active popup for modal', function () {
         ->where('importantNotice.title', 'Latest active popup')
     );
 });
+
+test('non-home pages do not share important popup modal data', function () {
+    ImportantPopup::create([
+        'title' => 'Home-only popup',
+        'description' => 'This should only be available on home page.',
+        'is_active' => true,
+    ]);
+
+    $response = $this->get(route('contact'));
+
+    $response->assertOk();
+    $response->assertInertia(fn (Assert $page) => $page
+        ->where('importantNotice', null)
+    );
+});

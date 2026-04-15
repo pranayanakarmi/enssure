@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/Admin/FooterLinkController.php:30
  * @route '/admin/footer-links/{footer_link}/edit'
  */
-export const edit = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -19,7 +19,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/FooterLinkController.php:30
  * @route '/admin/footer-links/{footer_link}/edit'
  */
-edit.url = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { footer_link: args }
     }
@@ -52,7 +52,7 @@ edit.url = (args: { footer_link: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/FooterLinkController.php:30
  * @route '/admin/footer-links/{footer_link}/edit'
  */
-edit.get = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -61,7 +61,7 @@ edit.get = (args: { footer_link: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/FooterLinkController.php:30
  * @route '/admin/footer-links/{footer_link}/edit'
  */
-edit.head = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -71,7 +71,7 @@ edit.head = (args: { footer_link: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/FooterLinkController.php:30
  * @route '/admin/footer-links/{footer_link}/edit'
  */
-    const editForm = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -81,7 +81,7 @@ edit.head = (args: { footer_link: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/FooterLinkController.php:30
  * @route '/admin/footer-links/{footer_link}/edit'
  */
-        editForm.get = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -90,7 +90,7 @@ edit.head = (args: { footer_link: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/FooterLinkController.php:30
  * @route '/admin/footer-links/{footer_link}/edit'
  */
-        editForm.head = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -106,7 +106,7 @@ edit.head = (args: { footer_link: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/Admin/FooterLinkController.php:50
  * @route '/admin/footer-links/{footer_link}'
  */
-export const update = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -121,7 +121,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/FooterLinkController.php:50
  * @route '/admin/footer-links/{footer_link}'
  */
-update.url = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { footer_link: args }
     }
@@ -154,7 +154,7 @@ update.url = (args: { footer_link: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/FooterLinkController.php:50
  * @route '/admin/footer-links/{footer_link}'
  */
-update.put = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -164,7 +164,7 @@ update.put = (args: { footer_link: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/FooterLinkController.php:50
  * @route '/admin/footer-links/{footer_link}'
  */
-    const updateForm = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -179,7 +179,7 @@ update.put = (args: { footer_link: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/FooterLinkController.php:50
  * @route '/admin/footer-links/{footer_link}'
  */
-        updateForm.put = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -195,7 +195,7 @@ update.put = (args: { footer_link: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/FooterLinkController.php:58
  * @route '/admin/footer-links/{footer_link}'
  */
-export const destroy = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -210,7 +210,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/FooterLinkController.php:58
  * @route '/admin/footer-links/{footer_link}'
  */
-destroy.url = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { footer_link: args }
     }
@@ -243,7 +243,7 @@ destroy.url = (args: { footer_link: string | number | { id: string | number } } 
  * @see app/Http/Controllers/Admin/FooterLinkController.php:58
  * @route '/admin/footer-links/{footer_link}'
  */
-destroy.delete = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -253,7 +253,7 @@ destroy.delete = (args: { footer_link: string | number | { id: string | number }
  * @see app/Http/Controllers/Admin/FooterLinkController.php:58
  * @route '/admin/footer-links/{footer_link}'
  */
-    const destroyForm = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -268,7 +268,7 @@ destroy.delete = (args: { footer_link: string | number | { id: string | number }
  * @see app/Http/Controllers/Admin/FooterLinkController.php:58
  * @route '/admin/footer-links/{footer_link}'
  */
-        destroyForm.delete = (args: { footer_link: string | number | { id: string | number } } | [footer_link: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { footer_link: number | { id: number } } | [footer_link: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

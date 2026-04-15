@@ -312,7 +312,7 @@ show.head = (args: { partner: string | number } | [partner: string | number ] | 
  * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
-export const edit = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -327,7 +327,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
-edit.url = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+edit.url = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { partner: args }
     }
@@ -360,7 +360,7 @@ edit.url = (args: { partner: string | number | { id: string | number } } | [part
  * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
-edit.get = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -369,7 +369,7 @@ edit.get = (args: { partner: string | number | { id: string | number } } | [part
  * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
-edit.head = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -379,7 +379,7 @@ edit.head = (args: { partner: string | number | { id: string | number } } | [par
  * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
-    const editForm = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -389,7 +389,7 @@ edit.head = (args: { partner: string | number | { id: string | number } } | [par
  * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
-        editForm.get = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -398,7 +398,7 @@ edit.head = (args: { partner: string | number | { id: string | number } } | [par
  * @see app/Http/Controllers/Admin/PartnerController.php:59
  * @route '/admin/partners/{partner}/edit'
  */
-        editForm.head = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -414,7 +414,7 @@ edit.head = (args: { partner: string | number | { id: string | number } } | [par
  * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
-export const update = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -429,7 +429,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
-update.url = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { partner: args }
     }
@@ -462,7 +462,7 @@ update.url = (args: { partner: string | number | { id: string | number } } | [pa
  * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
-update.put = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -471,7 +471,7 @@ update.put = (args: { partner: string | number | { id: string | number } } | [pa
  * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
-update.patch = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -481,7 +481,7 @@ update.patch = (args: { partner: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
-    const updateForm = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -496,7 +496,7 @@ update.patch = (args: { partner: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
-        updateForm.put = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -510,7 +510,7 @@ update.patch = (args: { partner: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/PartnerController.php:79
  * @route '/admin/partners/{partner}'
  */
-        updateForm.patch = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -526,7 +526,7 @@ update.patch = (args: { partner: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
-export const destroy = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -541,7 +541,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
-destroy.url = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { partner: args }
     }
@@ -574,7 +574,7 @@ destroy.url = (args: { partner: string | number | { id: string | number } } | [p
  * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
-destroy.delete = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -584,7 +584,7 @@ destroy.delete = (args: { partner: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
-    const destroyForm = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -599,7 +599,7 @@ destroy.delete = (args: { partner: string | number | { id: string | number } } |
  * @see app/Http/Controllers/Admin/PartnerController.php:94
  * @route '/admin/partners/{partner}'
  */
-        destroyForm.delete = (args: { partner: string | number | { id: string | number } } | [partner: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { partner: number | { id: number } } | [partner: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',
