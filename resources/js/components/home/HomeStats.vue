@@ -136,9 +136,9 @@ const stats = computed(() => {
     </section>
 </template> -->
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import { ArrowRight } from 'lucide-vue-next';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 // ── Fallbacks ─────────────────────────────────────────────────────────────────
 const fallbackBadge = 'Our Reach';

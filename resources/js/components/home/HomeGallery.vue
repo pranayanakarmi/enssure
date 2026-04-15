@@ -119,8 +119,8 @@ function closeAlbumCarousel() {
 </template> -->
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { computed, ref, onMounted, onUnmounted } from 'vue';
 import { Images } from 'lucide-vue-next';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 import GalleryAlbumCarouselModal from '@/components/guest/GalleryAlbumCarouselModal.vue';
 
 // ── Fallbacks ─────────────────────────────────────────────────────────────────

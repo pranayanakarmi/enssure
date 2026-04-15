@@ -1,7 +1,7 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown, ArrowRight, Pause, Play, X } from 'lucide-vue-next';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { home } from '@/routes';
 
 const AUTOPLAY_DELAY = 5000;
@@ -17,6 +17,43 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    videoSection: {
+        type: Object,
+        default: null,
+    },
+});
+
+function getYouTubeId(url) {
+    if (!url) return null;
+    const regExp = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?#]+)/;
+    const match = url.match(regExp);
+    return match ? match[1] : null;
+}
+
+function getVimeoId(url) {
+    if (!url) return null;
+    const regExp = /vimeo\.com\/(\d+)/;
+    const match = url.match(regExp);
+    return match ? match[1] : null;
+}
+
+const featuredVideo = computed(() => props.videoSection?.videos?.[0] ?? null);
+
+const featuredVideoTitle = computed(() => props.videoSection?.hero_video_title ?? featuredVideo.value?.title ?? 'How We Are Different');
+
+const featuredVideoEmbedUrl = computed(() => {
+    const url = props.videoSection?.hero_video_url ?? featuredVideo.value?.video_url;
+    const ytId = getYouTubeId(url);
+    if (ytId) {
+        return `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`;
+    }
+
+    const vimeoId = getVimeoId(url);
+    if (vimeoId) {
+        return `https://player.vimeo.com/video/${vimeoId}?autoplay=1`;
+    }
+
+    return 'https://www.youtube.com/embed/7eUchQ72g88?autoplay=1&rel=0';
 });
 
 // ── Slides ────────────────────────────────────────────────────────────────────
@@ -337,8 +374,8 @@ onUnmounted(() => {
                     <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl">
                         <iframe
                             v-if="showVideoModal"
-                            src="https://www.youtube.com/embed/7eUchQ72g88?autoplay=1&rel=0"
-                            title="How We Are Different"
+                            :src="featuredVideoEmbedUrl"
+                            :title="featuredVideoTitle"
                             class="absolute inset-0 w-full h-full"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

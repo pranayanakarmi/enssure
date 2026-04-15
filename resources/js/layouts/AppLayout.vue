@@ -1,7 +1,7 @@
 <script setup>
-import AppLayout from '@/layouts/app/AppSidebarLayout.vue';
 import { usePage } from '@inertiajs/vue3';
 import { onMounted, watch } from 'vue';
+import AppLayout from '@/layouts/app/AppSidebarLayout.vue';
 
 defineProps({
     breadcrumbs: {

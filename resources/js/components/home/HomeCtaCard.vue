@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
 import { ArrowRight } from 'lucide-vue-next';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const sectionRef = ref(null);
 const isVisible  = ref(false);

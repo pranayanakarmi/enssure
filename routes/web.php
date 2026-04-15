@@ -1,17 +1,17 @@
 <?php
 
+use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\ContactController as PublicContactController;
 use App\Http\Controllers\HomeCoverageProvinceController;
 use App\Http\Controllers\PublicInfographicController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VacancyApplicationController;
 use App\Http\Controllers\VacancyPageController;
-use App\Http\Controllers\Admin\VideoController;
-
-
 use App\Models\AboutContentSection;
 use App\Models\AboutMainSection;
 use App\Models\AboutPageHero;
+use App\Models\EoiRfp;
+use App\Models\EoiRfpPageHero;
 use App\Models\Gallery;
 use App\Models\GalleryPageSection;
 use App\Models\HomeAboutSection;
@@ -43,9 +43,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
-
-use App\Models\EoiRfp;
-use App\Models\EoiRfpPageHero;
 
 Route::get('/', function () {
     $homeReachSection = HomeReachSection::with(['items' => fn ($q) => $q->orderBy('order')])->first();
@@ -100,24 +97,32 @@ Route::get('/', function () {
         ])->values()->all()
         : [];
 
-                // --- NEW: Fetch videos for the video section ---
-            $videosFromDb = Video::active()->take(3)->get();
-            $videos = $videosFromDb->map(function ($video) {
-                return [
-                    'video_url' => $video->video_url,
-                    'title' => $video->title,
-                    'date' => $video->date?->toDateString(),
-                    'thumbnail' => $video->thumbnail,
-                ];
-            })->toArray();
+    $videosFromDb = Video::query()
+        ->where('is_active', true)
+        ->orderByDesc('is_hero')
+        ->orderBy('order')
+        ->take(3)
+        ->get();
 
-            $homeVideoSection = [
-                'badge_text' => 'Featured Videos',
-                'title' => "Watch Our\nImpact in Action",
-                'description' => 'See how our programs are transforming lives and communities across Nepal.',
-                'videos' => $videos,
-            ];
+    $heroVideo = $videosFromDb->firstWhere('is_hero', true) ?? $videosFromDb->first();
 
+    $videos = $videosFromDb->map(function ($video) {
+        return [
+            'video_url' => $video->video_url,
+            'title' => $video->title,
+            'date' => $video->date?->toDateString(),
+            'thumbnail' => $video->thumbnail,
+        ];
+    })->toArray();
+
+    $homeVideoSection = [
+        'badge_text' => 'Featured Videos',
+        'title' => "Watch Our\nImpact in Action",
+        'description' => 'See how our programs are transforming lives and communities across Nepal.',
+        'hero_video_url' => $heroVideo?->video_url,
+        'hero_video_title' => $heroVideo?->title,
+        'videos' => $videos,
+    ];
 
     return Inertia::render('Welcome', [
         'canRegister' => Features::enabled(Features::registration()),
@@ -305,7 +310,7 @@ Route::get('about', function () {
     ]);
 })->name('about');
 Route::get('notices', function () {
-     $impactPageHero = ImpactPageHero::first();
+    $impactPageHero = ImpactPageHero::first();
     $notices = Notice::query()
         ->orderByDesc('created_at')
         ->get()
@@ -328,6 +333,7 @@ Route::get('notices', function () {
 Route::get('notices/{notice:slug}', function (Notice $notice) {
     $notice->load([]);
     $impactPageHero = ImpactPageHero::first();
+
     return Inertia::render('SingleArchive', [
         'notice' => [
             'id' => $notice->id,
@@ -351,7 +357,7 @@ Route::get('notices/{notice:slug}', function (Notice $notice) {
             ])
             ->values()
             ->all(),
-            'impactPageHero' => $impactPageHero ? [
+        'impactPageHero' => $impactPageHero ? [
             'hero_image_url' => $impactPageHero->hero_image ? Storage::disk('public')->url($impactPageHero->hero_image) : null,
         ] : null,
 
@@ -470,7 +476,8 @@ Route::get('impact-stories', function () {
 })->name('impact-stories');
 Route::get('impact-stories/{impact_story:slug}', function (ImpactStory $impact_story) {
     $impact_story->load([]);
-     $hero = ImpactPageHero::first();
+    $hero = ImpactPageHero::first();
+
     return Inertia::render('SingleImpactStories', [
         'impactPageHero' => $hero ? [
             'title' => $hero->title,
@@ -619,8 +626,6 @@ Route::get('team', function () {
 Route::get('/infographics', [PublicInfographicController::class, 'index'])->name('infographics.index');
 Route::get('infographics/{infographic:slug}', [PublicInfographicController::class, 'show'])->name('infographics.show');
 
-
-
 Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
 Route::get('reports/{document}', [ReportController::class, 'show'])
     ->whereNumber('document')
@@ -679,11 +684,10 @@ Route::get('/eoi-rfp-dashboard', function () {
     return Inertia::render('admin/eoi-rfp/dashboard');
 })->name('admin.eoi-rfp.dashboard');
 
-
-
 Route::get('eoi-rfp', function () {
     $items = EoiRfp::orderBy('order')->get(); // no status/published_at filter
     $hero = EoiRfpPageHero::first();
+
     return Inertia::render('EoiRfpIndex', [
         'items' => $items,
         'hero' => $hero ? [
@@ -700,6 +704,7 @@ Route::get('eoi-rfp/{eoi_rfp:slug}', function (EoiRfp $eoi_rfp) {
         $doc->file_url = Storage::disk('public')->url($doc->file_path);
     }
     $hero = EoiRfpPageHero::first(); // same hero as index
+
     return Inertia::render('EoiRfpShow', [
         'item' => $eoi_rfp,
         'hero' => $hero ? [

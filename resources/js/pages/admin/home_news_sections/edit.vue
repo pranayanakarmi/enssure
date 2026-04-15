@@ -1,15 +1,15 @@
 <script setup>
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import {
+    ArrowLeft, Save, Plus, Trash2, GripVertical, ImageIcon, ArrowUp, ArrowDown, Search, CheckCircle2, AlertCircle
+} from 'lucide-vue-next';
 import { computed, ref } from 'vue';
-import AppLayout from '@/layouts/AppLayout.vue';
+import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import InputError from '@/components/InputError.vue';
-import {
-    ArrowLeft, Save, Plus, Trash2, GripVertical, ImageIcon, ArrowUp, ArrowDown, Search, CheckCircle2, AlertCircle
-} from 'lucide-vue-next';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({
     homeNewsSection: { type: Object, default: null },

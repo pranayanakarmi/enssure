@@ -5,9 +5,9 @@ import { ref } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({
@@ -24,6 +24,8 @@ const form = useForm({
     date: props.video.date,
     order: props.video.order,
     is_active: props.video.is_active,
+    is_hero: props.video.is_hero,
+    _method: 'put',
 });
 
 const existingThumbnail = ref(props.video.thumbnail);
@@ -52,7 +54,13 @@ const breadcrumbItems = [
 ];
 
 function submit() {
-    form.put(`/admin/videos/${props.video.id}`);
+    form.transform((data) => ({
+        ...data,
+        is_active: data.is_active ? '1' : '0',
+        is_hero: data.is_hero ? '1' : '0',
+    })).post(`/admin/videos/${props.video.id}`, {
+        forceFormData: true,
+    });
 }
 </script>
 
@@ -136,9 +144,17 @@ function submit() {
                     <div class="flex items-center space-x-2">
                         <Checkbox
                             id="is_active"
-                            v-model:checked="form.is_active"
+                            v-model="form.is_active"
                         />
                         <Label for="is_active">Active (show on homepage)</Label>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <Checkbox
+                            id="is_hero"
+                            v-model="form.is_hero"
+                        />
+                        <Label for="is_hero">Use as hero modal video</Label>
                     </div>
 
                     <div class="flex items-center gap-4">

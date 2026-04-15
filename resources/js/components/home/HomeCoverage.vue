@@ -228,9 +228,9 @@ onMounted(() => {
     </section>
 </template> -->
 <script setup>
+import { MapPin, RefreshCw } from 'lucide-vue-next';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import NepalProvinceMapbox from '@/components/home/NepalProvinceMapbox.vue';
-import { MapPin, RefreshCw } from 'lucide-vue-next';
 
 // ── Fallbacks ─────────────────────────────────────────────────────────────────
 const defaultBadge       = 'Coverage';

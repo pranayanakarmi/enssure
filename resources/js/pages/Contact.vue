@@ -1,9 +1,9 @@
 <script setup>
 import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Linkedin, Instagram, User, Building, X } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 import PageHero from '@/components/guest/PageHero.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
-import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Linkedin, Instagram, User, Building, X } from 'lucide-vue-next';
 
 const props = defineProps({
     contactFeedbackContent: {

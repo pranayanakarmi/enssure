@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link, router } from '@inertiajs/vue3';
+import { ArrowLeft, Save, Plus, Trash2, GripVertical, ImageIcon, Layers } from 'lucide-vue-next';
 import { ref, onBeforeUnmount, watch } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ArrowLeft, Save, Plus, Trash2, GripVertical, ImageIcon, Layers } from 'lucide-vue-next';
 
 const props = defineProps({
     slider: { type: Object, required: true },

@@ -1,16 +1,16 @@
 <script setup>
-import { ref, computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
-import Heading from '@/components/Heading.vue';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import {
   Rss, Images, BarChart2, Info, GalleryHorizontalEnd,
   BookOpen, MapPin, Newspaper, Video, Quote,
   LayoutList, Handshake, Settings2, Heart, PhoneCall, ExternalLink,
   ChevronDown, ChevronsUpDown
 } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
+import Heading from '@/components/Heading.vue';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const groups = [
   {

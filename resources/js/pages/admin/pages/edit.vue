@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
+import { ArrowLeft, Save, FileText } from 'lucide-vue-next';
 import CopyablePublicUrl from '@/components/CopyablePublicUrl.vue';
 import InputError from '@/components/InputError.vue';
 import RichTextEditor from '@/components/RichTextEditor.vue';
@@ -10,7 +11,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { usePagePublicUrl } from '@/composables/usePagePublicUrl';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ArrowLeft, Save, FileText } from 'lucide-vue-next';
 
 const props = defineProps({
     page: { type: Object, required: true },

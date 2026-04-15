@@ -1,11 +1,11 @@
 <script setup>
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { ArrowLeft, Trash2 } from 'lucide-vue-next';
 import { ref, computed } from 'vue';
-import AppLayout from '@/layouts/AppLayout.vue';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { ArrowLeft, Trash2 } from 'lucide-vue-next';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({
     sliders: {

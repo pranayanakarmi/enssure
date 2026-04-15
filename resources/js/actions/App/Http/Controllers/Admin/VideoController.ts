@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\Admin\VideoController::create
- * @see app/Http/Controllers/Admin/VideoController.php:19
+ * @see app/Http/Controllers/Admin/VideoController.php:20
  * @route '/admin/videos/create'
  */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::create
- * @see app/Http/Controllers/Admin/VideoController.php:19
+ * @see app/Http/Controllers/Admin/VideoController.php:20
  * @route '/admin/videos/create'
  */
 create.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::create
- * @see app/Http/Controllers/Admin/VideoController.php:19
+ * @see app/Http/Controllers/Admin/VideoController.php:20
  * @route '/admin/videos/create'
  */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\Admin\VideoController::create
- * @see app/Http/Controllers/Admin/VideoController.php:19
+ * @see app/Http/Controllers/Admin/VideoController.php:20
  * @route '/admin/videos/create'
  */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\VideoController::create
- * @see app/Http/Controllers/Admin/VideoController.php:19
+ * @see app/Http/Controllers/Admin/VideoController.php:20
  * @route '/admin/videos/create'
  */
     const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\VideoController::create
- * @see app/Http/Controllers/Admin/VideoController.php:19
+ * @see app/Http/Controllers/Admin/VideoController.php:20
  * @route '/admin/videos/create'
  */
         createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\Admin\VideoController::create
- * @see app/Http/Controllers/Admin/VideoController.php:19
+ * @see app/Http/Controllers/Admin/VideoController.php:20
  * @route '/admin/videos/create'
  */
         createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     create.form = createForm
 /**
 * @see \App\Http\Controllers\Admin\VideoController::store
- * @see app/Http/Controllers/Admin/VideoController.php:24
+ * @see app/Http/Controllers/Admin/VideoController.php:25
  * @route '/admin/videos'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -172,7 +172,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::store
- * @see app/Http/Controllers/Admin/VideoController.php:24
+ * @see app/Http/Controllers/Admin/VideoController.php:25
  * @route '/admin/videos'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::store
- * @see app/Http/Controllers/Admin/VideoController.php:24
+ * @see app/Http/Controllers/Admin/VideoController.php:25
  * @route '/admin/videos'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -191,7 +191,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\VideoController::store
- * @see app/Http/Controllers/Admin/VideoController.php:24
+ * @see app/Http/Controllers/Admin/VideoController.php:25
  * @route '/admin/videos'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -201,7 +201,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\VideoController::store
- * @see app/Http/Controllers/Admin/VideoController.php:24
+ * @see app/Http/Controllers/Admin/VideoController.php:25
  * @route '/admin/videos'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -309,7 +309,7 @@ show.head = (args: { video: string | number } | [video: string | number ] | stri
     show.form = showForm
 /**
 * @see \App\Http\Controllers\Admin\VideoController::edit
- * @see app/Http/Controllers/Admin/VideoController.php:47
+ * @see app/Http/Controllers/Admin/VideoController.php:59
  * @route '/admin/videos/{video}/edit'
  */
 export const edit = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -324,7 +324,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::edit
- * @see app/Http/Controllers/Admin/VideoController.php:47
+ * @see app/Http/Controllers/Admin/VideoController.php:59
  * @route '/admin/videos/{video}/edit'
  */
 edit.url = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -357,7 +357,7 @@ edit.url = (args: { video: number | { id: number } } | [video: number | { id: nu
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::edit
- * @see app/Http/Controllers/Admin/VideoController.php:47
+ * @see app/Http/Controllers/Admin/VideoController.php:59
  * @route '/admin/videos/{video}/edit'
  */
 edit.get = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -366,7 +366,7 @@ edit.get = (args: { video: number | { id: number } } | [video: number | { id: nu
 })
 /**
 * @see \App\Http\Controllers\Admin\VideoController::edit
- * @see app/Http/Controllers/Admin/VideoController.php:47
+ * @see app/Http/Controllers/Admin/VideoController.php:59
  * @route '/admin/videos/{video}/edit'
  */
 edit.head = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -376,7 +376,7 @@ edit.head = (args: { video: number | { id: number } } | [video: number | { id: n
 
     /**
 * @see \App\Http\Controllers\Admin\VideoController::edit
- * @see app/Http/Controllers/Admin/VideoController.php:47
+ * @see app/Http/Controllers/Admin/VideoController.php:59
  * @route '/admin/videos/{video}/edit'
  */
     const editForm = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -386,7 +386,7 @@ edit.head = (args: { video: number | { id: number } } | [video: number | { id: n
 
             /**
 * @see \App\Http\Controllers\Admin\VideoController::edit
- * @see app/Http/Controllers/Admin/VideoController.php:47
+ * @see app/Http/Controllers/Admin/VideoController.php:59
  * @route '/admin/videos/{video}/edit'
  */
         editForm.get = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -395,7 +395,7 @@ edit.head = (args: { video: number | { id: number } } | [video: number | { id: n
         })
             /**
 * @see \App\Http\Controllers\Admin\VideoController::edit
- * @see app/Http/Controllers/Admin/VideoController.php:47
+ * @see app/Http/Controllers/Admin/VideoController.php:59
  * @route '/admin/videos/{video}/edit'
  */
         editForm.head = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -411,7 +411,7 @@ edit.head = (args: { video: number | { id: number } } | [video: number | { id: n
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\Admin\VideoController::update
- * @see app/Http/Controllers/Admin/VideoController.php:52
+ * @see app/Http/Controllers/Admin/VideoController.php:64
  * @route '/admin/videos/{video}'
  */
 export const update = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -426,7 +426,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::update
- * @see app/Http/Controllers/Admin/VideoController.php:52
+ * @see app/Http/Controllers/Admin/VideoController.php:64
  * @route '/admin/videos/{video}'
  */
 update.url = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -459,7 +459,7 @@ update.url = (args: { video: number | { id: number } } | [video: number | { id: 
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::update
- * @see app/Http/Controllers/Admin/VideoController.php:52
+ * @see app/Http/Controllers/Admin/VideoController.php:64
  * @route '/admin/videos/{video}'
  */
 update.put = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -468,7 +468,7 @@ update.put = (args: { video: number | { id: number } } | [video: number | { id: 
 })
 /**
 * @see \App\Http\Controllers\Admin\VideoController::update
- * @see app/Http/Controllers/Admin/VideoController.php:52
+ * @see app/Http/Controllers/Admin/VideoController.php:64
  * @route '/admin/videos/{video}'
  */
 update.patch = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -478,7 +478,7 @@ update.patch = (args: { video: number | { id: number } } | [video: number | { id
 
     /**
 * @see \App\Http\Controllers\Admin\VideoController::update
- * @see app/Http/Controllers/Admin/VideoController.php:52
+ * @see app/Http/Controllers/Admin/VideoController.php:64
  * @route '/admin/videos/{video}'
  */
     const updateForm = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -493,7 +493,7 @@ update.patch = (args: { video: number | { id: number } } | [video: number | { id
 
             /**
 * @see \App\Http\Controllers\Admin\VideoController::update
- * @see app/Http/Controllers/Admin/VideoController.php:52
+ * @see app/Http/Controllers/Admin/VideoController.php:64
  * @route '/admin/videos/{video}'
  */
         updateForm.put = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -507,7 +507,7 @@ update.patch = (args: { video: number | { id: number } } | [video: number | { id
         })
             /**
 * @see \App\Http\Controllers\Admin\VideoController::update
- * @see app/Http/Controllers/Admin/VideoController.php:52
+ * @see app/Http/Controllers/Admin/VideoController.php:64
  * @route '/admin/videos/{video}'
  */
         updateForm.patch = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -523,7 +523,7 @@ update.patch = (args: { video: number | { id: number } } | [video: number | { id
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\Admin\VideoController::destroy
- * @see app/Http/Controllers/Admin/VideoController.php:81
+ * @see app/Http/Controllers/Admin/VideoController.php:106
  * @route '/admin/videos/{video}'
  */
 export const destroy = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -538,7 +538,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::destroy
- * @see app/Http/Controllers/Admin/VideoController.php:81
+ * @see app/Http/Controllers/Admin/VideoController.php:106
  * @route '/admin/videos/{video}'
  */
 destroy.url = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -571,7 +571,7 @@ destroy.url = (args: { video: number | { id: number } } | [video: number | { id:
 
 /**
 * @see \App\Http\Controllers\Admin\VideoController::destroy
- * @see app/Http/Controllers/Admin/VideoController.php:81
+ * @see app/Http/Controllers/Admin/VideoController.php:106
  * @route '/admin/videos/{video}'
  */
 destroy.delete = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -581,7 +581,7 @@ destroy.delete = (args: { video: number | { id: number } } | [video: number | { 
 
     /**
 * @see \App\Http\Controllers\Admin\VideoController::destroy
- * @see app/Http/Controllers/Admin/VideoController.php:81
+ * @see app/Http/Controllers/Admin/VideoController.php:106
  * @route '/admin/videos/{video}'
  */
     const destroyForm = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -596,7 +596,7 @@ destroy.delete = (args: { video: number | { id: number } } | [video: number | { 
 
             /**
 * @see \App\Http\Controllers\Admin\VideoController::destroy
- * @see app/Http/Controllers/Admin/VideoController.php:81
+ * @see app/Http/Controllers/Admin/VideoController.php:106
  * @route '/admin/videos/{video}'
  */
         destroyForm.delete = (args: { video: number | { id: number } } | [video: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -1,9 +1,9 @@
 <script setup>
-import { ref, computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronsUpDown, Edit, Images, FileText } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
+import { Button } from '@/components/ui/button';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const groups = [
   {

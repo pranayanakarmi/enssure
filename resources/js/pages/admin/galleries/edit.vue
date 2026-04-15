@@ -4,11 +4,11 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import { Trash2, ArrowLeft, Save, Plus, X, ImageIcon, ArrowUp, ArrowDown, Settings, Images } from 'lucide-vue-next';
 import { ref, computed, watch, onBeforeUnmount } from 'vue';
 import InputError from '@/components/InputError.vue';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 function slugify(text) {

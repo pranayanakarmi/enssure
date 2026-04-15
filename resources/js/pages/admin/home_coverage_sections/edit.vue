@@ -1,17 +1,17 @@
 <script setup>
 import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
-import { ref, computed, watch, onBeforeUnmount } from 'vue';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import RichTextEditor from '@/components/RichTextEditor.vue';
-import InputError from '@/components/InputError.vue';
 import {
     ArrowLeft, Save, Plus, Trash2, Edit, GripVertical, ImageIcon,
     CheckCircle2, AlertCircle, X, UploadCloud, Hash, Tag
 } from 'lucide-vue-next';
+import { ref, computed, watch, onBeforeUnmount } from 'vue';
+import InputError from '@/components/InputError.vue';
+import RichTextEditor from '@/components/RichTextEditor.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({
     homeCoverageSection: { type: Object, default: null },

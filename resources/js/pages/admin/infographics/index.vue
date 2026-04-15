@@ -1,17 +1,17 @@
 <script setup>
 import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
-import { ref, computed } from 'vue';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import RichTextEditor from '@/components/RichTextEditor.vue';
 import {
     ArrowLeft, Save, Plus, Trash2, Edit, ImageIcon, ExternalLink,
     CheckCircle2, AlertCircle, X, ChevronDown, ChevronUp, XCircle
 } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
+import RichTextEditor from '@/components/RichTextEditor.vue';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({
     infographics: { type: Array, default: () => [] },

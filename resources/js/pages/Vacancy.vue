@@ -1,9 +1,9 @@
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
+import { MapPin, Clock, Calendar, Briefcase, CheckCircle } from 'lucide-vue-next';
 import { computed } from 'vue';
 import PageHero from '@/components/guest/PageHero.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
-import { MapPin, Clock, Calendar, Briefcase, CheckCircle } from 'lucide-vue-next';
 
 defineProps({
     vacancies: {

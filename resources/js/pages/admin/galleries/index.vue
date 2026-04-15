@@ -1,12 +1,12 @@
 <script setup>
 import { Head, Link, usePage, router } from '@inertiajs/vue3';
+import { ArrowLeft, Edit, Trash2, ImageIcon, CheckCircle2, AlertCircle } from 'lucide-vue-next';
 import { ref, computed } from 'vue';
 import Heading from '@/components/Heading.vue';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ArrowLeft, Edit, Trash2, ImageIcon, CheckCircle2, AlertCircle } from 'lucide-vue-next';
 
 const props = defineProps({
     galleries: { type: Array, default: () => [] },

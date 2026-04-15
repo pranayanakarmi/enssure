@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
 import { Edit, ImageIcon, FileText } from 'lucide-vue-next';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const breadcrumbItems = [
     { title: 'Home Page', href: '/admin/home' },

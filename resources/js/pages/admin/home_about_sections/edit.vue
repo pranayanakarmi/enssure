@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ArrowLeft, Save, ImageIcon, X, Tag, Type } from 'lucide-vue-next';
 import { ref, computed, onBeforeUnmount } from 'vue';
 import InputError from '@/components/InputError.vue';
 import RichTextEditor from '@/components/RichTextEditor.vue';
@@ -8,7 +9,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ArrowLeft, Save, ImageIcon, X, Tag, Type } from 'lucide-vue-next';
 
 const props = defineProps({
     homeAboutSection: { type: Object, default: null },

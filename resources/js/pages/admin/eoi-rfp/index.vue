@@ -1,11 +1,11 @@
 <script setup>
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { ArrowLeft, Edit, Trash2, Plus, CheckCircle2, AlertCircle } from 'lucide-vue-next';
 import { ref, computed } from 'vue';
-import AppLayout from '@/layouts/AppLayout.vue';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Edit, Trash2, Plus, CheckCircle2, AlertCircle } from 'lucide-vue-next';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({ items: Array });
 const page = usePage();

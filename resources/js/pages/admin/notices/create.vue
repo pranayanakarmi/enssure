@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
+import { ArrowLeft, Save, ImageIcon, X, Type } from 'lucide-vue-next';
 import { ref, onBeforeUnmount } from 'vue';
 import CopyablePublicUrl from '@/components/CopyablePublicUrl.vue';
 import InputError from '@/components/InputError.vue';
@@ -11,7 +12,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useNoticePublicUrl } from '@/composables/useNoticePublicUrl';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ArrowLeft, Save, ImageIcon, X, Type } from 'lucide-vue-next';
 
 const form = useForm({
     title: '',

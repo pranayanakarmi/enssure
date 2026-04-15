@@ -1,13 +1,13 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
+import { ArrowLeft, Save, ImageIcon, X } from 'lucide-vue-next';
 import { ref, computed, onBeforeUnmount } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ArrowLeft, Save, ImageIcon, X } from 'lucide-vue-next';
 
 const props = defineProps({ hero: Object });
 const form = useForm({

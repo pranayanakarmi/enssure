@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
+import { ArrowLeft, Save, Plus, Trash2, Edit, Link2, CheckCircle2, AlertCircle } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -7,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ArrowLeft, Save, Plus, Trash2, Edit, Link2, CheckCircle2, AlertCircle } from 'lucide-vue-next';
 
 const props = defineProps({
     footerColumn: { type: Object, required: true },

@@ -136,8 +136,8 @@ const stories = computed(() => {
 </template> -->
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { computed, ref, onMounted, onUnmounted } from 'vue';
 import { ArrowRight, BookOpen } from 'lucide-vue-next';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 
 // ── Fallbacks ─────────────────────────────────────────────────────────────────
 const fallbackBadge       = 'Impact Stories';

@@ -1,7 +1,7 @@
 <!-- components/home/HomeVideo.vue -->
 <script setup>
-import { computed, ref, onMounted, onUnmounted } from 'vue';
 import { Play, X, ArrowRight } from 'lucide-vue-next';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
 
 // ── Static fallback data ───────────────────────────────────────────────────
 const defaultBadge       = 'Featured Videos';

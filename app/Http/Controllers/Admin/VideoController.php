@@ -12,7 +12,8 @@ class VideoController extends Controller
 {
     public function index()
     {
-        $videos = Video::active()->get();
+        $videos = Video::query()->orderByDesc('is_hero')->orderBy('order')->get();
+
         return Inertia::render('admin/videos/index', ['videos' => $videos]);
     }
 
@@ -23,14 +24,25 @@ class VideoController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'is_active' => $request->boolean('is_active'),
+            'is_hero' => $request->boolean('is_hero'),
+        ]);
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'video_url' => 'required|url',
-            'thumbnail' => 'nullable|image|max:2048', // max 2MB
+            'thumbnail' => 'nullable|image|max:2048',
             'date' => 'nullable|date',
             'order' => 'nullable|integer',
             'is_active' => 'boolean',
+            'is_hero' => 'boolean',
         ]);
+
+        if (($validated['is_hero'] ?? false) === true) {
+            $validated['is_active'] = true;
+            Video::query()->update(['is_hero' => false]);
+        }
 
         if ($request->hasFile('thumbnail')) {
             $path = $request->file('thumbnail')->store('video-thumbnails', 'public');
@@ -51,6 +63,11 @@ class VideoController extends Controller
 
     public function update(Request $request, Video $video)
     {
+        $request->merge([
+            'is_active' => $request->boolean('is_active'),
+            'is_hero' => $request->boolean('is_hero'),
+        ]);
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'video_url' => 'required|url',
@@ -58,10 +75,19 @@ class VideoController extends Controller
             'date' => 'nullable|date',
             'order' => 'nullable|integer',
             'is_active' => 'boolean',
+            'is_hero' => 'boolean',
         ]);
 
+        if (($validated['is_hero'] ?? false) === true) {
+            $validated['is_active'] = true;
+            Video::query()->whereKeyNot($video->id)->update(['is_hero' => false]);
+        }
+
+        if (($validated['is_active'] ?? $video->is_active) === false) {
+            $validated['is_hero'] = false;
+        }
+
         if ($request->hasFile('thumbnail')) {
-            // Delete old thumbnail if exists
             if ($video->thumbnail) {
                 $oldPath = str_replace(Storage::disk('public')->url(''), '', $video->thumbnail);
                 Storage::disk('public')->delete($oldPath);
@@ -69,7 +95,6 @@ class VideoController extends Controller
             $path = $request->file('thumbnail')->store('video-thumbnails', 'public');
             $validated['thumbnail'] = Storage::disk('public')->url($path);
         } else {
-            // Keep existing thumbnail (don't override)
             unset($validated['thumbnail']);
         }
 
@@ -80,12 +105,12 @@ class VideoController extends Controller
 
     public function destroy(Video $video)
     {
-        // Delete thumbnail file if exists
         if ($video->thumbnail) {
             $path = str_replace(Storage::disk('public')->url(''), '', $video->thumbnail);
             Storage::disk('public')->delete($path);
         }
         $video->delete();
+
         return redirect()->route('admin.videos.index')->with('success', 'Video deleted.');
     }
 }

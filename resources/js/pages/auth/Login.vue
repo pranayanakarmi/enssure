@@ -1,6 +1,7 @@
 <script setup>
 import { Form, Head, Link, usePage } from '@inertiajs/vue3';
 import { computed, onMounted, onUnmounted, ref, reactive } from 'vue';
+import AnimatedLoginIllustration from '@/components/AnimatedLoginIllustration.vue';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -9,10 +10,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthBase from '@/layouts/AuthLayout.vue';
+import { home } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
-import { home } from '@/routes';
-import AnimatedLoginIllustration from '@/components/AnimatedLoginIllustration.vue';
 
 const props = defineProps({
     recaptchaSiteKey: {

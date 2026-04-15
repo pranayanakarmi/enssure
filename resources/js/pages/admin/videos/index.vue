@@ -1,17 +1,17 @@
 <script setup>
 import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
-import { ref, computed, watch } from 'vue';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Badge } from '@/components/ui/badge';
 import {
     ArrowLeft, Save, Plus, Trash2, Edit, GripVertical, Youtube,
     Calendar, Link as LinkIcon, CheckCircle2, AlertCircle, X
 } from 'lucide-vue-next';
+import { ref, computed, watch } from 'vue';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({
     videos: { type: Array, default: () => [] },
@@ -39,6 +39,7 @@ const videoForm = useForm({
     date: '',
     order: 0,
     is_active: true,
+    is_hero: false,
     _method: 'post', // default to post for create
 });
 
@@ -61,6 +62,7 @@ function openEditModal(video) {
     videoForm.date = video.date;
     videoForm.order = video.order;
     videoForm.is_active = video.is_active;
+    videoForm.is_hero = video.is_hero;
     videoForm.thumbnail = null;
     videoForm._method = 'put';
     thumbnailPreview.value = null;
@@ -89,17 +91,33 @@ function onThumbnailChange(e) {
 }
 
 function saveVideo() {
+    videoForm.transform((data) => ({
+        ...data,
+        is_active: data.is_active ? '1' : '0',
+        is_hero: data.is_hero ? '1' : '0',
+    }));
+
     if (editingVideo.value) {
-        // Update existing video
-        videoForm.put(`/admin/videos/${editingVideo.value.id}`, {
+        videoForm.post(`/admin/videos/${editingVideo.value.id}`, {
             forceFormData: true,
-            onSuccess: () => closeModal(),
+            onSuccess: () => {
+                videoForm.transform((data) => data);
+                closeModal();
+            },
+            onError: () => {
+                videoForm.transform((data) => data);
+            },
         });
     } else {
-        // Create new video
         videoForm.post('/admin/videos', {
             forceFormData: true,
-            onSuccess: () => closeModal(),
+            onSuccess: () => {
+                videoForm.transform((data) => data);
+                closeModal();
+            },
+            onError: () => {
+                videoForm.transform((data) => data);
+            },
         });
     }
 }
@@ -243,6 +261,7 @@ const breadcrumbItems = [
                                 {{ video.is_active ? 'Active' : 'Inactive' }}
                             </Badge>
                         </div>
+                        <p v-if="video.is_hero" class="mt-1 text-[11px] font-medium text-primary">Hero video</p>
                         <div class="mt-1 space-y-0.5 text-xs text-muted-foreground">
                             <div class="flex items-center gap-1">
                                 <Calendar class="h-3 w-3" />
@@ -333,8 +352,13 @@ const breadcrumbItems = [
                         </div>
 
                         <div class="flex items-center space-x-2">
-                            <Checkbox id="modal_is_active" v-model:checked="videoForm.is_active" />
+                            <Checkbox id="modal_is_active" v-model="videoForm.is_active" />
                             <Label for="modal_is_active">Active (show on homepage)</Label>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <Checkbox id="modal_is_hero" v-model="videoForm.is_hero" />
+                            <Label for="modal_is_hero">Use as hero modal video</Label>
                         </div>
 
                         <div class="flex justify-end gap-3 border-t border-gray-200 pt-4">

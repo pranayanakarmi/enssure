@@ -1,10 +1,10 @@
 <script setup>
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { ArrowLeft, Edit, Trash2, Plus, ImageIcon, CheckCircle2, AlertCircle } from 'lucide-vue-next';
 import { ref, computed } from 'vue';
-import AppLayout from '@/layouts/AppLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ArrowLeft, Edit, Trash2, Plus, ImageIcon, CheckCircle2, AlertCircle } from 'lucide-vue-next';
+import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps({
     notices: { type: Array, default: () => [] },

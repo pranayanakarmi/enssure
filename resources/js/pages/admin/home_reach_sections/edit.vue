@@ -1,5 +1,10 @@
 <script setup>
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
+import {
+    ArrowLeft, Save, Plus, Trash2, GripVertical,
+    Hash, Link2, ImageIcon, UploadCloud, X,
+    Pencil, Check, ChevronDown, BarChart2, Tag, Type
+} from 'lucide-vue-next';
 import { ref, computed, onBeforeUnmount, watch } from 'vue';
 import InputError from '@/components/InputError.vue';
 import RichTextEditor from '@/components/RichTextEditor.vue';
@@ -8,11 +13,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import {
-    ArrowLeft, Save, Plus, Trash2, GripVertical,
-    Hash, Link2, ImageIcon, UploadCloud, X,
-    Pencil, Check, ChevronDown, BarChart2, Tag, Type
-} from 'lucide-vue-next';
 
 const props = defineProps({
     homeReachSection: { type: Object, default: null },
