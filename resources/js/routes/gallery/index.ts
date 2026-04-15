@@ -3,7 +3,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see routes/web.php:560
  * @route '/gallery/{gallery}'
  */
-export const show = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { gallery: string | number | { slug: string | number } } | [gallery: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -17,7 +17,7 @@ show.definition = {
  * @see routes/web.php:560
  * @route '/gallery/{gallery}'
  */
-show.url = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
+show.url = (args: { gallery: string | number | { slug: string | number } } | [gallery: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { gallery: args }
     }
@@ -49,7 +49,7 @@ show.url = (args: { gallery: string | { slug: string } } | [gallery: string | { 
  * @see routes/web.php:560
  * @route '/gallery/{gallery}'
  */
-show.get = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { gallery: string | number | { slug: string | number } } | [gallery: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -57,7 +57,7 @@ show.get = (args: { gallery: string | { slug: string } } | [gallery: string | { 
  * @see routes/web.php:560
  * @route '/gallery/{gallery}'
  */
-show.head = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { gallery: string | number | { slug: string | number } } | [gallery: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -66,7 +66,7 @@ show.head = (args: { gallery: string | { slug: string } } | [gallery: string | {
  * @see routes/web.php:560
  * @route '/gallery/{gallery}'
  */
-    const showForm = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { gallery: string | number | { slug: string | number } } | [gallery: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -75,7 +75,7 @@ show.head = (args: { gallery: string | { slug: string } } | [gallery: string | {
  * @see routes/web.php:560
  * @route '/gallery/{gallery}'
  */
-        showForm.get = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { gallery: string | number | { slug: string | number } } | [gallery: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -83,7 +83,7 @@ show.head = (args: { gallery: string | { slug: string } } | [gallery: string | {
  * @see routes/web.php:560
  * @route '/gallery/{gallery}'
  */
-        showForm.head = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { gallery: string | number | { slug: string | number } } | [gallery: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

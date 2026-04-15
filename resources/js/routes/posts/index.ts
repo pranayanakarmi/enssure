@@ -74,7 +74,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
  * @see routes/web.php:389
  * @route '/posts/{published_post}'
  */
-export const show = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { published_post: string | number | { slug: string | number } } | [published_post: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -88,7 +88,7 @@ show.definition = {
  * @see routes/web.php:389
  * @route '/posts/{published_post}'
  */
-show.url = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
+show.url = (args: { published_post: string | number | { slug: string | number } } | [published_post: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { published_post: args }
     }
@@ -120,7 +120,7 @@ show.url = (args: { published_post: string | { slug: string } } | [published_pos
  * @see routes/web.php:389
  * @route '/posts/{published_post}'
  */
-show.get = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { published_post: string | number | { slug: string | number } } | [published_post: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -128,7 +128,7 @@ show.get = (args: { published_post: string | { slug: string } } | [published_pos
  * @see routes/web.php:389
  * @route '/posts/{published_post}'
  */
-show.head = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { published_post: string | number | { slug: string | number } } | [published_post: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -137,7 +137,7 @@ show.head = (args: { published_post: string | { slug: string } } | [published_po
  * @see routes/web.php:389
  * @route '/posts/{published_post}'
  */
-    const showForm = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { published_post: string | number | { slug: string | number } } | [published_post: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -146,7 +146,7 @@ show.head = (args: { published_post: string | { slug: string } } | [published_po
  * @see routes/web.php:389
  * @route '/posts/{published_post}'
  */
-        showForm.get = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { published_post: string | number | { slug: string | number } } | [published_post: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -154,7 +154,7 @@ show.head = (args: { published_post: string | { slug: string } } | [published_po
  * @see routes/web.php:389
  * @route '/posts/{published_post}'
  */
-        showForm.head = (args: { published_post: string | { slug: string } } | [published_post: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { published_post: string | number | { slug: string | number } } | [published_post: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

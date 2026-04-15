@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/FooterColumnController.php:60
  * @route '/admin/footer-columns/{footer_column}/edit'
  */
-export const edit = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/FooterColumnController.php:60
  * @route '/admin/footer-columns/{footer_column}/edit'
  */
-edit.url = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { footer_column: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { footer_column: number | { id: number } } | [footer_column: n
  * @see app/Http/Controllers/Admin/FooterColumnController.php:60
  * @route '/admin/footer-columns/{footer_column}/edit'
  */
-edit.get = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { footer_column: number | { id: number } } | [footer_column: n
  * @see app/Http/Controllers/Admin/FooterColumnController.php:60
  * @route '/admin/footer-columns/{footer_column}/edit'
  */
-edit.head = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { footer_column: number | { id: number } } | [footer_column: 
  * @see app/Http/Controllers/Admin/FooterColumnController.php:60
  * @route '/admin/footer-columns/{footer_column}/edit'
  */
-    const editForm = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { footer_column: number | { id: number } } | [footer_column: 
  * @see app/Http/Controllers/Admin/FooterColumnController.php:60
  * @route '/admin/footer-columns/{footer_column}/edit'
  */
-        editForm.get = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { footer_column: number | { id: number } } | [footer_column: 
  * @see app/Http/Controllers/Admin/FooterColumnController.php:60
  * @route '/admin/footer-columns/{footer_column}/edit'
  */
-        editForm.head = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { footer_column: number | { id: number } } | [footer_column: 
  * @see app/Http/Controllers/Admin/FooterColumnController.php:81
  * @route '/admin/footer-columns/{footer_column}'
  */
-export const update = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/FooterColumnController.php:81
  * @route '/admin/footer-columns/{footer_column}'
  */
-update.url = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { footer_column: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { footer_column: number | { id: number } } | [footer_column:
  * @see app/Http/Controllers/Admin/FooterColumnController.php:81
  * @route '/admin/footer-columns/{footer_column}'
  */
-update.put = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { footer_column: number | { id: number } } | [footer_column:
  * @see app/Http/Controllers/Admin/FooterColumnController.php:81
  * @route '/admin/footer-columns/{footer_column}'
  */
-update.patch = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { footer_column: number | { id: number } } | [footer_colum
  * @see app/Http/Controllers/Admin/FooterColumnController.php:81
  * @route '/admin/footer-columns/{footer_column}'
  */
-    const updateForm = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { footer_column: number | { id: number } } | [footer_colum
  * @see app/Http/Controllers/Admin/FooterColumnController.php:81
  * @route '/admin/footer-columns/{footer_column}'
  */
-        updateForm.put = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { footer_column: number | { id: number } } | [footer_colum
  * @see app/Http/Controllers/Admin/FooterColumnController.php:81
  * @route '/admin/footer-columns/{footer_column}'
  */
-        updateForm.patch = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { footer_column: number | { id: number } } | [footer_colum
  * @see app/Http/Controllers/Admin/FooterColumnController.php:88
  * @route '/admin/footer-columns/{footer_column}'
  */
-export const destroy = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/FooterColumnController.php:88
  * @route '/admin/footer-columns/{footer_column}'
  */
-destroy.url = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { footer_column: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { footer_column: number | { id: number } } | [footer_column
  * @see app/Http/Controllers/Admin/FooterColumnController.php:88
  * @route '/admin/footer-columns/{footer_column}'
  */
-destroy.delete = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { footer_column: number | { id: number } } | [footer_col
  * @see app/Http/Controllers/Admin/FooterColumnController.php:88
  * @route '/admin/footer-columns/{footer_column}'
  */
-    const destroyForm = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { footer_column: number | { id: number } } | [footer_col
  * @see app/Http/Controllers/Admin/FooterColumnController.php:88
  * @route '/admin/footer-columns/{footer_column}'
  */
-        destroyForm.delete = (args: { footer_column: number | { id: number } } | [footer_column: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { footer_column: string | number | { id: string | number } } | [footer_column: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

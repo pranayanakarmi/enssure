@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\EditorImageUploadController;
 use App\Http\Controllers\Admin\EmailTemplateController;
+use App\Http\Controllers\Admin\EoiRfpController;
+use App\Http\Controllers\Admin\EoiRfpPageHeroController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\EventRegistrationController;
 use App\Http\Controllers\Admin\FaqController;
@@ -41,6 +43,7 @@ use App\Http\Controllers\Admin\HomeTestimonialsSectionController;
 use App\Http\Controllers\Admin\ImpactPageHeroController;
 use App\Http\Controllers\Admin\ImpactPageSectionController;
 use App\Http\Controllers\Admin\ImpactStoryController;
+use App\Http\Controllers\Admin\ImportantPopupController;
 use App\Http\Controllers\Admin\InfographicController;
 use App\Http\Controllers\Admin\InfographicItemController;
 use App\Http\Controllers\Admin\InfographicsPageContentController;
@@ -73,8 +76,6 @@ use App\Http\Controllers\Admin\TrainingProgramController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VacancyApplicationController;
 use App\Http\Controllers\Admin\VacancyController;
-use App\Http\Controllers\Admin\EoiRfpController;
-use App\Http\Controllers\Admin\EoiRfpPageHeroController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,8 +83,6 @@ use Illuminate\Support\Facades\Route;
 | Admin routes (role: admin|super_admin)
 |--------------------------------------------------------------------------
 */
-
-
 
 Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', fn () => redirect()->route('dashboard'))->name('index');
@@ -118,6 +117,10 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::put('pages/hero', [PageHeroController::class, 'update'])->name('pages.hero.update');
     Route::resource('pages', PageController::class)->except(['show']);
     Route::resource('notices', NoticeController::class)->except(['show']);
+    Route::resource('important-popups', ImportantPopupController::class)
+        ->parameters(['important-popups' => 'important_popup'])
+        ->names('important_popups')
+        ->except(['show']);
     Route::resource('vacancies', VacancyController::class)->except(['show']);
     Route::get('vacancy-applications', [VacancyApplicationController::class, 'index'])->name('vacancy_applications.index');
     Route::get('vacancy-applications/{vacancy_application}', [VacancyApplicationController::class, 'show'])->name('vacancy_applications.show');
@@ -233,13 +236,12 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('media', MediaController::class)->except(['show']);
     Route::resource('feedback', FeedbackController::class)->only(['index', 'show', 'destroy']);
 
-   // Hero for the combined listing page (one hero for both types)
-Route::get('eoi-rfp/hero', [EoiRfpPageHeroController::class, 'edit'])->name('admin.eoi-rfp.hero.edit');
-Route::put('eoi-rfp/hero', [EoiRfpPageHeroController::class, 'update'])->name('admin.eoi-rfp.hero.update');
+    // Hero for the combined listing page (one hero for both types)
+    Route::get('eoi-rfp/hero', [EoiRfpPageHeroController::class, 'edit'])->name('admin.eoi-rfp.hero.edit');
+    Route::put('eoi-rfp/hero', [EoiRfpPageHeroController::class, 'update'])->name('admin.eoi-rfp.hero.update');
 
-// Content management (items)
-Route::resource('eoi-rfp', EoiRfpController::class)->except(['show']);
-Route::post('eoi-rfp/reorder', [EoiRfpController::class, 'reorder'])->name('eoi-rfp.reorder');
-
+    // Content management (items)
+    Route::resource('eoi-rfp', EoiRfpController::class)->except(['show']);
+    Route::post('eoi-rfp/reorder', [EoiRfpController::class, 'reorder'])->name('eoi-rfp.reorder');
 
 });

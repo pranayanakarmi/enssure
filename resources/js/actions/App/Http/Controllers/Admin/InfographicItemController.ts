@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/Admin/InfographicItemController.php:17
  * @route '/admin/infographics/{infographic}/items'
  */
-export const store = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
  * @see app/Http/Controllers/Admin/InfographicItemController.php:17
  * @route '/admin/infographics/{infographic}/items'
  */
-store.url = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+store.url = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { infographic: args }
     }
@@ -52,7 +52,7 @@ store.url = (args: { infographic: number | { id: number } } | [infographic: numb
  * @see app/Http/Controllers/Admin/InfographicItemController.php:17
  * @route '/admin/infographics/{infographic}/items'
  */
-store.post = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -62,7 +62,7 @@ store.post = (args: { infographic: number | { id: number } } | [infographic: num
  * @see app/Http/Controllers/Admin/InfographicItemController.php:17
  * @route '/admin/infographics/{infographic}/items'
  */
-    const storeForm = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const storeForm = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: store.url(args, options),
         method: 'post',
     })
@@ -72,7 +72,7 @@ store.post = (args: { infographic: number | { id: number } } | [infographic: num
  * @see app/Http/Controllers/Admin/InfographicItemController.php:17
  * @route '/admin/infographics/{infographic}/items'
  */
-        storeForm.post = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        storeForm.post = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: store.url(args, options),
             method: 'post',
         })
@@ -251,7 +251,7 @@ destroy.delete = (args: { id: string | number } | [id: string | number ] | strin
  * @see app/Http/Controllers/Admin/InfographicItemController.php:46
  * @route '/admin/infographics/{infographic}/items/reorder'
  */
-export const reorder = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const reorder = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: reorder.url(args, options),
     method: 'post',
 })
@@ -266,7 +266,7 @@ reorder.definition = {
  * @see app/Http/Controllers/Admin/InfographicItemController.php:46
  * @route '/admin/infographics/{infographic}/items/reorder'
  */
-reorder.url = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+reorder.url = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { infographic: args }
     }
@@ -299,7 +299,7 @@ reorder.url = (args: { infographic: number | { id: number } } | [infographic: nu
  * @see app/Http/Controllers/Admin/InfographicItemController.php:46
  * @route '/admin/infographics/{infographic}/items/reorder'
  */
-reorder.post = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+reorder.post = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: reorder.url(args, options),
     method: 'post',
 })
@@ -309,7 +309,7 @@ reorder.post = (args: { infographic: number | { id: number } } | [infographic: n
  * @see app/Http/Controllers/Admin/InfographicItemController.php:46
  * @route '/admin/infographics/{infographic}/items/reorder'
  */
-    const reorderForm = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const reorderForm = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: reorder.url(args, options),
         method: 'post',
     })
@@ -319,7 +319,7 @@ reorder.post = (args: { infographic: number | { id: number } } | [infographic: n
  * @see app/Http/Controllers/Admin/InfographicItemController.php:46
  * @route '/admin/infographics/{infographic}/items/reorder'
  */
-        reorderForm.post = (args: { infographic: number | { id: number } } | [infographic: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        reorderForm.post = (args: { infographic: string | number | { id: string | number } } | [infographic: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: reorder.url(args, options),
             method: 'post',
         })

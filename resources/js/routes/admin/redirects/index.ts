@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/RedirectController.php:51
  * @route '/admin/redirects/{redirect}/edit'
  */
-export const edit = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/RedirectController.php:51
  * @route '/admin/redirects/{redirect}/edit'
  */
-edit.url = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { redirect: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { redirect: number | { id: number } } | [redirect: number | { 
  * @see app/Http/Controllers/Admin/RedirectController.php:51
  * @route '/admin/redirects/{redirect}/edit'
  */
-edit.get = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { redirect: number | { id: number } } | [redirect: number | { 
  * @see app/Http/Controllers/Admin/RedirectController.php:51
  * @route '/admin/redirects/{redirect}/edit'
  */
-edit.head = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { redirect: number | { id: number } } | [redirect: number | {
  * @see app/Http/Controllers/Admin/RedirectController.php:51
  * @route '/admin/redirects/{redirect}/edit'
  */
-    const editForm = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { redirect: number | { id: number } } | [redirect: number | {
  * @see app/Http/Controllers/Admin/RedirectController.php:51
  * @route '/admin/redirects/{redirect}/edit'
  */
-        editForm.get = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { redirect: number | { id: number } } | [redirect: number | {
  * @see app/Http/Controllers/Admin/RedirectController.php:51
  * @route '/admin/redirects/{redirect}/edit'
  */
-        editForm.head = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { redirect: number | { id: number } } | [redirect: number | {
  * @see app/Http/Controllers/Admin/RedirectController.php:67
  * @route '/admin/redirects/{redirect}'
  */
-export const update = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/RedirectController.php:67
  * @route '/admin/redirects/{redirect}'
  */
-update.url = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { redirect: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { redirect: number | { id: number } } | [redirect: number | 
  * @see app/Http/Controllers/Admin/RedirectController.php:67
  * @route '/admin/redirects/{redirect}'
  */
-update.put = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { redirect: number | { id: number } } | [redirect: number | 
  * @see app/Http/Controllers/Admin/RedirectController.php:67
  * @route '/admin/redirects/{redirect}'
  */
-update.patch = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { redirect: number | { id: number } } | [redirect: number 
  * @see app/Http/Controllers/Admin/RedirectController.php:67
  * @route '/admin/redirects/{redirect}'
  */
-    const updateForm = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { redirect: number | { id: number } } | [redirect: number 
  * @see app/Http/Controllers/Admin/RedirectController.php:67
  * @route '/admin/redirects/{redirect}'
  */
-        updateForm.put = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { redirect: number | { id: number } } | [redirect: number 
  * @see app/Http/Controllers/Admin/RedirectController.php:67
  * @route '/admin/redirects/{redirect}'
  */
-        updateForm.patch = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { redirect: number | { id: number } } | [redirect: number 
  * @see app/Http/Controllers/Admin/RedirectController.php:75
  * @route '/admin/redirects/{redirect}'
  */
-export const destroy = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/RedirectController.php:75
  * @route '/admin/redirects/{redirect}'
  */
-destroy.url = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { redirect: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { redirect: number | { id: number } } | [redirect: number |
  * @see app/Http/Controllers/Admin/RedirectController.php:75
  * @route '/admin/redirects/{redirect}'
  */
-destroy.delete = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { redirect: number | { id: number } } | [redirect: numbe
  * @see app/Http/Controllers/Admin/RedirectController.php:75
  * @route '/admin/redirects/{redirect}'
  */
-    const destroyForm = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { redirect: number | { id: number } } | [redirect: numbe
  * @see app/Http/Controllers/Admin/RedirectController.php:75
  * @route '/admin/redirects/{redirect}'
  */
-        destroyForm.delete = (args: { redirect: number | { id: number } } | [redirect: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { redirect: string | number | { id: string | number } } | [redirect: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

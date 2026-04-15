@@ -74,7 +74,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
  * @see routes/web.php:333
  * @route '/notices/{notice}'
  */
-export const show = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { notice: string | number | { slug: string | number } } | [notice: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -88,7 +88,7 @@ show.definition = {
  * @see routes/web.php:333
  * @route '/notices/{notice}'
  */
-show.url = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
+show.url = (args: { notice: string | number | { slug: string | number } } | [notice: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { notice: args }
     }
@@ -120,7 +120,7 @@ show.url = (args: { notice: string | { slug: string } } | [notice: string | { sl
  * @see routes/web.php:333
  * @route '/notices/{notice}'
  */
-show.get = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { notice: string | number | { slug: string | number } } | [notice: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -128,7 +128,7 @@ show.get = (args: { notice: string | { slug: string } } | [notice: string | { sl
  * @see routes/web.php:333
  * @route '/notices/{notice}'
  */
-show.head = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { notice: string | number | { slug: string | number } } | [notice: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -137,7 +137,7 @@ show.head = (args: { notice: string | { slug: string } } | [notice: string | { s
  * @see routes/web.php:333
  * @route '/notices/{notice}'
  */
-    const showForm = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { notice: string | number | { slug: string | number } } | [notice: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -146,7 +146,7 @@ show.head = (args: { notice: string | { slug: string } } | [notice: string | { s
  * @see routes/web.php:333
  * @route '/notices/{notice}'
  */
-        showForm.get = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { notice: string | number | { slug: string | number } } | [notice: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -154,7 +154,7 @@ show.head = (args: { notice: string | { slug: string } } | [notice: string | { s
  * @see routes/web.php:333
  * @route '/notices/{notice}'
  */
-        showForm.head = (args: { notice: string | { slug: string } } | [notice: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { notice: string | number | { slug: string | number } } | [notice: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

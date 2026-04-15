@@ -74,7 +74,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
  * @see routes/web.php:701
  * @route '/eoi-rfp/{eoi_rfp}'
  */
-export const show = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { eoi_rfp: string | number | { slug: string | number } } | [eoi_rfp: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -88,7 +88,7 @@ show.definition = {
  * @see routes/web.php:701
  * @route '/eoi-rfp/{eoi_rfp}'
  */
-show.url = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
+show.url = (args: { eoi_rfp: string | number | { slug: string | number } } | [eoi_rfp: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { eoi_rfp: args }
     }
@@ -120,7 +120,7 @@ show.url = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { 
  * @see routes/web.php:701
  * @route '/eoi-rfp/{eoi_rfp}'
  */
-show.get = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { eoi_rfp: string | number | { slug: string | number } } | [eoi_rfp: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -128,7 +128,7 @@ show.get = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { 
  * @see routes/web.php:701
  * @route '/eoi-rfp/{eoi_rfp}'
  */
-show.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { eoi_rfp: string | number | { slug: string | number } } | [eoi_rfp: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -137,7 +137,7 @@ show.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | {
  * @see routes/web.php:701
  * @route '/eoi-rfp/{eoi_rfp}'
  */
-    const showForm = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { eoi_rfp: string | number | { slug: string | number } } | [eoi_rfp: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -146,7 +146,7 @@ show.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | {
  * @see routes/web.php:701
  * @route '/eoi-rfp/{eoi_rfp}'
  */
-        showForm.get = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { eoi_rfp: string | number | { slug: string | number } } | [eoi_rfp: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -154,7 +154,7 @@ show.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | {
  * @see routes/web.php:701
  * @route '/eoi-rfp/{eoi_rfp}'
  */
-        showForm.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { eoi_rfp: string | number | { slug: string | number } } | [eoi_rfp: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

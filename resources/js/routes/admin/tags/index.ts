@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/TagController.php:49
  * @route '/admin/tags/{tag}/edit'
  */
-export const edit = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/TagController.php:49
  * @route '/admin/tags/{tag}/edit'
  */
-edit.url = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { tag: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { tag: number | { id: number } } | [tag: number | { id: number
  * @see app/Http/Controllers/Admin/TagController.php:49
  * @route '/admin/tags/{tag}/edit'
  */
-edit.get = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { tag: number | { id: number } } | [tag: number | { id: number
  * @see app/Http/Controllers/Admin/TagController.php:49
  * @route '/admin/tags/{tag}/edit'
  */
-edit.head = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { tag: number | { id: number } } | [tag: number | { id: numbe
  * @see app/Http/Controllers/Admin/TagController.php:49
  * @route '/admin/tags/{tag}/edit'
  */
-    const editForm = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { tag: number | { id: number } } | [tag: number | { id: numbe
  * @see app/Http/Controllers/Admin/TagController.php:49
  * @route '/admin/tags/{tag}/edit'
  */
-        editForm.get = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { tag: number | { id: number } } | [tag: number | { id: numbe
  * @see app/Http/Controllers/Admin/TagController.php:49
  * @route '/admin/tags/{tag}/edit'
  */
-        editForm.head = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { tag: number | { id: number } } | [tag: number | { id: numbe
  * @see app/Http/Controllers/Admin/TagController.php:62
  * @route '/admin/tags/{tag}'
  */
-export const update = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/TagController.php:62
  * @route '/admin/tags/{tag}'
  */
-update.url = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { tag: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { tag: number | { id: number } } | [tag: number | { id: numb
  * @see app/Http/Controllers/Admin/TagController.php:62
  * @route '/admin/tags/{tag}'
  */
-update.put = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { tag: number | { id: number } } | [tag: number | { id: numb
  * @see app/Http/Controllers/Admin/TagController.php:62
  * @route '/admin/tags/{tag}'
  */
-update.patch = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { tag: number | { id: number } } | [tag: number | { id: nu
  * @see app/Http/Controllers/Admin/TagController.php:62
  * @route '/admin/tags/{tag}'
  */
-    const updateForm = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { tag: number | { id: number } } | [tag: number | { id: nu
  * @see app/Http/Controllers/Admin/TagController.php:62
  * @route '/admin/tags/{tag}'
  */
-        updateForm.put = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { tag: number | { id: number } } | [tag: number | { id: nu
  * @see app/Http/Controllers/Admin/TagController.php:62
  * @route '/admin/tags/{tag}'
  */
-        updateForm.patch = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { tag: number | { id: number } } | [tag: number | { id: nu
  * @see app/Http/Controllers/Admin/TagController.php:70
  * @route '/admin/tags/{tag}'
  */
-export const destroy = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/TagController.php:70
  * @route '/admin/tags/{tag}'
  */
-destroy.url = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { tag: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { tag: number | { id: number } } | [tag: number | { id: num
  * @see app/Http/Controllers/Admin/TagController.php:70
  * @route '/admin/tags/{tag}'
  */
-destroy.delete = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { tag: number | { id: number } } | [tag: number | { id: 
  * @see app/Http/Controllers/Admin/TagController.php:70
  * @route '/admin/tags/{tag}'
  */
-    const destroyForm = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { tag: number | { id: number } } | [tag: number | { id: 
  * @see app/Http/Controllers/Admin/TagController.php:70
  * @route '/admin/tags/{tag}'
  */
-        destroyForm.delete = (args: { tag: number | { id: number } } | [tag: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { tag: string | number | { id: string | number } } | [tag: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

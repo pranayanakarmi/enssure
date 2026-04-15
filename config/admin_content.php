@@ -80,6 +80,7 @@ return [
         'media',
         'email_templates',
         'redirects',
+        'important_popups',
     ],
 
     /*
@@ -112,29 +113,28 @@ return [
             'permission_resource' => 'menus',
         ],
         [
-    'title' => 'Home Page',
-    'href' => 'admin.home',           // new route
-    'icon' => 'Home',
-    'permission_resource' => 'home',    // parent doesn't need its own permission
-    // 'children' => [
-    //     ['title' => 'News Ticker', 'href' => 'admin.news_ticker_items.index', 'permission_resource' => 'news_ticker_items'],
-    //     ['title' => 'Sliders', 'href' => 'admin.sliders.index', 'permission_resource' => 'sliders'],
-    //     ['title' => 'Our Impact & Milestones', 'href' => 'admin.home_reach_sections.edit', 'permission_resource' => 'home_reach_sections'],
-    //     ['title' => 'About section', 'href' => 'admin.home_about_sections.edit', 'permission_resource' => 'home_about_sections'],
-    //     ['title' => 'Gallery section', 'href' => 'admin.home_gallery_sections.edit', 'permission_resource' => 'home_gallery_sections'],
-    //     ['title' => 'Impact Stories section', 'href' => 'admin.home_impact_stories_sections.edit', 'permission_resource' => 'home_impact_stories_sections'],
-    //     ['title' => 'Coverage section', 'href' => 'admin.home_coverage_sections.edit', 'permission_resource' => 'home_coverage_sections'],
-    //     ['title' => 'News section', 'href' => 'admin.home_news_sections.edit', 'permission_resource' => 'home_news_sections'],
-    //     ['title' => 'Videos', 'href' => 'admin.videos.index', 'permission_resource' => 'videos'],
-    //     ['title' => 'Testimonials', 'href' => 'admin.testimonials.index', 'permission_resource' => 'testimonials'],
-    //     ['title' => 'Testimonials section', 'href' => 'admin.home_testimonials_sections.edit', 'permission_resource' => 'home_testimonials_sections'],
-    //     ['title' => 'Partners', 'href' => 'admin.partners.index', 'permission_resource' => 'partners'],
-    //     ['title' => 'Partners section', 'href' => 'admin.home_partners_sections.edit', 'permission_resource' => 'home_partners_sections'],
-    //     ['title' => 'Support section', 'href' => 'admin.home_support_sections.edit', 'permission_resource' => 'home_support_sections'],
-    //     ['title' => 'Contact CTA section', 'href' => 'admin.home_contact_cta_sections.edit', 'permission_resource' => 'home_contact_cta_sections'],
-    // ],
-],
-
+            'title' => 'Home Page',
+            'href' => 'admin.home',           // new route
+            'icon' => 'Home',
+            'permission_resource' => 'home',    // parent doesn't need its own permission
+            // 'children' => [
+            //     ['title' => 'News Ticker', 'href' => 'admin.news_ticker_items.index', 'permission_resource' => 'news_ticker_items'],
+            //     ['title' => 'Sliders', 'href' => 'admin.sliders.index', 'permission_resource' => 'sliders'],
+            //     ['title' => 'Our Impact & Milestones', 'href' => 'admin.home_reach_sections.edit', 'permission_resource' => 'home_reach_sections'],
+            //     ['title' => 'About section', 'href' => 'admin.home_about_sections.edit', 'permission_resource' => 'home_about_sections'],
+            //     ['title' => 'Gallery section', 'href' => 'admin.home_gallery_sections.edit', 'permission_resource' => 'home_gallery_sections'],
+            //     ['title' => 'Impact Stories section', 'href' => 'admin.home_impact_stories_sections.edit', 'permission_resource' => 'home_impact_stories_sections'],
+            //     ['title' => 'Coverage section', 'href' => 'admin.home_coverage_sections.edit', 'permission_resource' => 'home_coverage_sections'],
+            //     ['title' => 'News section', 'href' => 'admin.home_news_sections.edit', 'permission_resource' => 'home_news_sections'],
+            //     ['title' => 'Videos', 'href' => 'admin.videos.index', 'permission_resource' => 'videos'],
+            //     ['title' => 'Testimonials', 'href' => 'admin.testimonials.index', 'permission_resource' => 'testimonials'],
+            //     ['title' => 'Testimonials section', 'href' => 'admin.home_testimonials_sections.edit', 'permission_resource' => 'home_testimonials_sections'],
+            //     ['title' => 'Partners', 'href' => 'admin.partners.index', 'permission_resource' => 'partners'],
+            //     ['title' => 'Partners section', 'href' => 'admin.home_partners_sections.edit', 'permission_resource' => 'home_partners_sections'],
+            //     ['title' => 'Support section', 'href' => 'admin.home_support_sections.edit', 'permission_resource' => 'home_support_sections'],
+            //     ['title' => 'Contact CTA section', 'href' => 'admin.home_contact_cta_sections.edit', 'permission_resource' => 'home_contact_cta_sections'],
+            // ],
+        ],
 
         [
             'title' => 'Gallery Page',
@@ -169,11 +169,11 @@ return [
             // ],
         ],
         [
-        'title' => 'Infographics',
-        'href' => 'admin.infographics.dashboard',   // absolute URL
-        'icon' => 'FileText',
-    'permission_resource' => 'infographics',
-],
+            'title' => 'Infographics',
+            'href' => 'admin.infographics.dashboard',   // absolute URL
+            'icon' => 'FileText',
+            'permission_resource' => 'infographics',
+        ],
         [
             'title' => 'Impact Stories Page',
             'href' => 'admin.impact-stories-page',
@@ -186,11 +186,18 @@ return [
             // ],
         ],
 
-         [
+        [
             'title' => 'News and Articles',
             'href' => 'admin.notices.index',
             'icon' => 'Newspaper',
             'permission_resource' => 'notices',
+        ],
+
+        [
+            'title' => 'Important Popup',
+            'href' => 'admin.important_popups.index',
+            'icon' => 'BellRing',
+            'permission_resource' => 'important_popups',
         ],
 
         [
@@ -200,7 +207,7 @@ return [
             'permission_resource' => 'documents',
         ],
 
-         [
+        [
             'title' => 'Vacancies',
             'href' => 'admin.vacancies.index',
             'icon' => 'Briefcase',
@@ -223,24 +230,24 @@ return [
         //     ],
         // ],
 
-    [
-    'title' => 'EOI-RFP',
-    'href' => 'admin.eoi-rfp.dashboard',
-    'icon' => 'FileText',
-    'permission_resource' => 'eoi_rfp',
-],
-// [
-//     'title' => 'RFP',
-//     'href' => 'admin.eoi-rfp.index',
-//     'icon' => 'FileText',
-//     'permission_resource' => 'eoi_rfp',
-// ],
-// [
-//     'title' => 'RFP Hero',
-//     'href' => 'admin.eoi-rfp.hero',
-//     'icon' => 'Image',
-//     'permission_resource' => 'eoi_rfp',
-// ],
+        [
+            'title' => 'EOI-RFP',
+            'href' => 'admin.eoi-rfp.dashboard',
+            'icon' => 'FileText',
+            'permission_resource' => 'eoi_rfp',
+        ],
+        // [
+        //     'title' => 'RFP',
+        //     'href' => 'admin.eoi-rfp.index',
+        //     'icon' => 'FileText',
+        //     'permission_resource' => 'eoi_rfp',
+        // ],
+        // [
+        //     'title' => 'RFP Hero',
+        //     'href' => 'admin.eoi-rfp.hero',
+        //     'icon' => 'Image',
+        //     'permission_resource' => 'eoi_rfp',
+        // ],
         [
             'title' => 'Pages',
             'href' => 'admin.pages-page',
@@ -252,7 +259,6 @@ return [
             // ],
         ],
 
-
         // [
         //     'title' => 'Vacancies',
         //     'icon' => 'Briefcase',
@@ -262,18 +268,18 @@ return [
         //         ['title' => 'Applications', 'href' => 'admin.vacancy_applications.index', 'permission_resource' => 'vacancy_applications'],
         //     ],
         // ],
-            [
-                'title' => 'Contact us',
-                'href' => 'admin.contact-page',
-                'icon' => 'Mail',
-                'permission_resource' => null,
-                // 'children' => [
-                //     ['title' => 'Contact Us page', 'href' => 'admin.contact_feedback_content.edit', 'permission_resource' => 'contact_feedback_content'],
-                //     ['title' => 'Feedback submissions', 'href' => 'admin.feedback.index', 'permission_resource' => 'feedback'],
-                // ],
-            ],
+        [
+            'title' => 'Contact us',
+            'href' => 'admin.contact-page',
+            'icon' => 'Mail',
+            'permission_resource' => null,
+            // 'children' => [
+            //     ['title' => 'Contact Us page', 'href' => 'admin.contact_feedback_content.edit', 'permission_resource' => 'contact_feedback_content'],
+            //     ['title' => 'Feedback submissions', 'href' => 'admin.feedback.index', 'permission_resource' => 'feedback'],
+            // ],
+        ],
 
-            ['title' => 'Footer columns', 'href' => 'admin.footer-columns.index', 'permission_resource' => 'footer_columns'],
+        ['title' => 'Footer columns', 'href' => 'admin.footer-columns.index', 'permission_resource' => 'footer_columns'],
         // [
         //     'title' => 'Footer',
         //     'icon' => 'PanelBottom',

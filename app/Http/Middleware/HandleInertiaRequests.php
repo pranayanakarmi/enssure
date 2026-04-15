@@ -4,12 +4,14 @@ namespace App\Http\Middleware;
 
 use App\Models\FooterColumn;
 use App\Models\HomeNewsSection;
+use App\Models\ImportantPopup;
 use App\Models\Menu;
 use App\Models\Notice;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -95,11 +97,41 @@ class HandleInertiaRequests extends Middleware
                 ];
             },
             'newsTickerItems' => fn () => self::newsTickerItemsFromHomeNotices(),
+            'importantNotice' => fn () => self::importantNoticeForModal(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
             ],
+        ];
+    }
+
+    /**
+     * Resolve featured notice data for the global guest modal.
+     *
+     * @return array{id: int, title: string, description: string|null, image_url: string|null, cta_text: string, cta_url: string}|null
+     */
+    protected static function importantNoticeForModal(): ?array
+    {
+        $popup = ImportantPopup::query()
+            ->where('is_active', true)
+            ->latest('updated_at')
+            ->latest('id')
+            ->first();
+
+        if (! $popup) {
+            return null;
+        }
+
+        return [
+            'id' => $popup->id,
+            'title' => $popup->title,
+            'description' => $popup->description
+                ? Str::of(strip_tags($popup->description))->squish()->limit(220)->toString()
+                : null,
+            'image_url' => $popup->image ? Storage::disk('public')->url($popup->image) : null,
+            'cta_text' => $popup->cta_text ?: 'Learn More',
+            'cta_url' => $popup->cta_url,
         ];
     }
 

@@ -59,7 +59,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:34
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}/edit'
  */
-export const edit = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -74,7 +74,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:34
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}/edit'
  */
-edit.url = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { home_coverage_section_item: args }
     }
@@ -107,7 +107,7 @@ edit.url = (args: { home_coverage_section_item: number | { id: number } } | [hom
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:34
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}/edit'
  */
-edit.get = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -116,7 +116,7 @@ edit.get = (args: { home_coverage_section_item: number | { id: number } } | [hom
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:34
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}/edit'
  */
-edit.head = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -126,7 +126,7 @@ edit.head = (args: { home_coverage_section_item: number | { id: number } } | [ho
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:34
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}/edit'
  */
-    const editForm = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -136,7 +136,7 @@ edit.head = (args: { home_coverage_section_item: number | { id: number } } | [ho
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:34
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}/edit'
  */
-        editForm.get = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -145,7 +145,7 @@ edit.head = (args: { home_coverage_section_item: number | { id: number } } | [ho
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:34
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}/edit'
  */
-        editForm.head = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -161,7 +161,7 @@ edit.head = (args: { home_coverage_section_item: number | { id: number } } | [ho
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:54
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-export const update = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -176,7 +176,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:54
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-update.url = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { home_coverage_section_item: args }
     }
@@ -209,7 +209,7 @@ update.url = (args: { home_coverage_section_item: number | { id: number } } | [h
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:54
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-update.put = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -219,7 +219,7 @@ update.put = (args: { home_coverage_section_item: number | { id: number } } | [h
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:54
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-    const updateForm = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -234,7 +234,7 @@ update.put = (args: { home_coverage_section_item: number | { id: number } } | [h
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:54
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-        updateForm.put = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -250,7 +250,7 @@ update.put = (args: { home_coverage_section_item: number | { id: number } } | [h
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:71
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-export const destroy = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -265,7 +265,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:71
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-destroy.url = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { home_coverage_section_item: args }
     }
@@ -298,7 +298,7 @@ destroy.url = (args: { home_coverage_section_item: number | { id: number } } | [
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:71
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-destroy.delete = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -308,7 +308,7 @@ destroy.delete = (args: { home_coverage_section_item: number | { id: number } } 
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:71
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-    const destroyForm = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -323,7 +323,7 @@ destroy.delete = (args: { home_coverage_section_item: number | { id: number } } 
  * @see app/Http/Controllers/Admin/HomeCoverageSectionItemController.php:71
  * @route '/admin/home-coverage-section-items/{home_coverage_section_item}'
  */
-        destroyForm.delete = (args: { home_coverage_section_item: number | { id: number } } | [home_coverage_section_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { home_coverage_section_item: string | number | { id: string | number } } | [home_coverage_section_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

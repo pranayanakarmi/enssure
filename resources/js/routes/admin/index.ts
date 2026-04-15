@@ -18,6 +18,7 @@ import categories from './categories'
 import tags from './tags'
 import pages from './pages'
 import notices from './notices'
+import important_popups from './important_popups'
 import vacancies from './vacancies'
 import vacancy_applications from './vacancy_applications'
 import menus from './menus'
@@ -649,7 +650,7 @@ systemPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     systemPage.form = systemPageForm
 /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:88
  * @route '/admin'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -663,7 +664,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:88
  * @route '/admin'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -671,7 +672,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:88
  * @route '/admin'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -679,7 +680,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:88
  * @route '/admin'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -688,7 +689,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:88
  * @route '/admin'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -697,7 +698,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:88
  * @route '/admin'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -705,7 +706,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:88
  * @route '/admin'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -748,6 +749,7 @@ categories: Object.assign(categories, categories),
 tags: Object.assign(tags, tags),
 pages: Object.assign(pages, pages),
 notices: Object.assign(notices, notices),
+important_popups: Object.assign(important_popups, important_popups),
 vacancies: Object.assign(vacancies, vacancies),
 vacancy_applications: Object.assign(vacancy_applications, vacancy_applications),
 menus: Object.assign(menus, menus),

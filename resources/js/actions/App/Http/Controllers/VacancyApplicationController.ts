@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/VacancyApplicationController.php:12
  * @route '/vacancy/{vacancy}/apply'
  */
-export const store = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ store.definition = {
  * @see app/Http/Controllers/VacancyApplicationController.php:12
  * @route '/vacancy/{vacancy}/apply'
  */
-store.url = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
+store.url = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { vacancy: args }
     }
@@ -52,7 +52,7 @@ store.url = (args: { vacancy: string | { slug: string } } | [vacancy: string | {
  * @see app/Http/Controllers/VacancyApplicationController.php:12
  * @route '/vacancy/{vacancy}/apply'
  */
-store.post = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -62,7 +62,7 @@ store.post = (args: { vacancy: string | { slug: string } } | [vacancy: string | 
  * @see app/Http/Controllers/VacancyApplicationController.php:12
  * @route '/vacancy/{vacancy}/apply'
  */
-    const storeForm = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const storeForm = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: store.url(args, options),
         method: 'post',
     })
@@ -72,7 +72,7 @@ store.post = (args: { vacancy: string | { slug: string } } | [vacancy: string | 
  * @see app/Http/Controllers/VacancyApplicationController.php:12
  * @route '/vacancy/{vacancy}/apply'
  */
-        storeForm.post = (args: { vacancy: string | { slug: string } } | [vacancy: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        storeForm.post = (args: { vacancy: string | number | { slug: string | number } } | [vacancy: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: store.url(args, options),
             method: 'post',
         })

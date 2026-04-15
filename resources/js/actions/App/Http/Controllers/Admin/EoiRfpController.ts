@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/EoiRfpController.php:81
  * @route '/admin/eoi-rfp/{eoi_rfp}/edit'
  */
-export const edit = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/EoiRfpController.php:81
  * @route '/admin/eoi-rfp/{eoi_rfp}/edit'
  */
-edit.url = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { eoi_rfp: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id
  * @see app/Http/Controllers/Admin/EoiRfpController.php:81
  * @route '/admin/eoi-rfp/{eoi_rfp}/edit'
  */
-edit.get = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id
  * @see app/Http/Controllers/Admin/EoiRfpController.php:81
  * @route '/admin/eoi-rfp/{eoi_rfp}/edit'
  */
-edit.head = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { i
  * @see app/Http/Controllers/Admin/EoiRfpController.php:81
  * @route '/admin/eoi-rfp/{eoi_rfp}/edit'
  */
-    const editForm = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { i
  * @see app/Http/Controllers/Admin/EoiRfpController.php:81
  * @route '/admin/eoi-rfp/{eoi_rfp}/edit'
  */
-        editForm.get = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { i
  * @see app/Http/Controllers/Admin/EoiRfpController.php:81
  * @route '/admin/eoi-rfp/{eoi_rfp}/edit'
  */
-        editForm.head = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { i
  * @see app/Http/Controllers/Admin/EoiRfpController.php:90
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-export const update = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/EoiRfpController.php:90
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-update.url = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { eoi_rfp: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { 
  * @see app/Http/Controllers/Admin/EoiRfpController.php:90
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-update.put = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { 
  * @see app/Http/Controllers/Admin/EoiRfpController.php:90
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-update.patch = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | 
  * @see app/Http/Controllers/Admin/EoiRfpController.php:90
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-    const updateForm = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | 
  * @see app/Http/Controllers/Admin/EoiRfpController.php:90
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-        updateForm.put = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | 
  * @see app/Http/Controllers/Admin/EoiRfpController.php:90
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-        updateForm.patch = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | 
  * @see app/Http/Controllers/Admin/EoiRfpController.php:140
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-export const destroy = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/EoiRfpController.php:140
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-destroy.url = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { eoi_rfp: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | {
  * @see app/Http/Controllers/Admin/EoiRfpController.php:140
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-destroy.delete = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number 
  * @see app/Http/Controllers/Admin/EoiRfpController.php:140
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-    const destroyForm = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number 
  * @see app/Http/Controllers/Admin/EoiRfpController.php:140
  * @route '/admin/eoi-rfp/{eoi_rfp}'
  */
-        destroyForm.delete = (args: { eoi_rfp: number | { id: number } } | [eoi_rfp: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { eoi_rfp: string | number | { id: string | number } } | [eoi_rfp: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

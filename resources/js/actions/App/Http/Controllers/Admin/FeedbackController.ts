@@ -82,7 +82,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
  * @see app/Http/Controllers/Admin/FeedbackController.php:33
  * @route '/admin/feedback/{feedback}'
  */
-export const show = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -97,7 +97,7 @@ show.definition = {
  * @see app/Http/Controllers/Admin/FeedbackController.php:33
  * @route '/admin/feedback/{feedback}'
  */
-show.url = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+show.url = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { feedback: args }
     }
@@ -130,7 +130,7 @@ show.url = (args: { feedback: number | { id: number } } | [feedback: number | { 
  * @see app/Http/Controllers/Admin/FeedbackController.php:33
  * @route '/admin/feedback/{feedback}'
  */
-show.get = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -139,7 +139,7 @@ show.get = (args: { feedback: number | { id: number } } | [feedback: number | { 
  * @see app/Http/Controllers/Admin/FeedbackController.php:33
  * @route '/admin/feedback/{feedback}'
  */
-show.head = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -149,7 +149,7 @@ show.head = (args: { feedback: number | { id: number } } | [feedback: number | {
  * @see app/Http/Controllers/Admin/FeedbackController.php:33
  * @route '/admin/feedback/{feedback}'
  */
-    const showForm = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -159,7 +159,7 @@ show.head = (args: { feedback: number | { id: number } } | [feedback: number | {
  * @see app/Http/Controllers/Admin/FeedbackController.php:33
  * @route '/admin/feedback/{feedback}'
  */
-        showForm.get = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -168,7 +168,7 @@ show.head = (args: { feedback: number | { id: number } } | [feedback: number | {
  * @see app/Http/Controllers/Admin/FeedbackController.php:33
  * @route '/admin/feedback/{feedback}'
  */
-        showForm.head = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -184,7 +184,7 @@ show.head = (args: { feedback: number | { id: number } } | [feedback: number | {
  * @see app/Http/Controllers/Admin/FeedbackController.php:51
  * @route '/admin/feedback/{feedback}'
  */
-export const destroy = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -199,7 +199,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/FeedbackController.php:51
  * @route '/admin/feedback/{feedback}'
  */
-destroy.url = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { feedback: args }
     }
@@ -232,7 +232,7 @@ destroy.url = (args: { feedback: number | { id: number } } | [feedback: number |
  * @see app/Http/Controllers/Admin/FeedbackController.php:51
  * @route '/admin/feedback/{feedback}'
  */
-destroy.delete = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -242,7 +242,7 @@ destroy.delete = (args: { feedback: number | { id: number } } | [feedback: numbe
  * @see app/Http/Controllers/Admin/FeedbackController.php:51
  * @route '/admin/feedback/{feedback}'
  */
-    const destroyForm = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -257,7 +257,7 @@ destroy.delete = (args: { feedback: number | { id: number } } | [feedback: numbe
  * @see app/Http/Controllers/Admin/FeedbackController.php:51
  * @route '/admin/feedback/{feedback}'
  */
-        destroyForm.delete = (args: { feedback: number | { id: number } } | [feedback: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { feedback: string | number | { id: string | number } } | [feedback: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

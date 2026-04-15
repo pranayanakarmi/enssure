@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/ProvinceController.php:51
  * @route '/admin/provinces/{province}/edit'
  */
-export const edit = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/ProvinceController.php:51
  * @route '/admin/provinces/{province}/edit'
  */
-edit.url = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { province: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { province: number | { id: number } } | [province: number | { 
  * @see app/Http/Controllers/Admin/ProvinceController.php:51
  * @route '/admin/provinces/{province}/edit'
  */
-edit.get = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { province: number | { id: number } } | [province: number | { 
  * @see app/Http/Controllers/Admin/ProvinceController.php:51
  * @route '/admin/provinces/{province}/edit'
  */
-edit.head = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { province: number | { id: number } } | [province: number | {
  * @see app/Http/Controllers/Admin/ProvinceController.php:51
  * @route '/admin/provinces/{province}/edit'
  */
-    const editForm = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { province: number | { id: number } } | [province: number | {
  * @see app/Http/Controllers/Admin/ProvinceController.php:51
  * @route '/admin/provinces/{province}/edit'
  */
-        editForm.get = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { province: number | { id: number } } | [province: number | {
  * @see app/Http/Controllers/Admin/ProvinceController.php:51
  * @route '/admin/provinces/{province}/edit'
  */
-        editForm.head = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { province: number | { id: number } } | [province: number | {
  * @see app/Http/Controllers/Admin/ProvinceController.php:68
  * @route '/admin/provinces/{province}'
  */
-export const update = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/ProvinceController.php:68
  * @route '/admin/provinces/{province}'
  */
-update.url = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { province: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { province: number | { id: number } } | [province: number | 
  * @see app/Http/Controllers/Admin/ProvinceController.php:68
  * @route '/admin/provinces/{province}'
  */
-update.put = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { province: number | { id: number } } | [province: number | 
  * @see app/Http/Controllers/Admin/ProvinceController.php:68
  * @route '/admin/provinces/{province}'
  */
-update.patch = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { province: number | { id: number } } | [province: number 
  * @see app/Http/Controllers/Admin/ProvinceController.php:68
  * @route '/admin/provinces/{province}'
  */
-    const updateForm = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { province: number | { id: number } } | [province: number 
  * @see app/Http/Controllers/Admin/ProvinceController.php:68
  * @route '/admin/provinces/{province}'
  */
-        updateForm.put = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { province: number | { id: number } } | [province: number 
  * @see app/Http/Controllers/Admin/ProvinceController.php:68
  * @route '/admin/provinces/{province}'
  */
-        updateForm.patch = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { province: number | { id: number } } | [province: number 
  * @see app/Http/Controllers/Admin/ProvinceController.php:76
  * @route '/admin/provinces/{province}'
  */
-export const destroy = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/ProvinceController.php:76
  * @route '/admin/provinces/{province}'
  */
-destroy.url = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { province: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { province: number | { id: number } } | [province: number |
  * @see app/Http/Controllers/Admin/ProvinceController.php:76
  * @route '/admin/provinces/{province}'
  */
-destroy.delete = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { province: number | { id: number } } | [province: numbe
  * @see app/Http/Controllers/Admin/ProvinceController.php:76
  * @route '/admin/provinces/{province}'
  */
-    const destroyForm = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { province: number | { id: number } } | [province: numbe
  * @see app/Http/Controllers/Admin/ProvinceController.php:76
  * @route '/admin/provinces/{province}'
  */
-        destroyForm.delete = (args: { province: number | { id: number } } | [province: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { province: string | number | { id: string | number } } | [province: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

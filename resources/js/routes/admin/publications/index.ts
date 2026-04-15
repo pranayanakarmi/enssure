@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/PublicationController.php:51
  * @route '/admin/publications/{publication}/edit'
  */
-export const edit = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/PublicationController.php:51
  * @route '/admin/publications/{publication}/edit'
  */
-edit.url = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { publication: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { publication: number | { id: number } } | [publication: numbe
  * @see app/Http/Controllers/Admin/PublicationController.php:51
  * @route '/admin/publications/{publication}/edit'
  */
-edit.get = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { publication: number | { id: number } } | [publication: numbe
  * @see app/Http/Controllers/Admin/PublicationController.php:51
  * @route '/admin/publications/{publication}/edit'
  */
-edit.head = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { publication: number | { id: number } } | [publication: numb
  * @see app/Http/Controllers/Admin/PublicationController.php:51
  * @route '/admin/publications/{publication}/edit'
  */
-    const editForm = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { publication: number | { id: number } } | [publication: numb
  * @see app/Http/Controllers/Admin/PublicationController.php:51
  * @route '/admin/publications/{publication}/edit'
  */
-        editForm.get = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { publication: number | { id: number } } | [publication: numb
  * @see app/Http/Controllers/Admin/PublicationController.php:51
  * @route '/admin/publications/{publication}/edit'
  */
-        editForm.head = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { publication: number | { id: number } } | [publication: numb
  * @see app/Http/Controllers/Admin/PublicationController.php:75
  * @route '/admin/publications/{publication}'
  */
-export const update = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/PublicationController.php:75
  * @route '/admin/publications/{publication}'
  */
-update.url = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { publication: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { publication: number | { id: number } } | [publication: num
  * @see app/Http/Controllers/Admin/PublicationController.php:75
  * @route '/admin/publications/{publication}'
  */
-update.put = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { publication: number | { id: number } } | [publication: num
  * @see app/Http/Controllers/Admin/PublicationController.php:75
  * @route '/admin/publications/{publication}'
  */
-update.patch = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { publication: number | { id: number } } | [publication: n
  * @see app/Http/Controllers/Admin/PublicationController.php:75
  * @route '/admin/publications/{publication}'
  */
-    const updateForm = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { publication: number | { id: number } } | [publication: n
  * @see app/Http/Controllers/Admin/PublicationController.php:75
  * @route '/admin/publications/{publication}'
  */
-        updateForm.put = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { publication: number | { id: number } } | [publication: n
  * @see app/Http/Controllers/Admin/PublicationController.php:75
  * @route '/admin/publications/{publication}'
  */
-        updateForm.patch = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { publication: number | { id: number } } | [publication: n
  * @see app/Http/Controllers/Admin/PublicationController.php:83
  * @route '/admin/publications/{publication}'
  */
-export const destroy = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/PublicationController.php:83
  * @route '/admin/publications/{publication}'
  */
-destroy.url = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { publication: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { publication: number | { id: number } } | [publication: nu
  * @see app/Http/Controllers/Admin/PublicationController.php:83
  * @route '/admin/publications/{publication}'
  */
-destroy.delete = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { publication: number | { id: number } } | [publication:
  * @see app/Http/Controllers/Admin/PublicationController.php:83
  * @route '/admin/publications/{publication}'
  */
-    const destroyForm = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { publication: number | { id: number } } | [publication:
  * @see app/Http/Controllers/Admin/PublicationController.php:83
  * @route '/admin/publications/{publication}'
  */
-        destroyForm.delete = (args: { publication: number | { id: number } } | [publication: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { publication: string | number | { id: string | number } } | [publication: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

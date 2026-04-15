@@ -19,6 +19,7 @@ import TagController from './TagController'
 import PageHeroController from './PageHeroController'
 import PageController from './PageController'
 import NoticeController from './NoticeController'
+import ImportantPopupController from './ImportantPopupController'
 import VacancyController from './VacancyController'
 import VacancyApplicationController from './VacancyApplicationController'
 import MenuController from './MenuController'
@@ -97,6 +98,7 @@ TagController: Object.assign(TagController, TagController),
 PageHeroController: Object.assign(PageHeroController, PageHeroController),
 PageController: Object.assign(PageController, PageController),
 NoticeController: Object.assign(NoticeController, NoticeController),
+ImportantPopupController: Object.assign(ImportantPopupController, ImportantPopupController),
 VacancyController: Object.assign(VacancyController, VacancyController),
 VacancyApplicationController: Object.assign(VacancyApplicationController, VacancyApplicationController),
 MenuController: Object.assign(MenuController, MenuController),

@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:51
  * @route '/admin/email_templates/{email_template}/edit'
  */
-export const edit = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:51
  * @route '/admin/email_templates/{email_template}/edit'
  */
-edit.url = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { email_template: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { email_template: number | { id: number } } | [email_template:
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:51
  * @route '/admin/email_templates/{email_template}/edit'
  */
-edit.get = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { email_template: number | { id: number } } | [email_template:
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:51
  * @route '/admin/email_templates/{email_template}/edit'
  */
-edit.head = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { email_template: number | { id: number } } | [email_template
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:51
  * @route '/admin/email_templates/{email_template}/edit'
  */
-    const editForm = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { email_template: number | { id: number } } | [email_template
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:51
  * @route '/admin/email_templates/{email_template}/edit'
  */
-        editForm.get = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { email_template: number | { id: number } } | [email_template
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:51
  * @route '/admin/email_templates/{email_template}/edit'
  */
-        editForm.head = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { email_template: number | { id: number } } | [email_template
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:71
  * @route '/admin/email_templates/{email_template}'
  */
-export const update = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:71
  * @route '/admin/email_templates/{email_template}'
  */
-update.url = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { email_template: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { email_template: number | { id: number } } | [email_templat
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:71
  * @route '/admin/email_templates/{email_template}'
  */
-update.put = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { email_template: number | { id: number } } | [email_templat
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:71
  * @route '/admin/email_templates/{email_template}'
  */
-update.patch = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { email_template: number | { id: number } } | [email_templ
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:71
  * @route '/admin/email_templates/{email_template}'
  */
-    const updateForm = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { email_template: number | { id: number } } | [email_templ
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:71
  * @route '/admin/email_templates/{email_template}'
  */
-        updateForm.put = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { email_template: number | { id: number } } | [email_templ
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:71
  * @route '/admin/email_templates/{email_template}'
  */
-        updateForm.patch = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { email_template: number | { id: number } } | [email_templ
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:79
  * @route '/admin/email_templates/{email_template}'
  */
-export const destroy = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:79
  * @route '/admin/email_templates/{email_template}'
  */
-destroy.url = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { email_template: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { email_template: number | { id: number } } | [email_templa
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:79
  * @route '/admin/email_templates/{email_template}'
  */
-destroy.delete = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { email_template: number | { id: number } } | [email_tem
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:79
  * @route '/admin/email_templates/{email_template}'
  */
-    const destroyForm = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { email_template: number | { id: number } } | [email_tem
  * @see app/Http/Controllers/Admin/EmailTemplateController.php:79
  * @route '/admin/email_templates/{email_template}'
  */
-        destroyForm.delete = (args: { email_template: number | { id: number } } | [email_template: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { email_template: string | number | { id: string | number } } | [email_template: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

@@ -215,7 +215,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
  * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
  */
-export const edit = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const edit = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -230,7 +230,7 @@ edit.definition = {
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
  * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
  */
-edit.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+edit.url = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { news_ticker_item: args }
     }
@@ -263,7 +263,7 @@ edit.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker_i
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
  * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
  */
-edit.get = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+edit.get = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
@@ -272,7 +272,7 @@ edit.get = (args: { news_ticker_item: number | { id: number } } | [news_ticker_i
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
  * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
  */
-edit.head = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+edit.head = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
@@ -282,7 +282,7 @@ edit.head = (args: { news_ticker_item: number | { id: number } } | [news_ticker_
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
  * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
  */
-    const editForm = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const editForm = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(args, options),
         method: 'get',
     })
@@ -292,7 +292,7 @@ edit.head = (args: { news_ticker_item: number | { id: number } } | [news_ticker_
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
  * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
  */
-        editForm.get = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.get = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, options),
             method: 'get',
         })
@@ -301,7 +301,7 @@ edit.head = (args: { news_ticker_item: number | { id: number } } | [news_ticker_
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:66
  * @route '/admin/news_ticker_items/{news_ticker_item}/edit'
  */
-        editForm.head = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        editForm.head = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -317,7 +317,7 @@ edit.head = (args: { news_ticker_item: number | { id: number } } | [news_ticker_
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-export const update = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -332,7 +332,7 @@ update.definition = {
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-update.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { news_ticker_item: args }
     }
@@ -365,7 +365,7 @@ update.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-update.put = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -374,7 +374,7 @@ update.put = (args: { news_ticker_item: number | { id: number } } | [news_ticker
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-update.patch = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.patch = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
     url: update.url(args, options),
     method: 'patch',
 })
@@ -384,7 +384,7 @@ update.patch = (args: { news_ticker_item: number | { id: number } } | [news_tick
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-    const updateForm = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -399,7 +399,7 @@ update.patch = (args: { news_ticker_item: number | { id: number } } | [news_tick
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-        updateForm.put = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -413,7 +413,7 @@ update.patch = (args: { news_ticker_item: number | { id: number } } | [news_tick
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:83
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-        updateForm.patch = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.patch = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PATCH',
@@ -429,7 +429,7 @@ update.patch = (args: { news_ticker_item: number | { id: number } } | [news_tick
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-export const destroy = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -444,7 +444,7 @@ destroy.definition = {
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-destroy.url = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { news_ticker_item: args }
     }
@@ -477,7 +477,7 @@ destroy.url = (args: { news_ticker_item: number | { id: number } } | [news_ticke
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-destroy.delete = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -487,7 +487,7 @@ destroy.delete = (args: { news_ticker_item: number | { id: number } } | [news_ti
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-    const destroyForm = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -502,7 +502,7 @@ destroy.delete = (args: { news_ticker_item: number | { id: number } } | [news_ti
  * @see app/Http/Controllers/Admin/NewsTickerItemController.php:91
  * @route '/admin/news_ticker_items/{news_ticker_item}'
  */
-        destroyForm.delete = (args: { news_ticker_item: number | { id: number } } | [news_ticker_item: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { news_ticker_item: string | number | { id: string | number } } | [news_ticker_item: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',
