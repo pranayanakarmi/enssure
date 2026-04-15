@@ -170,53 +170,51 @@ onUnmounted(() => {
          CINEMATIC HERO (light version)
     ══════════════════════════════════════════════════ -->
     <section class="relative min-h-[92vh] flex flex-col justify-end overflow-hidden">
-      <!-- Background with subtle overlay -->
-      <div class="absolute inset-0">
-        <img src="/enssure/assets/1b5f4275768ee47a7d16dd8b2fbc92ec696f2939.png"
-     class="w-full h-full object-cover" alt="ENSSURE I" />
-        <!-- <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-             class="w-full h-full object-cover" alt="" /> -->
-        <div class="absolute inset-0 bg-gradient-to-t from-gray-50 via-gray-50/80 to-gray-50/20" />
-        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#B91C1C] via-[#ef4444] to-[#B91C1C]" />
-      </div>
+  <!-- Background with dark overlay -->
+  <div class="absolute inset-0">
+    <img src="/enssure/assets/1b5f4275768ee47a7d16dd8b2fbc92ec696f2939.png"
+         class="w-full h-full object-cover" alt="ENSSURE I" />
+    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900/20" />
+    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#B91C1C] via-[#ef4444] to-[#B91C1C]" />
+  </div>
 
-      <!-- Floating period badge (light) -->
-      <div class="absolute top-10 right-10 hidden lg:flex flex-col items-center justify-center w-32 h-32 rounded-full border-2 border-[#B91C1C]/40 bg-white/80 backdrop-blur-sm shadow-lg">
-        <span class="text-gray-500 text-xs uppercase tracking-widest">Phase</span>
-        <span class="text-gray-900 text-4xl font-black leading-none">I</span>
-        <span class="text-gray-500 text-xs">2016–2022</span>
-      </div>
+  <!-- Floating period badge (dark) -->
+  <div class="absolute top-10 right-10 hidden lg:flex flex-col items-center justify-center w-32 h-32 rounded-full border-2 border-[#B91C1C]/60 bg-gray-800/90 backdrop-blur-sm shadow-lg">
+    <span class="text-gray-300 text-xs uppercase tracking-widest">Phase</span>
+    <span class="text-white text-4xl font-black leading-none">I</span>
+    <span class="text-gray-300 text-xs">2016–2022</span>
+  </div>
 
-      <!-- Hero content -->
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 pt-32">
-        <div class="max-w-4xl">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="h-px w-12 bg-[#B91C1C]" />
-            <span class="text-[#B91C1C] uppercase tracking-[0.3em] text-sm font-semibold">ENSSURE I · 2016–2022</span>
-          </div>
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-[0.9] tracking-tight mb-6">
-            LAYING<br/>
-            <span class="text-[#B91C1C]">THE</span><br/>
-            FOUNDATION
-          </h1>
-          <p class="text-lg text-gray-600 max-w-2xl leading-relaxed mb-10">
-            {{ projectInfo.description.split('.')[0] }}.
-          </p>
-          <!-- Meta pills (light) -->
-          <div class="flex flex-wrap gap-3">
-            <span class="px-4 py-2 rounded-full border border-gray-300 bg-white/80 text-gray-700 text-sm shadow-sm">🇨🇭 Swiss Development Cooperation</span>
-            <span class="px-4 py-2 rounded-full border border-gray-300 bg-white/80 text-gray-700 text-sm shadow-sm">🇳🇵 Government of Nepal</span>
-            <span class="px-4 py-2 rounded-full border border-[#B91C1C]/40 bg-[#B91C1C]/10 text-gray-800 text-sm font-semibold">{{ projectInfo.budget }}</span>
-            <span class="px-4 py-2 rounded-full border border-gray-300 bg-white/80 text-gray-700 text-sm shadow-sm">7 Provinces</span>
-          </div>
-        </div>
+  <!-- Hero content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 pt-32">
+    <div class="max-w-4xl">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="h-px w-12 bg-[#B91C1C]" />
+        <span class="text-[#B91C1C] uppercase tracking-[0.3em] text-sm font-semibold">ENSSURE I · 2016–2022</span>
       </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[0.9] tracking-tight mb-6">
+        LAYING<br/>
+        <span class="text-[#B91C1C]">THE</span><br/>
+        FOUNDATION
+      </h1>
+      <p class="text-lg text-gray-300 max-w-2xl leading-relaxed mb-10">
+        {{ projectInfo.description.split('.')[0] }}.
+      </p>
+      <!-- Meta pills (dark) -->
+      <div class="flex flex-wrap gap-3">
+        <span class="px-4 py-2 rounded-full border border-gray-600 bg-gray-800/80 text-gray-200 text-sm shadow-sm">🇨🇭 Swiss Development Cooperation</span>
+        <span class="px-4 py-2 rounded-full border border-gray-600 bg-gray-800/80 text-gray-200 text-sm shadow-sm">🇳🇵 Government of Nepal</span>
+        <span class="px-4 py-2 rounded-full border border-[#B91C1C]/50 bg-[#B91C1C]/20 text-white text-sm font-semibold">{{ projectInfo.budget }}</span>
+        <span class="px-4 py-2 rounded-full border border-gray-600 bg-gray-800/80 text-gray-200 text-sm shadow-sm">7 Provinces</span>
+      </div>
+    </div>
+  </div>
 
-      <!-- Scroll hint -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce">
-        <ChevronDown class="w-5 h-5 text-gray-400" />
-      </div>
-    </section>
+  <!-- Scroll hint -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce">
+    <ChevronDown class="w-5 h-5 text-gray-400" />
+  </div>
+</section>
 
     <!-- ══════════════════════════════════════════════════
          ANIMATED MEGA STATS BAR (light)
@@ -248,7 +246,7 @@ onUnmounted(() => {
           <!-- Left: image stack -->
           <div class="lg:col-span-5 relative">
             <div class="relative">
-              <div class="absolute -inset-4 bg-[#233D7E]/5 rounded-3xl -rotate-2" />
+              <div class="absolute -inset-4 bg-[#0A1A3E]/60 rounded-3xl -rotate-2" />
               <div class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-xl">
                 <img src="/enssure/assets/f4b6e6dc6a6e52b022f16d68a04747fe0075789e.png"
      class="w-full h-full object-cover" alt="ENSSURE I" />
@@ -309,6 +307,7 @@ onUnmounted(() => {
         </div>
       </div>
     </section>
+
 
     <!-- ══════════════════════════════════════════════════
          CAREER GUIDANCE — LIGHT INFOGRAPHIC SECTION
@@ -805,8 +804,8 @@ onUnmounted(() => {
     <div class="mt-12 pt-6 border-t border-gray-200 text-center">
       <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gray-50 border border-gray-200">
         <Handshake class="w-5 h-5 text-[#B91C1C]" />
-        <span class="text-gray-600 text-sm">{{ careerGuidance.tripartiteMous }} tripartite MOUs signed</span>
-        <span class="text-gray-400 text-xs">(school‑industry‑government)</span>
+        <span class="text-gray-600 text-2xl">{{ careerGuidance.tripartiteMous }} tripartite MOUs signed</span>
+        <span class="text-gray-400 text-xl">(school‑industry‑government)</span>
       </div>
     </div>
   </div>
