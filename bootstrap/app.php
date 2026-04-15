@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\LogActivityRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -27,6 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleAppearance::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
+            LogActivityRequests::class,
         ]);
 
         $middleware->alias([
@@ -39,6 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 $request = request();
                 if ($request->is('admin/*') || $request->header('X-Inertia')) {
                     $url = $request->is('admin/*') ? route('dashboard') : $request->header('Referer', route('dashboard'));
+
                     return redirect($url)->with('error', 'You do not have permission to access that page.');
                 }
             }

@@ -308,6 +308,13 @@ return [
             'permission_resource' => null,
             'role_only' => ['admin', 'super_admin'],
         ],
+        [
+            'title' => 'Activity Logs',
+            'href' => 'admin.activity_logs.index',
+            'icon' => 'FileStack',
+            'permission_resource' => null,
+            'role_only' => ['admin', 'super_admin'],
+        ],
 
         // [
         //     'title' => 'Notices',

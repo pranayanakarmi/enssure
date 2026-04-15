@@ -2,6 +2,7 @@ import VideoController from './VideoController'
 import HomeController from './HomeController'
 import UserController from './UserController'
 import RoleController from './RoleController'
+import ActivityLogController from './ActivityLogController'
 import SliderController from './SliderController'
 import SliderItemController from './SliderItemController'
 import BannerController from './BannerController'
@@ -81,6 +82,7 @@ const Admin = {
 HomeController: Object.assign(HomeController, HomeController),
 UserController: Object.assign(UserController, UserController),
 RoleController: Object.assign(RoleController, RoleController),
+ActivityLogController: Object.assign(ActivityLogController, ActivityLogController),
 SliderController: Object.assign(SliderController, SliderController),
 SliderItemController: Object.assign(SliderItemController, SliderItemController),
 BannerController: Object.assign(BannerController, BannerController),

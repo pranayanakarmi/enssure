@@ -20,7 +20,7 @@ class HomeCoverageSectionSeeder extends Seeder
         ]);
 
         $items = [
-            ['value' => '309', 'label' => 'Planned Events', 'order' => 1],
+            ['value' => '310', 'label' => 'Planned Events', 'order' => 1],
             ['value' => '36', 'label' => 'Completed Events', 'order' => 2],
             ['value' => '5530', 'label' => 'Estimated Participants', 'order' => 3],
             ['value' => '1430', 'label' => 'Enrolled Participants', 'order' => 4],

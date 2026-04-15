@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AboutContentSectionController;
 use App\Http\Controllers\Admin\AboutMainSectionController;
 use App\Http\Controllers\Admin\AboutPageHeroController;
+use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\ApplicationFormController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BatchEnrollmentController;
@@ -88,6 +89,8 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::get('/', fn () => redirect()->route('dashboard'))->name('index');
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class)->except(['show']);
+    Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity_logs.index');
+    Route::get('activity-logs/export', [ActivityLogController::class, 'export'])->name('activity_logs.export');
 
     // Home Page
     Route::resource('sliders', SliderController::class);

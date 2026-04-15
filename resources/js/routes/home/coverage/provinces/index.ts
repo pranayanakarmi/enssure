@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\HomeCoverageProvinceController::show
- * @see app/Http/Controllers/HomeCoverageProvinceController.php:115
+ * @see app/Http/Controllers/HomeCoverageProvinceController.php:163
  * @route '/coverage/provinces/{provinceId}'
  */
 export const show = (args: { provinceId: string | number } | [provinceId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\HomeCoverageProvinceController::show
- * @see app/Http/Controllers/HomeCoverageProvinceController.php:115
+ * @see app/Http/Controllers/HomeCoverageProvinceController.php:163
  * @route '/coverage/provinces/{provinceId}'
  */
 show.url = (args: { provinceId: string | number } | [provinceId: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -44,7 +44,7 @@ show.url = (args: { provinceId: string | number } | [provinceId: string | number
 
 /**
 * @see \App\Http\Controllers\HomeCoverageProvinceController::show
- * @see app/Http/Controllers/HomeCoverageProvinceController.php:115
+ * @see app/Http/Controllers/HomeCoverageProvinceController.php:163
  * @route '/coverage/provinces/{provinceId}'
  */
 show.get = (args: { provinceId: string | number } | [provinceId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -53,7 +53,7 @@ show.get = (args: { provinceId: string | number } | [provinceId: string | number
 })
 /**
 * @see \App\Http\Controllers\HomeCoverageProvinceController::show
- * @see app/Http/Controllers/HomeCoverageProvinceController.php:115
+ * @see app/Http/Controllers/HomeCoverageProvinceController.php:163
  * @route '/coverage/provinces/{provinceId}'
  */
 show.head = (args: { provinceId: string | number } | [provinceId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -63,7 +63,7 @@ show.head = (args: { provinceId: string | number } | [provinceId: string | numbe
 
     /**
 * @see \App\Http\Controllers\HomeCoverageProvinceController::show
- * @see app/Http/Controllers/HomeCoverageProvinceController.php:115
+ * @see app/Http/Controllers/HomeCoverageProvinceController.php:163
  * @route '/coverage/provinces/{provinceId}'
  */
     const showForm = (args: { provinceId: string | number } | [provinceId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -73,7 +73,7 @@ show.head = (args: { provinceId: string | number } | [provinceId: string | numbe
 
             /**
 * @see \App\Http\Controllers\HomeCoverageProvinceController::show
- * @see app/Http/Controllers/HomeCoverageProvinceController.php:115
+ * @see app/Http/Controllers/HomeCoverageProvinceController.php:163
  * @route '/coverage/provinces/{provinceId}'
  */
         showForm.get = (args: { provinceId: string | number } | [provinceId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -82,7 +82,7 @@ show.head = (args: { provinceId: string | number } | [provinceId: string | numbe
         })
             /**
 * @see \App\Http\Controllers\HomeCoverageProvinceController::show
- * @see app/Http/Controllers/HomeCoverageProvinceController.php:115
+ * @see app/Http/Controllers/HomeCoverageProvinceController.php:163
  * @route '/coverage/provinces/{provinceId}'
  */
         showForm.head = (args: { provinceId: string | number } | [provinceId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

@@ -77,9 +77,11 @@ defineProps({
     <div class="enssure-home">
         <HomeHero :slides="heroSlides" :video-section="homeVideoSection ?? null" />
         <HomeCoverage :coverage-section="homeCoverageSection ?? null" />
-        <HomeStats :reach-section="homeReachSection ?? null" />
         <HomeCtaCard />
         <HomeAbout :about-section="homeAboutSection ?? null" />
+        <HomeStats :reach-section="homeReachSection ?? null" />
+
+
         <HomeGallery :gallery-section="homeGallerySection ?? null" />
         <HomeImpactStories :stories-section="homeImpactStoriesSection ?? null" />
 

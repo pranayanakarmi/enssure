@@ -51,47 +51,65 @@ const provinceLabelOffsets = {
     sudurpashchim: { x: -55, y: -10 },
 };
 
-function clearHighlight() {
-    if (!provinceLayer) {
-        return;
-    }
+// Color palette for default province fills (soft, thematic)
+const provinceBaseColors = {
+    koshi: '#FDE8E8',   // very light red
+    madhesh: '#FEF3E8', // light orange
+    bagmati: '#E8F0FE', // light blue
+    gandaki: '#E8FEE8', // light green
+    lumbini: '#FEE8F0', // light pink
+    karnali: '#F0E8FE', // light purple
+    sudurpashchim: '#E8FEF0', // light mint
+};
 
+function getDefaultStyle(provinceId) {
+    return {
+        fillColor: provinceBaseColors[provinceId] || '#F0F2F5',
+        fillOpacity: 0.7,
+        weight: 1.2,
+        color: '#4B5563',      // dark gray border (matches dark theme)
+        opacity: 0.8,
+        dashArray: null,
+    };
+}
+
+function getHighlightStyle() {
+    return {
+        fillColor: '#B91C1C',   // theme red
+        fillOpacity: 0.85,
+        weight: 2.5,
+        color: '#FFFFFF',       // white border for contrast
+        opacity: 1,
+        dashArray: null,
+    };
+}
+
+function getHoverStyle() {
+    return {
+        weight: 2,
+        color: '#B91C1C',
+        opacity: 1,
+    };
+}
+
+function clearHighlight() {
+    if (!provinceLayer) return;
     provinceLayer.eachLayer((layer) => {
-        layer.setStyle({
-            fillColor: '#D8E4EE',
-            fillOpacity: 0.42,
-            weight: 1.25,
-            color: '#233D7E',
-        });
+        const provinceId = layer.feature?.properties?.id;
+        if (provinceId) {
+            layer.setStyle(getDefaultStyle(provinceId));
+        }
     });
 }
 
 function applyHighlight(provinceId) {
-    if (!provinceLayer) {
-        return;
-    }
-
+    if (!provinceLayer) return;
     clearHighlight();
-
-    if (provinceId === 'overall') {
-        return;
-    }
-
-    const allowed = ['koshi', 'madhesh', 'bagmati', 'gandaki', 'lumbini', 'karnali', 'sudurpashchim'];
-
-    if (!allowed.includes(provinceId)) {
-        return;
-    }
-
+    if (provinceId === 'overall') return;
     const targetLayer = provinceLayersById[provinceId];
-
     if (targetLayer) {
-        targetLayer.setStyle({
-            fillColor: '#B91C1C',
-            fillOpacity: 0.55,
-            weight: 1.5,
-            color: '#233D7E',
-        });
+        targetLayer.setStyle(getHighlightStyle());
+        targetLayer.bringToFront();
     }
 }
 
@@ -100,90 +118,72 @@ function syncHighlightFromProps() {
 }
 
 async function mountProvinceLayer() {
-    if (!map) {
-        return;
-    }
+    if (!map) return;
 
     try {
         const response = await fetch(props.geoJsonUrl);
-
-        if (!response.ok) {
-            throw new Error('Failed to load provinces GeoJSON');
-        }
-
+        if (!response.ok) throw new Error('Failed to load GeoJSON');
         const geoJson = await response.json();
 
-        if (provinceLayer) {
-            map.removeLayer(provinceLayer);
-        }
-
-        Object.keys(provinceLayersById).forEach((provinceId) => {
-            delete provinceLayersById[provinceId];
-        });
+        if (provinceLayer) map.removeLayer(provinceLayer);
+        Object.keys(provinceLayersById).forEach(id => delete provinceLayersById[id]);
 
         provinceLayer = L.geoJSON(geoJson, {
-            style: {
-                fillColor: '#D8E4EE',
-                fillOpacity: 0.42,
-                color: '#233D7E',
-                weight: 1.25,
+            style: (feature) => {
+                const provinceId = feature?.properties?.id;
+                return getDefaultStyle(provinceId);
             },
             onEachFeature: (feature, layer) => {
                 const provinceId = feature?.properties?.id;
-
-                if (!provinceId) {
-                    return;
-                }
-
+                if (!provinceId) return;
                 provinceLayersById[provinceId] = layer;
 
                 layer.on('mouseover', () => {
+                    if (provinceId !== props.selectedProvinceId) {
+                        layer.setStyle(getHoverStyle());
+                    }
                     layer.getElement()?.classList.add('cursor-pointer');
                 });
-
+                layer.on('mouseout', () => {
+                    if (provinceId !== props.selectedProvinceId) {
+                        layer.setStyle(getDefaultStyle(provinceId));
+                    } else {
+                        layer.setStyle(getHighlightStyle());
+                    }
+                });
                 layer.on('click', () => {
                     emit('select-province', provinceId);
                 });
             },
         }).addTo(map);
 
-        if (provinceLabelLayer) {
-            map.removeLayer(provinceLabelLayer);
-        }
-
+        // Add labels
+        if (provinceLabelLayer) map.removeLayer(provinceLabelLayer);
         provinceLabelLayer = L.layerGroup().addTo(map);
 
         provinceLayer.eachLayer((layer) => {
             const provinceId = layer.feature?.properties?.id;
             const provinceName = provinceDisplayNames[provinceId];
-
-            if (!provinceId || !provinceName) {
-                return;
-            }
+            if (!provinceId || !provinceName) return;
 
             const labelLatLng = layer.getBounds().getCenter();
-            const labelOffset = provinceLabelOffsets[provinceId] ?? defaultLabelOffset;
+            const offset = provinceLabelOffsets[provinceId] ?? defaultLabelOffset;
             const marker = L.marker(labelLatLng, {
                 interactive: false,
                 icon: L.divIcon({
                     className: 'province-label-chip',
-                    html: `<span style="transform: translate(${labelOffset.x}px, ${labelOffset.y}px);">${provinceName}</span>`,
+                    html: `<span style="transform: translate(${offset.x}px, ${offset.y}px);">${provinceName}</span>`,
                     iconSize: null,
                 }),
             });
-
             marker.addTo(provinceLabelLayer);
         });
 
         const bounds = provinceLayer.getBounds();
-
         if (bounds.isValid()) {
-            const fittedBounds = bounds.pad(0.14);
-
-            map.fitBounds(fittedBounds, { padding: [14, 14], maxZoom: 8.6 });
-            map.setMaxBounds(fittedBounds.pad(0.08));
+            map.fitBounds(bounds.pad(0.14), { padding: [10, 10], maxZoom: 8 });
+            map.setMaxBounds(bounds.pad(0.08));
         }
-
         syncHighlightFromProps();
     } catch {
         mapInitFailed.value = true;
@@ -198,59 +198,42 @@ onMounted(async () => {
             scrollWheelZoom: false,
             dragging: true,
             maxBoundsViscosity: 1.0,
-            minZoom: 7
+            minZoom: 6.499,
         });
-
-        map.setView([28.35, 84.12], 7);
-
+        map.setView([28.35, 84.12], 6.49);
         await mountProvinceLayer();
-        // Ensure Leaflet recalculates viewport after layout settles.
-        setTimeout(() => {
-            map?.invalidateSize();
-        }, 80);
+        // Ensure map fills container after mounting
+        setTimeout(() => map?.invalidateSize(), 80);
     } catch {
         mapInitFailed.value = true;
     }
 });
 
-watch(
-    () => props.selectedProvinceId,
-    () => {
-        syncHighlightFromProps();
-    },
-);
-
-watch(
-    () => props.geoJsonUrl,
-    async () => {
-        await mountProvinceLayer();
-    },
-);
+watch(() => props.selectedProvinceId, () => syncHighlightFromProps());
+watch(() => props.geoJsonUrl, async () => await mountProvinceLayer());
 
 onBeforeUnmount(() => {
     if (map) {
         map.remove();
         map = null;
     }
-
     provinceLayer = null;
     provinceLabelLayer = null;
 });
 </script>
 
 <template>
-    <div class="relative">
+    <div class="relative w-full h-full">
         <div
             v-if="mapInitFailed"
             class="flex min-h-[320px] items-center justify-center rounded-xl border border-red-200 bg-red-50 p-6 text-center text-sm font-medium text-red-900"
         >
             The Nepal province map could not be loaded. Please try again.
         </div>
-
         <div
             v-else
             ref="mapContainerEl"
-            class="h-[465px] w-full overflow-hidden rounded-xl border border-[#DCE4EA] bg-[#EFF5F9]"
+            class="h-full w-full overflow-hidden rounded-xl border-2 border-gray-700 shadow-md"
             role="presentation"
         />
     </div>
@@ -260,20 +243,26 @@ onBeforeUnmount(() => {
 :deep(.province-label-chip) {
     transform: translate(-50%, -50%);
 }
-
 :deep(.province-label-chip span) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 9999px;
-    border: 1px solid #23428a;
-    background-color: rgba(255, 255, 255, 0.93);
-    padding: 4px 10px;
+    border: 1px solid #B91C1C;
+    background-color: rgba(255, 255, 255, 0.96);
+    padding: 4px 12px;
     font-size: 11px;
     font-weight: 600;
     line-height: 1;
-    color: #1f3d83;
+    color: #B91C1C;
     white-space: nowrap;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(2px);
+    transition: all 0.2s ease;
+}
+:deep(.province-label-chip span):hover {
+    background-color: #B91C1C;
+    color: white;
+    border-color: white;
 }
 </style>

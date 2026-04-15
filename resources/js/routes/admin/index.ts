@@ -3,6 +3,7 @@ import videos from './videos'
 import eoiRfp from './eoi-rfp'
 import users from './users'
 import roles from './roles'
+import activity_logs from './activity_logs'
 import sliders from './sliders'
 import sliderItems from './slider-items'
 import banners from './banners'
@@ -650,7 +651,7 @@ systemPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     systemPage.form = systemPageForm
 /**
- * @see routes/admin.php:88
+ * @see routes/admin.php:89
  * @route '/admin'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -664,7 +665,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/admin.php:88
+ * @see routes/admin.php:89
  * @route '/admin'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -672,7 +673,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/admin.php:88
+ * @see routes/admin.php:89
  * @route '/admin'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -680,7 +681,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/admin.php:88
+ * @see routes/admin.php:89
  * @route '/admin'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -689,7 +690,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/admin.php:88
+ * @see routes/admin.php:89
  * @route '/admin'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -698,7 +699,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/admin.php:88
+ * @see routes/admin.php:89
  * @route '/admin'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -706,7 +707,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/admin.php:88
+ * @see routes/admin.php:89
  * @route '/admin'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -734,6 +735,7 @@ eoiRfp: Object.assign(eoiRfp, eoiRfp),
 index: Object.assign(index, index),
 users: Object.assign(users, users),
 roles: Object.assign(roles, roles),
+activity_logs: Object.assign(activity_logs, activity_logs),
 sliders: Object.assign(sliders, sliders),
 sliderItems: Object.assign(sliderItems, sliderItems),
 banners: Object.assign(banners, banners),
