@@ -8,7 +8,6 @@ import { ref, computed, watch } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -58,7 +57,7 @@ function openEditModal(testimonial) {
     form.designation = testimonial.designation;
     form.testimonial_text = testimonial.testimonial_text;
     form.order = testimonial.order;
-    form.is_published = testimonial.is_published;
+    form.is_published = Boolean(testimonial.is_published);
     form.image = null;
     form._method = 'put';
     imagePreview.value = null;
@@ -88,15 +87,26 @@ function clearImagePreview() {
 }
 
 function saveTestimonial() {
+    form.transform((data) => ({
+        ...data,
+        is_published: data.is_published ? 1 : 0,
+    }));
+
     if (editingItem.value) {
         form.post(`/admin/testimonials/${editingItem.value.id}`, {
             forceFormData: true,
-            onSuccess: () => closeModal(),
+            onSuccess: () => {
+                form.transform((data) => data);
+                closeModal();
+            },
         });
     } else {
         form.post('/admin/testimonials', {
             forceFormData: true,
-            onSuccess: () => closeModal(),
+            onSuccess: () => {
+                form.transform((data) => data);
+                closeModal();
+            },
         });
     }
 }
@@ -329,33 +339,40 @@ const breadcrumbItems = [
                         <InputError :message="form.errors.testimonial_text" />
                     </div>
 
-                    <!-- <div class="space-y-1.5">
+                    <div class="space-y-2">
                         <Label class="text-xs font-medium">Photo (optional)</Label>
-                        <div class="flex flex-wrap gap-3">
-                            <div v-if="existingImage && !imagePreview" class="relative">
-                                <img :src="existingImage" alt="Current" class="h-16 w-16 rounded-full border border-gray-200 object-cover" />
-                                <span class="absolute -top-2 left-2 rounded-full bg-primary px-2 py-0.5 text-[10px] text-white">Current</span>
+                        <div class="flex items-center gap-2">
+                            <div class="relative shrink-0">
+                                <div v-if="existingImage && !imagePreview" class="relative">
+                                    <img :src="existingImage" alt="Current" class="h-14 w-14 rounded-full border-2 border-gray-200 object-cover shadow-sm" />
+                                    <span class="absolute -bottom-1 -right-1 rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-medium text-white shadow-sm">Current</span>
+                                </div>
+                                <div v-else-if="imagePreview" class="relative">
+                                    <img :src="imagePreview" alt="Preview" class="h-14 w-14 rounded-full border-2 border-primary object-cover shadow-sm ring-2 ring-primary/30" />
+                                    <button type="button" @click="clearImagePreview" class="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-gray-200 bg-white shadow-md hover:bg-red-500 hover:text-white transition-colors">
+                                        <X class="h-2.5 w-2.5" />
+                                    </button>
+                                </div>
+                                <div v-else class="flex h-14 w-14 items-center justify-center rounded-full border-2 border-dashed border-gray-300 bg-gray-50 shadow-sm">
+                                    <User class="h-5 w-5 text-gray-400" />
+                                </div>
                             </div>
-                            <div v-if="imagePreview" class="relative">
-                                <img :src="imagePreview" alt="Preview" class="h-16 w-16 rounded-full border border-gray-200 object-cover ring-2 ring-primary" />
-                                <button type="button" @click="clearImagePreview" class="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm hover:bg-red-500 hover:text-white">
-                                    <X class="h-3 w-3" />
-                                </button>
-                            </div>
-                            <div v-if="!existingImage && !imagePreview" class="flex h-16 w-16 items-center justify-center rounded-full border border-dashed border-gray-300 bg-gray-50">
-                                <User class="h-6 w-6 text-gray-400" />
+                            <div class="flex-1 min-w-0">
+                                <label for="modal_image" class="flex h-9 cursor-pointer items-center rounded-md border border-gray-300 bg-background px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition-colors">
+                                    Choose Image
+                                </label>
+                                <input
+                                    id="modal_image"
+                                    type="file"
+                                    accept="image/*"
+                                    class="hidden"
+                                    @change="onImageChange"
+                                />
                             </div>
                         </div>
-                        <input
-                            id="modal_image"
-                            type="file"
-                            accept="image/*"
-                            class="block w-full max-w-md cursor-pointer rounded-md border border-gray-300 bg-background px-3 py-2 text-sm file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-primary/90"
-                            @change="onImageChange"
-                        />
-                        <p class="text-xs text-gray-500">Recommended: square image, max 2MB.</p>
+                        <p class="text-xs text-gray-500 pl-0.5">Square, max 2MB</p>
                         <InputError :message="form.errors.image" />
-                    </div> -->
+                    </div>
 
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div class="space-y-1.5">
@@ -364,8 +381,15 @@ const breadcrumbItems = [
                             <InputError :message="form.errors.order" />
                         </div>
                         <div class="flex items-center space-x-2 pt-2">
-                            <Checkbox id="modal_is_published" v-model:checked="form.is_published" />
-                            <Label for="modal_is_published" class="text-sm font-normal">Published (visible on site)</Label>
+                            <input
+                                id="modal_is_published"
+                                v-model="form.is_published"
+                                type="checkbox"
+                                class="h-4 w-4 rounded border-sidebar-border"
+                            >
+                            <Label for="modal_is_published" class="text-sm font-normal">
+                                {{ form.is_published ? 'Published (visible on site)' : 'Draft (hidden from site)' }}
+                            </Label>
                         </div>
                     </div>
 

@@ -79,7 +79,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\Admin\HomeTestimonialsSectionController::update
- * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:37
+ * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:39
  * @route '/admin/home-testimonials-section'
  */
 export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -94,7 +94,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeTestimonialsSectionController::update
- * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:37
+ * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:39
  * @route '/admin/home-testimonials-section'
  */
 update.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ update.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\HomeTestimonialsSectionController::update
- * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:37
+ * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:39
  * @route '/admin/home-testimonials-section'
  */
 update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -113,7 +113,7 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\HomeTestimonialsSectionController::update
- * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:37
+ * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:39
  * @route '/admin/home-testimonials-section'
  */
     const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -128,7 +128,7 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\HomeTestimonialsSectionController::update
- * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:37
+ * @see app/Http/Controllers/Admin/HomeTestimonialsSectionController.php:39
  * @route '/admin/home-testimonials-section'
  */
         updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

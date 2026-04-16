@@ -7,8 +7,8 @@ use App\Http\Requests\Admin\StoreTestimonialRequest;
 use App\Http\Requests\Admin\UpdateTestimonialRequest;
 use App\Models\Course;
 use App\Models\Testimonial;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -31,6 +31,7 @@ class TestimonialController extends Controller
                 'order' => $t->order,
                 'is_featured' => $t->is_featured,
                 'is_published' => $t->is_published,
+                'image_url' => $t->image ? asset('storage/'.$t->image) : null,
             ])
             ->values()
             ->all();
@@ -51,7 +52,13 @@ class TestimonialController extends Controller
 
     public function store(StoreTestimonialRequest $request): RedirectResponse
     {
-        Testimonial::create($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('testimonials', 'public');
+        }
+
+        Testimonial::create($data);
 
         return to_route('admin.testimonials.index')
             ->with('success', 'Testimonial created successfully.');
@@ -68,6 +75,7 @@ class TestimonialController extends Controller
                 'designation' => $testimonial->designation,
                 'organization' => $testimonial->organization,
                 'image' => $testimonial->image,
+                'image_url' => $testimonial->image ? asset('storage/'.$testimonial->image) : null,
                 'testimonial_text' => $testimonial->testimonial_text,
                 'rating' => $testimonial->rating,
                 'course_id' => $testimonial->course_id,
@@ -81,7 +89,15 @@ class TestimonialController extends Controller
 
     public function update(UpdateTestimonialRequest $request, Testimonial $testimonial): RedirectResponse
     {
-        $testimonial->update($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('testimonials', 'public');
+        } else {
+            unset($data['image']);
+        }
+
+        $testimonial->update($data);
 
         return to_route('admin.testimonials.index')
             ->with('success', 'Testimonial updated successfully.');
@@ -98,15 +114,16 @@ class TestimonialController extends Controller
     }
 
     public function reorder(Request $request)
-{
-    $request->validate([
-        'items' => 'required|array',
-        'items.*.id' => 'required|exists:testimonials,id',
-        'items.*.order' => 'required|integer|min:0',
-    ]);
-    foreach ($request->input('items') as $item) {
-        Testimonial::where('id', $item['id'])->update(['order' => $item['order']]);
+    {
+        $request->validate([
+            'items' => 'required|array',
+            'items.*.id' => 'required|exists:testimonials,id',
+            'items.*.order' => 'required|integer|min:0',
+        ]);
+        foreach ($request->input('items') as $item) {
+            Testimonial::where('id', $item['id'])->update(['order' => $item['order']]);
+        }
+
+        return back()->with('success', 'Testimonials reordered successfully.');
     }
-    return back()->with('success', 'Testimonials reordered successfully.');
-}
 }

@@ -20,7 +20,7 @@ class UpdateTestimonialRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'designation' => ['nullable', 'string', 'max:255'],
             'organization' => ['nullable', 'string', 'max:255'],
-            'image' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'testimonial_text' => ['required', 'string'],
             'rating' => ['nullable', 'integer', 'min:1', 'max:5'],
             'course_id' => ['nullable', 'exists:courses,id'],

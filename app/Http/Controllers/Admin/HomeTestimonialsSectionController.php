@@ -18,6 +18,7 @@ class HomeTestimonialsSectionController extends Controller
             ?? HomeTestimonialsSection::create([
                 'badge_text' => 'Testimonials',
                 'title' => 'Direct testimonials that showcase the real, on-the-ground impact of the ENSSURE project on people and the skills sector in Nepal...',
+                'description' => null,
             ]);
 
         $this->authorize('update', $section);
@@ -27,8 +28,9 @@ class HomeTestimonialsSectionController extends Controller
                 'id' => $section->id,
                 'badge_text' => $section->badge_text,
                 'title' => $section->title,
+                'description' => $section->description,
                 'background_image_url' => $section->background_image
-                    ? Storage::disk('public')->url($section->background_image)
+                    ? asset('storage/'.$section->background_image)
                     : null,
             ],
         ]);
@@ -40,7 +42,7 @@ class HomeTestimonialsSectionController extends Controller
 
         if (! $section) {
             $section = HomeTestimonialsSection::create(
-                $request->safe()->only(['badge_text', 'title'])
+                $request->safe()->only(['badge_text', 'title', 'description'])
             );
             $this->authorize('update', $section);
             if ($request->hasFile('background_image')) {
@@ -54,7 +56,7 @@ class HomeTestimonialsSectionController extends Controller
 
         $this->authorize('update', $section);
 
-        $data = $request->safe()->only(['badge_text', 'title']);
+        $data = $request->safe()->only(['badge_text', 'title', 'description']);
         if ($request->hasFile('background_image')) {
             if ($section->background_image) {
                 Storage::disk('public')->delete($section->background_image);

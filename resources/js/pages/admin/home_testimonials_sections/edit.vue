@@ -17,12 +17,14 @@ const section = computed(() => props.homeTestimonialsSection ?? {
     id: null,
     badge_text: '',
     title: '',
+    description: '',
     background_image_url: null,
 });
 
 const form = useForm({
     badge_text: section.value.badge_text ?? '',
     title: section.value.title ?? '',
+    description: section.value.description ?? '',
     background_image: null,
     _method: 'put',
 });
@@ -113,6 +115,19 @@ const breadcrumbItems = [
                                 placeholder="Section title (e.g. Direct testimonials that showcase...)"
                             />
                             <InputError :message="form.errors.title" />
+                        </div>
+
+                        <!-- Description -->
+                        <div class="flex flex-col gap-1.5">
+                            <Label for="description" class="text-xs font-medium">Description</Label>
+                            <textarea
+                                id="description"
+                                v-model="form.description"
+                                rows="3"
+                                class="w-full rounded-md border border-gray-300 bg-background px-3 py-2 text-sm"
+                                placeholder="Section description"
+                            />
+                            <InputError :message="form.errors.description" />
                         </div>
 
                         <!-- Background image -->

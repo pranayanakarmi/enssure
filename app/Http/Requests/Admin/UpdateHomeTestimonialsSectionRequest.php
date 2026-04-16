@@ -24,6 +24,7 @@ class UpdateHomeTestimonialsSectionRequest extends FormRequest
         return [
             'badge_text' => ['nullable', 'string', 'max:255'],
             'title' => ['nullable', 'string'],
+            'description' => ['nullable', 'string'],
             'background_image' => ['nullable', 'image', 'max:5120'],
         ];
     }

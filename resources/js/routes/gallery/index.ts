@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
- * @see routes/web.php:560
+ * @see routes/web.php:563
  * @route '/gallery/{gallery}'
  */
 export const show = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:560
+ * @see routes/web.php:563
  * @route '/gallery/{gallery}'
  */
 show.url = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
@@ -46,7 +46,7 @@ show.url = (args: { gallery: string | { slug: string } } | [gallery: string | { 
 }
 
 /**
- * @see routes/web.php:560
+ * @see routes/web.php:563
  * @route '/gallery/{gallery}'
  */
 show.get = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -54,7 +54,7 @@ show.get = (args: { gallery: string | { slug: string } } | [gallery: string | { 
     method: 'get',
 })
 /**
- * @see routes/web.php:560
+ * @see routes/web.php:563
  * @route '/gallery/{gallery}'
  */
 show.head = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -63,7 +63,7 @@ show.head = (args: { gallery: string | { slug: string } } | [gallery: string | {
 })
 
     /**
- * @see routes/web.php:560
+ * @see routes/web.php:563
  * @route '/gallery/{gallery}'
  */
     const showForm = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -72,7 +72,7 @@ show.head = (args: { gallery: string | { slug: string } } | [gallery: string | {
     })
 
             /**
- * @see routes/web.php:560
+ * @see routes/web.php:563
  * @route '/gallery/{gallery}'
  */
         showForm.get = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -80,7 +80,7 @@ show.head = (args: { gallery: string | { slug: string } } | [gallery: string | {
             method: 'get',
         })
             /**
- * @see routes/web.php:560
+ * @see routes/web.php:563
  * @route '/gallery/{gallery}'
  */
         showForm.head = (args: { gallery: string | { slug: string } } | [gallery: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

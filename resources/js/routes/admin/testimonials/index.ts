@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::create
- * @see app/Http/Controllers/Admin/TestimonialController.php:43
+ * @see app/Http/Controllers/Admin/TestimonialController.php:44
  * @route '/admin/testimonials/create'
  */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::create
- * @see app/Http/Controllers/Admin/TestimonialController.php:43
+ * @see app/Http/Controllers/Admin/TestimonialController.php:44
  * @route '/admin/testimonials/create'
  */
 create.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::create
- * @see app/Http/Controllers/Admin/TestimonialController.php:43
+ * @see app/Http/Controllers/Admin/TestimonialController.php:44
  * @route '/admin/testimonials/create'
  */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::create
- * @see app/Http/Controllers/Admin/TestimonialController.php:43
+ * @see app/Http/Controllers/Admin/TestimonialController.php:44
  * @route '/admin/testimonials/create'
  */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\TestimonialController::create
- * @see app/Http/Controllers/Admin/TestimonialController.php:43
+ * @see app/Http/Controllers/Admin/TestimonialController.php:44
  * @route '/admin/testimonials/create'
  */
     const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\TestimonialController::create
- * @see app/Http/Controllers/Admin/TestimonialController.php:43
+ * @see app/Http/Controllers/Admin/TestimonialController.php:44
  * @route '/admin/testimonials/create'
  */
         createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\Admin\TestimonialController::create
- * @see app/Http/Controllers/Admin/TestimonialController.php:43
+ * @see app/Http/Controllers/Admin/TestimonialController.php:44
  * @route '/admin/testimonials/create'
  */
         createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     create.form = createForm
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::store
- * @see app/Http/Controllers/Admin/TestimonialController.php:52
+ * @see app/Http/Controllers/Admin/TestimonialController.php:53
  * @route '/admin/testimonials'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -172,7 +172,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::store
- * @see app/Http/Controllers/Admin/TestimonialController.php:52
+ * @see app/Http/Controllers/Admin/TestimonialController.php:53
  * @route '/admin/testimonials'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::store
- * @see app/Http/Controllers/Admin/TestimonialController.php:52
+ * @see app/Http/Controllers/Admin/TestimonialController.php:53
  * @route '/admin/testimonials'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -191,7 +191,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\TestimonialController::store
- * @see app/Http/Controllers/Admin/TestimonialController.php:52
+ * @see app/Http/Controllers/Admin/TestimonialController.php:53
  * @route '/admin/testimonials'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -201,7 +201,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\TestimonialController::store
- * @see app/Http/Controllers/Admin/TestimonialController.php:52
+ * @see app/Http/Controllers/Admin/TestimonialController.php:53
  * @route '/admin/testimonials'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -309,7 +309,7 @@ show.head = (args: { testimonial: string | number } | [testimonial: string | num
     show.form = showForm
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::edit
- * @see app/Http/Controllers/Admin/TestimonialController.php:60
+ * @see app/Http/Controllers/Admin/TestimonialController.php:67
  * @route '/admin/testimonials/{testimonial}/edit'
  */
 export const edit = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -324,7 +324,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::edit
- * @see app/Http/Controllers/Admin/TestimonialController.php:60
+ * @see app/Http/Controllers/Admin/TestimonialController.php:67
  * @route '/admin/testimonials/{testimonial}/edit'
  */
 edit.url = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -357,7 +357,7 @@ edit.url = (args: { testimonial: number | { id: number } } | [testimonial: numbe
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::edit
- * @see app/Http/Controllers/Admin/TestimonialController.php:60
+ * @see app/Http/Controllers/Admin/TestimonialController.php:67
  * @route '/admin/testimonials/{testimonial}/edit'
  */
 edit.get = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -366,7 +366,7 @@ edit.get = (args: { testimonial: number | { id: number } } | [testimonial: numbe
 })
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::edit
- * @see app/Http/Controllers/Admin/TestimonialController.php:60
+ * @see app/Http/Controllers/Admin/TestimonialController.php:67
  * @route '/admin/testimonials/{testimonial}/edit'
  */
 edit.head = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -376,7 +376,7 @@ edit.head = (args: { testimonial: number | { id: number } } | [testimonial: numb
 
     /**
 * @see \App\Http\Controllers\Admin\TestimonialController::edit
- * @see app/Http/Controllers/Admin/TestimonialController.php:60
+ * @see app/Http/Controllers/Admin/TestimonialController.php:67
  * @route '/admin/testimonials/{testimonial}/edit'
  */
     const editForm = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -386,7 +386,7 @@ edit.head = (args: { testimonial: number | { id: number } } | [testimonial: numb
 
             /**
 * @see \App\Http\Controllers\Admin\TestimonialController::edit
- * @see app/Http/Controllers/Admin/TestimonialController.php:60
+ * @see app/Http/Controllers/Admin/TestimonialController.php:67
  * @route '/admin/testimonials/{testimonial}/edit'
  */
         editForm.get = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -395,7 +395,7 @@ edit.head = (args: { testimonial: number | { id: number } } | [testimonial: numb
         })
             /**
 * @see \App\Http\Controllers\Admin\TestimonialController::edit
- * @see app/Http/Controllers/Admin/TestimonialController.php:60
+ * @see app/Http/Controllers/Admin/TestimonialController.php:67
  * @route '/admin/testimonials/{testimonial}/edit'
  */
         editForm.head = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -411,7 +411,7 @@ edit.head = (args: { testimonial: number | { id: number } } | [testimonial: numb
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::update
- * @see app/Http/Controllers/Admin/TestimonialController.php:82
+ * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
 export const update = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -426,7 +426,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::update
- * @see app/Http/Controllers/Admin/TestimonialController.php:82
+ * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
 update.url = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -459,7 +459,7 @@ update.url = (args: { testimonial: number | { id: number } } | [testimonial: num
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::update
- * @see app/Http/Controllers/Admin/TestimonialController.php:82
+ * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
 update.put = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -468,7 +468,7 @@ update.put = (args: { testimonial: number | { id: number } } | [testimonial: num
 })
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::update
- * @see app/Http/Controllers/Admin/TestimonialController.php:82
+ * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
 update.patch = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -478,7 +478,7 @@ update.patch = (args: { testimonial: number | { id: number } } | [testimonial: n
 
     /**
 * @see \App\Http\Controllers\Admin\TestimonialController::update
- * @see app/Http/Controllers/Admin/TestimonialController.php:82
+ * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
     const updateForm = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -493,7 +493,7 @@ update.patch = (args: { testimonial: number | { id: number } } | [testimonial: n
 
             /**
 * @see \App\Http\Controllers\Admin\TestimonialController::update
- * @see app/Http/Controllers/Admin/TestimonialController.php:82
+ * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
         updateForm.put = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -507,7 +507,7 @@ update.patch = (args: { testimonial: number | { id: number } } | [testimonial: n
         })
             /**
 * @see \App\Http\Controllers\Admin\TestimonialController::update
- * @see app/Http/Controllers/Admin/TestimonialController.php:82
+ * @see app/Http/Controllers/Admin/TestimonialController.php:90
  * @route '/admin/testimonials/{testimonial}'
  */
         updateForm.patch = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -523,7 +523,7 @@ update.patch = (args: { testimonial: number | { id: number } } | [testimonial: n
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::destroy
- * @see app/Http/Controllers/Admin/TestimonialController.php:90
+ * @see app/Http/Controllers/Admin/TestimonialController.php:106
  * @route '/admin/testimonials/{testimonial}'
  */
 export const destroy = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -538,7 +538,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::destroy
- * @see app/Http/Controllers/Admin/TestimonialController.php:90
+ * @see app/Http/Controllers/Admin/TestimonialController.php:106
  * @route '/admin/testimonials/{testimonial}'
  */
 destroy.url = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -571,7 +571,7 @@ destroy.url = (args: { testimonial: number | { id: number } } | [testimonial: nu
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::destroy
- * @see app/Http/Controllers/Admin/TestimonialController.php:90
+ * @see app/Http/Controllers/Admin/TestimonialController.php:106
  * @route '/admin/testimonials/{testimonial}'
  */
 destroy.delete = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -581,7 +581,7 @@ destroy.delete = (args: { testimonial: number | { id: number } } | [testimonial:
 
     /**
 * @see \App\Http\Controllers\Admin\TestimonialController::destroy
- * @see app/Http/Controllers/Admin/TestimonialController.php:90
+ * @see app/Http/Controllers/Admin/TestimonialController.php:106
  * @route '/admin/testimonials/{testimonial}'
  */
     const destroyForm = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -596,7 +596,7 @@ destroy.delete = (args: { testimonial: number | { id: number } } | [testimonial:
 
             /**
 * @see \App\Http\Controllers\Admin\TestimonialController::destroy
- * @see app/Http/Controllers/Admin/TestimonialController.php:90
+ * @see app/Http/Controllers/Admin/TestimonialController.php:106
  * @route '/admin/testimonials/{testimonial}'
  */
         destroyForm.delete = (args: { testimonial: number | { id: number } } | [testimonial: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -612,7 +612,7 @@ destroy.delete = (args: { testimonial: number | { id: number } } | [testimonial:
     destroy.form = destroyForm
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::reorder
- * @see app/Http/Controllers/Admin/TestimonialController.php:100
+ * @see app/Http/Controllers/Admin/TestimonialController.php:116
  * @route '/admin/testimonials/reorder'
  */
 export const reorder = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -627,7 +627,7 @@ reorder.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::reorder
- * @see app/Http/Controllers/Admin/TestimonialController.php:100
+ * @see app/Http/Controllers/Admin/TestimonialController.php:116
  * @route '/admin/testimonials/reorder'
  */
 reorder.url = (options?: RouteQueryOptions) => {
@@ -636,7 +636,7 @@ reorder.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\TestimonialController::reorder
- * @see app/Http/Controllers/Admin/TestimonialController.php:100
+ * @see app/Http/Controllers/Admin/TestimonialController.php:116
  * @route '/admin/testimonials/reorder'
  */
 reorder.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -646,7 +646,7 @@ reorder.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\TestimonialController::reorder
- * @see app/Http/Controllers/Admin/TestimonialController.php:100
+ * @see app/Http/Controllers/Admin/TestimonialController.php:116
  * @route '/admin/testimonials/reorder'
  */
     const reorderForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -656,7 +656,7 @@ reorder.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\TestimonialController::reorder
- * @see app/Http/Controllers/Admin/TestimonialController.php:100
+ * @see app/Http/Controllers/Admin/TestimonialController.php:116
  * @route '/admin/testimonials/reorder'
  */
         reorderForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -9,6 +9,7 @@ class HomeTestimonialsSection extends Model
     protected $fillable = [
         'badge_text',
         'title',
+        'description',
         'background_image',
     ];
 }

@@ -226,6 +226,9 @@ Route::get('/', function () {
             'title' => $homeTestimonialsSection->title
                 ? strip_tags($homeTestimonialsSection->title, '<span><br><strong><em>')
                 : null,
+            'description' => $homeTestimonialsSection->description
+                ? strip_tags($homeTestimonialsSection->description, '<p><br><strong><em><u><a><ul><ol><li><h2><h3>')
+                : null,
             'background_image_url' => $homeTestimonialsSection->background_image
                 ? Storage::disk('public')->url($homeTestimonialsSection->background_image)
                 : null,
