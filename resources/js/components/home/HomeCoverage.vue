@@ -62,7 +62,7 @@ const description = computed(() => props.coverageSection?.description ?? default
 const provincesGeoJsonUrl    = computed(() => props.coverageSection?.provinces_geojson_url    ?? '/enssure/geojson/nepal-provinces.geojson');
 const leafletTileLayerUrl    = computed(() => props.coverageSection?.leaflet_tile_layer_url   ?? 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png');
 const leafletTileAttribution = computed(() => props.coverageSection?.leaflet_tile_attribution ?? '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>');
-const provinceStatsEndpointTemplate = computed(() => props.coverageSection?.province_stats_endpoint_template ?? '/coverage/provinces/__provinceId__');
+const provinceStatsAllEndpoint = '/coverage/provinces/all';
 
 const provinces = computed(() => {
   const dynamic = props.coverageSection?.provinces;
@@ -139,18 +139,19 @@ watch(coverageStats, (newStats) => {
   });
 }, { deep: true });
 
-async function fetchProvinceStats(provinceId) {
-  if (statsCache.value.has(provinceId)) return statsCache.value.get(provinceId);
-  const url = provinceStatsEndpointTemplate.value.replace('__provinceId__', provinceId);
+
+async function fetchAllProvinceStats() {
   try {
-    const response = await fetch(url, { headers: { Accept: 'application/json' } });
+    const response = await fetch(provinceStatsAllEndpoint, { headers: { Accept: 'application/json' } });
     if (!response.ok) throw new Error();
     const data = await response.json();
-    const stats = data.stats ?? {};
-    statsCache.value.set(provinceId, stats);
-    return stats;
+    // data is an array of province objects with id and stats
+    data.forEach(province => {
+      statsCache.value.set(province.id, province.stats ?? {});
+    });
+    return data;
   } catch {
-    throw new Error('Failed to fetch');
+    throw new Error('Failed to fetch all stats');
   }
 }
 
@@ -158,10 +159,13 @@ async function preloadAllStats() {
   loadingProvinceStats.value = true;
   loadingProvinceId.value = selectedProvinceId.value;
   loadingError.value = '';
-  const provinceIds = provinces.value.map(p => p.id);
-  await Promise.all(provinceIds.map(id => fetchProvinceStats(id).catch(() => null)));
-  if (statsCache.value.has(selectedProvinceId.value)) {
-    selectedProvinceStats.value = statsCache.value.get(selectedProvinceId.value);
+  try {
+    await fetchAllProvinceStats();
+    if (statsCache.value.has(selectedProvinceId.value)) {
+      selectedProvinceStats.value = statsCache.value.get(selectedProvinceId.value);
+    }
+  } catch {
+    loadingError.value = 'Unable to load province statistics.';
   }
   loadingProvinceId.value = '';
   loadingProvinceStats.value = false;
@@ -175,14 +179,7 @@ function selectProvince(id) {
   if (statsCache.value.has(id)) {
     selectedProvinceStats.value = statsCache.value.get(id);
   } else {
-    loadingProvinceId.value = id;
-    fetchProvinceStats(id).then(stats => {
-      if (selectedProvinceId.value === id) selectedProvinceStats.value = stats;
-      if (loadingProvinceId.value === id) loadingProvinceId.value = '';
-    }).catch(() => {
-      if (loadingProvinceId.value === id) loadingProvinceId.value = '';
-      loadingError.value = `Unable to load stats for ${selectedProvince.value.name}. Showing last available values.`;
-    });
+    loadingError.value = `No stats available for ${id}.`;
   }
 }
 

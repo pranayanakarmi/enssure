@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class HomeCoverageProvinceController extends Controller
 {
+        /**
+         * Return all provinces' stats in one response.
+         */
+        public function all(Request $request): JsonResponse
+        {
+            $provinces = $this->provinces();
+            // Return as a numerically indexed array for frontend convenience
+            return response()->json(array_values($provinces));
+        }
     /**
      * @return array<string, array{id: string, name: string, display: string, stats: array<string, int|string>}>
      */

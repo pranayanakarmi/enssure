@@ -259,6 +259,10 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+
+Route::get('coverage/provinces/all', [HomeCoverageProvinceController::class, 'all'])
+    ->name('home.coverage.provinces.all');
+
 Route::get('coverage/provinces/{provinceId}', [HomeCoverageProvinceController::class, 'show'])
     ->name('home.coverage.provinces.show');
 
