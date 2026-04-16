@@ -46,7 +46,10 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::createUsersUsing(CreateNewUser::class);
 
         Fortify::authenticateUsing(function (Request $request) {
-            $this->validateRecaptcha($request);
+            if (! $request->attributes->get('captcha_validated')) {
+                $this->validateRecaptcha($request);
+                $request->attributes->set('captcha_validated', true);
+            }
 
             $user = User::where('email', $request->email)->first();
 
@@ -61,7 +64,9 @@ class FortifyServiceProvider extends ServiceProvider
      */
     private function validateRecaptcha(Request $request): void
     {
-        if (app()->environment('local')) {
+        $recaptchaSecret = config('services.recaptcha.secret_key');
+
+        if (blank($recaptchaSecret)) {
             return;
         }
 
@@ -73,8 +78,10 @@ class FortifyServiceProvider extends ServiceProvider
             ]);
         }
 
-        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => config('services.recaptcha.secret_key'),
+        $http = app()->environment('local') ? Http::withoutVerifying()->asForm() : Http::asForm();
+
+        $response = $http->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => $recaptchaSecret,
             'response' => $captchaResponse,
             'remoteip' => $request->ip(),
         ]);
@@ -91,11 +98,13 @@ class FortifyServiceProvider extends ServiceProvider
      */
     private function configureViews(): void
     {
+        $recaptchaSiteKey = config('services.recaptcha.site_key');
+
         Fortify::loginView(fn (Request $request) => Inertia::render('auth/Login', [
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
             'canRegister' => Features::enabled(Features::registration()),
             'status' => $request->session()->get('status'),
-            'recaptchaSiteKey' => app()->environment('local') ? null : config('services.recaptcha.site_key'),
+            'recaptchaSiteKey' => blank($recaptchaSiteKey) ? null : $recaptchaSiteKey,
         ]));
 
         Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/ResetPassword', [

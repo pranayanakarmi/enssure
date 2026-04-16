@@ -86,6 +86,13 @@ const onRecaptchaExpire = () => {
     captchaToken.value = '';
 };
 
+const resetCaptcha = () => {
+    captchaToken.value = '';
+    if (window.grecaptcha && captchaWidgetId.value !== null) {
+        window.grecaptcha.reset(captchaWidgetId.value);
+    }
+};
+
 const renderRecaptcha = () => {
     if (window.grecaptcha && props.recaptchaSiteKey && captchaWidgetId.value === null) {
         captchaWidgetId.value = window.grecaptcha.render('recaptcha-container', {
@@ -201,6 +208,7 @@ onUnmounted(() => {
                         :reset-on-success="['password']"
                         v-slot="{ errors, processing }"
                         class="space-y-6"
+                        @finish="(form) => { if (form.hasErrors) resetCaptcha() }"
                     >
                         <!-- Email Field with dynamic styling -->
                         <div class="space-y-2 transform transition-all duration-300" :class="{ 'scale-105': emailFocused }">
@@ -383,4 +391,4 @@ onUnmounted(() => {
 :deep(input) {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-</style
+</style>
