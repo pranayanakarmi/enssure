@@ -35,6 +35,7 @@ import CommitteeMemberController from './CommitteeMemberController'
 import ProvinceController from './ProvinceController'
 import DistrictController from './DistrictController'
 import DocumentController from './DocumentController'
+import DocumentTypeController from './DocumentTypeController'
 import TeamMemberController from './TeamMemberController'
 import TeamPageContentController from './TeamPageContentController'
 import InfographicController from './InfographicController'
@@ -115,6 +116,7 @@ CommitteeMemberController: Object.assign(CommitteeMemberController, CommitteeMem
 ProvinceController: Object.assign(ProvinceController, ProvinceController),
 DistrictController: Object.assign(DistrictController, DistrictController),
 DocumentController: Object.assign(DocumentController, DocumentController),
+DocumentTypeController: Object.assign(DocumentTypeController, DocumentTypeController),
 TeamMemberController: Object.assign(TeamMemberController, TeamMemberController),
 TeamPageContentController: Object.assign(TeamPageContentController, TeamPageContentController),
 InfographicController: Object.assign(InfographicController, InfographicController),

@@ -1,5 +1,6 @@
-<?php
 
+<?php
+use App\Http\Controllers\Admin\DocumentTypeController;
 use App\Http\Controllers\Admin\AboutContentSectionController;
 use App\Http\Controllers\Admin\AboutMainSectionController;
 use App\Http\Controllers\Admin\AboutPageHeroController;
@@ -149,6 +150,7 @@ Route::middleware(['auth', 'verified', 'role:admin|super_admin'])->prefix('admin
     Route::resource('districts', DistrictController::class)->except(['show']);
     Route::post('documents/reorder', [DocumentController::class, 'reorder'])->name('documents.reorder');
     Route::resource('documents', DocumentController::class)->except(['show']);
+    Route::resource('document_types', DocumentTypeController::class)->except(['show']);
     Route::get('team_members/executive', [TeamMemberController::class, 'index'])->name('team_members.executive_index');
     Route::get('team_members/staff', [TeamMemberController::class, 'index'])->name('team_members.staff_index');
     Route::resource('team_members', TeamMemberController::class)->except(['show']);

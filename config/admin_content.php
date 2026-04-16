@@ -202,9 +202,20 @@ return [
 
         [
             'title' => 'Documents',
-            'href' => 'admin.documents.index',
             'icon' => 'FileStack',
-            'permission_resource' => 'documents',
+            'permission_resource' => null,
+            'children' => [
+                [
+                    'title' => 'All Documents',
+                    'href' => 'admin.documents.index',
+                    'permission_resource' => 'documents',
+                ],
+                [
+                    'title' => 'Document Types',
+                    'href' => 'admin.document_types.index',
+                    'permission_resource' => 'documents',
+                ],
+            ],
         ],
 
         [

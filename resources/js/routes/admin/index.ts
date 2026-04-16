@@ -34,6 +34,7 @@ import committeeMembers from './committee-members'
 import provinces from './provinces'
 import districts from './districts'
 import documents from './documents'
+import document_types from './document_types'
 import team_members from './team_members'
 import team_page_content from './team_page_content'
 import infographics from './infographics'
@@ -651,7 +652,7 @@ systemPage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     systemPage.form = systemPageForm
 /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:90
  * @route '/admin'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -665,7 +666,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:90
  * @route '/admin'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -673,7 +674,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:90
  * @route '/admin'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -681,7 +682,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:90
  * @route '/admin'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -690,7 +691,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:90
  * @route '/admin'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -699,7 +700,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:90
  * @route '/admin'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -707,7 +708,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/admin.php:89
+ * @see routes/admin.php:90
  * @route '/admin'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -766,6 +767,7 @@ committeeMembers: Object.assign(committeeMembers, committeeMembers),
 provinces: Object.assign(provinces, provinces),
 districts: Object.assign(districts, districts),
 documents: Object.assign(documents, documents),
+document_types: Object.assign(document_types, document_types),
 team_members: Object.assign(team_members, team_members),
 team_page_content: Object.assign(team_page_content, team_page_content),
 infographics: Object.assign(infographics, infographics),

@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\ReorderDocumentRequest;
 use App\Http\Requests\Admin\StoreDocumentRequest;
 use App\Http\Requests\Admin\UpdateDocumentRequest;
 use App\Models\Document;
+use App\Models\DocumentType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -43,8 +44,11 @@ class DocumentController extends Controller
     {
         $this->authorize('create', Document::class);
 
+        $documentTypes = DocumentType::orderBy('name')->get(['slug', 'name']);
+
         return Inertia::render('admin/documents/create', [
             'nextOrder' => (int) Document::max('order') + 1,
+            'documentTypes' => $documentTypes,
         ]);
     }
 
@@ -73,6 +77,8 @@ class DocumentController extends Controller
 
         $d = $document;
 
+        $documentTypes = DocumentType::orderBy('name')->get(['slug', 'name']);
+
         return Inertia::render('admin/documents/edit', [
             'document' => [
                 'id' => $d->id,
@@ -85,6 +91,7 @@ class DocumentController extends Controller
                 'file_extension' => $d->file_extension,
                 'file_url' => Storage::disk('public')->url($d->file_path),
             ],
+            'documentTypes' => $documentTypes,
         ]);
     }
 

@@ -9,8 +9,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 
+
 const props = defineProps({
     nextOrder: { type: Number, default: 0 },
+    documentTypes: { type: Array, default: () => [] },
 });
 
 const form = useForm({
@@ -88,11 +90,9 @@ const breadcrumbItems = [
                                 required
                                 class="h-9 w-full rounded-md border border-gray-300 bg-background px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                             >
-                                <option value="courses">Courses</option>
-                                <option value="documents">Documents</option>
-                                <option value="form">Form</option>
-                                <option value="guidelines">Guidelines</option>
-                                <option value="report">Report</option>
+                                <option v-for="type in props.documentTypes" :key="type.slug" :value="type.slug">
+                                    {{ type.name }}
+                                </option>
                             </select>
                             <InputError :message="form.errors.document_type" />
                         </div>
