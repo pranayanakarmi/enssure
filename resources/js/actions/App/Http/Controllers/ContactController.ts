@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\ContactController::show
- * @see app/Http/Controllers/ContactController.php:19
+ * @see app/Http/Controllers/ContactController.php:20
  * @route '/contact'
  */
 export const show = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\ContactController::show
- * @see app/Http/Controllers/ContactController.php:19
+ * @see app/Http/Controllers/ContactController.php:20
  * @route '/contact'
  */
 show.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ show.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ContactController::show
- * @see app/Http/Controllers/ContactController.php:19
+ * @see app/Http/Controllers/ContactController.php:20
  * @route '/contact'
  */
 show.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ show.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\ContactController::show
- * @see app/Http/Controllers/ContactController.php:19
+ * @see app/Http/Controllers/ContactController.php:20
  * @route '/contact'
  */
 show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\ContactController::show
- * @see app/Http/Controllers/ContactController.php:19
+ * @see app/Http/Controllers/ContactController.php:20
  * @route '/contact'
  */
     const showForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\ContactController::show
- * @see app/Http/Controllers/ContactController.php:19
+ * @see app/Http/Controllers/ContactController.php:20
  * @route '/contact'
  */
         showForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\ContactController::show
- * @see app/Http/Controllers/ContactController.php:19
+ * @see app/Http/Controllers/ContactController.php:20
  * @route '/contact'
  */
         showForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     show.form = showForm
 /**
 * @see \App\Http\Controllers\ContactController::store
- * @see app/Http/Controllers/ContactController.php:37
+ * @see app/Http/Controllers/ContactController.php:62
  * @route '/contact/feedback'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -94,7 +94,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\ContactController::store
- * @see app/Http/Controllers/ContactController.php:37
+ * @see app/Http/Controllers/ContactController.php:62
  * @route '/contact/feedback'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ContactController::store
- * @see app/Http/Controllers/ContactController.php:37
+ * @see app/Http/Controllers/ContactController.php:62
  * @route '/contact/feedback'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -113,7 +113,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\ContactController::store
- * @see app/Http/Controllers/ContactController.php:37
+ * @see app/Http/Controllers/ContactController.php:62
  * @route '/contact/feedback'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -123,7 +123,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\ContactController::store
- * @see app/Http/Controllers/ContactController.php:37
+ * @see app/Http/Controllers/ContactController.php:62
  * @route '/contact/feedback'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

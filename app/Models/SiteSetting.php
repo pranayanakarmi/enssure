@@ -21,5 +21,15 @@ class SiteSetting extends Model
         'logo_right',
         'footer_privacy_policy_url',
         'footer_terms_of_service_url',
+        'visit_us',
+        'working_hours',
+        'province_contacts',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'province_contacts' => 'array',
+        ];
+    }
 }

@@ -37,6 +37,11 @@ const form = useForm({
     header_phone_2: setting.value.header_phone_2 ?? '',
     header_fax: setting.value.header_fax ?? '',
     header_email: setting.value.header_email ?? '',
+    visit_us: setting.value.visit_us ?? '',
+    working_hours: setting.value.working_hours ?? '',
+    province_contacts: setting.value.province_contacts ?? [
+        { province: '', name: '', position: '', phone: '', email: '', address: '' },
+    ],
     logo_left: null,
     logo_center: null,
     logo_right: null,
@@ -126,7 +131,7 @@ const breadcrumbItems = [
                         <CardDescription class="text-xs">Contact details and logos displayed in the header.</CardDescription>
                     </CardHeader>
                     <CardContent class="px-5 py-5 space-y-5">
-                        <!-- Phone, Fax, Email (two columns) -->
+                        <!-- Phone, Fax, Email, Visit Us, Working Hours (two columns) -->
                         <div class="grid gap-4 sm:grid-cols-2">
                             <div class="flex flex-col gap-1.5">
                                 <Label for="header_phone_1" class="text-xs font-medium">Phone 1</Label>
@@ -147,6 +152,16 @@ const breadcrumbItems = [
                                 <Label for="header_email" class="text-xs font-medium">Email</Label>
                                 <Input id="header_email" v-model="form.header_email" type="email" class="h-9 text-sm" placeholder="enssure.np@helvetas.org" />
                                 <InputError :message="form.errors.header_email" />
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <Label for="visit_us" class="text-xs font-medium">Visit Us (Address)</Label>
+                                <Input id="visit_us" v-model="form.visit_us" class="h-9 text-sm" placeholder="ENSSURE Provincial Office, Hetauda, Nepal" required />
+                                <InputError :message="form.errors.visit_us" />
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <Label for="working_hours" class="text-xs font-medium">Working Hours</Label>
+                                <Input id="working_hours" v-model="form.working_hours" class="h-9 text-sm" placeholder="Mon - Fri: 9:00 AM – 5:00 PM" required />
+                                <InputError :message="form.errors.working_hours" />
                             </div>
                         </div>
 
@@ -248,6 +263,50 @@ const breadcrumbItems = [
                                 <InputError :message="form.errors.youtube_url" />
                             </div>
                         </div>
+                    </CardContent>
+                </Card>
+
+                <!-- Province Contacts Table -->
+                <Card class="border-gray-200 shadow-sm">
+                    <CardHeader class="border-b border-gray-200 px-5 py-4">
+                        <CardTitle class="text-sm font-semibold">Province Contacts</CardTitle>
+                        <CardDescription class="text-xs">Manage provincial office contacts shown on the Contact page.</CardDescription>
+                    </CardHeader>
+                    <CardContent class="px-5 py-5">
+                        <table class="min-w-full text-xs border border-gray-200 rounded-lg overflow-hidden">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-2 py-2 border-b">Province</th>
+                                    <th class="px-2 py-2 border-b">Name</th>
+                                    <th class="px-2 py-2 border-b">Position</th>
+                                    <th class="px-2 py-2 border-b">Phone</th>
+                                    <th class="px-2 py-2 border-b">Email</th>
+                                    <th class="px-2 py-2 border-b">Address</th>
+                                    <th class="px-2 py-2 border-b"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(contact, idx) in form.province_contacts" :key="idx" class="bg-white">
+                                    <td class="px-2 py-1 border-b"><Input v-model="contact.province" class="h-8 text-xs w-32" placeholder="Province" /></td>
+                                    <td class="px-2 py-1 border-b"><Input v-model="contact.name" class="h-8 text-xs w-40" placeholder="Name" /></td>
+                                    <td class="px-2 py-1 border-b"><Input v-model="contact.position" class="h-8 text-xs w-36" placeholder="Position" /></td>
+                                    <td class="px-2 py-1 border-b"><Input v-model="contact.phone" class="h-8 text-xs w-32" placeholder="Phone" /></td>
+                                    <td class="px-2 py-1 border-b"><Input v-model="contact.email" class="h-8 text-xs w-44" placeholder="Email" /></td>
+                                    <td class="px-2 py-1 border-b"><Input v-model="contact.address" class="h-8 text-xs w-48" placeholder="Address" /></td>
+                                    <td class="px-2 py-1 border-b">
+                                        <Button type="button" variant="destructive" size="icon" class="h-6 w-6" @click="form.province_contacts.splice(idx, 1)" v-if="form.province_contacts.length > 1">
+                                            <X class="h-3 w-3" />
+                                        </Button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-3">
+                            <Button type="button" size="sm" @click="form.province_contacts.push({ province: '', name: '', position: '', phone: '', email: '', address: '' })">
+                                Add Province Contact
+                            </Button>
+                        </div>
+                        <InputError :message="form.errors.province_contacts" />
                     </CardContent>
                 </Card>
 

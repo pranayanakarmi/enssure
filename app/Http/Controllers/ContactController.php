@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePublicContactFeedbackRequest;
 use App\Models\ContactFeedbackContent;
+use App\Models\SiteSetting;
 use App\Models\Feedback;
 use App\Models\PublicContactFeedbackSource;
 use Illuminate\Http\RedirectResponse;
@@ -26,11 +27,35 @@ class ContactController extends Controller
             ]);
         }
 
+
+        $siteSetting = SiteSetting::first();
+
+        $social_links = [];
+        if (!empty($siteSetting?->facebook_url)) {
+            $social_links[] = [ 'platform' => 'facebook', 'url' => $siteSetting->facebook_url ];
+        }
+        if (!empty($siteSetting?->x_url)) {
+            $social_links[] = [ 'platform' => 'x', 'url' => $siteSetting->x_url ];
+        }
+        if (!empty($siteSetting?->youtube_url)) {
+            $social_links[] = [ 'platform' => 'youtube', 'url' => $siteSetting->youtube_url ];
+        }
+
+        $contactInfo = [
+            'address' => $siteSetting->visit_us ?? 'ENSSURE Provincial Office, Hetauda, Nepal',
+            'phone' => $siteSetting->header_phone_1 ?? '',
+            'email' => $siteSetting->header_email ?? '',
+            'hours' => $siteSetting->working_hours ?? 'Mon - Fri: 9:00 AM – 5:00 PM',
+            'social_links' => $social_links,
+        ];
+
         return Inertia::render('Contact', [
             'contactFeedbackContent' => [
                 'title' => $content->title,
                 'description' => $content->description,
             ],
+            'contactInfo' => $contactInfo,
+            'provinceContacts' => $siteSetting?->province_contacts ?? [],
         ]);
     }
 

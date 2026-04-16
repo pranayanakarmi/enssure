@@ -47,6 +47,8 @@ test('admin user can update site settings', function () {
         'facebook_url' => 'https://facebook.com/enssure',
         'x_url' => 'https://x.com/enssure',
         'youtube_url' => 'https://youtube.com/enssure',
+        'visit_us' => 'ENSSURE Provincial Office, Hetauda, Nepal',
+        'working_hours' => 'Mon - Fri: 9:00 AM – 5:00 PM',
     ]);
 
     $response->assertRedirect();

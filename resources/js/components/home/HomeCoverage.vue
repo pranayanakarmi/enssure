@@ -31,7 +31,7 @@ const coverageStatDefinitions = [
   { key: 'lg_coverage',                   icon: Landmark,      label: 'LG Coverage',         color: 'text-indigo-600' },
   { key: 'ojt_participants',              icon: Users,         label: 'OJT Participants',    color: 'text-cyan-600' },
   { key: 'workers_trained_sut',           icon: GraduationCap, label: 'Workers Trained (SUT)', color: 'text-orange-600' },
-  { key: 'private_sector_coinvestment',   icon: HandCoins,     label: 'Private Co‑Investment', color: 'text-green-600' },
+  { key: 'private_sector_coinvestment',   icon: HandCoins,     label: 'Private Co-Investment', color: 'text-green-600' },
   { key: 'government_sector_coinvestment',icon: HandCoins,     label: 'Govt Co‑Investment',  color: 'text-teal-600' },
   { key: 'policy_endorsed',               icon: FileCheck,     label: 'Policy Endorsed',     color: 'text-red-600' },
 ];

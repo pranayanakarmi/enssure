@@ -36,6 +36,9 @@ class SiteSettingController extends Controller
                 'header_phone_2' => $setting->header_phone_2,
                 'header_fax' => $setting->header_fax,
                 'header_email' => $setting->header_email,
+                'visit_us' => $setting->visit_us,
+                'working_hours' => $setting->working_hours,
+                'province_contacts' => $setting->province_contacts,
                 'logo_left_url' => $setting->logo_left
                     ? Storage::disk('public')->url($setting->logo_left)
                     : null,
