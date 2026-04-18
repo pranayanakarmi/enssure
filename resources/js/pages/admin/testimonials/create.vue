@@ -1,237 +1,164 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { Head, Link } from '@inertiajs/vue3';
-import { computed, onUnmounted, ref } from 'vue';
-import Heading from '@/components/Heading.vue';
+import { ref, onUnmounted } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import AppLayout from '@/layouts/AppLayout.vue';
-
-defineProps({
-    courses: {
-        type: Array,
-        default: () => [],
-    },
-});
+import { ArrowLeft, Save, ImageIcon, X } from 'lucide-vue-next';
 
 const form = useForm({
     name: '',
     designation: '',
-    organization: '',
-    image: null,
     testimonial_text: '',
-    rating: null,
-    course_id: '',
-    is_featured: false,
-    is_published: false,
+    image: null,
     order: 0,
+    is_published: true,
 });
 
 const imagePreview = ref(null);
+const imageInputRef = ref(null);
 
-const publishedStateText = computed(() => {
-    return form.is_published
-        ? 'Published (visible on site)'
-        : 'Draft (hidden from site)';
-});
-
-function onImageChange(event) {
-    if (imagePreview.value) {
-        URL.revokeObjectURL(imagePreview.value);
-    }
-
-    const file = event.target.files?.[0] ?? null;
+function onImageChange(e) {
+    if (imagePreview.value) URL.revokeObjectURL(imagePreview.value);
+    const file = e.target.files?.[0] || null;
     form.image = file;
-    imagePreview.value = file ? URL.createObjectURL(file) : null;
+    if (file) imagePreview.value = URL.createObjectURL(file);
+    else imagePreview.value = null;
 }
-
-function clearSelectedImage() {
-    if (imagePreview.value) {
-        URL.revokeObjectURL(imagePreview.value);
-        imagePreview.value = null;
-    }
-
+function clearImagePreview() {
+    if (imagePreview.value) URL.revokeObjectURL(imagePreview.value);
+    imagePreview.value = null;
     form.image = null;
-
-    const inputElement = document.getElementById('image');
-    if (inputElement) {
-        inputElement.value = '';
-    }
-}
-
-function submitForm() {
-    form.transform((data) => ({
-        ...data,
-        is_published: data.is_published ? 1 : 0,
-    }));
-
-    form.post('/admin/testimonials', {
-        forceFormData: true,
-        onSuccess: () => {
-            form.transform((data) => data);
-        },
-    });
+    if (imageInputRef.value) imageInputRef.value.value = '';
 }
 
 onUnmounted(() => {
-    if (imagePreview.value) {
-        URL.revokeObjectURL(imagePreview.value);
-    }
+    if (imagePreview.value) URL.revokeObjectURL(imagePreview.value);
 });
 
 const breadcrumbItems = [
-    { title: 'Home Page', href: '#' },
+    { title: 'Home Page', href: '/admin/home' },
     { title: 'Testimonials', href: '/admin/testimonials' },
-    { title: 'Create', href: '/admin/testimonials/create' },
+    { title: 'Create', href: '#' },
 ];
 </script>
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Create testimonial" />
+        <Head title="Create Testimonial" />
 
-        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="space-y-6">
-                <Heading
-                    variant="small"
-                    title="Create testimonial"
-                    description="Add a new testimonial"
-                />
+        <div class="flex h-full flex-1 flex-col gap-5 overflow-x-auto p-5">
 
-                <form
-                    class="space-y-6"
-                    @submit.prevent="submitForm"
-                >
-                    <div class="grid gap-2">
-                        <Label for="name">Name</Label>
-                        <Input
-                            id="name"
-                            v-model="form.name"
-                            type="text"
-                            required
-                        />
-                        <InputError :message="form.errors.name" />
+            <!-- Header with back button -->
+            <div class="flex flex-wrap items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <Button variant="outline" size="sm" as-child class="h-8 gap-1.5 text-xs">
+                        <Link href="/admin/testimonials">
+                            <ArrowLeft class="h-3.5 w-3.5" />Back
+                        </Link>
+                    </Button>
+                    <div>
+                        <h1 class="text-xl font-semibold tracking-tight text-foreground">Create Testimonial</h1>
+                        <p class="text-xs text-muted-foreground mt-0.5">Add a new client or partner testimonial.</p>
                     </div>
-                    <div class="grid gap-2">
-                        <Label for="designation">Designation</Label>
-                        <Input
-                            id="designation"
-                            v-model="form.designation"
-                            type="text"
-                        />
-                        <InputError :message="form.errors.designation" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="organization">Organization</Label>
-                        <Input
-                            id="organization"
-                            v-model="form.organization"
-                            type="text"
-                        />
-                        <InputError :message="form.errors.organization" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="image">Image</Label>
-                        <div class="flex items-center gap-3">
-                            <div class="h-14 w-14 overflow-hidden rounded-full border border-sidebar-border bg-muted">
-                                <img
-                                    v-if="imagePreview"
-                                    :src="imagePreview"
-                                    alt="Selected testimonial image"
-                                    class="h-full w-full object-cover"
-                                >
+                </div>
+                <div class="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs text-gray-600">
+                    <ImageIcon class="h-3.5 w-3.5" />New Testimonial
+                </div>
+            </div>
+
+            <!-- Main form card -->
+            <Card class="border-gray-200 shadow-sm">
+                <CardHeader class="border-b border-gray-200 px-5 py-4">
+                    <CardTitle class="text-sm font-semibold">Testimonial Details</CardTitle>
+                    <CardDescription class="text-xs">Fill in the information for the new testimonial.</CardDescription>
+                </CardHeader>
+                <CardContent class="px-5 py-5">
+                    <form class="flex flex-col gap-5" @submit.prevent="form.post('/admin/testimonials', { forceFormData: true })">
+
+                        <!-- Name -->
+                        <div class="flex flex-col gap-1.5">
+                            <Label for="name" class="text-xs font-medium">Name *</Label>
+                            <Input id="name" v-model="form.name" class="h-9 text-sm" placeholder="e.g. Anita Shrestha" />
+                            <InputError :message="form.errors.name" />
+                        </div>
+
+                        <!-- Designation / Role -->
+                        <div class="flex flex-col gap-1.5">
+                            <Label for="designation" class="text-xs font-medium">Designation / Role</Label>
+                            <Input id="designation" v-model="form.designation" class="h-9 text-sm" placeholder="e.g. Former Apprentice, Now Workshop Owner" />
+                            <InputError :message="form.errors.designation" />
+                        </div>
+
+                        <!-- Testimonial Text -->
+                        <div class="flex flex-col gap-1.5">
+                            <Label for="testimonial_text" class="text-xs font-medium">Testimonial Text *</Label>
+                            <textarea
+                                id="testimonial_text"
+                                v-model="form.testimonial_text"
+                                rows="4"
+                                class="w-full rounded-md border border-gray-300 bg-background px-3 py-2 text-sm"
+                                placeholder="Write the testimonial quote..."
+                            />
+                            <InputError :message="form.errors.testimonial_text" />
+                        </div>
+
+                        <!-- Image (optional) -->
+                        <div class="flex flex-col gap-1.5">
+                            <Label class="text-xs font-medium">Photo (optional)</Label>
+                            <div class="flex flex-wrap gap-3">
+                                <div v-if="imagePreview" class="relative">
+                                    <img :src="imagePreview" alt="Preview" class="h-20 w-20 rounded-full border border-gray-200 object-cover" />
+                                    <button type="button" @click="clearImagePreview" class="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm hover:bg-red-500 hover:text-white">
+                                        <X class="h-3 w-3" />
+                                    </button>
+                                </div>
+                                <div v-else class="flex h-20 w-20 items-center justify-center rounded-full border border-dashed border-gray-300 bg-gray-50">
+                                    <ImageIcon class="h-6 w-6 text-gray-400" />
+                                </div>
                             </div>
-                            <Button
-                                v-if="imagePreview"
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                @click="clearSelectedImage"
-                            >
-                                Remove image
+                            <input
+                                ref="imageInputRef"
+                                type="file"
+                                accept="image/*"
+                                class="mt-2 block w-full max-w-md cursor-pointer rounded-md border border-gray-300 bg-background px-3 py-2 text-sm file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-primary/90"
+                                @change="onImageChange"
+                            />
+                            <p class="text-xs text-gray-500">Recommended: square image, max 2MB.</p>
+                            <InputError :message="form.errors.image" />
+                        </div>
+
+                        <!-- Order -->
+                        <div class="flex flex-col gap-1.5">
+                            <Label for="order" class="text-xs font-medium">Order</Label>
+                            <Input id="order" v-model.number="form.order" type="number" min="0" class="h-9 text-sm" />
+                            <p class="text-xs text-gray-500">Lower order = higher priority in the list.</p>
+                            <InputError :message="form.errors.order" />
+                        </div>
+
+                        <!-- Published -->
+                        <div class="flex items-center gap-2">
+                            <Checkbox id="is_published" v-model:checked="form.is_published" />
+                            <Label for="is_published" class="text-xs font-medium">Published (visible on site)</Label>
+                        </div>
+
+                        <!-- Save button -->
+                        <div class="flex justify-end border-t border-gray-200 pt-4">
+                            <Button type="submit" size="sm" :disabled="form.processing" class="h-8 gap-1.5 text-xs">
+                                <Save class="h-3.5 w-3.5" />
+                                {{ form.processing ? 'Creating...' : 'Create Testimonial' }}
                             </Button>
                         </div>
-                        <Input
-                            id="image"
-                            type="file"
-                            accept="image/*"
-                            @change="onImageChange"
-                        />
-                        <InputError :message="form.errors.image" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="testimonial_text">Testimonial text</Label>
-                        <textarea
-                            id="testimonial_text"
-                            v-model="form.testimonial_text"
-                            rows="4"
-                            class="flex min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        />
-                        <InputError :message="form.errors.testimonial_text" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="course_id">Course</Label>
-                        <select
-                            id="course_id"
-                            v-model="form.course_id"
-                            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                        >
-                            <option value="">— None —</option>
-                            <option
-                                v-for="c in (courses || [])"
-                                :key="c.id"
-                                :value="c.id"
-                            >
-                                {{ c.name }}
-                            </option>
-                        </select>
-                        <InputError :message="form.errors.course_id" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="order">Order</Label>
-                        <Input
-                            id="order"
-                            v-model.number="form.order"
-                            type="number"
-                            min="0"
-                        />
-                        <InputError :message="form.errors.order" />
-                    </div>
-                    <div class="flex flex-wrap gap-4">
-                        <label class="flex items-center gap-2">
-                            <input
-                                v-model="form.is_featured"
-                                type="checkbox"
-                                class="rounded border-sidebar-border"
-                            />
-                            <span class="text-sm">Featured</span>
-                        </label>
-                        <div class="flex items-center gap-2">
-                            <Checkbox
-                                id="is_published"
-                                v-model:checked="form.is_published"
-                            />
-                            <Label
-                                for="is_published"
-                                class="cursor-pointer text-sm font-normal"
-                            >
-                                {{ publishedStateText }}
-                            </Label>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <Button type="submit" :disabled="form.processing">
-                            Create testimonial
-                        </Button>
-                        <Button variant="outline" as-child>
-                            <Link href="/admin/testimonials">Cancel</Link>
-                        </Button>
-                    </div>
-                </form>
-            </div>
+
+                    </form>
+                </CardContent>
+            </Card>
+
         </div>
     </AppLayout>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import {
     ArrowLeft, Save, Plus, Trash2, Edit, GripVertical, Quote,
     CheckCircle2, AlertCircle, X, User, Star
@@ -26,89 +26,13 @@ watch(() => props.testimonials, (newItems) => {
     localItems.value = [...newItems];
 }, { immediate: true, deep: true });
 
-// ── Modal state (create/edit) ────────────────────────────────────
-const modalOpen = ref(false);
-const editingItem = ref(null);
-const form = useForm({
-    name: '',
-    designation: '',
-    testimonial_text: '',
-    image: null,
-    order: 0,
-    is_published: true,
-    _method: 'post',
-});
-const imagePreview = ref(null);
-const existingImage = ref(null);
 
-function openCreateModal() {
-    editingItem.value = null;
-    form.reset();
-    form._method = 'post';
-    form.order = localItems.value.length;
-    imagePreview.value = null;
-    existingImage.value = null;
-    modalOpen.value = true;
+function goToCreate() {
+    router.visit('/admin/testimonials/create');
 }
 
-function openEditModal(testimonial) {
-    editingItem.value = testimonial;
-    form.name = testimonial.name;
-    form.designation = testimonial.designation;
-    form.testimonial_text = testimonial.testimonial_text;
-    form.order = testimonial.order;
-    form.is_published = Boolean(testimonial.is_published);
-    form.image = null;
-    form._method = 'put';
-    imagePreview.value = null;
-    existingImage.value = testimonial.image_url;
-    modalOpen.value = true;
-}
-
-function closeModal() {
-    modalOpen.value = false;
-    form.reset();
-    imagePreview.value = null;
-    existingImage.value = null;
-}
-
-function onImageChange(e) {
-    if (imagePreview.value) URL.revokeObjectURL(imagePreview.value);
-    const file = e.target.files?.[0] || null;
-    form.image = file;
-    if (file) imagePreview.value = URL.createObjectURL(file);
-}
-function clearImagePreview() {
-    if (imagePreview.value) URL.revokeObjectURL(imagePreview.value);
-    imagePreview.value = null;
-    form.image = null;
-    const el = document.getElementById('modal_image');
-    if (el) el.value = '';
-}
-
-function saveTestimonial() {
-    form.transform((data) => ({
-        ...data,
-        is_published: data.is_published ? 1 : 0,
-    }));
-
-    if (editingItem.value) {
-        form.post(`/admin/testimonials/${editingItem.value.id}`, {
-            forceFormData: true,
-            onSuccess: () => {
-                form.transform((data) => data);
-                closeModal();
-            },
-        });
-    } else {
-        form.post('/admin/testimonials', {
-            forceFormData: true,
-            onSuccess: () => {
-                form.transform((data) => data);
-                closeModal();
-            },
-        });
-    }
+function goToEdit(testimonial) {
+    router.visit(`/admin/testimonials/${testimonial.id}/edit`);
 }
 
 // ── Delete ────────────────────────────────────────────────────────
@@ -193,7 +117,7 @@ const breadcrumbItems = [
                         <p class="text-xs text-muted-foreground mt-0.5">Manage client and partner testimonials.</p>
                     </div>
                 </div>
-                <Button size="sm" class="h-8 gap-1.5 text-xs" @click="openCreateModal">
+                <Button size="sm" class="h-8 gap-1.5 text-xs" @click="goToCreate">
                     <Plus class="h-3.5 w-3.5" />Add Testimonial
                 </Button>
             </div>
@@ -271,7 +195,7 @@ const breadcrumbItems = [
 
                         <!-- Actions -->
                         <div class="mt-4 flex items-center justify-end gap-1.5">
-                            <Button size="sm" variant="outline" class="h-7 gap-1 text-xs" @click.stop="openEditModal(item)">
+                            <Button size="sm" variant="outline" class="h-7 gap-1 text-xs" @click.stop="goToEdit(item)">
                                 <Edit class="h-3 w-3" /> Edit
                             </Button>
                             <Button size="sm" variant="ghost" class="h-7 gap-1 text-xs text-destructive hover:bg-destructive/10" @click.stop="confirmDelete(item)">
@@ -300,109 +224,7 @@ const breadcrumbItems = [
             </div>
         </div>
 
-        <!-- Create/Edit modal -->
-        <div v-if="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" @click.self="closeModal">
-            <div class="w-full max-w-2xl rounded-lg bg-background p-6 shadow-xl">
-                <div class="flex items-center justify-between border-b border-gray-200 pb-3">
-                    <h2 class="text-lg font-semibold text-foreground">
-                        {{ editingItem ? 'Edit Testimonial' : 'Add New Testimonial' }}
-                    </h2>
-                    <button type="button" @click="closeModal" class="text-gray-400 hover:text-gray-600">
-                        <X class="h-5 w-5" />
-                    </button>
-                </div>
 
-                <form class="mt-5 space-y-5" @submit.prevent="saveTestimonial">
-                    <div class="grid gap-4 sm:grid-cols-2">
-                        <div class="space-y-1.5">
-                            <Label for="modal_name">Name *</Label>
-                            <Input id="modal_name" v-model="form.name" required class="h-9 text-sm" />
-                            <InputError :message="form.errors.name" />
-                        </div>
-                        <div class="space-y-1.5">
-                            <Label for="modal_designation">Designation / Title</Label>
-                            <Input id="modal_designation" v-model="form.designation" class="h-9 text-sm" />
-                            <InputError :message="form.errors.designation" />
-                        </div>
-                    </div>
-
-                    <div class="space-y-1.5">
-                        <Label for="modal_testimonial_text">Testimonial Text *</Label>
-                        <!-- ✅ Use native textarea instead of missing Textarea component -->
-                        <textarea
-                            id="modal_testimonial_text"
-                            v-model="form.testimonial_text"
-                            rows="4"
-                            required
-                            class="w-full rounded-md border border-gray-300 bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                        ></textarea>
-                        <InputError :message="form.errors.testimonial_text" />
-                    </div>
-
-                    <div class="space-y-2">
-                        <Label class="text-xs font-medium">Photo (optional)</Label>
-                        <div class="flex items-center gap-2">
-                            <div class="relative shrink-0">
-                                <div v-if="existingImage && !imagePreview" class="relative">
-                                    <img :src="existingImage" alt="Current" class="h-14 w-14 rounded-full border-2 border-gray-200 object-cover shadow-sm" />
-                                    <span class="absolute -bottom-1 -right-1 rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-medium text-white shadow-sm">Current</span>
-                                </div>
-                                <div v-else-if="imagePreview" class="relative">
-                                    <img :src="imagePreview" alt="Preview" class="h-14 w-14 rounded-full border-2 border-primary object-cover shadow-sm ring-2 ring-primary/30" />
-                                    <button type="button" @click="clearImagePreview" class="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-gray-200 bg-white shadow-md hover:bg-red-500 hover:text-white transition-colors">
-                                        <X class="h-2.5 w-2.5" />
-                                    </button>
-                                </div>
-                                <div v-else class="flex h-14 w-14 items-center justify-center rounded-full border-2 border-dashed border-gray-300 bg-gray-50 shadow-sm">
-                                    <User class="h-5 w-5 text-gray-400" />
-                                </div>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <label for="modal_image" class="flex h-9 cursor-pointer items-center rounded-md border border-gray-300 bg-background px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition-colors">
-                                    Choose Image
-                                </label>
-                                <input
-                                    id="modal_image"
-                                    type="file"
-                                    accept="image/*"
-                                    class="hidden"
-                                    @change="onImageChange"
-                                />
-                            </div>
-                        </div>
-                        <p class="text-xs text-gray-500 pl-0.5">Square, max 2MB</p>
-                        <InputError :message="form.errors.image" />
-                    </div>
-
-                    <div class="grid gap-4 sm:grid-cols-2">
-                        <div class="space-y-1.5">
-                            <Label for="modal_order">Order</Label>
-                            <Input id="modal_order" v-model.number="form.order" type="number" min="0" class="h-9 text-sm" />
-                            <InputError :message="form.errors.order" />
-                        </div>
-                        <div class="flex items-center space-x-2 pt-2">
-                            <input
-                                id="modal_is_published"
-                                v-model="form.is_published"
-                                type="checkbox"
-                                class="h-4 w-4 rounded border-sidebar-border"
-                            >
-                            <Label for="modal_is_published" class="text-sm font-normal">
-                                {{ form.is_published ? 'Published (visible on site)' : 'Draft (hidden from site)' }}
-                            </Label>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end gap-3 border-t border-gray-200 pt-4">
-                        <Button type="button" variant="outline" @click="closeModal">Cancel</Button>
-                        <Button type="submit" :disabled="form.processing" class="gap-1.5">
-                            <Save class="h-3.5 w-3.5" />
-                            {{ form.processing ? 'Saving…' : (editingItem ? 'Update Testimonial' : 'Create Testimonial') }}
-                        </Button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </AppLayout>
 </template>
 <style scoped>
