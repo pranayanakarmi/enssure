@@ -72,7 +72,7 @@ function relatedNoticeImage(notice) {
         />
 
         <!-- Meta bar: date + share (below hero) -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-8">
+        <!-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-8">
             <div v-if="formattedDate" class="flex flex-wrap justify-between items-center gap-4 text-sm text-gray-500 uppercase tracking-wide">
                 <div class="flex items-center gap-2">
                     <Calendar class="w-4 h-4 text-gray-400" />
@@ -100,7 +100,7 @@ function relatedNoticeImage(notice) {
                     </a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Notice content -->
         <section class="py-12 lg:py-16 bg-white border-b border-[#cad0d8]">

@@ -32,7 +32,7 @@ function noticeImageUrl(notice) {
 
         <!-- PageHero with static title and dynamic image -->
         <PageHero
-            title="News and Notice Page"
+            title="Blog and Articles"
             :hero-image-url="heroImageUrl"
         />
 
