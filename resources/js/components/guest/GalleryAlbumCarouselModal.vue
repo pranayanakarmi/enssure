@@ -13,13 +13,20 @@ const emit = defineEmits(['close']);
 
 const open = computed(() => props.album !== null);
 
+
 const images = computed(() => {
     const list = props.album?.images;
-    if (!Array.isArray(list)) {
-        return [];
+    if (Array.isArray(list) && list.length > 0) {
+        return list.filter((img) => img?.image_url);
     }
-
-    return list.filter((img) => img?.image_url);
+    // If no images, but cover_image_url exists, show it as a fallback image
+    if (props.album?.cover_image_url) {
+        return [{
+            image_url: props.album.cover_image_url,
+            caption: props.album.title || '',
+        }];
+    }
+    return [];
 });
 
 const footerLinkHref = computed(() =>

@@ -37,7 +37,7 @@ const imageUrl = computed(() => props.section?.image_url ?? null);
                 <img
                     :src="imageUrl"
                     :alt="title"
-                    class="h-16 object-contain"
+                    class="h-32 object-contain"
                     loading="lazy"
                 />
             </div>

@@ -85,7 +85,7 @@ defineProps({
         <HomeGallery :gallery-section="homeGallerySection ?? null" />
         <HomeImpactStories :stories-section="homeImpactStoriesSection ?? null" />
 
-        <HomeNews :news-section="homeNewsSection ?? null" />
+        <!-- <HomeNews :news-section="homeNewsSection ?? null" /> -->
         <HomeVideo :video-section="homeVideoSection ?? null" />
         <HomeTestimonials
             :section="homeTestimonialsSection ?? null"
