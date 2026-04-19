@@ -594,7 +594,9 @@ Route::get('team', function () {
         'banner_image_url' => null,
     ];
 
+
     $executiveMembers = TeamMember::where('type', 'executive_committee')
+        ->orderByDesc('order')
         ->orderBy('name')
         ->get()
         ->map(fn (TeamMember $t) => [
@@ -602,6 +604,7 @@ Route::get('team', function () {
             'department' => $t->department,
             'location' => $t->location,
             'job_title' => $t->job_title,
+            'order' => $t->order,
             'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
             'social_links' => $t->social_links ?? [],
         ])
@@ -609,6 +612,7 @@ Route::get('team', function () {
         ->all();
 
     $staffMembers = TeamMember::where('type', 'staff')
+        ->orderByDesc('order')
         ->orderBy('name')
         ->get()
         ->map(fn (TeamMember $t) => [
@@ -616,6 +620,7 @@ Route::get('team', function () {
             'department' => $t->department,
             'location' => $t->location,
             'job_title' => $t->job_title,
+            'order' => $t->order,
             'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
             'social_links' => $t->social_links ?? [],
         ])

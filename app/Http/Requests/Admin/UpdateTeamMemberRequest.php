@@ -24,6 +24,7 @@ class UpdateTeamMemberRequest extends FormRequest
             'job_title' => ['nullable', 'string', 'max:255'],
             'department' => ['nullable', 'string', 'max:255'],
             'location' => ['nullable', Rule::in(TeamMember::LOCATIONS)],
+            'order' => ['nullable', 'integer', 'min:0'],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
             'remove_photo' => ['nullable', 'boolean'],
             'bio' => ['nullable', 'string'],

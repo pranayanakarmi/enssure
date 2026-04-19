@@ -28,6 +28,7 @@ class TeamMember extends Model
         'qualifications',
         'expertise',
         'social_links',
+        'order',
     ];
 
     protected function casts(): array

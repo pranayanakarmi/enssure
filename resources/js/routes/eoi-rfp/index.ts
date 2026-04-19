@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
- * @see routes/web.php:694
+ * @see routes/web.php:699
  * @route '/eoi-rfp'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:694
+ * @see routes/web.php:699
  * @route '/eoi-rfp'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -22,7 +22,7 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:694
+ * @see routes/web.php:699
  * @route '/eoi-rfp'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -30,7 +30,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:694
+ * @see routes/web.php:699
  * @route '/eoi-rfp'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -39,7 +39,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:694
+ * @see routes/web.php:699
  * @route '/eoi-rfp'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -48,7 +48,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:694
+ * @see routes/web.php:699
  * @route '/eoi-rfp'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -56,7 +56,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:694
+ * @see routes/web.php:699
  * @route '/eoi-rfp'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -71,7 +71,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     index.form = indexForm
 /**
- * @see routes/web.php:708
+ * @see routes/web.php:713
  * @route '/eoi-rfp/{eoi_rfp}'
  */
 export const show = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -85,7 +85,7 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:708
+ * @see routes/web.php:713
  * @route '/eoi-rfp/{eoi_rfp}'
  */
 show.url = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
@@ -117,7 +117,7 @@ show.url = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { 
 }
 
 /**
- * @see routes/web.php:708
+ * @see routes/web.php:713
  * @route '/eoi-rfp/{eoi_rfp}'
  */
 show.get = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -125,7 +125,7 @@ show.get = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { 
     method: 'get',
 })
 /**
- * @see routes/web.php:708
+ * @see routes/web.php:713
  * @route '/eoi-rfp/{eoi_rfp}'
  */
 show.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -134,7 +134,7 @@ show.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | {
 })
 
     /**
- * @see routes/web.php:708
+ * @see routes/web.php:713
  * @route '/eoi-rfp/{eoi_rfp}'
  */
     const showForm = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -143,7 +143,7 @@ show.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | {
     })
 
             /**
- * @see routes/web.php:708
+ * @see routes/web.php:713
  * @route '/eoi-rfp/{eoi_rfp}'
  */
         showForm.get = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -151,7 +151,7 @@ show.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | {
             method: 'get',
         })
             /**
- * @see routes/web.php:708
+ * @see routes/web.php:713
  * @route '/eoi-rfp/{eoi_rfp}'
  */
         showForm.head = (args: { eoi_rfp: string | { slug: string } } | [eoi_rfp: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

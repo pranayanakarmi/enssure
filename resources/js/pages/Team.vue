@@ -20,12 +20,31 @@ const props = defineProps({
     },
 });
 
-const activeTab = ref('executive');
+// Only staff tab is needed
+const activeTab = ref('staff');
 
 const heroTitle = computed(() => props.teamContent?.title || 'Our Team');
 const heroImageUrl = computed(() => props.teamContent?.banner_image_url || null);
 const introDescription = computed(() => props.teamContent?.description
     || 'Meet our dedicated team of experts, committed to delivering innovative solutions and exceptional service to drive your success.');
+
+const executiveMembersSorted = computed(() => {
+    return [...props.executiveMembers].sort((a, b) => {
+        if ((a.order ?? 0) !== (b.order ?? 0)) {
+            return (a.order ?? 0) - (b.order ?? 0);
+        }
+        return (a.name || '').localeCompare(b.name || '');
+    });
+});
+
+const staffMembersSorted = computed(() => {
+    return [...props.staffMembers].sort((a, b) => {
+        if ((a.order ?? 0) !== (b.order ?? 0)) {
+            return (a.order ?? 0) - (b.order ?? 0);
+        }
+        return (a.name || '').localeCompare(b.name || '');
+    });
+});
 
 const partnerLogos = [
     '/enssure/assets/ac6be776c5bec31df9cf5f1bed529200ddb74c1a.png',
@@ -43,54 +62,22 @@ const partnerLogos = [
 
         <section class="py-20 lg:py-24 bg-white border-b border-[#cad0d8]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-10">
-                    <h2 class="text-lg font-medium text-gray-800 max-w-2xl mx-auto leading-relaxed">
-                        {{ introDescription }}
-                    </h2>
-                    <div class="flex justify-center items-center space-x-6 mt-8 border-b border-gray-100">
-                        <button
-                            type="button"
-                            :class="[
-                                'pb-3 px-2 text-sm cursor-pointer transition-colors border-b-2',
-                                activeTab === 'executive'
-                                    ? 'text-red-600 border-red-600 font-bold'
-                                    : 'text-gray-500 hover:text-gray-800 font-medium border-transparent',
-                            ]"
-                            @click="activeTab = 'executive'"
-                        >
-                            Executive Committee
-                        </button>
-                        <button
-                            type="button"
-                            :class="[
-                                'pb-3 px-2 text-sm cursor-pointer transition-colors border-b-2',
-                                activeTab === 'staff'
-                                    ? 'text-red-600 border-red-600 font-bold'
-                                    : 'text-gray-500 hover:text-gray-800 font-medium border-transparent',
-                            ]"
-                            @click="activeTab = 'staff'"
-                        >
-                            Staff
-                        </button>
-                    </div>
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-extrabold text-[#B91C1C] mb-2 tracking-tight">Meet Our Team</h2>
+                    <p class="text-lg text-gray-700 max-w-2xl mx-auto mb-2">We are proud to introduce our dedicated staff, working together to deliver excellence and innovation.</p>
+                    <!-- <p class="text-base text-gray-500 max-w-2xl mx-auto">{{ introDescription }}</p> -->
                 </div>
-
-                <TeamMembersTable
-                    v-show="activeTab === 'executive'"
-                    :members="executiveMembers"
-                    show-location-column
-                    empty-message="No executive committee members listed yet."
-                />
-                <TeamMembersTable
-                    v-show="activeTab === 'staff'"
-                    :members="staffMembers"
-                    show-location-column
-                    empty-message="No staff members listed yet."
-                />
+                <div class="rounded-2xl bg-gradient-to-br from-[#fff] to-[#f8fafc] p-6 shadow-md border border-[#e5e7eb]">
+                    <TeamMembersTable
+                        :members="staffMembersSorted"
+                        show-location-column
+                        empty-message="No staff members listed yet."
+                    />
+                </div>
             </div>
         </section>
 
-        <section class="py-20 text-center">
+        <!-- <section class="py-20 text-center">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="inline-flex items-center justify-center px-5 py-2 bg-[rgba(235,31,39,0.1)] rounded-full">
                     <span class="font-semibold text-[#B91C1C] uppercase tracking-wide">Support</span>
@@ -119,6 +106,6 @@ const partnerLogos = [
                     </Link>
                 </div>
             </div>
-        </section>
+        </section> -->
     </GuestLayout>
 </template>

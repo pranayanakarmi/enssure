@@ -120,12 +120,13 @@ const breadcrumbItems = computed(() => [
                                     <th class="px-4 py-3 text-left font-medium">Job Title</th>
                                     <th class="px-4 py-3 text-left font-medium">Department</th>
                                     <th class="px-4 py-3 text-left font-medium">Location</th>
+                                    <th class="px-4 py-3 text-left font-medium">Order</th>
                                     <th class="px-4 py-3 text-right font-medium">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-if="teamMembers.length === 0">
-                                    <td colspan="6" class="px-4 py-12 text-center text-sm text-gray-500">
+                                    <td colspan="7" class="px-4 py-12 text-center text-sm text-gray-500">
                                         No members yet. Click "Add" to create one.
                                     </td>
                                 </tr>
@@ -158,6 +159,9 @@ const breadcrumbItems = computed(() => [
                                     </td>
                                     <td class="px-4 py-3 text-gray-600">
                                         {{ member.location || '—' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-gray-600">
+                                        {{ member.order ?? '—' }}
                                     </td>
                                     <td class="px-4 py-3 text-right">
                                         <div class="flex justify-end gap-2">

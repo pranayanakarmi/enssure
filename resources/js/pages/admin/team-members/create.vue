@@ -28,6 +28,7 @@ const form = useForm({
     job_title: '',
     department: '',
     location: '',
+    order: 0,
     photo: null,
     facebook_url: '',
     twitter_url: '',
@@ -95,6 +96,11 @@ const breadcrumbItems = computed(() => [
                         <Input id="job_title" v-model="form.job_title" type="text" />
                     </div>
                     <div class="grid gap-2">
+                        <Label for="order">Order (smaller = higher post, larger = lower post)</Label>
+                        <Input id="order" v-model="form.order" type="number" min="0" />
+                        <InputError :message="form.errors.order" />
+                    </div>
+                    <div class="grid gap-2">
                         <Label for="department">Department</Label>
                         <Input id="department" v-model="form.department" type="text" />
                     </div>
@@ -108,7 +114,7 @@ const breadcrumbItems = computed(() => [
                         </select>
                         <InputError :message="form.errors.location" />
                     </div>
-                    <div class="grid gap-2">
+                    <!-- <div class="grid gap-2">
                         <Label for="facebook_url">Facebook URL</Label>
                         <Input
                             id="facebook_url"
@@ -127,7 +133,7 @@ const breadcrumbItems = computed(() => [
                             placeholder="https://x.com/..."
                         />
                         <InputError :message="form.errors.twitter_url" />
-                    </div>
+                    </div> -->
                     <div class="grid gap-2">
                         <Label for="photo">Photo</Label>
                         <div

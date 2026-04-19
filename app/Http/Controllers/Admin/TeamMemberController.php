@@ -37,7 +37,7 @@ class TeamMemberController extends Controller
         if ($listingType !== null) {
             $query->where('type', $listingType);
         }
-        $teamMembers = $query->orderBy('name')
+        $teamMembers = $query->orderBy('order')->orderBy('name')
             ->get()
             ->map(fn (TeamMember $t) => [
                 'id' => $t->id,
@@ -46,6 +46,7 @@ class TeamMemberController extends Controller
                 'job_title' => $t->job_title,
                 'department' => $t->department,
                 'location' => $t->location,
+                'order' => $t->order,
                 'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
             ])
             ->values()
@@ -110,6 +111,7 @@ class TeamMemberController extends Controller
                 'job_title' => $t->job_title,
                 'department' => $t->department,
                 'location' => $t->location,
+                'order' => $t->order,
                 'photo' => $t->photo,
                 'photo_url' => $t->photo ? Storage::disk('public')->url($t->photo) : null,
                 'bio' => $t->bio,
