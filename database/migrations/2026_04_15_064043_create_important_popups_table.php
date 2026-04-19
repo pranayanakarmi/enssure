@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('cta_text', 120)->nullable();
             $table->string('cta_url')->nullable();
+            $table->string('video_url')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

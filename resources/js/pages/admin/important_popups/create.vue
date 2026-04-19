@@ -15,6 +15,7 @@ const form = useForm({
     image: null,
     cta_text: '',
     cta_url: '',
+    video_url: '',
     is_active: false,
 });
 
@@ -104,7 +105,7 @@ const breadcrumbItems = [
                             <InputError :message="form.errors.description" />
                         </div>
 
-                        <div class="grid gap-4 sm:grid-cols-2">
+                        <div class="grid gap-4 sm:grid-cols-3">
                             <div class="flex flex-col gap-1.5">
                                 <Label for="cta_text" class="text-xs font-medium">CTA Text</Label>
                                 <Input id="cta_text" v-model="form.cta_text" class="h-9 text-sm" placeholder="Learn More" />
@@ -114,6 +115,11 @@ const breadcrumbItems = [
                                 <Label for="cta_url" class="text-xs font-medium">CTA URL</Label>
                                 <Input id="cta_url" v-model="form.cta_url" class="h-9 text-sm" placeholder="https://example.org/important" />
                                 <InputError :message="form.errors.cta_url" />
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <Label for="video_url" class="text-xs font-medium">YouTube Video URL</Label>
+                                <Input id="video_url" v-model="form.video_url" class="h-9 text-sm" placeholder="https://youtube.com/watch?v=..." />
+                                <InputError :message="form.errors.video_url" />
                             </div>
                         </div>
 

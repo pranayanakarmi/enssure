@@ -26,6 +26,7 @@ class ImportantPopupController extends Controller
                 'title' => $popup->title,
                 'cta_text' => $popup->cta_text,
                 'cta_url' => $popup->cta_url,
+                'video_url' => $popup->video_url,
                 'image_url' => $popup->image ? asset('storage/'.$popup->image) : null,
                 'is_active' => $popup->is_active,
                 'updated_at' => optional($popup->updated_at)?->format('M d, Y h:i A'),
@@ -57,6 +58,7 @@ class ImportantPopupController extends Controller
             $data['image'] = $request->file('image')->store('important-popup', 'public');
         }
 
+
         ImportantPopup::create($data);
 
         return to_route('admin.important_popups.index')
@@ -75,6 +77,7 @@ class ImportantPopupController extends Controller
                 'image_url' => $important_popup->image ? asset('storage/'.$important_popup->image) : null,
                 'cta_text' => $important_popup->cta_text,
                 'cta_url' => $important_popup->cta_url,
+                'video_url' => $important_popup->video_url,
                 'is_active' => $important_popup->is_active,
             ],
         ]);

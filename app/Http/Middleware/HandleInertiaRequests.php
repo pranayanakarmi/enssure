@@ -134,6 +134,7 @@ class HandleInertiaRequests extends Middleware
             'image_url' => $popup->image ? Storage::disk('public')->url($popup->image) : null,
             'cta_text' => $popup->cta_text ?: 'Learn More',
             'cta_url' => $popup->cta_url,
+            'video_url' => $popup->video_url,
         ];
     }
 

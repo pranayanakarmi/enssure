@@ -16,6 +16,20 @@ function closeModal() {
     isOpen.value = false;
 }
 
+function isYouTubeUrl(url) {
+    if (!url) return false;
+    // Simple check for YouTube links
+    return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//.test(url);
+}
+
+function youtubeEmbedUrl(url) {
+    // Extract video ID and return embed URL
+    const regExp = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([\w-]{11})/;
+    const match = url.match(regExp);
+    const videoId = match ? match[1] : null;
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+}
+
 onMounted(() => {
     if (!props.notice?.id || typeof window === 'undefined') {
         return;
@@ -49,8 +63,20 @@ onMounted(() => {
                 </div>
 
                 <div class="flex-1 space-y-4 overflow-y-auto px-5 py-4">
+                    <template v-if="notice.video_url && isYouTubeUrl(notice.video_url)">
+                        <div class="w-full aspect-video rounded-xl overflow-hidden">
+                            <iframe
+                                :src="youtubeEmbedUrl(notice.video_url)"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                class="w-full h-full"
+                                :title="notice.title || 'Important Notice Video'"
+                            ></iframe>
+                        </div>
+                    </template>
                     <img
-                        v-if="notice.image_url"
+                        v-if="notice.image_url && !(notice.video_url && isYouTubeUrl(notice.video_url))"
                         :src="notice.image_url"
                         :alt="notice.title"
                         class="h-64 w-full rounded-xl object-cover"

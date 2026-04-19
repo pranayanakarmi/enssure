@@ -23,6 +23,7 @@ class UpdateImportantPopupRequest extends FormRequest
             'remove_image' => ['nullable', 'boolean'],
             'cta_text' => ['nullable', 'string', 'max:120'],
             'cta_url' => ['nullable', 'url', 'max:2048'],
+            'video_url' => ['nullable', 'string', 'max:255', 'regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i'],
             'is_active' => ['nullable', 'boolean'],
         ];
     }

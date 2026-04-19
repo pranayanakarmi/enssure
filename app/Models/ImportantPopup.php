@@ -12,6 +12,7 @@ class ImportantPopup extends Model
         'image',
         'cta_text',
         'cta_url',
+        'video_url',
         'is_active',
     ];
 

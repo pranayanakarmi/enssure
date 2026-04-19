@@ -23,6 +23,7 @@ class StoreImportantPopupRequest extends FormRequest
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
             'cta_text' => ['nullable', 'string', 'max:120'],
             'cta_url' => ['nullable', 'url', 'max:2048'],
+            'video_url' => ['nullable', 'string', 'max:255', 'regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i'],
             'is_active' => ['nullable', 'boolean'],
         ];
     }
