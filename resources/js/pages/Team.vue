@@ -37,14 +37,57 @@ const executiveMembersSorted = computed(() => {
     });
 });
 
-const staffMembersSorted = computed(() => {
-    return [...props.staffMembers].sort((a, b) => {
-        if ((a.order ?? 0) !== (b.order ?? 0)) {
-            return (a.order ?? 0) - (b.order ?? 0);
-        }
-        return (a.name || '').localeCompare(b.name || '');
+
+const staffByProvince = computed(() => {
+    // Group staff by province/location
+    const grouped = {};
+    (props.staffMembers || []).forEach((member) => {
+        const province = member.location?.trim() || 'Unknown';
+        if (!grouped[province]) grouped[province] = [];
+        grouped[province].push(member);
     });
+    // Sort provinces alphabetically, and staff by order then name
+    const sorted = {};
+    Object.keys(grouped).sort().forEach((province) => {
+        sorted[province] = grouped[province].sort((a, b) => {
+            if ((a.order ?? 0) !== (b.order ?? 0)) {
+                return (a.order ?? 0) - (b.order ?? 0);
+            }
+            return (a.name || '').localeCompare(b.name || '');
+        });
+    });
+    return sorted;
 });
+
+const provinceOrder = [
+    'Federal',
+    'Koshi',
+    'Madhesh',
+    'Bagmati',
+    'Gandaki',
+    'Lumbini ',
+    'Karnali',
+    'Sudurpashchim',
+];
+const provinceTabs = computed(() => {
+    const allProvinces = Object.keys(staffByProvince.value);
+    // Sort by custom order, unknowns at the end
+    return provinceOrder
+        .filter((p) => allProvinces.includes(p))
+        .concat(allProvinces.filter((p) => !provinceOrder.includes(p)));
+});
+
+// Helper to always get staff in the correct province order for rendering (if needed elsewhere)
+const orderedStaffByProvince = computed(() => {
+    const result = {};
+    provinceTabs.value.forEach((province) => {
+        result[province] = staffByProvince.value[province] || [];
+    });
+    return result;
+});
+const selectedProvince = ref(
+    provinceTabs.value.includes('federal') ? 'federal' : (provinceTabs.value[0] || '')
+);
 
 const partnerLogos = [
     '/enssure/assets/ac6be776c5bec31df9cf5f1bed529200ddb74c1a.png',
@@ -67,12 +110,37 @@ const partnerLogos = [
                     <p class="text-lg text-gray-700 max-w-2xl mx-auto mb-2">We are proud to introduce our dedicated staff, working together to deliver excellence and innovation.</p>
                     <!-- <p class="text-base text-gray-500 max-w-2xl mx-auto">{{ introDescription }}</p> -->
                 </div>
-                <div class="rounded-2xl bg-gradient-to-br from-[#fff] to-[#f8fafc] p-6 shadow-md border border-[#e5e7eb]">
-                    <TeamMembersTable
-                        :members="staffMembersSorted"
-                        show-location-column
-                        empty-message="No staff members listed yet."
-                    />
+                <div>
+                    <div class="flex flex-wrap gap-2 mb-8 justify-center">
+                        <button
+                            v-for="province in provinceTabs"
+                            :key="province"
+                            @click="selectedProvince = province"
+                            :class="[
+                                'px-5 py-2 rounded-full font-semibold border transition',
+                                selectedProvince === province
+                                    ? 'bg-[#B91C1C] text-white border-[#B91C1C] shadow'
+                                    : 'bg-white text-[#B91C1C] border-[#B91C1C] hover:bg-[#f8d4d4]'
+                            ]"
+                        >
+                            {{ province.replace(/\s*Pradesh$/i, '') }}
+                        </button>
+                    </div>
+                    <div v-if="selectedProvince && orderedStaffByProvince[selectedProvince]">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div v-for="member in orderedStaffByProvince[selectedProvince]" :key="member.name + member.job_title" class="rounded-2xl bg-linear-to-br from-white to-[#f8fafc] p-6 shadow-md border border-[#e5e7eb] flex items-center gap-4">
+                                <div class="shrink-0 w-14 h-14 rounded-full overflow-hidden bg-[#f3f4f6] flex items-center justify-center">
+                                    <img v-if="member.image_url" :src="member.image_url" :alt="member.name" class="object-cover w-full h-full" />
+                                    <span v-else class="text-[#B91C1C] font-bold text-xl">{{ member.name.charAt(0) }}</span>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gray-900">{{ member.name }}</div>
+                                    <div class="text-sm text-gray-700">{{ member.job_title || '—' }}</div>
+                                </div>
+                            </div>
+                            <div v-if="!orderedStaffByProvince[selectedProvince].length" class="col-span-full text-gray-500 text-sm">No staff members listed.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
