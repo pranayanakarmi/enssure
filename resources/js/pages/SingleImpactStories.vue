@@ -70,7 +70,7 @@ function relatedStoryImage(story) {
             :hero-image-url="heroImageUrl"
         />
 
-        <!-- Meta bar: date + share (moved below hero) -->
+        <!-- Meta bar: date + share (moved below hero)
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-8">
             <div v-if="formattedDate" class="flex flex-wrap justify-between items-center gap-4 text-sm text-gray-500 uppercase tracking-wide">
                 <div class="flex items-center gap-2">
@@ -99,7 +99,7 @@ function relatedStoryImage(story) {
                     </a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Story content -->
         <section class="py-12 lg:py-16 bg-white border-b border-[#cad0d8]">

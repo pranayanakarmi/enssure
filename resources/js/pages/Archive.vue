@@ -70,7 +70,7 @@ function noticeImageUrl(notice) {
             </div>
         </section>
 
-        <section class="py-20 text-center">
+        <!-- <section class="py-20 text-center">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="inline-flex items-center justify-center px-5 py-2 bg-[rgba(235,31,39,0.1)] rounded-full">
                     <span class="font-semibold text-[#B91C1C] uppercase tracking-wide">Support</span>
@@ -82,6 +82,6 @@ function noticeImageUrl(notice) {
                     <img src="/enssure/assets/c3f97e1b17044bbdeedac32a3818731e2450a527.png" alt="Technical Assistance By" class="h-16" />
                 </div>
             </div>
-        </section>
+        </section> -->
     </GuestLayout>
 </template>
