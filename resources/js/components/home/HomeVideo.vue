@@ -1,5 +1,6 @@
 <!-- components/home/HomeVideo.vue -->
 <script setup>
+import { Link } from '@inertiajs/vue3';
 import { Play, X, ArrowRight } from 'lucide-vue-next';
 import { computed, ref, onMounted, onUnmounted } from 'vue';
 
@@ -7,6 +8,8 @@ import { computed, ref, onMounted, onUnmounted } from 'vue';
 const defaultBadge       = 'Featured Videos';
 const defaultTitle       = 'Watch Our\nImpact in Action';
 const defaultDescription = 'See how our programs are transforming lives and communities across Nepal.';
+const defaultCtaText = 'View all videos';
+const defaultCtaUrl = '/videos';
 
 const defaultVideos = [
     {
@@ -36,6 +39,8 @@ const props = defineProps({
 const badgeText   = computed(() => props.videoSection?.badge_text  ?? defaultBadge);
 const title       = computed(() => props.videoSection?.title       ?? defaultTitle);
 const description = computed(() => props.videoSection?.description ?? defaultDescription);
+const ctaText     = computed(() => props.videoSection?.cta_text    ?? defaultCtaText);
+const ctaUrl      = computed(() => props.videoSection?.cta_url     ?? defaultCtaUrl);
 
 const videos = computed(() => {
     const sectionVideos = props.videoSection?.videos;
@@ -204,6 +209,17 @@ onUnmounted(() => observer?.disconnect());
                         <ArrowRight class="w-4 h-4 text-[#B91C1C]" />
                     </div>
                 </div>
+            </div>
+
+            <div v-if="ctaText" class="flex justify-center mt-12">
+                <Link
+                    :href="ctaUrl"
+                    class="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[#B91C1C] text-[#B91C1C] font-semibold text-sm uppercase tracking-wide hover:bg-[#B91C1C] hover:text-white transition-colors duration-300"
+                >
+                    {{ ctaText }}
+                    <ArrowRight class="w-4 h-4" />
+                </Link>
+
             </div>
         </div>
 

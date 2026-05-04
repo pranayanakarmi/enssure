@@ -648,6 +648,27 @@ Route::post('vacancy/{vacancy:slug}/apply', [VacancyApplicationController::class
     ->middleware('throttle:10,1')
     ->name('vacancy.apply');
 
+
+Route::get('videos', function () {
+    $videos = \App\Models\Video::query()
+        ->where('is_active', true)
+        ->orderByDesc('is_hero')
+        ->orderBy('order')
+        ->get()
+        ->map(fn ($video) => [
+            'id' => $video->id,
+            'video_url' => $video->video_url,
+            'title' => $video->title,
+            'date' => $video->date?->toDateString(),
+            'thumbnail' => $video->thumbnail,
+        ])
+        ->values()
+        ->all();
+    return Inertia::render('Videos', [
+        'videos' => $videos,
+    ]);
+})->name('videos');
+
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

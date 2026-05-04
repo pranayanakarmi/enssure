@@ -262,9 +262,9 @@ onUnmounted(() => {
               <!-- Floating stat card (light) -->
               <div class="absolute -right-6 top-12 bg-[#B91C1C] rounded-2xl p-5 shadow-xl hidden lg:block">
                 <div class="text-white/80 text-xs uppercase tracking-widest">Provinces</div>
-                <div class="text-white text-5xl font-black leading-none mt-1">7</div>
+                <div class="text-white text-5xl font-black leading-none mt-1">3</div>
               </div>
-              <div class="absolute -bottom-6 -left-6 bg-[#233D7E] rounded-2xl p-5 shadow-xl hidden lg:block">
+              <div class=" absolute -bottom-15 -left-6 bg-[#233D7E] rounded-2xl p-5 shadow-xl hidden lg:block">
                 <div class="text-white/80 text-xs">Skill Standards</div>
                 <div class="text-white text-3xl font-black">33</div>
               </div>

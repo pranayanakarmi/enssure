@@ -722,7 +722,78 @@ vacancy.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     vacancy.form = vacancyForm
 /**
- * @see routes/web.php:651
+ * @see routes/web.php:652
+ * @route '/videos'
+ */
+export const videos = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: videos.url(options),
+    method: 'get',
+})
+
+videos.definition = {
+    methods: ["get","head"],
+    url: '/videos',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:652
+ * @route '/videos'
+ */
+videos.url = (options?: RouteQueryOptions) => {
+    return videos.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:652
+ * @route '/videos'
+ */
+videos.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: videos.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:652
+ * @route '/videos'
+ */
+videos.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: videos.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:652
+ * @route '/videos'
+ */
+    const videosForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: videos.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:652
+ * @route '/videos'
+ */
+        videosForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: videos.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:652
+ * @route '/videos'
+ */
+        videosForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: videos.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    videos.form = videosForm
+/**
+ * @see routes/web.php:672
  * @route '/dashboard'
  */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -736,7 +807,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:651
+ * @see routes/web.php:672
  * @route '/dashboard'
  */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -744,7 +815,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:651
+ * @see routes/web.php:672
  * @route '/dashboard'
  */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -752,7 +823,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:651
+ * @see routes/web.php:672
  * @route '/dashboard'
  */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -761,7 +832,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:651
+ * @see routes/web.php:672
  * @route '/dashboard'
  */
     const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -770,7 +841,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:651
+ * @see routes/web.php:672
  * @route '/dashboard'
  */
         dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -778,7 +849,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:651
+ * @see routes/web.php:672
  * @route '/dashboard'
  */
         dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -793,7 +864,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     dashboard.form = dashboardForm
 /**
- * @see routes/web.php:655
+ * @see routes/web.php:676
  * @route '/enssure-i'
  */
 export const enssure1 = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -807,7 +878,7 @@ enssure1.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:655
+ * @see routes/web.php:676
  * @route '/enssure-i'
  */
 enssure1.url = (options?: RouteQueryOptions) => {
@@ -815,7 +886,7 @@ enssure1.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:655
+ * @see routes/web.php:676
  * @route '/enssure-i'
  */
 enssure1.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -823,7 +894,7 @@ enssure1.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:655
+ * @see routes/web.php:676
  * @route '/enssure-i'
  */
 enssure1.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -832,7 +903,7 @@ enssure1.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:655
+ * @see routes/web.php:676
  * @route '/enssure-i'
  */
     const enssure1Form = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -841,7 +912,7 @@ enssure1.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:655
+ * @see routes/web.php:676
  * @route '/enssure-i'
  */
         enssure1Form.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -849,7 +920,7 @@ enssure1.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:655
+ * @see routes/web.php:676
  * @route '/enssure-i'
  */
         enssure1Form.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
