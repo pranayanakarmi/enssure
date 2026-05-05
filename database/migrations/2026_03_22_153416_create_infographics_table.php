@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('infographics', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('image');
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();
