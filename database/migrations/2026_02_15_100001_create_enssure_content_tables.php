@@ -75,7 +75,8 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('location')->default('header'); // header, footer, sidebar
+            $table->boolean('is_published')->default(true);
+            $table->boolean('is_main_header_menu')->default(false);
             $table->timestamps();
         });
 
@@ -185,14 +186,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('person_name')->nullable();
             $table->string('person_title')->nullable();
             $table->string('location')->nullable();
             $table->longText('story')->nullable();
             $table->string('image')->nullable();
             $table->string('video_url')->nullable();
-            $table->timestamp('published_at')->nullable();
-            $table->unsignedInteger('order')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -201,12 +199,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('notice_type', 50)->nullable(); // eoi, rfp, financial_proposal, vacancy, general
             $table->longText('content')->nullable();
+            $table->string('image')->nullable();
             $table->string('attachment')->nullable();
-            $table->date('deadline_date')->nullable();
             $table->boolean('is_featured')->default(false);
-            $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -260,6 +256,7 @@ return new class extends Migration
             $table->string('file_path');
             $table->unsignedBigInteger('file_size')->nullable();
             $table->string('file_extension', 20)->nullable();
+            $table->unsignedInteger('order')->default(0);
             $table->timestamps();
         });
 
@@ -268,7 +265,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->date('event_date')->nullable();
+            $table->string('cover_image')->nullable();
             $table->timestamps();
         });
 
@@ -417,15 +414,25 @@ return new class extends Migration
 
         Schema::create('team_members', function (Blueprint $table) {
             $table->id();
+            $table->string('type', 50)->nullable();
             $table->string('name');
             $table->string('job_title')->nullable();
             $table->string('department')->nullable();
+            $table->enum('location', [
+                'Federal',
+                'Koshi Pradesh',
+                'Madhesh Pradesh',
+                'Bagmati Pradesh',
+                'Gandaki Pradesh',
+                'Lumbini Pradesh',
+                'Karnali Pradesh',
+                'Sudurpashchim Pradesh',
+            ])->nullable();
             $table->string('photo')->nullable();
             $table->text('bio')->nullable();
             $table->text('qualifications')->nullable();
             $table->text('expertise')->nullable();
             $table->json('social_links')->nullable();
-            $table->unsignedInteger('order')->default(0);
             $table->timestamps();
         });
 
@@ -470,7 +477,6 @@ return new class extends Migration
             $table->text('feedback_text');
             $table->boolean('is_public')->default(false);
             $table->foreignId('responded_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->text('response')->nullable();
             $table->timestamp('responded_at')->nullable();
             $table->timestamps();
             $table->index(['feedbackable_type', 'feedbackable_id']);

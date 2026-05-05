@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('infographics', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->string('image');
+            $table->string('slug')->nullable()->unique();
+            $table->string('image')->nullable();
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();
 
