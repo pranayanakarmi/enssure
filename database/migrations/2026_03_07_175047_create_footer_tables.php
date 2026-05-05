@@ -27,10 +27,20 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('footer_settings', function (Blueprint $table) {
+        Schema::create('site_settings', function (Blueprint $table) {
             $table->id();
-            $table->text('copyright_text')->nullable();
-            $table->json('social_links')->nullable();
+            $table->string('header_phone_1')->nullable();
+            $table->string('header_phone_2')->nullable();
+            $table->string('header_fax')->nullable();
+            $table->string('header_email')->nullable();
+            $table->string('logo_left')->nullable();
+            $table->string('logo_center')->nullable();
+            $table->string('logo_right')->nullable();
+            $table->string('footer_privacy_policy_url')->nullable();
+            $table->string('footer_terms_of_service_url')->nullable();
+            $table->string('facebook_url')->nullable();
+            $table->string('x_url')->nullable();
+            $table->string('youtube_url')->nullable();
             $table->timestamps();
         });
     }
@@ -42,6 +52,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('footer_links');
         Schema::dropIfExists('footer_columns');
-        Schema::dropIfExists('footer_settings');
+        Schema::dropIfExists('site_settings');
     }
 };

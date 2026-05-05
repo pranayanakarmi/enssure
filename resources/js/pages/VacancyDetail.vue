@@ -47,7 +47,12 @@ const metaLine = computed(() => {
 
 <template>
     <GuestLayout>
-        <Head :title="`${vacancy.title} - Vacancies - ENSSURE`" />
+        <Head :title="`${vacancy.title} - Vacancies - ENSSURE`">
+            <meta
+                name="description"
+                :content="`Apply for ${vacancy.title}${metaLine ? ' — ' + metaLine : ''} at ENSSURE. Supporting vocational training and sustainable employment in Nepal.`"
+            />
+        </Head>
 
         <section
             v-if="flashSuccess"

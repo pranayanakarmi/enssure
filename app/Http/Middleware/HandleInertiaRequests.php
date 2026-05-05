@@ -6,6 +6,7 @@ use App\Models\FooterColumn;
 use App\Models\HomeNewsSection;
 use App\Models\Menu;
 use App\Models\Notice;
+use App\Models\Partner;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -95,6 +96,18 @@ class HandleInertiaRequests extends Middleware
                 ];
             },
             'newsTickerItems' => fn () => self::newsTickerItemsFromHomeNotices(),
+            'sharedPartners' => fn () => Partner::orderBy('order')
+                ->get()
+                ->filter(fn ($p) => $p->logo)
+                ->map(fn ($p) => [
+                    'name' => $p->name,
+                    'logo_url' => str_starts_with($p->logo, 'http')
+                        ? $p->logo
+                        : Storage::disk('public')->url($p->logo),
+                    'website_url' => $p->website_url ?? null,
+                ])
+                ->values()
+                ->all(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
                 'success' => $request->session()->get('success'),
