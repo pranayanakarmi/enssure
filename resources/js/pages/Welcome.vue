@@ -70,15 +70,14 @@ const props = defineProps({
 
 <template>
     <Head title="ENSSURE - Enhanced Skills for Sustainable and Rewarding Employment">
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossorigin
+        <meta
+            name="description"
+            content="ENSSURE is a bilateral project of the Government of Nepal and the Government of Switzerland enhancing skills for sustainable and rewarding employment through TVET."
         />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
-            rel="stylesheet"
+        <meta property="og:title" content="ENSSURE - Enhanced Skills for Sustainable and Rewarding Employment" />
+        <meta
+            property="og:description"
+            content="ENSSURE enhances vocational skills and supports sustainable employment across Nepal through Dual-VET apprenticeships and federalized TVET programs."
         />
     </Head>
     <GuestLayout>

@@ -1,10 +1,10 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
-import { ArrowRight } from 'lucide-vue-next';
+import { Head } from '@inertiajs/vue3';
+import { computed, onMounted, ref } from 'vue';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { computed, onMounted, ref } from 'vue';
 import PageHero from '@/components/guest/PageHero.vue';
+import TechnicalAssistanceSection from '@/components/guest/TechnicalAssistanceSection.vue';
 import HomeStats from '@/components/home/HomeStats.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 import 'swiper/css';
@@ -25,8 +25,6 @@ const mainBody = computed(() => props.aboutMainSection?.body ?? null);
 const mainCardTitle = computed(() => props.aboutMainSection?.card_title ?? 'Skill Upgrading\nTraining for Workers');
 const mainContentImageUrl = computed(() => props.aboutMainSection?.content_image_url ?? '/enssure/assets/aboutus.png');
 const mainBackgroundImageUrl = computed(() => props.aboutMainSection?.background_image_url ?? '/enssure/assets/65b138464c2257ee992dd4572f64fbf14b41e638.png');
-const mainCtaText = computed(() => props.aboutMainSection?.cta_text ?? 'Explore more');
-const mainCtaUrl = computed(() => props.aboutMainSection?.cta_url ?? '#');
 
 const defaultContentP1 = "The ENSSURE project is implemented by CTEVT at the federal level; Koshi Province, Madhesh Province, Bagmati Province, Gandaki Province, Lumbini Province, Karnali Province, Sudurpashchim Province and 33 Local Governments within those provinces. Helvetas Nepal provides Technical Assistance to all three tiers of the government and assures the quality of the programme.\n\nENSSURE will contribute to Nepal's ongoing TVET sector federalisation process. It will support the Provincial and Local Governments in the implementation of Dual-VET apprenticeships and training with on-the-job training, to better respond to employers' requirements and workers' aspirations.";
 const defaultContentP2 = "The procurement and implementation of Dual-VET apprenticeships and training with OJT will be done through Province and Local government respectively with technical support from Helvetas Nepal. The project aims to institutionalise these TVET services so that Provincial and Local Governments can deliver on their TVET responsibilities systematically and sustainably beyond the project's lifespan.";
@@ -36,31 +34,6 @@ const contentParagraph2 = computed(() => props.aboutContentSection?.paragraph_2 
 const modules = [Pagination, Autoplay];
 const isClient = ref(false);
 
-const testimonials = [
-    {
-        quote: "The Dual-VET apprenticeship didn't just teach me welding—it gave me a certified skill and the confidence to start my own business. I'm now employing three others from my community, something I never imagined possible.",
-        name: 'Anita Shrestha',
-        role: 'Former Apprentice, Now Workshop Owner',
-    },
-    {
-        quote: "The Dual-VET apprenticeship didn't just teach me welding—it gave me a certified skill and the confidence to start my own business. I'm now employing three others from my community, something I never imagined possible.",
-        name: 'Anita Shrestha',
-        role: 'Former Apprentice, Now Workshop Owner',
-    },
-    {
-        quote: "ENSSURE's training transformed my career. The hands-on approach and industry partnership gave me skills that employers actually value.",
-        name: 'Ram Kumar',
-        role: 'Industrial Technician',
-    },
-];
-
-const partnerLogos = [
-    '/enssure/assets/ac6be776c5bec31df9cf5f1bed529200ddb74c1a.png',
-    '/enssure/assets/1bfd5b6a208521619b06244790669dd636449742.png',
-    '/enssure/assets/ebbe48ec5c80c20d972673da35584cdc422ccc68.png',
-    '/enssure/assets/d7c2ac1e901bc7bac7279f1006a3053183752132.png',
-];
-
 onMounted(() => {
     isClient.value = true;
 });
@@ -68,7 +41,17 @@ onMounted(() => {
 
 <template>
     <GuestLayout>
-        <Head title="About Us - ENSSURE" />
+        <Head title="About Us - ENSSURE">
+            <meta
+                name="description"
+                content="Learn about the ENSSURE project — a bilateral initiative of the Government of Nepal and Switzerland to enhance vocational skills and support sustainable employment through federalized TVET programs."
+            />
+            <meta property="og:title" content="About Us - ENSSURE" />
+            <meta
+                property="og:description"
+                content="ENSSURE is implemented by CTEVT across Nepal's provinces, supporting Dual-VET apprenticeships and employer-responsive TVET training with technical assistance from Helvetas Nepal."
+            />
+        </Head>
 
         <PageHero
             :title="heroTitle"
@@ -144,19 +127,7 @@ onMounted(() => {
 
         <!-- <HomeStats :reach-section="props.homeReachSection ?? null" /> -->
 
-        <section class="py-20 text-center">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="inline-flex items-center justify-center px-5 py-2 bg-[rgba(235,31,39,0.1)] rounded-full">
-                    <span class="font-semibold text-[#B91C1C] uppercase tracking-wide">Support</span>
-                </div>
-                <h2 class="text-[2.5rem] leading-tight tracking-tight text-[#101010] my-4">
-                    Technical Assistance By
-                </h2>
-                <div class="flex justify-center">
-                    <img src="/enssure/assets/c3f97e1b17044bbdeedac32a3818731e2450a527.png" alt="Technical Assistance By" class="h-16" />
-                </div>
-            </div>
-        </section>
+        <TechnicalAssistanceSection />
 
         <!-- <section id="contact" class="relative py-20 h-96 overflow-hidden">
             <img

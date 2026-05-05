@@ -1,7 +1,9 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import JoinUsCtaSection from '@/components/guest/JoinUsCtaSection.vue';
 import PageHero from '@/components/guest/PageHero.vue';
+import TechnicalAssistanceSection from '@/components/guest/TechnicalAssistanceSection.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 
 const props = defineProps({
@@ -35,7 +37,12 @@ function storyImageUrl(story) {
 
 <template>
     <GuestLayout>
-        <Head title="Impact Stories - ENSSURE" />
+        <Head title="Impact Stories - ENSSURE">
+            <meta
+                name="description"
+                content="Read inspiring stories of individuals whose lives were transformed through ENSSURE's vocational training and apprenticeship programs across Nepal."
+            />
+        </Head>
 
         <PageHero
             :title="heroTitle"
@@ -109,35 +116,7 @@ function storyImageUrl(story) {
             </div>
         </section>
 
-        <section class="py-20 text-center">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="inline-flex items-center justify-center px-5 py-2 bg-[rgba(235,31,39,0.1)] rounded-full">
-                    <span class="font-semibold text-[#B91C1C] uppercase tracking-wide">Support</span>
-                </div>
-                <h2 class="text-[2.5rem] leading-tight tracking-tight text-[#101010] my-4">
-                    Technical Assistance By
-                </h2>
-                <div class="flex justify-center">
-                    <img src="/enssure/assets/c3f97e1b17044bbdeedac32a3818731e2450a527.png" alt="Technical Assistance By" class="h-16" />
-                </div>
-            </div>
-        </section>
-
-        <section class="relative py-20 h-96 overflow-hidden">
-            <img src="/enssure/assets/abe0c310bdf95a63fc03463bc4d17ffa6bede19a.png" alt="" class="absolute inset-0 w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-black/40" />
-            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center h-full flex items-center justify-center">
-                <div class="max-w-2xl mx-auto text-white">
-                    <span class="uppercase text-[#B91C1C]">JOIN US</span>
-                    <h2 class="text-[2.5rem] leading-tight tracking-tight mb-8">
-                        Build Skills, Build Futures.
-                        <span class="text-[#B91C1C]">Support sustainable</span> employment today.
-                    </h2>
-                    <Link href="/contact" class="inline-block uppercase bg-white text-black py-2 px-6 rounded-full hover:bg-gray-100 transition-colors">
-                        Contact us
-                    </Link>
-                </div>
-            </div>
-        </section>
+        <TechnicalAssistanceSection />
+        <JoinUsCtaSection />
     </GuestLayout>
 </template>
