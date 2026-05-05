@@ -1,26 +1,19 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3';
-import Footer from '@/components/guest/Footer.vue';
-import Logos from '@/components/guest/Logos.vue';
-import Navbar from '@/components/guest/Navbar.vue';
-import TopBar from '@/components/guest/TopBar.vue';
-import HomeNewsTicker from '@/components/home/HomeNewsTicker.vue';
-
-const page = usePage();
-const newsTickerItems = page.props.newsTickerItems ?? [];
+//
 </script>
 
 <template>
-    <div
-        class="enssure-public min-h-screen bg-white overflow-x-hidden font-[Poppins,sans-serif]"
-    >
-        <TopBar />
-        <Logos />
-        <Navbar />
-        <HomeNewsTicker :items="newsTickerItems" />
+    <div class="min-h-screen bg-white">
+        <header class="border-b border-gray-200 px-6 py-4">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <span class="text-xl font-semibold text-gray-900">My App</span>
+            </div>
+        </header>
         <main>
             <slot />
         </main>
-        <Footer />
+        <footer class="border-t border-gray-200 px-6 py-4 text-center text-sm text-gray-500">
+            &copy; {{ new Date().getFullYear() }} My App
+        </footer>
     </div>
 </template>

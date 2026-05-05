@@ -1,102 +1,33 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import GuestLayout from '@/layouts/GuestLayout.vue';
-import Home from '@/pages/Home.vue';
-
-const props = defineProps({
-    canRegister: {
-        type: Boolean,
-        default: true,
-    },
-    heroSlides: {
-        type: Array,
-        default: () => [],
-    },
-    homeReachSection: {
-        type: Object,
-        default: null,
-    },
-    homeAboutSection: {
-        type: Object,
-        default: null,
-    },
-    homeGallerySection: {
-        type: Object,
-        default: null,
-    },
-    homeImpactStoriesSection: {
-        type: Object,
-        default: null,
-    },
-    homeCoverageSection: {
-        type: Object,
-        default: null,
-    },
-    homeNewsSection: {
-        type: Object,
-        default: null,
-    },
-    homeTestimonialsSection: {
-        type: Object,
-        default: null,
-    },
-    homePartnersSection: {
-        type: Object,
-        default: null,
-    },
-    homeSupportSection: {
-        type: Object,
-        default: null,
-    },
-    homeContactCtaSection: {
-        type: Object,
-        default: null,
-    },
-    homeVideoSection: {           // <-- ADD THIS
-        type: Object,
-        default: null,
-    },
-    partners: {
-        type: Array,
-        default: () => [],
-    },
-    testimonials: {
-        type: Array,
-        default: () => [],
-    },
-});
-
 </script>
 
 <template>
-    <Head title="ENSSURE - Enhanced Skills for Sustainable and Rewarding Employment">
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossorigin
-        />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
-            rel="stylesheet"
-        />
-    </Head>
+    <Head title="Welcome" />
     <GuestLayout>
-        <Home
-            :hero-slides="props.heroSlides ?? []"
-            :home-reach-section="props.homeReachSection ?? null"
-            :home-about-section="props.homeAboutSection ?? null"
-            :home-gallery-section="props.homeGallerySection ?? null"
-            :home-impact-stories-section="props.homeImpactStoriesSection ?? null"
-            :home-coverage-section="props.homeCoverageSection ?? null"
-            :home-news-section="props.homeNewsSection ?? null"
-            :home-testimonials-section="props.homeTestimonialsSection ?? null"
-            :home-partners-section="props.homePartnersSection ?? null"
-            :home-support-section="props.homeSupportSection ?? null"
-            :home-contact-cta-section="props.homeContactCtaSection ?? null"
-            :home-video-section="props.homeVideoSection ?? null"
-            :partners="props.partners ?? []"
-            :testimonials="props.testimonials ?? []"
-        />
+        <div class="flex min-h-[60vh] items-center justify-center">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome</h1>
+                <p class="text-gray-600 mb-8">Your new Laravel + Inertia + Vue application.</p>
+                <div class="flex gap-4 justify-center">
+                    <Link
+                        v-if="$page.props.auth?.user"
+                        :href="route('dashboard')"
+                        class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    >
+                        Dashboard
+                    </Link>
+                    <template v-else>
+                        <Link
+                            :href="route('login')"
+                            class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        >
+                            Log in
+                        </Link>
+                    </template>
+                </div>
+            </div>
+        </div>
     </GuestLayout>
 </template>
