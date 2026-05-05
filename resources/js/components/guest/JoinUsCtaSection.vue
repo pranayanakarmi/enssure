@@ -6,7 +6,6 @@ import { Link } from '@inertiajs/vue3';
     <section class="relative py-20 h-96 overflow-hidden">
         <img
             src="/enssure/assets/abe0c310bdf95a63fc03463bc4d17ffa6bede19a.png"
-            alt=""
             aria-hidden="true"
             class="absolute inset-0 w-full h-full object-cover"
             loading="lazy"

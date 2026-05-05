@@ -30,7 +30,7 @@ const partners = computed(() => page.props.sharedPartners ?? []);
                 >
                     <img
                         :src="partner.logo_url"
-                        :alt="partner.name ? `${partner.name} logo` : 'Partner logo'"
+                        :alt="partner.name || 'Partner'"
                         class="max-w-[190px] max-h-[80px] object-contain"
                         loading="lazy"
                     />

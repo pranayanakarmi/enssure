@@ -98,12 +98,12 @@ class HandleInertiaRequests extends Middleware
             'newsTickerItems' => fn () => self::newsTickerItemsFromHomeNotices(),
             'sharedPartners' => fn () => Partner::orderBy('order')
                 ->get()
-                ->filter(fn ($p) => $p->logo || $p->name)
+                ->filter(fn ($p) => $p->logo)
                 ->map(fn ($p) => [
                     'name' => $p->name,
-                    'logo_url' => $p->logo
-                        ? (str_starts_with($p->logo, 'http') ? $p->logo : Storage::disk('public')->url($p->logo))
-                        : null,
+                    'logo_url' => str_starts_with($p->logo, 'http')
+                        ? $p->logo
+                        : Storage::disk('public')->url($p->logo),
                     'website_url' => $p->website_url ?? null,
                 ])
                 ->values()
