@@ -2,19 +2,13 @@
 
 namespace App\Providers;
 
-use App\Models\Page;
-use App\Models\Post;
 use App\Models\User;
-use App\Policies\RolePolicy;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
-use Spatie\Permission\Models\Role;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,29 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (app()->environment('production')) {
-        URL::forceScheme('https');
-    }
-        Gate::policy(Role::class, RolePolicy::class);
-
-        Gate::before(function (User $user, string $ability) {
-            if ($user->hasRole('super_admin')) {
-                return true;
-            }
-        });
-
-        Route::bind('published_post', function (string $value): Post {
-            return Post::query()
-                ->published()
-                ->where('slug', $value)
-                ->firstOrFail();
-        });
-
-        Route::bind('published_page', function (string $value): Page {
-            return Page::query()
-                ->published()
-                ->where('slug', $value)
-                ->firstOrFail();
-        });
+            URL::forceScheme('https');
+        }
 
         $this->configureDefaults();
     }
